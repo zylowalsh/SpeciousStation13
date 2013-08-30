@@ -620,12 +620,42 @@
 	icon_state = "mantle-unathi"
 	item_state = "mantle-unathi"
 	body_parts_covered = UPPER_TORSO
+	
+/obj/item/clothing/suit/storage/fluff/count_coat // SpeciousStation13 - Count_Swagula: Mitchell Philips
+	name = "trader's coat"
+	desc = "This long brown with gold trim coat looks expensive.  Its owner must be wealthy."
+	icon = 'custom_items.dmi'
+	icon_state = "count_coat_open"
+	blood_overlay_type = "coat"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank/emergency_oxygen,/obj/item/weapon/extinguisher)
+	armor = list(melee = 5, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
+
+	verb/toggle()
+		set name = "Toggle Labcoat Buttons"
+		set category = "Object"
+		set src in usr
+
+		if(!usr.canmove || usr.stat || usr.restrained())
+			return 0
+
+		switch(icon_state)
+			if("count_coat_open")
+				src.icon_state = "count_coat"
+				usr << "You button up your coat with style."
+			if("count_coat")
+				src.icon_state = "count_coat_open"
+				usr << "You unbutton your coat with style."
+			else
+				usr << "You attempt to button-up the velcro on your [src], before promptly realising how retarded you are."
+				return
+		usr.update_inv_wear_suit()	//so our overlays update
 
 //////////// Uniforms ////////////
 
 /obj/item/clothing/under/fluff/milo_hachert //Field Dress Uniform - Milo Hachert - Commissar_Drew
 	name = "field dress uniform"
-	desc = "A uniform jacket, its buttons polished to a shine, coupled with a dark pair of trousers. 'Hachert' is embroidered upon the jacket’s shoulder bar."
+	desc = "A uniform jacket, its buttons polished to a shine, coupled with a dark pair of trousers. 'Hachert' is embroidered upon the jacketï¿½s shoulder bar."
 	icon = 'custom_items.dmi'
 	icon_state = "milohachert"
 	item_state = "milohachert"
@@ -835,6 +865,12 @@
 	icon_state = "ty_foster"
 	flags = FPRINT|TABLEPASS
 	w_class = 1
+	
+/obj/item/clothing/mask/balaclava/fluff/mewnew_balaclava // SpeciousStation13 - mewnew: August Markov
+	name = "August's balaclava"
+	desc = "It is a balaclava with a pink band around the eyes."
+	icon = 'custom_items.dmi'
+	icon_state = "mewnew_balaclava"
 
 //////////// Shoes ////////////
 
