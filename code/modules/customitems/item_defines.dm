@@ -984,5 +984,17 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "lifetimeidPurple"
 
+/obj/item/weapon/storage/backpack/fluff/jnettie_backpack //Jnettie: Dr. Meowzas
+	name = "Meowzas' backpack"
+	desc = "A rare white backpack."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "jnettie_backpack"
+	item_state = "jnettie_backpack"
 
+/obj/item/weapon/storage/belt/utility/fluff/jnettie_belt //Jnettie: Dr. Meowzas
+	name = "Meowzas' belt"
+	desc = "An expertly tailored belt. Any cat would play with it."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "jnettie_belt"
+	item_state = "jnettie_belt"
 
