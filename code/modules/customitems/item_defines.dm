@@ -625,7 +625,7 @@
 
 /obj/item/clothing/under/fluff/milo_hachert //Field Dress Uniform - Milo Hachert - Commissar_Drew
 	name = "field dress uniform"
-	desc = "A uniform jacket, its buttons polished to a shine, coupled with a dark pair of trousers. 'Hachert' is embroidered upon the jacket’s shoulder bar."
+	desc = "A uniform jacket, its buttons polished to a shine, coupled with a dark pair of trousers. 'Hachert' is embroidered upon the jacketï¿½s shoulder bar."
 	icon = 'custom_items.dmi'
 	icon_state = "milohachert"
 	item_state = "milohachert"
@@ -919,3 +919,82 @@
 	if(istype(A, /obj/item/ammo_magazine))
 		flick("leamas-reloading",src)
 	..()
+
+///// Specious Station 13 /////
+
+/obj/item/clothing/gloves/combat/fluff/thick_gloves // Jnettie: Dr. Meowzas
+	name = "thick black gloves"
+	desc = "These gloves are thick and bulky."
+	icon_state = "black"
+	item_state = "bgloves"
+
+/obj/item/clothing/mask/balaclava/fluff/mewnew_balaclava // Mewnew: August Markov
+	name = "August's balaclava"
+	desc = "It is a balaclava with a pink band around the eyes."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "mewnew_balaclava"
+
+/obj/item/clothing/suit/storage/fluff/count_coat // Count_Swagula: Mitchell Philips
+	name = "trader's coat"
+	desc = "This long brown with gold trim coat looks expensive.  Its owner must be wealthy."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "count_coat_open"
+	blood_overlay_type = "coat"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank/emergency_oxygen,/obj/item/weapon/extinguisher)
+	armor = list(melee = 5, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
+
+	verb/toggle()
+		set name = "Toggle Labcoat Buttons"
+		set category = "Object"
+		set src in usr
+
+		if(!usr.canmove || usr.stat || usr.restrained())
+			return 0
+
+		switch(icon_state)
+			if("count_coat_open")
+				src.icon_state = "count_coat"
+				usr << "You button up your coat with style."
+			if("count_coat")
+				src.icon_state = "count_coat_open"
+				usr << "You unbutton your coat with style."
+			else
+				usr << "You attempt to button-up the velcro on your [src], before promptly realising how retarded you are."
+				return
+		usr.update_inv_wear_suit()	//so our overlays update
+
+/obj/item/clothing/under/fluff/jnettie_suit //Jnettie: Dr. Meowzas
+	name = "Meowzas's pimpsuit"
+	desc = "This snazzy white suit is the cat's meow."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "jnettie_suit"
+	item_state = "jnettie_suit"
+	color = "jnettie_suit"
+
+/obj/item/weapon/card/id/fluff/lifetimeOrange	// ZyloWalsh: Bunion Bottoms
+	name = "Lifetime ID Card"
+	desc = "A modified ID card given only to those people who have devoted their lives to the top secret interests of NanoTrasen. It sparkles orange."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "lifetimeidOrange"
+
+/obj/item/weapon/card/id/fluff/lifetimePurple	// Rockerfish: Tom Gains
+	name = "Lifetime ID Card"
+	desc = "A modified ID card given only to those people who have devoted their lives to the scientific interests of NanoTrasen. It sparkles blue and purple."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "lifetimeidPurple"
+
+/obj/item/weapon/storage/backpack/fluff/jnettie_backpack //Jnettie: Dr. Meowzas
+	name = "Meowzas' backpack"
+	desc = "A rare white backpack."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "jnettie_backpack"
+	item_state = "jnettie_backpack"
+
+/obj/item/weapon/storage/belt/utility/fluff/jnettie_belt //Jnettie: Dr. Meowzas
+	name = "Meowzas' belt"
+	desc = "An expertly tailored belt. Any cat would play with it."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "jnettie_belt"
+	item_state = "jnettie_belt"
+
