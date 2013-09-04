@@ -922,6 +922,12 @@
 
 ///// Specious Station 13 /////
 
+/obj/item/clothing/glasses/meson/fluff/jnettie_glasses // Jnettie: Dr. Meowzas
+	name = "Meowzas' Fancy Glasses"
+	desc = "These strange glasses look like they have some special additions."
+	icon_state = "hipster_glasses"
+	item_state = "hipster_glasses"
+
 /obj/item/clothing/gloves/combat/fluff/thick_gloves // Jnettie: Dr. Meowzas
 	name = "thick black gloves"
 	desc = "These gloves are thick and bulky."
@@ -933,6 +939,13 @@
 	desc = "It is a balaclava with a pink band around the eyes."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "mewnew_balaclava"
+
+/obj/item/clothing/shoes/sandal/fluff/jnettie_sandal // Jnettie: Dr. Meowzas
+	name = "Meowzas' sandals"
+	desc = "These are some black sandal.  Just add socks and you can be a tourist."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "jnettie_sandals"
+	item_state = "jnettie_sandals"
 
 /obj/item/clothing/suit/storage/fluff/count_coat // Count_Swagula: Mitchell Philips
 	name = "trader's coat"
