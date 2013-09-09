@@ -269,13 +269,14 @@ client/proc/add_gun_icons()
 		screen += usr.gun_run_icon
 
 client/proc/remove_gun_icons()
-	screen -= usr.item_use_icon
-	screen -= usr.gun_move_icon
-	if (target_can_move)
-		screen -= usr.gun_run_icon
-	del usr.gun_move_icon
-	del usr.item_use_icon
-	del usr.gun_run_icon
+	if(usr != null) // Quick fix to stop errors - ZyloWalsh
+		screen -= usr.item_use_icon
+		screen -= usr.gun_move_icon
+		if (target_can_move)
+			screen -= usr.gun_run_icon
+		del usr.gun_move_icon
+		del usr.item_use_icon
+		del usr.gun_run_icon
 
 client/verb/ToggleGunMode()
 	set hidden = 1
