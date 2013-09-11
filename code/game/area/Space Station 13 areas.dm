@@ -100,7 +100,6 @@ proc/process_ghost_teleport_locs()
 				not_in_order = 1
 	while(not_in_order)
 
-
 /*-----------------------------------------------------------------------------*/
 
 /area/engine/
@@ -271,6 +270,34 @@ proc/process_ghost_teleport_locs()
 	name = "\improper Administration Shuttle"
 	icon_state = "shuttlered2"
 
+/area/shuttle/administration/southStation
+	name = "\improper Admin Shuttle South"
+	icon_state = "south"
+
+/area/shuttle/administration/derelictShip
+	name = "\improper Admin Shuttle Derelict Ship"
+	icon_state = "green"
+
+/area/shuttle/administration/derelictStation
+	name = "\improper Admin Shuttle Derelict Station"
+	icon_state = "blue"
+
+/area/shuttle/administration/pirateDJStation
+	name = "\improper Admin Shuttle Pirate Radio"
+	icon_state = "yellow"
+
+/area/shuttle/administration/abandonedMiningStation
+	name = "\improper Admin Shuttle Abandoned Mining Station"
+	icon_state = "white"
+
+/area/shuttle/administration/spaceFarm
+	name = "\improper Admin Shuttle Space Farm"
+	icon_state = "orange"
+
+/area/shuttle/administration/transit
+	name = "\improper Admin Shuttle Abandoned Mining Station"
+	icon_state = "shuttle"
+
 /area/shuttle/thunderdome
 	name = "honk"
 
@@ -308,11 +335,6 @@ proc/process_ghost_teleport_locs()
 
 /area/shuttle/research/outpost
 	icon_state = "shuttle"
-
-/area/shuttle/vox/station
-	name = "\improper Vox Skipjack"
-	icon_state = "yellow"
-	requires_power = 0
 
 /area/airtunnel1/      // referenced in airtunnel.dm:759
 
@@ -493,6 +515,19 @@ proc/process_ghost_teleport_locs()
 	name = "\improper Wizard's Den"
 	icon_state = "yellow"
 	requires_power = 0
+
+/area/vox_station
+	name = "\improper Vox Station"
+	icon_state = "yellow"
+	requires_power = 0
+
+/area/vox_station/station
+	name = "\improper Vox Skipjack"
+	icon_state = "yellow"
+
+/area/vox_station/dock
+	name = "/improper Vox Dock"
+	icon_state = "green"
 
 /area/vox_station/transit
 	name = "\improper hyperspace"

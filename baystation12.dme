@@ -350,6 +350,7 @@
 #include "code\game\machinery\camera\presets.dm"
 #include "code\game\machinery\camera\tracking.dm"
 #include "code\game\machinery\camera\wires.dm"
+#include "code\game\machinery\computer\admin_station.dm"
 #include "code\game\machinery\computer\ai_core.dm"
 #include "code\game\machinery\computer\aifixer.dm"
 #include "code\game\machinery\computer\arcade.dm"
