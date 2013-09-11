@@ -343,9 +343,9 @@
 			return "Chief Medical Officer"
 		if(access_qm)
 			return "Quartermaster"
-/*		if(access_clown)
+		if(access_clown)
 			return "HONK! Access"
-		if(access_mime)
+/*		if(access_mime)
 			return "Silent Access"*/
 		if(access_surgery)
 			return "Surgery"
@@ -422,7 +422,7 @@
 	return all_jobs
 
 /proc/get_all_centcom_jobs()
-	return list("VIP Guest","Custodian","Thunderdome Overseer","Intel Officer","Medical Officer","Death Commando","Research Officer","BlackOps Commander","Supreme Commander")
+	return list("VIP Guest","Custodian","Thunderdome Overseer","Intel Officer","Medical Officer","Death Commando","Research Officer","BlackOps Commander","Supreme Commander","Inspector")
 
 //gets the actual job rank (ignoring alt titles)
 //this is used solely for sechuds

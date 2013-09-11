@@ -9,13 +9,14 @@ var/global/vox_shuttle_location
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "syndishuttle"
 	req_access = list(access_syndicate)
+	var/id = null
 	var/area/curr_location
 	var/moving = 0
 	var/lastMove = 0
 	var/warning //Warning about the end of the round.
 
 /obj/machinery/computer/vox_station/New()
-	curr_location= locate(/area/shuttle/vox/station)
+	curr_location= locate(/area/vox_station/station)
 
 
 /obj/machinery/computer/vox_station/proc/vox_move_to(area/destination as area)
@@ -85,17 +86,42 @@ var/global/vox_shuttle_location
 				user << "\red Returning to dark space will end your raid and report your success or failure. If you are sure, press the button again."
 				warning = 1
 				return
-		vox_move_to(/area/shuttle/vox/station)
+		if(!istype(curr_location, /area/vox_station/station))
+			for(var/obj/machinery/door/poddoor/M in world)
+				if(M.id == id)
+					spawn(300)
+						M.open()
+		vox_move_to(/area/vox_station/station)
 		vox_shuttle_location = "start"
 	else if(href_list["solars_fore_starboard"])
+		if(istype(curr_location, /area/vox_station/station))
+			for(var/obj/machinery/door/poddoor/M in world)
+				if(M.id == id)
+					M.close()
 		vox_move_to(/area/vox_station/northeast_solars)
 	else if(href_list["solars_fore_port"])
+		if(istype(curr_location, /area/vox_station/station))
+			for(var/obj/machinery/door/poddoor/M in world)
+				if(M.id == id)
+					M.close()
 		vox_move_to(/area/vox_station/northwest_solars)
 	else if(href_list["solars_aft_starboard"])
+		if(istype(curr_location, /area/vox_station/station))
+			for(var/obj/machinery/door/poddoor/M in world)
+				if(M.id == id)
+					M.close()
 		vox_move_to(/area/vox_station/southeast_solars)
 	else if(href_list["solars_aft_port"])
+		if(istype(curr_location, /area/vox_station/station))
+			for(var/obj/machinery/door/poddoor/M in world)
+				if(M.id == id)
+					M.close()
 		vox_move_to(/area/vox_station/southwest_solars)
 	else if(href_list["mining"])
+		if(istype(curr_location, /area/vox_station/station))
+			for(var/obj/machinery/door/poddoor/M in world)
+				if(M.id == id)
+					M.close()
 		vox_move_to(/area/vox_station/mining)
 
 	add_fingerprint(usr)

@@ -618,7 +618,6 @@ var/global/floorIsLava = 0
 			<A href='?src=\ref[src];secretsfun=fakeguns'>Make all items look like guns</A><BR>
 			<A href='?src=\ref[src];secretsfun=schoolgirl'>Japanese Animes Mode</A><BR>
 			<A href='?src=\ref[src];secretsfun=eagles'>Egalitarian Station Mode</A><BR>
-			<A href='?src=\ref[src];secretsfun=moveadminshuttle'>Move Administration Shuttle</A><BR>
 			<A href='?src=\ref[src];secretsfun=moveferry'>Move Ferry</A><BR>
 			<A href='?src=\ref[src];secretsfun=movealienship'>Move Alien Dinghy</A><BR>
 			<A href='?src=\ref[src];secretsfun=moveminingshuttle'>Move Mining Shuttle</A><BR>
@@ -1077,27 +1076,6 @@ var/global/floorIsLava = 0
 //TO-DO:
 //
 //
-
-
-/**********************Administration Shuttle**************************/
-
-var/admin_shuttle_location = 0 // 0 = centcom 13, 1 = station
-
-proc/move_admin_shuttle()
-	var/area/fromArea
-	var/area/toArea
-	if (admin_shuttle_location == 1)
-		fromArea = locate(/area/shuttle/administration/station)
-		toArea = locate(/area/shuttle/administration/centcom)
-	else
-		fromArea = locate(/area/shuttle/administration/centcom)
-		toArea = locate(/area/shuttle/administration/station)
-	fromArea.move_contents_to(toArea)
-	if (admin_shuttle_location)
-		admin_shuttle_location = 0
-	else
-		admin_shuttle_location = 1
-	return
 
 /**********************Centcom Ferry**************************/
 

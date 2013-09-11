@@ -28,9 +28,12 @@ obj/machinery/embedded_controller
 	var/on = 1
 
 	attack_hand(mob/user)
-		user << browse(return_text(), "window=computer")
-		user.set_machine(src)
-		onclose(user, "computer")
+		if(!allowed(user))
+			user << "\red Access Denied"
+		else
+			user << browse(return_text(), "window=computer")
+			user.set_machine(src)
+			onclose(user, "computer")
 
 	update_icon()
 	proc/return_text()
