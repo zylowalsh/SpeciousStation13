@@ -17,8 +17,7 @@
 	name = "\improper BK-48"
 	desc = "This weapon embodies the great Motherland."
 	icon = 'icons/obj/guns/bk48.dmi'
-	item_state = "loaded"
-	icon_state = "c20r"
+	icon_state = "loaded"
 	w_class = 3.0
 	max_shells = 30
 	caliber = "a762"
