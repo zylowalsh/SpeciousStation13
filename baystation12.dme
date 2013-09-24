@@ -1336,7 +1336,7 @@
 #include "code\WorkInProgress\SkyMarshal\officer_stuff.dm"
 #include "code\WorkInProgress\SkyMarshal\Ultralight_procs.dm"
 #include "code\WorkInProgress\Susan\susan_desert_turfs.dm"
-#include "C:\Users\Zylo\Documents\GitHub\SpeciousStation13\code\WorkInProgress\ZyloWalsh\z_weapons.dm"
+#include "code\WorkInProgress\ZyloWalsh\z_weapons.dm"
 #include "code\ZAS\Airflow.dm"
 #include "code\ZAS\Connection.dm"
 #include "code\ZAS\Debug.dm"
