@@ -1,6 +1,7 @@
 /obj/item/ammo_magazine/a762_bk48
 	name = "magazine (7.62mm)"
-	icon_state = "a762"
+	icon = 'icons/obj/ammo/a762_bk48.dmi'
+	icon_state = "full"
 	origin_tech = "combat=2"
 	ammo_type = "/obj/item/ammo_casing/a762"
 	max_ammo = 30
@@ -8,15 +9,16 @@
 
 /obj/item/ammo_magazine/a762_bk48/empty
 	name = "magazine (7.62mm)"
-	icon_state = "a762"
+	icon = 'icons/obj/ammo/a762_bk48.dmi'
+	icon_state = "empty"
 	ammo_type = "/obj/item/ammo_casing/a762"
 	max_ammo = 0
 
 /obj/item/weapon/gun/projectile/automatic/bk48
 	name = "\improper BK-48"
 	desc = "This weapon embodies the great Motherland."
-	icon = 'icons/'
-	item_state = ""
+	icon = 'icons/obj/guns/bk48.dmi'
+	item_state = "loaded"
 	icon_state = "c20r"
 	w_class = 3.0
 	max_shells = 30
@@ -46,7 +48,7 @@
 	update_icon()
 		..()
 		if(empty_mag)
-			icon_state = "bk48-loaded"
+			icon_state = "loaded"
 		else
-			icon_state = "bk48"
+			icon_state = "empty"
 		return
