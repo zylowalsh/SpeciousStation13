@@ -5,7 +5,6 @@
 	origin_tech = "combat=2"
 	ammo_type = "/obj/item/ammo_casing/a762"
 	max_ammo = 30
-	multiple_sprites = 1
 
 /obj/item/ammo_magazine/a762_bk48/empty
 	name = "magazine (7.62mm)"
@@ -31,7 +30,7 @@
 
 	New()
 		..()
-		empty_mag = new /obj/item/ammo_magazine/a12mm/empty(src)
+		empty_mag = new /obj/item/ammo_magazine/a762_bk48/empty(src)
 		update_icon()
 		return
 
