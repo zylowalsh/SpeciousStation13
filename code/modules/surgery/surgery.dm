@@ -79,9 +79,11 @@ proc/do_surgery(mob/living/M, mob/living/user, obj/item/tool)
 		return 0
 	if (user.a_intent == "harm")	//check for Hippocratic Oath
 		return 0
+	// This section is poorly written.  It really needs to check if the surgery is applicable to the species before iterating
+	// through all the surgery steps.  I wrote a hotfix proc (isForProperSpecies) to check but it really needs to redone. -ZyloWalsh
 	for(var/datum/surgery_step/S in surgery_steps)
 		//check if tool is right or close enough and if this step is possible
-		if( S.tool_quality(tool) && S.can_use(user, M, user.zone_sel.selecting, tool) && S.is_valid_mutantrace(M))
+		if( isForProperSpecies(M, S) && S.tool_quality(tool) && S.can_use(user, M, user.zone_sel.selecting, tool) && S.is_valid_mutantrace(M))
 			S.begin_step(user, M, user.zone_sel.selecting, tool)		//start on it
 			//We had proper tools! (or RNG smiled.) and User did not move or change hands.
 			if( prob(S.tool_quality(tool)) &&  do_mob(user, M, rand(S.min_duration, S.max_duration)))
@@ -89,6 +91,14 @@ proc/do_surgery(mob/living/M, mob/living/user, obj/item/tool)
 			else														//or
 				S.fail_step(user, M, user.zone_sel.selecting, tool)		//malpractice~
 			return	1	  												//don't want to do weapony things after surgery
+	return 0
+
+// A proc to check if the surgery is for a slime or not. -ZyloWalsh
+proc/isForProperSpecies(mob/living/carbon/target, datum/surgery_step/surgeryType)
+	if(!istype(surgeryType, /datum/surgery_step/slime) && istype(target, /mob/living/carbon/human))
+		return 1
+	if(istype(surgeryType, /datum/surgery_step/slime) && istype(target, /mob/living/carbon/slime))
+		return 1
 	return 0
 
 proc/sort_surgeries()
