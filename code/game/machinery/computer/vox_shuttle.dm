@@ -116,7 +116,7 @@ var/global/vox_shuttle_location
 	if(!istype(curr_location, /area/vox_station/station))
 		for(var/obj/machinery/door/poddoor/M in world)
 			if(M.id == id)
-				spawn(VOX_SHUTTLE_MOVE_TIME+50)
+				spawn(VOX_SHUTTLE_MOVE_TIME+10)
 					M.open()
 
 /obj/machinery/computer/vox_station/proc/close_station_doors()
@@ -125,3 +125,4 @@ var/global/vox_shuttle_location
 			if(M.id == id)
 				spawn(0)
 					M.close()
+				sleep(10) // To prevent the ship from moving away with its doors open on laggy servers
