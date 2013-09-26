@@ -276,7 +276,7 @@ steam.start() -- spawns the effect
 				for(i=0, i<pick(0,1,1,1,2,2,2,3), i++)
 					sleep(10)
 					step(smoke,direction)
-				spawn (MIN_EFFECT_LIFE+rand(0,30)
+				spawn (MIN_EFFECT_LIFE+rand(0,30))
 					smoke.delete()
 					src.total_smoke--
 
