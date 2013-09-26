@@ -5,7 +5,6 @@ it needs to create more trails.A beaker could have a steam_trail_follow system s
 would spawn and follow the beaker, even if it is carried or thrown.
 */
 
-
 /obj/effect/effect
 	name = "effect"
 	icon = 'icons/effects/effects.dmi'
@@ -160,8 +159,6 @@ steam.start() -- spawns the effect
 	var/turf/T = src.loc
 	if (istype(T, /turf))
 		T.hotspot_expose(1000,100)
-	spawn (100)
-		delete()
 	return
 
 /obj/effect/effect/sparks/Del()
@@ -179,6 +176,7 @@ steam.start() -- spawns the effect
 	return
 
 /datum/effect/effect/system/spark_spread
+	var/const/MIN_EFFECT_LIFE = 20
 	var/total_sparks = 0 // To stop it being spammed and lagging!
 
 	set_up(n = 3, c = 0, loca)
@@ -209,7 +207,7 @@ steam.start() -- spawns the effect
 				for(i=0, i<pick(1,2,3), i++)
 					sleep(5)
 					step(sparks,direction)
-				spawn(20)
+				spawn(MIN_EFFECT_LIFE)
 					sparks.delete()
 					src.total_sparks--
 
@@ -228,7 +226,6 @@ steam.start() -- spawns the effect
 	opacity = 1
 	anchored = 0.0
 	mouse_opacity = 0
-	var/amount = 6.0
 	//Remove this bit to use the old smoke
 	icon = 'icons/effects/96x96.dmi'
 	pixel_x = -32
@@ -236,8 +233,6 @@ steam.start() -- spawns the effect
 
 /obj/effect/effect/harmless_smoke/New()
 	..()
-	spawn (100)
-		delete()
 	return
 
 /obj/effect/effect/harmless_smoke/Move()
@@ -245,6 +240,7 @@ steam.start() -- spawns the effect
 	return
 
 /datum/effect/effect/system/harmless_smoke_spread
+	var/const/MIN_EFFECT_LIFE = 120
 	var/total_smoke = 0 // To stop it being spammed and lagging!
 	var/direction
 
@@ -280,110 +276,9 @@ steam.start() -- spawns the effect
 				for(i=0, i<pick(0,1,1,1,2,2,2,3), i++)
 					sleep(10)
 					step(smoke,direction)
-				spawn(75+rand(10,30))
+				spawn (MIN_EFFECT_LIFE+rand(0,30)
 					smoke.delete()
 					src.total_smoke--
-
-
-/////////////////////////////////////////////
-// Bad smoke
-/////////////////////////////////////////////
-
-/obj/effect/effect/bad_smoke
-	name = "smoke"
-	icon_state = "smoke"
-	opacity = 1
-	anchored = 0.0
-	mouse_opacity = 0
-	var/amount = 6.0
-	//Remove this bit to use the old smoke
-	icon = 'icons/effects/96x96.dmi'
-	pixel_x = -32
-	pixel_y = -32
-
-/obj/effect/effect/bad_smoke/New()
-	..()
-	spawn (200+rand(10,30))
-		delete()
-	return
-
-/obj/effect/effect/bad_smoke/Move()
-	..()
-	for(var/mob/living/carbon/M in get_turf(src))
-		if (M.internal != null && M.wear_mask && (M.wear_mask.flags & MASKINTERNALS))
-		else
-			M.drop_item()
-			M.adjustOxyLoss(1)
-			if (M.coughedtime != 1)
-				M.coughedtime = 1
-				M.emote("cough")
-				spawn ( 20 )
-					M.coughedtime = 0
-	return
-
-
-/obj/effect/effect/bad_smoke/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
-	if(air_group || (height==0)) return 1
-	if(istype(mover, /obj/item/projectile/beam))
-		var/obj/item/projectile/beam/B = mover
-		B.damage = (B.damage/2)
-	return 1
-
-
-/obj/effect/effect/bad_smoke/HasEntered(mob/living/carbon/M as mob )
-	..()
-	if(istype(M, /mob/living/carbon))
-		if (M.internal != null && M.wear_mask && (M.wear_mask.flags & MASKINTERNALS))
-			return
-		else
-			M.drop_item()
-			M.adjustOxyLoss(1)
-			if (M.coughedtime != 1)
-				M.coughedtime = 1
-				M.emote("cough")
-				spawn ( 20 )
-					M.coughedtime = 0
-	return
-
-/datum/effect/effect/system/bad_smoke_spread
-	var/total_smoke = 0 // To stop it being spammed and lagging!
-	var/direction
-
-	set_up(n = 5, c = 0, loca, direct)
-		if(n > 20)
-			n = 20
-		number = n
-		cardinals = c
-		if(istype(loca, /turf/))
-			location = loca
-		else
-			location = get_turf(loca)
-		if(direct)
-			direction = direct
-
-	start()
-		var/i = 0
-		for(i=0, i<src.number, i++)
-			if(src.total_smoke > 20)
-				return
-			spawn(0)
-				if(holder)
-					src.location = get_turf(holder)
-				var/obj/effect/effect/bad_smoke/smoke = new /obj/effect/effect/bad_smoke(src.location)
-				src.total_smoke++
-				var/direction = src.direction
-				if(!direction)
-					if(src.cardinals)
-						direction = pick(cardinal)
-					else
-						direction = pick(alldirs)
-				for(i=0, i<pick(0,1,1,1,2,2,2,3), i++)
-					sleep(10)
-					step(smoke,direction)
-				spawn(150+rand(10,30))
-					smoke.delete()
-					src.total_smoke--
-
 
 /////////////////////////////////////////////
 // Chem smoke
@@ -623,7 +518,7 @@ steam.start() -- spawns the effect
 
 /obj/effect/effect/mustard_gas/New()
 	..()
-	spawn (100)
+	spawn (130)
 		del(src)
 	return
 
