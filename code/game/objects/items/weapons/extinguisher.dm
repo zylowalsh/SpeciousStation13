@@ -52,6 +52,7 @@
 	user << "The safety is [safety ? "on" : "off"]."
 	return
 
+//This is a giant clusterfuck without comments. -ZyloWalsh
 /obj/item/weapon/extinguisher/afterattack(atom/target, mob/user , flag)
 	//TODO; Add support for reagents in water.
 
@@ -104,6 +105,7 @@
 
 		var/list/the_targets = list(T,T1,T2)
 
+		// I shouldn't have to go line by line just to figure out what this does.  COMMENT IT! -ZyloWalsh
 		for(var/a=0, a<5, a++)
 			spawn(0)
 				var/obj/effect/effect/water/W = new /obj/effect/effect/water( get_turf(src) )
@@ -116,10 +118,11 @@
 				src.reagents.trans_to(W,1)
 				for(var/b=0, b<5, b++)
 					step_towards(W,my_target)
-					if(!W) return
+					// I added the check for the W.reagents, it was throwing null pointers.  -ZyloWalsh
+					if(!W || W.reagents == null) return
 					W.reagents.reaction(get_turf(W))
 					for(var/atom/atm in get_turf(W))
-						if(!W) return
+						if(!W || W.reagents == null) return
 						W.reagents.reaction(atm)
 					if(W.loc == my_target) break
 					sleep(2)
