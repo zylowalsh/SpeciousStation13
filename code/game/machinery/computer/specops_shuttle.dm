@@ -97,7 +97,7 @@ var/specops_shuttle_timeleft = 0
 	del(announcer)
 
 /proc/specops_process()
-	var/area/centcom/specops/special_ops = locate()//Where is the specops area located?
+	var/area/centcom/ert/special_ops = locate()//Where is the specops area located?
 	var/obj/item/device/radio/intercom/announcer = new /obj/item/device/radio/intercom(null)//We need a fake AI to announce some stuff below. Otherwise it will be wonky.
 	announcer.config(list("Response Team" = 0))
 
@@ -324,7 +324,7 @@ var/specops_shuttle_timeleft = 0
 		temp += "Shuttle departing.<BR><BR><A href='?src=\ref[src];mainmenu=1'>OK</A>"
 		updateUsrDialog()
 
-		var/area/centcom/specops/special_ops = locate()
+		var/area/centcom/ert/special_ops = locate()
 		if(special_ops)
 			special_ops.readyalert()//Trigger alarm for the spec ops area.
 		specops_shuttle_moving_to_station = 1

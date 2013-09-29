@@ -192,6 +192,19 @@ proc/process_ghost_teleport_locs()
 /area/shuttle/escape_pod3/transit
 	icon_state = "shuttle"
 
+/area/shuttle/escape_pod4
+	name = "\improper Escape Pod Four"
+	music = "music/escape.ogg"
+
+/area/shuttle/escape_pod4/station
+	icon_state = "shuttle2"
+
+/area/shuttle/escape_pod4/centcom
+	icon_state = "shuttle"
+
+/area/shuttle/escape_pod4/transit
+	icon_state = "shuttle"
+
 /area/shuttle/escape_pod5 //Pod 4 was lost to meteors
 	name = "\improper Escape Pod Five"
 	music = "music/escape.ogg"
@@ -272,27 +285,27 @@ proc/process_ghost_teleport_locs()
 
 /area/shuttle/administration/southStation
 	name = "\improper Admin Shuttle South"
-	icon_state = "south"
+	icon_state = "shuttlered2"
 
 /area/shuttle/administration/derelictShip
 	name = "\improper Admin Shuttle Derelict Ship"
-	icon_state = "green"
+	icon_state = "shuttlered2"
 
 /area/shuttle/administration/derelictStation
 	name = "\improper Admin Shuttle Derelict Station"
-	icon_state = "blue"
+	icon_state = "shuttlered2"
 
 /area/shuttle/administration/pirateDJStation
 	name = "\improper Admin Shuttle Pirate Radio"
-	icon_state = "yellow"
+	icon_state = "shuttlered2"
 
 /area/shuttle/administration/abandonedMiningStation
 	name = "\improper Admin Shuttle Abandoned Mining Station"
-	icon_state = "white"
+	icon_state = "shuttlered2"
 
 /area/shuttle/administration/spaceFarm
 	name = "\improper Admin Shuttle Space Farm"
-	icon_state = "orange"
+	icon_state = "shuttlered2"
 
 /area/shuttle/administration/transit
 	name = "\improper Admin Shuttle Abandoned Mining Station"
@@ -377,20 +390,27 @@ proc/process_ghost_teleport_locs()
 /area/centcom/shuttle
 	name = "\improper Centcom Administration Shuttle"
 
-/area/centcom/test
-	name = "\improper Centcom Testing Facility"
+/area/centcom/death_squad
+	name = "\improper Centcom Special Operations"
 
 /area/centcom/living
 	name = "\improper Centcom Living Quarters"
 
-/area/centcom/specops
-	name = "\improper Centcom Special Ops"
+/area/centcom/ert
+	name = "\improper Centcom ERT"
 
-/area/centcom/creed
-	name = "Creed's Office"
+/area/centcom/zylo
+	name = "Zylo's Office"
 
 /area/centcom/holding
 	name = "\improper Holding Facility"
+
+// SPACE FARM
+
+/area/space_farm
+	name = "\improper Space Farm"
+	icon_state = "green"
+	requires_power = 0
 
 //SYNDICATES
 
@@ -422,20 +442,6 @@ proc/process_ghost_teleport_locs()
 /area/asteroid/artifactroom
 	name = "\improper Asteroid - Artifact"
 	icon_state = "cave"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /area/planet/clown
 	name = "\improper Clown Planet"
@@ -526,7 +532,7 @@ proc/process_ghost_teleport_locs()
 	icon_state = "yellow"
 
 /area/vox_station/dock
-	name = "/improper Vox Dock"
+	name = "\improper Vox Dock"
 	icon_state = "green"
 
 /area/vox_station/transit
@@ -820,7 +826,7 @@ proc/process_ghost_teleport_locs()
 	name = "\improper Dormitory Toilets"
 	icon_state = "toilet"
 
-/area/crew_quarters/sleep
+/area/crew_quarters/dorms
 	name = "\improper Dormitories"
 	icon_state = "Sleep"
 
@@ -884,11 +890,7 @@ proc/process_ghost_teleport_locs()
 	name = "\improper Law Office"
 	icon_state = "law"
 
-
-
-
-
-
+// HOLODECK
 
 /area/holodeck
 	name = "\improper Holodeck"
@@ -898,7 +900,6 @@ proc/process_ghost_teleport_locs()
 
 /area/holodeck/alphadeck
 	name = "\improper Holodeck Alpha"
-
 
 /area/holodeck/source_plating
 	name = "\improper Holodeck - Off"
@@ -1313,47 +1314,43 @@ proc/process_ghost_teleport_locs()
 	name = "Hydroponics"
 	icon_state = "hydro"
 
-//Toxins
+// RESEARCH DEPARTMENT - Updated 29 Sept 2013
 
-/area/toxins/lab
-	name = "\improper Research and Development"
-	icon_state = "toxlab"
+/area/rd/hallway
+	name = "\improper Research Hallway"
+	icon_state = "rd_hallway"
 
-/area/toxins/hallway
+/area/rd/lab
 	name = "\improper Research Lab"
-	icon_state = "toxlab"
+	icon_state = "rd_lab"
 
-/area/toxins/rdoffice
+/area/rd/misc_lab
+	name = "\improper Miscellaneous Research"
+	icon_state = "rd_misc"
+
+/area/rd/rdoffice
 	name = "\improper Research Director's Office"
-	icon_state = "head_quarters"
+	icon_state = "rd_officer"
 
-/area/toxins/supermatter
-	name = "\improper Supermatter Lab"
-	icon_state = "toxlab"
+/area/rd/server
+	name = "\improper Server Room"
+	icon_state = "server"
 
-/area/toxins/xenobiology
-	name = "\improper Xenobiology Lab"
-	icon_state = "toxlab"
+/area/rd/toxin_mixing
+	name = "\improper Toxins Mixing Room"
+	icon_state = "rd_toxin"
 
-/area/toxins/storage
+/area/rd/toxin_storage
 	name = "\improper Toxins Storage"
-	icon_state = "toxstorage"
+	icon_state = "rd_toxin_storage"
 
-/area/toxins/test_area
+/area/rd/toxin_test_area
 	name = "\improper Toxins Test Area"
 	icon_state = "toxtest"
 
-/area/toxins/mixing
-	name = "\improper Toxins Mixing Room"
-	icon_state = "toxmix"
-
-/area/toxins/misc_lab
-	name = "\improper Miscellaneous Research"
-	icon_state = "toxmisc"
-
-/area/toxins/server
-	name = "\improper Server Room"
-	icon_state = "server"
+/area/rd/xenobiology
+	name = "\improper Xenobiology"
+	icon_state = "rd_xenobio"
 
 //Storage
 
@@ -1658,7 +1655,11 @@ proc/process_ghost_teleport_locs()
 	name = "\improper Telecommunications Satellite Lounge"
 	icon_state = "tcomsatlounge"
 
+// UNKNOWN - I honestly have no idea what these zones are for.  -ZyloWalsh
 
+/area/toxins/supermatter
+	name = "\improper Supermatter Lab"
+	icon_state = "toxlab"
 
 // Away Missions
 /area/awaymission
