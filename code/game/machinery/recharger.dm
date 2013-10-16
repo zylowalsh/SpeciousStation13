@@ -22,7 +22,7 @@ obj/machinery/recharger/attackby(obj/item/weapon/G as obj, mob/user as mob)
 		if(!isarea(a))
 			user << "\red The [name] blinks red as you try to insert the item!"
 			return
-		if(a.power_equip == 0 && !(istype(a, /area/centcom) || istype(a, /area/shuttle) || istype(a, /area/syndicate_station) || istype(a, /area/vox_station)))
+		if(a.power_equip == 0 && a.requires_power != 0)
 			user << "\red The [name] blinks red as you try to insert the item!"
 			return
 

@@ -1085,11 +1085,11 @@ proc/move_ferry()
 	var/area/fromArea
 	var/area/toArea
 	if (ferry_location == 1)
-		fromArea = locate(/area/shuttle/transport1/station)
-		toArea = locate(/area/shuttle/transport1/centcom)
+		fromArea = locate(/area/shuttle/transport/station)
+		toArea = locate(/area/shuttle/transport/centcom)
 	else
-		fromArea = locate(/area/shuttle/transport1/centcom)
-		toArea = locate(/area/shuttle/transport1/station)
+		fromArea = locate(/area/shuttle/transport/centcom)
+		toArea = locate(/area/shuttle/transport/station)
 	fromArea.move_contents_to(toArea)
 	if (ferry_location)
 		ferry_location = 0

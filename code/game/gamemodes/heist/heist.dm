@@ -124,7 +124,7 @@ var/global/vox_kills = 0 //Used to check the Inviolate.
 		return 0
 
 	for(var/obj/stack in cortical_stacks)
-		if (get_area(stack) != locate(/area/vox_station/station))
+		if (get_area(stack) != locate(/area/shuttle/vox/station))
 			return 0
 	return 1
 

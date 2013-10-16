@@ -58,7 +58,7 @@ var/list/teleportlocs = list()
 
 proc/process_teleport_locs()
 	for(var/area/AR in world)
-		if(istype(AR, /area/shuttle) || istype(AR, /area/syndicate_station) || istype(AR, /area/wizard_station)) continue
+		if(istype(AR, /area/shuttle) || istype(AR, /area/wizard_station)) continue
 		if(teleportlocs.Find(AR.name)) continue
 		var/turf/picked = pick(get_area_turfs(AR.type))
 		if (picked.z == 1)
@@ -81,7 +81,7 @@ var/list/ghostteleportlocs = list()
 proc/process_ghost_teleport_locs()
 	for(var/area/AR in world)
 		if(ghostteleportlocs.Find(AR.name)) continue
-		if(istype(AR, /area/turret_protected/aisat) || istype(AR, /area/derelict) || istype(AR, /area/tdome))
+		if(istype(AR, /area/derelict))
 			ghostteleportlocs += AR.name
 			ghostteleportlocs[AR.name] = AR
 		var/turf/picked = pick(get_area_turfs(AR.type))
@@ -598,7 +598,8 @@ proc/process_ghost_teleport_locs()
 // ENGINEERING
 
 /area/eng //ABSRACT
-	name = "\improper Engineering
+	name = "\improper Engineering"
+	icon_state = "eng_base"
 
 /area/eng/atmos
  	name = "\improper Atmospherics"
@@ -618,10 +619,6 @@ proc/process_ghost_teleport_locs()
 /area/eng/reactor
 	name = "Power Generator"
 	icon_state = "engine_smes"
-
-/area/eng/secure_storage
-	name = "Secure Storage"
-	icon_state = "storage"
 
 /area/eng/tech_storage
 	name = "Technical Storage"
@@ -804,7 +801,7 @@ area/solar/southwest
 	name = "\improper Chapel"
 	icon_state = "chapel"
 
-/area/civ/chapel_office
+/area/civ/chapel/office
 	name = "\improper Chapel Office"
 	icon_state = "chapeloffice"
 
@@ -910,11 +907,11 @@ area/solar/southwest
 
 /area/research/mech_bay
 	name = "\improper Mech Bay"
-	icon_state = "mechbay"
+	icon_state = "rd_mech"
 
 /area/research/robotics
 	name = "\improper Robotics Lab"
-	icon_state = "ass_line"
+	icon_state = "rd_robotics"
 
 /area/research/hallway
 	name = "\improper Research Hallway"
@@ -973,7 +970,7 @@ area/solar/southwest
 /area/medical/hallway
 	name = "\improper Medbay"
 	icon_state = "medbay"
-	music = 'sound/ambience/signal.ogg"
+	music = 'sound/ambience/signal.ogg'
 
 /area/medical/morgue
 	name = "\improper Morgue"
@@ -1072,7 +1069,7 @@ area/solar/southwest
 
 /area/security/armoury
 	name = "\improper Armory"
-	icon_state = "Warden"
+	icon_state = "armory"
 
 /area/security/det_office
 	name = "\improper Detective's Office"
@@ -1095,6 +1092,14 @@ area/solar/southwest
 	icon_state = "security"
 
 /area/security/checkpoint/mining
+	name = "\improper Security Checkpoint"
+	icon_state = "security"
+
+/area/security/checkpoint/research
+	name = "\improper Security Checkpoint"
+	icon_state = "security"
+
+/area/security/checkpoint/mining
 	name = "Security Post - Mining Station"
 	icon_state = "checkpoint1"
 
@@ -1109,10 +1114,6 @@ area/solar/southwest
 /area/security/vacantoffice2
 	name = "\improper Vacant Office"
 	icon_state = "security"
-
-/area/quartermaster
-	name = "\improper Quartermasters"
-	icon_state = "quart"
 
 // CARGO
 
@@ -1192,6 +1193,11 @@ area/solar/southwest
 
 /area/ai_monitored/cyborg
 	name = "\improper Cyborg Station"
+	icon_state = "green"
+
+/area/ai_monitored/eng/secure_storage
+	name = "Secure Storage"
+	icon_state = "storage"
 
 /area/turret_protected/ai_upload
 	name = "\improper AI Upload Chamber"
@@ -1204,6 +1210,22 @@ area/solar/southwest
 /area/turret_protected/ai
 	name = "\improper AI Chamber"
 	icon_state = "ai_chamber"
+
+// ASTEROID
+
+/area/asteroid
+	name = "\improper Asteroid"
+	icon_state = "asteroid"
+	requires_power = 0
+
+/area/asteroid/cave
+	name = "\improper Asteroid - Underground"
+	icon_state = "cave"
+	requires_power = 0
+
+/area/asteroid/artifactroom
+	name = "\improper Asteroid - Artifact"
+	icon_state = "cave"
 
 //DJSTATION
 
@@ -1473,7 +1495,7 @@ var/list/centcom_areas = list (
 	/area/shuttle/ert/centcom,
 	/area/shuttle/death_squad/centcom,
 	/area/shuttle/administration/centcom,
-	/area/centcomm
+	/area/centcom
 )
 
 //SPACE STATION 13
@@ -1487,7 +1509,7 @@ var/list/the_station_areas = list (
 	/area/shuttle/escape_pod5/station,
 	/area/shuttle/mining/station,
 	/area/shuttle/transport/station,
-	/area/shuttle/specops/station,
+	/area/shuttle/ert/station,
 	/area/shuttle/death_squad/station,
 	/area/shuttle/administration/station,
 	/area/shuttle/research/station,

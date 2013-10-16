@@ -1738,12 +1738,15 @@
 					AM.Move()
 				*/
 				message_admins("\blue [key_name_admin(usr)] sent the prison shuttle back.", 1)
+
 			if("toggleprisonstatus")
+				/*
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","TPS")
 				for(var/obj/machinery/computer/prison_shuttle/PS in world)
 					PS.allowedtocall = !(PS.allowedtocall)
-					message_admins("\blue [key_name_admin(usr)] toggled status of prison shuttle to [PS.allowedtocall].", 1)
+				message_admins("\blue [key_name_admin(usr)] toggled status of prison shuttle to [PS.allowedtocall].", 1)
+				*/
 			if("prisonwarp")
 				if(!ticker)
 					alert("The game hasn't started yet!", null, null, null, null, null)
@@ -2060,7 +2063,7 @@
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","EgL")
 				for(var/obj/machinery/door/airlock/W in world)
-					if(W.z == 1 && !istype(get_area(W), /area/bridge) && !istype(get_area(W), /area/crew_quarters) && !istype(get_area(W), /area/security/prison))
+					if(W.z == 1 && !istype(get_area(W), /area/command) && !istype(get_area(W), /area/security))
 						W.req_access = list()
 				message_admins("[key_name_admin(usr)] activated Egalitarian Station mode")
 				command_alert("Centcomm airlock control override activated. Please take this time to get acquainted with your coworkers.")

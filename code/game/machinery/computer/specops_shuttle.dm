@@ -56,8 +56,8 @@ var/specops_shuttle_timeleft = 0
 
 	specops_shuttle_at_station = 1
 
-	var/area/start_location = locate(/area/shuttle/specops/station)
-	var/area/end_location = locate(/area/shuttle/specops/centcom)
+	var/area/start_location = locate(/area/shuttle/ert/station)
+	var/area/end_location = locate(/area/shuttle/ert/centcom)
 
 	var/list/dstturfs = list()
 	var/throwy = world.maxy
@@ -205,8 +205,8 @@ var/specops_shuttle_timeleft = 0
 		special_ops.readyreset()//Reset firealarm after the team launched.
 	//End Marauder launchpad.
 
-	var/area/start_location = locate(/area/shuttle/specops/centcom)
-	var/area/end_location = locate(/area/shuttle/specops/station)
+	var/area/start_location = locate(/area/shuttle/ert/centcom)
+	var/area/end_location = locate(/area/shuttle/ert/station)
 
 	var/list/dstturfs = list()
 	var/throwy = world.maxy

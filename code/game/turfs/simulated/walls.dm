@@ -287,7 +287,7 @@
 		var/obj/item/light_fixture_frame/small/AH = W
 		AH.try_build(src)
 		return
-
+	/*
 	else if(istype(W,/obj/item/rust_fuel_compressor_frame))
 		var/obj/item/rust_fuel_compressor_frame/AH = W
 		AH.try_build(src)
@@ -297,6 +297,7 @@
 		var/obj/item/rust_fuel_assembly_port_frame/AH = W
 		AH.try_build(src)
 		return
+	*/
 
 	//Poster stuff
 	else if(istype(W,/obj/item/weapon/contraband/poster))

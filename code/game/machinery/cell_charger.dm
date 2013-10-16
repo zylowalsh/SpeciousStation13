@@ -46,7 +46,7 @@
 				var/area/a = get_area(src)
 				if(!isarea(a))
 					return
-				if(a.power_equip == 0 && !(istype(a, /area/centcom) || istype(a, /area/shuttle) || istype(a, /area/syndicate_station) || istype(a, /area/vox_station))) // There's no APC in this area, don't try to cheat power!
+				if(a.power_equip == 0 && a.requires_power != 0) // There's no APC in this area, don't try to cheat power!
 					user << "\red The [name] blinks red as you try to insert the cell!"
 					return
 

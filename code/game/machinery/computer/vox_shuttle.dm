@@ -16,7 +16,7 @@ var/global/vox_shuttle_location
 	var/warning //Warning about the end of the round.
 
 /obj/machinery/computer/vox_station/New()
-	curr_location= locate(/area/vox_station/station)
+	curr_location= locate(/area/shuttle/vox/station)
 
 
 /obj/machinery/computer/vox_station/proc/vox_move_to(area/destination as area)
@@ -29,7 +29,7 @@ var/global/vox_shuttle_location
 	lastMove = world.time
 
 	if(curr_location.z != dest_location.z)
-		var/area/transit_location = locate(/area/vox_station/transit)
+		var/area/transit_location = locate(/area/shuttle/vox/transit)
 		curr_location.move_contents_to(transit_location)
 		curr_location = transit_location
 		sleep(VOX_SHUTTLE_MOVE_TIME)
@@ -87,23 +87,23 @@ var/global/vox_shuttle_location
 				warning = 1
 				return
 		open_station_doors()
-		vox_move_to(/area/vox_station/station)
+		vox_move_to(/area/shuttle/vox/station)
 		vox_shuttle_location = "start"
 	else if(href_list["northeast_solars"])
 		close_station_doors()
-		vox_move_to(/area/vox_station/northeast_solars)
+		vox_move_to(/area/shuttle/vox/northeast_solars)
 	else if(href_list["northwest_solars"])
 		close_station_doors()
-		vox_move_to(/area/vox_station/northwest_solars)
+		vox_move_to(/area/shuttle/vox/northwest_solars)
 	else if(href_list["southeast_solars"])
 		close_station_doors()
-		vox_move_to(/area/vox_station/southeast_solars)
+		vox_move_to(/area/shuttle/vox/southeast_solars)
 	else if(href_list["southwest_solars"])
 		close_station_doors()
-		vox_move_to(/area/vox_station/southwest_solars)
+		vox_move_to(/area/shuttle/vox/southwest_solars)
 	else if(href_list["mining"])
 		close_station_doors()
-		vox_move_to(/area/vox_station/mining)
+		vox_move_to(/area/shuttle/vox/mining)
 
 	add_fingerprint(usr)
 	updateUsrDialog()
@@ -113,14 +113,14 @@ var/global/vox_shuttle_location
 	visible_message("[Proj] ricochets off [src]!")
 
 /obj/machinery/computer/vox_station/proc/open_station_doors()
-	if(!istype(curr_location, /area/vox_station/station))
+	if(!istype(curr_location, /area/shuttle/vox/station))
 		for(var/obj/machinery/door/poddoor/M in world)
 			if(M.id == id)
 				spawn(VOX_SHUTTLE_MOVE_TIME+10)
 					M.open()
 
 /obj/machinery/computer/vox_station/proc/close_station_doors()
-	if(istype(curr_location, /area/vox_station/station))
+	if(istype(curr_location, /area/shuttle/vox/station))
 		for(var/obj/machinery/door/poddoor/M in world)
 			if(M.id == id)
 				spawn(0)

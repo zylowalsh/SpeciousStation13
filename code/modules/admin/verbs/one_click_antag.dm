@@ -271,7 +271,7 @@ client/proc/one_click_antag()
 		if(closet_spawn)
 			new /obj/structure/closet/syndicate/nuclear(closet_spawn.loc)
 
-		for (var/obj/effect/landmark/A in /area/syndicate_station/start)//Because that's the only place it can BE -Sieve
+		for (var/obj/effect/landmark/A in /area/shuttle/syndicate/start)//Because that's the only place it can BE -Sieve
 			if (A.name == "Syndicate-Gear-Closet")
 				new /obj/structure/closet/syndicate/personal(A.loc)
 				del(A)

@@ -25,7 +25,7 @@
 					continue
 				if(T.z != 1)
 					continue
-				if(istype(T.loc, /area/maintenance) || istype(T.loc, /area/crew_quarters))
+				if(istype(T.loc, /area/maintenance) || istype(T.loc, /area/misc))
 					continue
 
 				if(istype(H,/mob/living/carbon/human))
