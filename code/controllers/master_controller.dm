@@ -51,9 +51,10 @@ datum/controller/game_controller/New()
 datum/controller/game_controller/proc/setup()
 	world.tick_lag = config.Ticklag
 
+	/*
 	spawn(20)
 		createRandomZlevel()
-
+	*/
 	if(!air_master)
 		air_master = new /datum/controller/air_system()
 		air_master.setup()
@@ -72,9 +73,6 @@ datum/controller/game_controller/proc/setup()
 	spawn(0)
 		if(ticker)
 			ticker.pregame()
-
-	lighting_controller.Initialize()
-
 
 datum/controller/game_controller/proc/setup_objects()
 	world << "\red \b Initializing objects"
