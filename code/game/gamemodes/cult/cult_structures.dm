@@ -27,16 +27,6 @@
 	icon_state = "tomealtar"
 //	luminosity = 5
 
-//sprites for this no longer exist	-Pete
-//(they were stolen from another game anyway)
-/*
-/obj/structure/cult/pillar
-	name = "Pillar"
-	desc = "This should not exist"
-	icon_state = "pillar"
-	icon = 'magic_pillar.dmi'
-*/
-
 /obj/effect/gateway
 	name = "gateway"
 	desc = "You're pretty sure that abyss is staring back"

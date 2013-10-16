@@ -1033,7 +1033,7 @@ obj/machinery/atmospherics/pipe
 	cap
 		name = "pipe endcap"
 		desc = "An endcap for pipes"
-		icon = 'pipes.dmi'
+		icon = 'icons/obj/pipes.dmi'
 		icon_state = "cap"
 		level = 2
 		layer = 2.4 //under wires with their 2.44

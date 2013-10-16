@@ -1,6 +1,6 @@
 /obj/machinery/atmospherics/unary/cold_sink/freezer
 	name = "Freezer"
-	icon = 'icons/obj/Cryogenic2.dmi'
+	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "freezer_0"
 	density = 1
 
@@ -86,7 +86,7 @@
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater
 	name = "Heater"
-	icon = 'icons/obj/Cryogenic2.dmi'
+	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "freezer_0"
 	density = 1
 
