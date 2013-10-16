@@ -755,6 +755,10 @@ proc/process_ghost_teleport_locs()
 	icon_state = "bridge"
 	music = "signal"
 
+/area/emergencyBridge
+	name = "\improper Emergency Bridge"
+	icon_state = "bridge"
+
 /area/bridge/meeting_room
 	name = "\improper Heads of Staff Meeting Room"
 	icon_state = "bridge"
@@ -1330,7 +1334,7 @@ proc/process_ghost_teleport_locs()
 
 /area/rd/rdoffice
 	name = "\improper Research Director's Office"
-	icon_state = "rd_officer"
+	icon_state = "rd_head_office"
 
 /area/rd/server
 	name = "\improper Server Room"
