@@ -16,11 +16,8 @@ obj/machinery/atmospherics
 	active_power_usage = 0
 	power_channel = ENVIRON
 	var/nodealert = 0
-
-
-
-obj/machinery/atmospherics/var/initialize_directions = 0
-obj/machinery/atmospherics/var/color
+	var/pipe_color
+	var/initialize_directions = 0
 
 obj/machinery/atmospherics/process()
 	build_network()
