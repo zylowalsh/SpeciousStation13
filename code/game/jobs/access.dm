@@ -421,6 +421,29 @@
 		all_jobs.Add(jobdatum.title)
 	return all_jobs
 
+/proc/get_all_valid_jobs(var/list/input_access)
+	var/list/valid_jobs = list()
+	var/list/all_datums = typesof(/datum/job)
+	all_datums.Remove(list(/datum/job,/datum/job/ai,/datum/job/cyborg))
+	var/datum/job/jobdatum
+	var/has_access = 0
+	for(var/jobtype in all_datums)
+		jobdatum = new jobtype
+		var/list/job_access = jobdatum.get_access()
+		for(var/i = 1, i <= job_access.len, i++)
+			has_access = 0
+			for(var/j = 1, j <= input_access.len, j++)
+				if(input_access[i] == job_access[j])
+					has_access = 1
+					break
+			if(!has_access)
+				break
+		if(!has_access)
+			continue
+		valid_jobs.Add(jobdatum.title)
+
+	return valid_jobs
+
 /proc/get_all_centcom_jobs()
 	return list("VIP Guest","Custodian","Thunderdome Overseer","Intel Officer","Medical Officer","Death Commando","Research Officer","BlackOps Commander","Supreme Commander","Inspector")
 

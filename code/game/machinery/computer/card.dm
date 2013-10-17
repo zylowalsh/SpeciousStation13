@@ -11,7 +11,6 @@
 	var/authenticated = 0.0
 	var/mode = 0.0
 	var/printing = null
-	var/list/alljobs = list()
 
 
 /obj/machinery/computer/card/attackby(O as obj, user as mob)//TODO:SANITY
@@ -108,13 +107,14 @@
 
 		header += "<hr>"
 
-		var/body
 		var/jobs_all = ""
+		var/list/alljobs = (istype(src,/obj/machinery/computer/card/centcom)? get_all_centcom_jobs() : get_all_valid_jobs(scan.access)) + "Custom"
+		for(var/job in alljobs)
+			jobs_all += "<a href='?src=\ref[src];choice=assign;assign_target=[job]'>[replacetext(job, " ", "&nbsp")]</a> " //make sure there isn't a line break in the middle of a job
+
+
+		var/body
 		if (authenticated && modify)
-
-			for(var/job in alljobs)
-				jobs_all += "<a href='?src=\ref[src];choice=assign;assign_target=[job]'>[replacetext(job, " ", "&nbsp")]</a> " //make sure there isn't a line break in the middle of a job
-
 			var/carddesc = {"<script type="text/javascript">
 								function markRed(){
 									var nameField = document.getElementById('namefield');
@@ -162,7 +162,7 @@
 				accesses += "<h5>Central Command:</h5>"
 				for(var/A in get_all_centcom_access())
 					if(A in modify.access)
-						accesses += "<a href='?src=\ref[src];choice=access;access_target=[A];allowed=0'><font color=\"red\">[replacetext(get_centcom_access_desc(A), " ", "&nbsp")]</font></a> "
+						accesses += "<a href='?src=\ref[src];choice=access;access_target=[A];allowed=0'><font color=\"#00FF00\">[replacetext(get_centcom_access_desc(A), " ", "&nbsp")]</font></a> "
 					else
 						accesses += "<a href='?src=\ref[src];choice=access;access_target=[A];allowed=1'>[replacetext(get_centcom_access_desc(A), " ", "&nbsp")]</a> "
 			else
@@ -176,11 +176,9 @@
 					accesses += "<td style='width:14%' valign='top'>"
 					for(var/A in get_region_accesses(i))
 						if(A in scan.access && A in modify.access)
-							accesses += "<a href='?src=\ref[src];choice=access;access_target=[A];allowed=0'><font color=\"red\">[replacetext(get_access_desc(A), " ", "&nbsp")]</font></a> "
+							accesses += "<a href='?src=\ref[src];choice=access;access_target=[A];allowed=0'><font color=\"#00FF00\">[replacetext(get_access_desc(A), " ", "&nbsp")]</font></a> "
 						else if(A in scan.access)
 							accesses += "<a href='?src=\ref[src];choice=access;access_target=[A];allowed=1'>[replacetext(get_access_desc(A), " ", "&nbsp")]</a> "
-						else
-							accesses += "<a href='?src=\ref[src];choice=access;access_target=[A];allowed=1'>NO!</a> "
 						accesses += "<br>"
 					accesses += "</td>"
 				accesses += "</tr></table>"
@@ -239,7 +237,6 @@
 		if ("auth")
 			if ((!( authenticated ) && (scan || (istype(usr, /mob/living/silicon))) && (modify || mode)))
 				if (check_access(scan))
-					alljobs = (istype(src,/obj/machinery/computer/card/centcom)? get_all_centcom_jobs() : get_all_valid_jobs()) + "Custom"
 					authenticated = 1
 			else if ((!( authenticated ) && (istype(usr, /mob/living/silicon))) && (!modify))
 				usr << "You can't modify an ID without an ID inserted to modify. Once one is in the modify slot on the computer, you can log in."
@@ -322,26 +319,7 @@
 	updateUsrDialog()
 	return
 
-/obj/machinery/computer/card/proc/get_all_valid_jobs()
-	var/list/valid_jobs = list()
-	var/list/all_datums = typesof(/datum/job)
-	all_datums.Remove(list(/datum/job,/datum/job/ai,/datum/job/cyborg))
-	var/list/scan_access = scan.access
-	var/datum/job/jobdatum
-	var/cannot_find_match = 0
-	for(var/jobtype in all_datums)
-		jobdatum = new jobtype
-		cannot_find_match = 0
-		var/list/job_access = jobdatum.get_access()
-		for(var/i = 1, i <= job_access.len, i++)
-			if(!scan_access.Find(job_access[i]))
-				cannot_find_match = 1
-				break
-		if(cannot_find_match)
-			continue
-		valid_jobs.Add(jobdatum.title)
 
-	return valid_jobs
 
 /obj/machinery/computer/card/centcom
 	name = "CentCom Identification Computer"

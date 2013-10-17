@@ -13,7 +13,7 @@
 	name = "warden's jumpsuit"
 	icon_state = "warden"
 	item_state = "r_suit"
-	item_color = "warden"
+	color = "warden"
 	armor = list(melee = 10, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
 	flags = FPRINT | TABLEPASS
 	siemens_coefficient = 0.9
@@ -23,7 +23,7 @@
 	desc = "It's made of a slightly sturdier material than standard jumpsuits, to allow for robust protection."
 	icon_state = "security"
 	item_state = "r_suit"
-	item_color = "secred"
+	color = "secred"
 	armor = list(melee = 10, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
 	flags = FPRINT | TABLEPASS
 	siemens_coefficient = 0.9
@@ -33,7 +33,7 @@
 	desc = "A dress shirt and khakis with a security patch sewn on."
 	icon_state = "dispatch"
 	item_state = "dispatch"
-	item_color = "dispatch"
+	color = "dispatch"
 	armor = list(melee = 10, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
 	flags = FPRINT | TABLEPASS
 	siemens_coefficient = 0.9
@@ -43,7 +43,7 @@
 	desc = "It's made of a slightly sturdier material, to allow for robust protection."
 	icon_state = "redshirt2"
 	item_state = "r_suit"
-	item_color = "redshirt2"
+	color = "redshirt2"
 	armor = list(melee = 10, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
 	flags = FPRINT | TABLEPASS
 	siemens_coefficient = 0.9
@@ -56,7 +56,7 @@
 	desc = "Someone who wears this means business."
 	icon_state = "detective"
 	item_state = "det"
-	item_color = "detective"
+	color = "detective"
 	armor = list(melee = 10, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
 	flags = FPRINT | TABLEPASS
 	siemens_coefficient = 0.9
@@ -78,7 +78,7 @@
 	name = "head of security's jumpsuit"
 	icon_state = "hos"
 	item_state = "r_suit"
-	item_color = "hosred"
+	color = "hosred"
 	armor = list(melee = 10, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
 	flags = FPRINT | TABLEPASS
 	siemens_coefficient = 0.8
@@ -119,7 +119,7 @@
 	name = "head of security's jumpsuit"
 	icon_state = "jensen"
 	item_state = "jensen"
-	item_color = "jensen"
+	color = "jensen"
 	siemens_coefficient = 0.6
 
 /obj/item/clothing/suit/armor/hos/jensen

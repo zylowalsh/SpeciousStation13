@@ -1011,7 +1011,7 @@ area/solar/southwest
 	music = 'sound/ambience/signal.ogg'
 
 /area/medical/medbreak
-	name = "\improper Medical Breakroom"
+	name = "\improper Break Room"
 	icon_state = "medbay3"
 	music = 'sound/ambience/signal.ogg'
 
