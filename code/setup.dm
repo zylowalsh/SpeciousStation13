@@ -537,12 +537,12 @@ var/list/liftable_structures = list(\
 // Reference list for disposal sort junctions. Set the sortType variable on disposal sort junctions to
 // the index of the sort department that you want. For example, sortType set to 2 will reroute all packages
 // tagged for the Cargo Bay.
-var/list/TAGGERLOCATIONS = list("Disposals",
-	"Cargo Bay", "QM Office", "Engineering", "CE Office",
-	"Atmospherics", "Security", "HoS Office", "Medbay",
-	"CMO Office", "Chemistry", "Research", "RD Office",
-	"Robotics", "HoP Office", "Library", "Chapel", "Theatre",
-	"Bar", "Kitchen", "Hydroponics", "Janitor Closet","Genetics")
+var/list/TAGGERLOCATIONS = list(
+	"Disposals", "Cargo Bay", "QM Office", "Engineering", "CE Office",
+	"Atmospherics", "Security", "HoS Office", "Medbay", "CMO Office",
+	"Chemistry","Robotics", "HoP Office", "Library", "Chapel",
+	"Clown Office","Bar", "Kitchen", "Hydroponics", "Janitor Closet",
+	"Genetics", "Captain Office")
 
 #define HOSTILE_STANCE_IDLE 1
 #define HOSTILE_STANCE_ALERT 2
