@@ -624,6 +624,10 @@ proc/process_ghost_teleport_locs()
 	name = "Technical Storage"
 	icon_state = "auxstorage"
 
+/area/eng/server
+	name = "\improper Server Room"
+	icon_state = "server"
+
 /area/eng/northwest_solar_access
 	name = "Northwest Solar Maintenance"
 	icon_state = "SolarcontrolA"
@@ -839,11 +843,10 @@ area/solar/southwest
 	name = "\improper Fitness Room"
 	icon_state = "fitness"
 
-/*
-/area/server
-	name = "\improper Messaging Server Room"
+/area/eng/server
+	name = "\improper Server Room"
 	icon_state = "server"
-*/
+
 
 // HOLODECK
 
@@ -955,6 +958,10 @@ area/solar/southwest
 	name = "\improper Teleporter"
 	icon_state = "teleporter"
 	music = "signal"
+
+/area/teleporter_storage
+	name = "\improper Teleporter"
+	icon_state = "green"
 
 /area/gateway
 	name = "\improper Gateway"
