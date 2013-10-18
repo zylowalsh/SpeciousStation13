@@ -68,8 +68,9 @@
 			var/R = t.fields["name"] + " - " + t.fields["rank"]
 			L += R
 		for(var/R in sortList(L))
-			crew += "[R]<br>"*/
-		//dat = "<tt><b>Crew Manifest:</b><br>Please use security record computer to modify entries.<br><br>[crew]<a href='?src=\ref[src];choice=print'>Print</a><br><br><a href='?src=\ref[src];choice=mode;mode_target=0'>Access ID modification console.</a><br></tt>"
+			crew += "[R]<br>"
+		dat = "<tt><b>Crew Manifest:</b><br>Please use security record computer to modify entries.<br><br>[crew]<a href='?src=\ref[src];choice=print'>Print</a><br><br><a href='?src=\ref[src];choice=mode;mode_target=0'>Access ID modification console.</a><br></tt>"
+		*/
 	else
 		var/header = "<div align='center'><b>Identification Card Modifier</b></div>"
 
@@ -110,6 +111,7 @@
 
 		var/body
 		var/jobs_all = ""
+
 		if (authenticated && modify)
 
 			for(var/job in alljobs)
@@ -162,7 +164,7 @@
 				accesses += "<h5>Central Command:</h5>"
 				for(var/A in get_all_centcom_access())
 					if(A in modify.access)
-						accesses += "<a href='?src=\ref[src];choice=access;access_target=[A];allowed=0'><font color='green'>[replacetext(get_centcom_access_desc(A), " ", "&nbsp")]</font></a> "
+						accesses += "<a href='?src=\ref[src];choice=access;access_target=[A];allowed=0'>[replacetext(get_centcom_access_desc(A), " ", "&nbsp")]</a> "
 					else
 						accesses += "<a href='?src=\ref[src];choice=access;access_target=[A];allowed=1'>[replacetext(get_centcom_access_desc(A), " ", "&nbsp")]</a> "
 			else
@@ -175,7 +177,7 @@
 				for(var/i = 1; i <= 7; i++)
 					accesses += "<td style='width:14%' valign='top'>"
 					for(var/A in get_region_accesses(i))
-						if(A in scan.access && A in modify.access)
+						if((A in scan.access) && (A in modify.access))
 							accesses += "<a href='?src=\ref[src];choice=access;access_target=[A];allowed=0'><font color='green'>[replacetext(get_access_desc(A), " ", "&nbsp")]</font></a> "
 						else if(A in scan.access)
 							accesses += "<a href='?src=\ref[src];choice=access;access_target=[A];allowed=1'>[replacetext(get_access_desc(A), " ", "&nbsp")]</a> "
@@ -340,7 +342,6 @@
 		if(cannot_find_match)
 			continue
 		valid_jobs.Add(jobdatum.title)
-
 	return valid_jobs
 
 /obj/machinery/computer/card/centcom
