@@ -172,7 +172,7 @@
 	return
 
 /area/proc/updateicon()
-	/* This doesn't work with the lighting and creates wierd behavior. -ZyloWalsh
+	// This doesn't work with the lighting and creates wierd behavior. -ZyloWalsh
 	if ((fire || eject || party) && ((!requires_power)?(!requires_power):power_environ))//If it doesn't require power, can still activate this proc.
 		if(fire && !eject && !party)
 			icon_state = "blue"
@@ -187,7 +187,7 @@
 	else
 	//	new lighting behaviour with obj lights
 		icon_state = null
-*/
+
 
 /*
 #define EQUIP 1

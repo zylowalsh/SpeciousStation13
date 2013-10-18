@@ -644,6 +644,10 @@ proc/process_ghost_teleport_locs()
 	name = "Southwest Solar Maintenance"
 	icon_state = "SolarcontrolP"
 
+/area/eng/research_solar_access
+	name = "Research Solar Maintenance"
+	icon_state = "SolarcontrolP"
+
 //SOLARS
 
 /area/solar
@@ -667,70 +671,74 @@ area/solar/southwest
 	name = "\improper Southwest Solar Array"
 	icon_state = "panelsP"
 
+area/solar/research
+	name = "\improper Research Solar Array"
+	icon_state = "panelsP"
+
 //MAINTENANCE TUNNELS
 
 /area/maintenance/tunnel1
-	name = "EVA Maintenance"
+	name = "1st Maintencace Tunnel"
 	icon_state = "fpmaint"
 
 /area/maintenance/tunnel2
-	name = "Arrivals North Maintenance"
+	name = "2nd Maintencace Tunnel"
 	icon_state = "fpmaint"
 
 /area/maintenance/tunnel3
-	name = "Dormitory Maintenance"
+	name = "3rd Maintencace Tunnel"
 	icon_state = "fsmaint"
 
 /area/maintenance/tunnel4
-	name = "Bar Maintenance"
+	name = "4th Maintencace Tunnel"
 	icon_state = "fsmaint"
 
 /area/maintenance/tunnel5
-	name = "Medbay Maintenance"
+	name = "5th Maintencace Tunnel"
 	icon_state = "asmaint"
 
 /area/maintenance/tunnel6
-	name = "Science Maintenance"
+	name = "6th Maintencace Tunnel"
 	icon_state = "asmaint"
 
 /area/maintenance/tunnel7
-	name = "Cargo Maintenance"
+	name = "7th Maintencace Tunnel"
 	icon_state = "apmaint"
 
 /area/maintenance/tunnel8
-	name = "Bridge Maintenance"
+	name = "8th Maintencace Tunnel"
 	icon_state = "maintcentral"
 
 /area/maintenance/tunnel9
-	name = "Fore Maintenance"
+	name = "9th Maintencace Tunnel"
 	icon_state = "fmaint"
 
 /area/maintenance/tunnel10
-	name = "Starboard Maintenance"
+	name = "10th Maintencace Tunnel"
 	icon_state = "smaint"
 
 /area/maintenance/tunnel11
-	name = "Locker Room Maintenance"
+	name = "11th Maintencace Tunnel"
 	icon_state = "pmaint"
 
 /area/maintenance/tunnel12
-	name = "Engineering Maintenance"
+	name = "12th Maintencace Tunnel"
 	icon_state = "amaint"
 
 /area/maintenance/tunnel13
-	name = "Atmospherics"
+	name = "13th Maintencace Tunnel"
 	icon_state = "green"
 
 /area/maintenance/tunnel14
-	name = "Atmospherics"
+	name = "14th Maintencace Tunnel"
 	icon_state = "green"
 
 /area/maintenance/tunnel15
-	name = "Atmospherics"
+	name = "15th Maintencace Tunnel"
 	icon_state = "green"
 
 /area/maintenance/tunnel16
-	name = "Atmospherics"
+	name = "16th Maintencace Tunnel"
 	icon_state = "green"
 
 // HALLWAYS
@@ -843,11 +851,6 @@ area/solar/southwest
 	name = "\improper Fitness Room"
 	icon_state = "fitness"
 
-/area/eng/server
-	name = "\improper Server Room"
-	icon_state = "server"
-
-
 // HOLODECK
 
 /area/holodeck
@@ -952,6 +955,10 @@ area/solar/southwest
 	name = "\improper Xenobiology"
 	icon_state = "rd_xenobio"
 
+/area/research/research_exterior
+	name = "\improper Research Exterior"
+	icon_state = "misc_base"
+
 //TELEPORTER
 
 /area/teleporter
@@ -1011,7 +1018,7 @@ area/solar/southwest
 	music = 'sound/ambience/signal.ogg'
 
 /area/medical/medbreak
-	name = "\improper Break Room"
+	name = "\improper Medical Breakroom"
 	icon_state = "medbay3"
 	music = 'sound/ambience/signal.ogg'
 
