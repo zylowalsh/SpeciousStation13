@@ -990,49 +990,44 @@ area/solar/research
 
 //MEDICAL
 
-/area/medical
+/area/medical // ABSTRACT
 	name = "Medical Department"
 	icon_state = "med_base"
 
 /area/medical/hallway
 	name = "\improper Medbay"
-	icon_state = "medbay"
+	icon_state = "med_hallway"
 	music = 'sound/ambience/signal.ogg'
 
 /area/medical/morgue
 	name = "\improper Morgue"
-	icon_state = "morgue"
+	icon_state = "med_morgue"
 
 /area/medical/chemistry
 	name = "\improper Chemistry"
-	icon_state = "chem"
+	icon_state = "med_chem"
 
 /area/medical/genetics
 	name = "\improper Genetics Lab"
-	icon_state = "genetics"
-
-/area/medical/psych
-	name = "\improper Psych Room"
-	icon_state = "medbay3"
-	music = 'sound/ambience/signal.ogg'
+	icon_state = "med_genetics"
 
 /area/medical/virology
 	name = "\improper Virology"
-	icon_state = "virology"
+	icon_state = "med_viro"
 
 /area/medical/psych
 	name = "\improper Psych Room"
-	icon_state = "medbay3"
+	icon_state = "med_psy"
 	music = 'sound/ambience/signal.ogg'
 
 /area/medical/biostorage
 	name = "\improper Secondary Storage"
-	icon_state = "medbay2"
+	icon_state = "med_biostorage"
 	music = 'sound/ambience/signal.ogg'
 
 /area/medical/medbreak
 	name = "\improper Medical Breakroom"
-	icon_state = "medbay3"
+	icon_state = "med_breakroom"
 	music = 'sound/ambience/signal.ogg'
 
 /area/medical/reception
@@ -1050,7 +1045,7 @@ area/solar/research
 
 /area/medical/surgery
 	name = "\improper Surgery"
-	icon_state = "surgery"
+	icon_state = "med_surgery"
 
 /area/medical/surgeryobs
 	name = "\improper Surgery Observation"
@@ -1062,7 +1057,7 @@ area/solar/research
 
 /area/medical/exam_room
 	name = "\improper Exam Room"
-	icon_state = "exam_room"
+	icon_state = "med_exam_room"
 
 //SECURITY
 
