@@ -179,6 +179,8 @@
 					for(var/A in get_region_accesses(i))
 						if((A in scan.access) && (A in modify.access))
 							accesses += "<a href='?src=\ref[src];choice=access;access_target=[A];allowed=0'><font color='green'>[replacetext(get_access_desc(A), " ", "&nbsp")]</font></a> "
+						else if(!(A in scan.access) && (A in modify.access))
+							accesses += "<a href='?src=\ref[src];choice=access;access_target=[A];allowed=0'><font color='red'>[replacetext(get_access_desc(A), " ", "&nbsp")]</font></a> "
 						else if(A in scan.access)
 							accesses += "<a href='?src=\ref[src];choice=access;access_target=[A];allowed=1'>[replacetext(get_access_desc(A), " ", "&nbsp")]</a> "
 						else

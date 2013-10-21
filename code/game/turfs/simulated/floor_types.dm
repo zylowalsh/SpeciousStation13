@@ -90,6 +90,11 @@
 	nitrogen = 0.001
 	temperature = TCMB
 
+/turf/simulated/floor/chilled
+	name = "floor"
+	icon_state = "dark"
+	temperature = 80
+
 /turf/simulated/floor/plating
 	name = "plating"
 	icon_state = "plating"
@@ -134,10 +139,22 @@
 	name = "floor"
 	icon_state = "floor"
 
+/turf/simulated/shuttle/floor/vox
+	oxygen = 0.01
+	nitrogen = 103.9738
+
+/turf/simulated/shuttle/floor/vox/station
+	icon = 'icons/turf/floors.dmi'
+	icon_state = "sandstonevault"
+
 /turf/simulated/shuttle/plating
 	name = "plating"
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "plating"
+
+/turf/simulated/shuttle/plating/vox
+	oxygen = 0.01
+	nitrogen = 103.9738
 
 /turf/simulated/shuttle/floor4 // Added this floor tile so that I have a seperate turf to check in the shuttle -- Polymorph
 	name = "Brig floor"        // Also added it into the 2x3 brig area of the shuttle.

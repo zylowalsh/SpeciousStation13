@@ -601,32 +601,45 @@ proc/process_ghost_teleport_locs()
 	name = "\improper Engineering"
 	icon_state = "eng_base"
 
+/area/eng/hallway
+	name = "\improper Engineering Hallway"
+	icon_state = "eng_hallway"
+
+/area/eng/breakroom
+	name = "\improper Engineering Breakroom"
+	icon_state = "eng_breakroom"
+
 /area/eng/atmos
  	name = "\improper Atmospherics"
- 	icon_state = "atmos"
+ 	icon_state = "eng_atmo"
 
 /area/eng/atoms_office
 	name = "\improper Atmospherics Office"
+	icon_state = "eng_atmo_office"
 
 /area/eng/comms
 	name = "\improper Communications"
 	icon_state = "tcomsatcham"
 
-/area/eng/foyer
-	name = "\improper Engineering Foyer"
-	icon_state = "engine"
+/area/eng/server
+	name = "\improper Server Room"
+	icon_state = "server"
 
 /area/eng/reactor
-	name = "Power Generator"
-	icon_state = "engine_smes"
+	name = "\improper Reactor"
+	icon_state = "eng_reactor"
+
+/area/eng/battery_room
+	name = "\improper Battery Room"
+	icon_state = "eng_battery_room"
+
+/area/eng/equipment_storage
+	name = "\improper Engineering Storage"
+	icon_state = "engine"
 
 /area/eng/tech_storage
 	name = "Technical Storage"
 	icon_state = "auxstorage"
-
-/area/eng/server
-	name = "\improper Server Room"
-	icon_state = "server"
 
 /area/eng/northwest_solar_access
 	name = "Northwest Solar Maintenance"
