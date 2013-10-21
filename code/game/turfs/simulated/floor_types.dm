@@ -140,7 +140,7 @@
 	icon_state = "floor"
 
 /turf/simulated/shuttle/floor/vox
-	oxygen = 0.01
+	oxygen = 0
 	nitrogen = 103.9738
 
 /turf/simulated/shuttle/floor/vox/station
@@ -153,7 +153,7 @@
 	icon_state = "plating"
 
 /turf/simulated/shuttle/plating/vox
-	oxygen = 0.01
+	oxygen = 0
 	nitrogen = 103.9738
 
 /turf/simulated/shuttle/floor4 // Added this floor tile so that I have a seperate turf to check in the shuttle -- Polymorph
