@@ -289,7 +289,7 @@
 "afC" = (/obj/structure/disposalpipe/segment{dir = 2; icon_state = "pipe-c"},/turf/simulated/wall/r_wall,/area/command/office/hos)
 "afD" = (/obj/machinery/disposal,/obj/item/device/radio/intercom{broadcasting = 0; freerange = 0; frequency = 1475; listening = 1; name = "Station Intercom (Security)"; pixel_x = -30; pixel_y = 0},/obj/structure/disposalpipe/trunk,/obj/machinery/requests_console{announcementConsole = 1; department = "Head of Security's Desk"; departmentType = 5; name = "Head of Security RC"; pixel_x = 0; pixel_y = 30},/turf/simulated/floor{icon_state = "dark"},/area/command/office/hos)
 "afE" = (/obj/machinery/recharger{pixel_y = 4},/obj/structure/table/woodentable,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/floor{icon_state = "dark"},/area/command/office/hos)
-"afF" = (/obj/structure/table/woodentable,/obj/item/weapon/reagent_containers/food/drinks/flask/barflask,/turf/simulated/floor{icon_state = "dark"},/area/command/office/hos)
+"afF" = (/obj/structure/table/woodentable,/obj/item/weapon/reagent_containers/food/drinks/flask/barflask,/mob/living/simple_animal/parrot/Peta,/turf/simulated/floor{icon_state = "dark"},/area/command/office/hos)
 "afG" = (/obj/structure/closet/secure_closet/hos,/obj/machinery/power/apc{dir = 4; name = "Head of Security Office APC"; pixel_x = 27; pixel_y = 2},/obj/structure/cable{icon_state = "0-2"; d2 = 2},/turf/simulated/floor{icon_state = "dark"},/area/command/office/hos)
 "afH" = (/turf/space,/area/shuttle/vox/northwest_solars)
 "afI" = (/obj/machinery/door/firedoor,/obj/machinery/door/airlock/glass_security{name = "Prison Wing"; req_access_txt = "2"},/turf/simulated/floor{icon_state = "red"; dir = 8},/area/security/prison)

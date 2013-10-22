@@ -703,3 +703,43 @@
 	ears = new /obj/item/device/radio/headset/headset_eng(src)
 	available_channels = list(":e")
 	..()
+
+/mob/living/simple_animal/parrot/Peta
+	name = "Peta"
+	desc = "Peta the Tickle Friendly Parrot.  He doesn't like pita bread."
+	speak = list(
+			"May the Mighty Space Hippo be with you... always!",
+			"I hate you!",
+			":s STOP TICKLING ME!",
+			":s Stop stealing my stuff, you little rainbow turd!",
+			":s He beat himself with a crowbar while running around naked in the hallway.",
+			":s Get the whip and latex gloves, Alex. He needs some alone time with me.",
+			":s How many donk pockets do you think I can eat before I throw up?",
+			":s Why is there a locker full of Space Twinkies in genetics?",
+			":s Baldies, the most unstable psychopaths you will ever meet.",
+			":s I got my shoes bloody again.",
+			":s The clown is a crafty munchkin.",
+			":s DON'T WALK AWAY FROM ME! I need to become a robot with giant boobs and pneumatic high heels!",
+			":s AI, will you marry me?",
+			":s I swear!  Some spider just talked to me and called me \"Sugar Tits!\" ",
+			":s HELP!  Someone just groped me and stole my shoes!",
+			":s How many damn sayings do you know, Peta?!",
+			":s I just saw a bird outside the window.",
+			":s I was trying to drug the HoP with mindbreaker toxin but he ran away.",
+			":s Alex Wang is trying to break into engineering again.",
+			":s I bet at any moment, my lord and savior, the FoolAid man is going to bust through that wall and scream \"OH NO!\" ",
+			":s Trust me, I'm an expert.",
+			":s August is an alien.  That is why he wears that balaclava.",
+			":s I think someone is watching me.",
+			":s You know pygmy hippos exist?  I want to ride one like a pony." ,
+			":s I NEED to draw you!  Your face... how you hold that bag of chips... it is just so exquisite.",
+			":s He looks like a nun... but it is better then off-colored underwear.",
+			":s You say my mom is a whore and you wonder who gave you syphilis.",
+			":s Have you eaten a crayon today!",
+			":s There is a dead monkey outside my window.",
+			":s Hand me all your booty and I will savor booty.")
+
+/mob/living/simple_animal/parrot/Poly/New()
+	ears = new /obj/item/device/radio/headset/headset_sec(src)
+	available_channels = list(":s")
+	..()
