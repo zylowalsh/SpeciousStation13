@@ -739,7 +739,7 @@
 			":s There is a dead monkey outside my window.",
 			":s Hand me all your booty and I will savor booty.")
 
-/mob/living/simple_animal/parrot/Poly/New()
+/mob/living/simple_animal/parrot/Peta/New()
 	ears = new /obj/item/device/radio/headset/headset_sec(src)
 	available_channels = list(":s")
 	..()
