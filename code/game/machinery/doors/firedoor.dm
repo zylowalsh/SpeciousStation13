@@ -211,7 +211,7 @@
 		return
 
 
-	animate(animation)
+	animate_door(animation)
 		switch(animation)
 			if("opening")
 				flick("door_opening", src)
