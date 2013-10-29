@@ -451,7 +451,7 @@ datum/objective/harm
 				if(E.status & ORGAN_BROKEN)
 					already_completed = 1
 					return 1
-				if(E.status & ORGAN_DESTROYED && !E.amputated)
+				if(E.status & ORGAN_DESTROYED)
 					already_completed = 1
 					return 1
 
