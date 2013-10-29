@@ -82,7 +82,7 @@ datum/objective/mutiny
 			if(target.current.stat == DEAD || !ishuman(target.current) || !target.current.ckey)
 				return 1
 			var/turf/T = get_turf(target.current)
-			if(T && (T.z != 1))			//If they leave the station they count as dead for this
+			if(T && !(T.z == 1 || T.z == 5))			//If they leave the station they count as dead for this
 				return 2
 			return 0
 		return 1
@@ -117,7 +117,7 @@ datum/objective/mutiny/rp
 				if(target in ticker.mode:head_revolutionaries)
 					return 1
 			var/turf/T = get_turf(target.current)
-			if(T && (T.z != 1))			//If they leave the station they count as dead for this
+			if(T && !(T.z == 1 || T.z == 5))			//If they leave the station they count as dead for this
 				rval = 2
 			return 0
 		return rval
@@ -338,7 +338,6 @@ datum/objective/silence
 datum/objective/escape
 	explanation_text = "Escape on the shuttle or an escape pod alive and free."
 
-
 	check_completion()
 		if(issilicon(owner.current))
 			return 0
@@ -352,12 +351,10 @@ datum/objective/escape
 		if(!location)
 			return 0
 
-		if(istype(location, /turf/simulated/shuttle/floor4)) // Fails tratiors if they are in the shuttle brig -- Polymorph
-			if(istype(owner.current, /mob/living/carbon))
-				var/mob/living/carbon/C = owner.current
-				if (!C.handcuffed)
-					return 1
-			return 0
+		if(istype(owner.current, /mob/living/carbon))
+			var/mob/living/carbon/C = owner.current
+			if (C.handcuffed)
+				return 0
 
 		var/area/check_area = location.loc
 		if(istype(check_area, /area/shuttle/escape/centcom))
@@ -368,12 +365,12 @@ datum/objective/escape
 			return 1
 		if(istype(check_area, /area/shuttle/escape_pod3/centcom))
 			return 1
+		if(istype(check_area, /area/shuttle/escape_pod4/centcom))
+			return 1
 		if(istype(check_area, /area/shuttle/escape_pod5/centcom))
 			return 1
 		else
 			return 0
-
-
 
 datum/objective/survive
 	explanation_text = "Stay alive until the end."
