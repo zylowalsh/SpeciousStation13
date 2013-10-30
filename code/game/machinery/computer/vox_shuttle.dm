@@ -125,4 +125,4 @@ var/global/vox_shuttle_location
 			if(M.id == id)
 				spawn(0)
 					M.close()
-				sleep(10) // To prevent the ship from moving away with its doors open on laggy servers
+				sleep(-1) // To prevent the ship from moving away with its doors open on laggy servers
