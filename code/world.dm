@@ -236,23 +236,30 @@
 
 	s += "<b>[station_name()]</b>";
 	s += " ("
-	s += "<a href=\"http://\">" //Change this to wherever you want the hub to link to.
+	s += "<a href=\"http://speciousstation13.forumotions.net/\">" //Change this to wherever you want the hub to link to.
 //	s += "[game_version]"
-	s += "Default"  //Replace this with something else. Or ever better, delete it and uncomment the game version.
+	s += "Forums"  //Replace this with something else. Or ever better, delete it and uncomment the game version.
+	s += "</a>"
+	s += ")"
+
+	s += " ("
+	s += "<a href=\"https://github.com/zylowalsh/SpeciousStation13\">" //Change this to wherever you want the hub to link to.
+//	s += "[game_version]"
+	s += "GitHub"  //Replace this with something else. Or ever better, delete it and uncomment the game version.
 	s += "</a>"
 	s += ")"
 
 	var/list/features = list()
 
 	if(ticker)
-		if(master_mode)
-			features += master_mode
+		features += "<b>IN GAME</b>"
 	else
 		features += "<b>STARTING</b>"
 
 	if (!enter_allowed)
 		features += "closed"
 
+	features += "Unique Map"
 	features += abandon_allowed ? "respawn" : "no respawn"
 
 	if (config && config.allow_vote_mode)
