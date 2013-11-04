@@ -128,7 +128,6 @@ var/list/admin_verbs_debug = list(
 	/client/proc/Debug2,
 	/client/proc/kill_air,
 	/client/proc/cmd_debug_make_powernets,
-	/client/proc/kill_airgroup,
 	/client/proc/debug_controller,
 	/client/proc/cmd_debug_mob_lists,
 	/client/proc/cmd_admin_delete,
@@ -212,7 +211,6 @@ var/list/admin_verbs_hideable = list(
 	/client/proc/reload_admins,
 	/client/proc/kill_air,
 	/client/proc/cmd_debug_make_powernets,
-	/client/proc/kill_airgroup,
 	/client/proc/debug_controller,
 	/client/proc/startSinglo,
 	/client/proc/cmd_debug_mob_lists,
@@ -279,7 +277,6 @@ var/list/admin_verbs_mod = list(
 		/client/proc/count_objects_on_z_level,
 		/client/proc/count_objects_all,
 		/client/proc/cmd_assume_direct_control,
-		/client/proc/jump_to_dead_group,
 		/client/proc/startSinglo,
 		/client/proc/ticklag,
 		/client/proc/cmd_admin_grantfullaccess,
@@ -296,7 +293,6 @@ var/list/admin_verbs_mod = list(
 	verbs += /client/proc/show_verbs
 
 	src << "<span class='interface'>Most of your adminverbs have been hidden.</span>"
-	feedback_add_details("admin_verb","HMV") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return
 
 /client/proc/hide_verbs()
@@ -307,7 +303,6 @@ var/list/admin_verbs_mod = list(
 	verbs += /client/proc/show_verbs
 
 	src << "<span class='interface'>Almost all of your adminverbs have been hidden.</span>"
-	feedback_add_details("admin_verb","TAVVH") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return
 
 /client/proc/show_verbs()
@@ -318,11 +313,6 @@ var/list/admin_verbs_mod = list(
 	add_admin_verbs()
 
 	src << "<span class='interface'>All of your adminverbs are now visible.</span>"
-	feedback_add_details("admin_verb","TAVVS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-
-
-
 
 /client/proc/admin_ghost()
 	set category = "Admin"
@@ -333,7 +323,6 @@ var/list/admin_verbs_mod = list(
 		var/mob/dead/observer/ghost = mob
 		ghost.can_reenter_corpse = 1			//just in-case.
 		ghost.reenter_corpse()
-		feedback_add_details("admin_verb","P") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	else if(istype(mob,/mob/new_player))
 		src << "<font color='red'>Error: Aghost: Can't admin-ghost whilst in the lobby. Join or Observe first.</font>"
 	else
@@ -342,8 +331,6 @@ var/list/admin_verbs_mod = list(
 		body.ghostize(1)
 		if(body && !body.key)
 			body.key = "@[key]"	//Haaaaaaaack. But the people have spoken. If it breaks; blame adminbus
-		feedback_add_details("admin_verb","O") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
 
 /client/proc/invisimin()
 	set name = "Invisimin"
@@ -368,7 +355,6 @@ var/list/admin_verbs_mod = list(
 	set category = "Admin"
 	if(holder)
 		holder.player_panel_old()
-	feedback_add_details("admin_verb","PP") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return
 
 /client/proc/player_panel_new()
@@ -376,7 +362,6 @@ var/list/admin_verbs_mod = list(
 	set category = "Admin"
 	if(holder)
 		holder.player_panel_new()
-	feedback_add_details("admin_verb","PPN") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return
 
 /client/proc/check_antagonists()
@@ -385,29 +370,20 @@ var/list/admin_verbs_mod = list(
 	if(holder)
 		holder.check_antagonists()
 		log_admin("[key_name(usr)] checked antagonists.")	//for tsar~
-	feedback_add_details("admin_verb","CHA") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return
 
 /client/proc/jobbans()
 	set name = "Display Job bans"
 	set category = "Admin"
 	if(holder)
-		if(config.ban_legacy_system)
-			holder.Jobbans()
-		else
-			holder.DB_ban_panel()
-	feedback_add_details("admin_verb","VJB") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+		holder.Jobbans()
 	return
 
 /client/proc/unban_panel()
 	set name = "Unban Panel"
 	set category = "Admin"
 	if(holder)
-		if(config.ban_legacy_system)
-			holder.unbanpanel()
-		else
-			holder.DB_ban_panel()
-	feedback_add_details("admin_verb","UBP") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+		holder.unbanpanel()
 	return
 
 /client/proc/game_panel()
@@ -415,7 +391,6 @@ var/list/admin_verbs_mod = list(
 	set category = "Admin"
 	if(holder)
 		holder.Game()
-	feedback_add_details("admin_verb","GP") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return
 
 /client/proc/secrets()
@@ -423,7 +398,6 @@ var/list/admin_verbs_mod = list(
 	set category = "Admin"
 	if (holder)
 		holder.Secrets()
-	feedback_add_details("admin_verb","S") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return
 
 /client/proc/colorooc()
@@ -434,7 +408,6 @@ var/list/admin_verbs_mod = list(
 	if(new_ooccolor)
 		prefs.ooccolor = new_ooccolor
 		prefs.save_preferences()
-	feedback_add_details("admin_verb","OC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return
 
 /client/proc/stealth()
@@ -451,12 +424,10 @@ var/list/admin_verbs_mod = list(
 			holder.fakekey = new_key
 		log_admin("[key_name(usr)] has turned stealth mode [holder.fakekey ? "ON" : "OFF"]")
 		message_admins("[key_name_admin(usr)] has turned stealth mode [holder.fakekey ? "ON" : "OFF"]", 1)
-	feedback_add_details("admin_verb","SM") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-#define MAX_WARNS 3
-#define AUTOBANTIME 10
 
 /client/proc/warn(warned_ckey)
+	var/const/MAX_WARNS = 3
+	var/const/AUTOBANTIME = 10
 	if(!check_rights(R_ADMIN))	return
 
 	if(!warned_ckey || !istext(warned_ckey))	return
@@ -466,8 +437,10 @@ var/list/admin_verbs_mod = list(
 
 	var/datum/preferences/D
 	var/client/C = directory[warned_ckey]
-	if(C)	D = C.prefs
-	else	D = preferences_datums[warned_ckey]
+	if(C)
+		D = C.prefs
+	else
+		D = preferences_datums[warned_ckey]
 
 	if(!D)
 		src << "<font color='red'>Error: warn(): No such ckey found.</font>"
@@ -482,18 +455,12 @@ var/list/admin_verbs_mod = list(
 		else
 			message_admins("[key_name_admin(src)] has warned [warned_ckey] resulting in a [AUTOBANTIME] minute ban.")
 		AddBan(warned_ckey, D.last_id, "Autobanning due to too many formal warnings", ckey, 1, AUTOBANTIME)
-		feedback_inc("ban_warn",1)
 	else
 		if(C)
 			C << "<font color='red'><BIG><B>You have been formally warned by an administrator.</B></BIG><br>Further warnings will result in an autoban.</font>"
 			message_admins("[key_name_admin(src)] has warned [key_name_admin(C)]. They have [MAX_WARNS-D.warns] strikes remaining.")
 		else
 			message_admins("[key_name_admin(src)] has warned [warned_ckey] (DC). They have [MAX_WARNS-D.warns] strikes remaining.")
-
-	feedback_add_details("admin_verb","WARN") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-#undef MAX_WARNS
-#undef AUTOBANTIME
 
 /client/proc/drop_bomb() // Some admin dickery that can probably be done better -- TLE
 	set category = "Special Verbs"
@@ -519,7 +486,6 @@ var/list/admin_verbs_mod = list(
 			var/flash_range = input("Flash range (in tiles):") as num
 			explosion(epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range)
 	message_admins("\blue [ckey] creating an admin explosion at [epicenter.loc].")
-	feedback_add_details("admin_verb","DB") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/give_spell(mob/T as mob in mob_list) // -- Urist
 	set category = "Fun"
@@ -528,7 +494,6 @@ var/list/admin_verbs_mod = list(
 	var/obj/effect/proc_holder/spell/S = input("Choose the spell to give to that guy", "ABRAKADABRA") as null|anything in spells
 	if(!S) return
 	T.spell_list += new S
-	feedback_add_details("admin_verb","GS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	log_admin("[key_name(usr)] gave [key_name(T)] the spell [S].")
 	message_admins("\blue [key_name_admin(usr)] gave [key_name(T)] the spell [S].", 1)
 
@@ -539,7 +504,6 @@ var/list/admin_verbs_mod = list(
 	var/datum/disease/D = input("Choose the disease to give to that guy", "ACHOO") as null|anything in diseases
 	if(!D) return
 	T.contract_disease(new D, 1)
-	feedback_add_details("admin_verb","GD") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	log_admin("[key_name(usr)] gave [key_name(T)] the disease [D].")
 	message_admins("\blue [key_name_admin(usr)] gave [key_name(T)] the disease [D].", 1)
 
@@ -555,15 +519,12 @@ var/list/admin_verbs_mod = list(
 			V.show_message(message, 2)
 		log_admin("[key_name(usr)] made [O] at [O.x], [O.y], [O.z]. make a sound")
 		message_admins("\blue [key_name_admin(usr)] made [O] at [O.x], [O.y], [O.z]. make a sound", 1)
-		feedback_add_details("admin_verb","MS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
 
 /client/proc/togglebuildmodeself()
 	set name = "Toggle Build Mode Self"
 	set category = "Special Verbs"
 	if(src.mob)
 		togglebuildmode(src.mob)
-	feedback_add_details("admin_verb","TBMS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/object_talk(var/msg as text) // -- TLE
 	set category = "Special Verbs"
@@ -574,7 +535,6 @@ var/list/admin_verbs_mod = list(
 			return
 		for (var/mob/V in hearers(mob.control_object))
 			V.show_message("<b>[mob.control_object.name]</b> says: \"" + msg + "\"", 2)
-	feedback_add_details("admin_verb","OT") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/kill_air() // -- TLE
 	set category = "Debug"
@@ -586,7 +546,6 @@ var/list/admin_verbs_mod = list(
 	else
 		kill_air = 1
 		usr << "<b>Disabled air processing.</b>"
-	feedback_add_details("admin_verb","KA") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	log_admin("[key_name(usr)] used 'kill air'.")
 	message_admins("\blue [key_name_admin(usr)] used 'kill air'.", 1)
 
@@ -597,7 +556,6 @@ var/list/admin_verbs_mod = list(
 	if(!holder) return
 	using_new_click_proc = !using_new_click_proc
 	world << "Testing of new click proc [using_new_click_proc ? "enabled" : "disabled"]"
-	feedback_add_details("admin_verb","TNCP") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/deadmin_self()
 	set name = "De-admin self"
@@ -609,7 +567,6 @@ var/list/admin_verbs_mod = list(
 			message_admins("[src] deadmined themself.", 1)
 			deadmin()
 			src << "<span class='interface'>You are now a normal player.</span>"
-	feedback_add_details("admin_verb","DAS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/toggle_log_hrefs()
 	set name = "Toggle href logging"

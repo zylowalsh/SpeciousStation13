@@ -106,8 +106,6 @@
 	var/slime_delay = 0
 	var/animal_delay = 0
 
-	var/admin_legacy_system = 0	//Defines whether the server uses the legacy admin system with admins.txt or the SQL system. Config option in config.txt
-	var/ban_legacy_system = 0	//Defines whether the server uses the legacy banning system with the files in /data or the SQL system. Config option in config.txt
 	var/use_age_restriction_for_jobs = 0 //Do jobs use account age restrictions? --requires database
 
 	var/simultaneous_pm_warning_timeout = 100
@@ -174,12 +172,6 @@
 			switch (name)
 				if ("resource_urls")
 					config.resource_urls = stringsplit(value, " ")
-
-				if ("admin_legacy_system")
-					config.admin_legacy_system = 1
-
-				if ("ban_legacy_system")
-					config.ban_legacy_system = 1
 
 				if ("use_age_restriction_for_jobs")
 					config.use_age_restriction_for_jobs = 1
@@ -477,94 +469,6 @@
 					config.limbs_can_break = value
 				else
 					diary << "Unknown setting in configuration: '[name]'"
-
-/datum/configuration/proc/loadsql(filename)  // -- TLE
-	var/list/Lines = file2list(filename)
-	for(var/t in Lines)
-		if(!t)	continue
-
-		t = trim(t)
-		if (length(t) == 0)
-			continue
-		else if (copytext(t, 1, 2) == "#")
-			continue
-
-		var/pos = findtext(t, " ")
-		var/name = null
-		var/value = null
-
-		if (pos)
-			name = lowertext(copytext(t, 1, pos))
-			value = copytext(t, pos + 1)
-		else
-			name = lowertext(t)
-
-		if (!name)
-			continue
-
-		switch (name)
-			if ("address")
-				sqladdress = value
-			if ("port")
-				sqlport = value
-			if ("database")
-				sqldb = value
-			if ("login")
-				sqllogin = value
-			if ("password")
-				sqlpass = value
-			if ("feedback_database")
-				sqlfdbkdb = value
-			if ("feedback_login")
-				sqlfdbklogin = value
-			if ("feedback_password")
-				sqlfdbkpass = value
-			if ("enable_stat_tracking")
-				sqllogging = 1
-			else
-				diary << "Unknown setting in configuration: '[name]'"
-
-/datum/configuration/proc/loadforumsql(filename)  // -- TLE
-	var/list/Lines = file2list(filename)
-	for(var/t in Lines)
-		if(!t)	continue
-
-		t = trim(t)
-		if (length(t) == 0)
-			continue
-		else if (copytext(t, 1, 2) == "#")
-			continue
-
-		var/pos = findtext(t, " ")
-		var/name = null
-		var/value = null
-
-		if (pos)
-			name = lowertext(copytext(t, 1, pos))
-			value = copytext(t, pos + 1)
-		else
-			name = lowertext(t)
-
-		if (!name)
-			continue
-
-		switch (name)
-			if ("address")
-				forumsqladdress = value
-			if ("port")
-				forumsqlport = value
-			if ("database")
-				forumsqldb = value
-			if ("login")
-				forumsqllogin = value
-			if ("password")
-				forumsqlpass = value
-			if ("activatedgroup")
-				forum_activated_group = value
-			if ("authenticatedgroup")
-				forum_authenticated_group = value
-			else
-				diary << "Unknown setting in configuration: '[name]'"
 
 /datum/configuration/proc/pick_mode(mode_name)
 	// I wish I didn't have to instance the game modes in order to look up

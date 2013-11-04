@@ -144,16 +144,12 @@
 	switch(event)
 		if("Red alert")
 			set_security_level(SEC_LEVEL_RED)
-			feedback_inc("alert_keycard_auth_red",1)
 		if("Grant Emergency Maintenance Access")
 			make_maint_all_access()
-			feedback_inc("alert_keycard_auth_maintGrant",1)
 		if("Revoke Emergency Maintenance Access")
 			revoke_maint_all_access()
-			feedback_inc("alert_keycard_auth_maintRevoke",1)
 		if("Emergency Response Team")
 			trigger_armed_response_team(1)
-			feedback_inc("alert_keycard_auth_ert",1)
 
 var/global/maint_all_access = 0
 

@@ -60,9 +60,6 @@ var/intercom_range_display_status = 0
 	if(camera_range_display_status)
 		for(var/obj/machinery/camera/C in cameranet.cameras)
 			new/obj/effect/debugging/camera_range(C.loc)
-	feedback_add_details("admin_verb","mCRD") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-
 
 /client/proc/sec_camera_report()
 	set category = "Mapping"
@@ -102,7 +99,6 @@ var/intercom_range_display_status = 0
 
 	output += "</ul>"
 	usr << browse(output,"window=airreport;size=1000x500")
-	feedback_add_details("admin_verb","mCRP") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/intercom_view()
 	set category = "Mapping"
@@ -122,7 +118,6 @@ var/intercom_range_display_status = 0
 				var/obj/effect/debugging/marker/F = new/obj/effect/debugging/marker(T)
 				if (!(F in view(7,I.loc)))
 					del(F)
-	feedback_add_details("admin_verb","mIRD") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/enable_debug_verbs()
 	set category = "Debug"
@@ -141,7 +136,6 @@ var/intercom_range_display_status = 0
 	src.verbs += /client/proc/count_objects_on_z_level
 	src.verbs += /client/proc/count_objects_all
 	src.verbs += /client/proc/cmd_assume_direct_control	//-errorage
-	src.verbs += /client/proc/jump_to_dead_group
 	src.verbs += /client/proc/startSinglo
 	src.verbs += /client/proc/ticklag	//allows you to set the ticklag.
 	src.verbs += /client/proc/cmd_admin_grantfullaccess
@@ -162,8 +156,6 @@ var/intercom_range_display_status = 0
 	src.verbs += /client/proc/Zone_Info
 	src.verbs += /client/proc/Test_ZAS_Connection
 	//src.verbs += /client/proc/cmd_admin_rejuvenate
-
-	feedback_add_details("admin_verb","mDV") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/count_objects_on_z_level()
 	set category = "Mapping"
@@ -206,7 +198,6 @@ var/intercom_range_display_status = 0
 		world << line*/
 
 	world << "There are [count] objects of type [type_path] on z-level [num_level]"
-	feedback_add_details("admin_verb","mOBJZ") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/count_objects_all()
 	set category = "Mapping"
@@ -233,8 +224,6 @@ var/intercom_range_display_status = 0
 		world << line*/
 
 	world << "There are [count] objects of type [type_path] in the game world"
-	feedback_add_details("admin_verb","mOBJ") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
 
 var/global/prevent_airgroup_regroup = 0
 

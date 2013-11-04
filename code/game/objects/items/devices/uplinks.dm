@@ -169,66 +169,6 @@ A list of items and costs is stored under the datum of every game mode, alongsid
 		del(randomItems)
 		return buyItem
 
-/obj/item/device/uplink/proc/handleStatTracking(var/boughtItem)
-//For stat tracking, sorry for making it so ugly
-	if(!boughtItem) return
-
-	switch(boughtItem)
-		if("/obj/item/weapon/circuitboard/teleporter")
-			feedback_add_details("traitor_uplink_items_bought","TP")
-		if("/obj/item/toy/syndicateballoon")
-			feedback_add_details("traitor_uplink_items_bought","BS")
-		if("/obj/item/weapon/storage/box/syndie_kit/imp_uplink")
-			feedback_add_details("traitor_uplink_items_bought","UI")
-		if("/obj/item/weapon/storage/box/syndicate")
-			feedback_add_details("traitor_uplink_items_bought","BU")
-		if("/obj/item/weapon/aiModule/syndicate")
-			feedback_add_details("traitor_uplink_items_bought","AI")
-		if("/obj/item/device/radio/beacon/syndicate")
-			feedback_add_details("traitor_uplink_items_bought","SB")
-		if("/obj/item/weapon/gun/projectile")
-			feedback_add_details("traitor_uplink_items_bought","RE")
-		if("/obj/item/weapon/gun/energy/crossbow")
-			feedback_add_details("traitor_uplink_items_bought","XB")
-		if("/obj/item/device/powersink")
-			feedback_add_details("traitor_uplink_items_bought","PS")
-		if("/obj/item/weapon/melee/energy/sword")
-			feedback_add_details("traitor_uplink_items_bought","ES")
-		if("/obj/item/clothing/mask/gas/voice")
-			feedback_add_details("traitor_uplink_items_bought","VC")
-		if("/obj/item/device/chameleon")
-			feedback_add_details("traitor_uplink_items_bought","CP")
-		if("/obj/item/weapon/storage/box/emps")
-			feedback_add_details("traitor_uplink_items_bought","EM")
-		if("/obj/item/weapon/pen/paralysis")
-			feedback_add_details("traitor_uplink_items_bought","PP")
-		if("/obj/item/weapon/cartridge/syndicate")
-			feedback_add_details("traitor_uplink_items_bought","DC")
-		if("/obj/item/clothing/under/chameleon")
-			feedback_add_details("traitor_uplink_items_bought","CJ")
-		if("/obj/item/weapon/card/id/syndicate")
-			feedback_add_details("traitor_uplink_items_bought","AC")
-		if("/obj/item/weapon/card/emag")
-			feedback_add_details("traitor_uplink_items_bought","EC")
-		if("/obj/item/weapon/storage/box/syndie_kit/space")
-			feedback_add_details("traitor_uplink_items_bought","SS")
-		if("/obj/item/device/encryptionkey/binary")
-			feedback_add_details("traitor_uplink_items_bought","BT")
-		if("/obj/item/weapon/storage/box/syndie_kit/imp_freedom")
-			feedback_add_details("traitor_uplink_items_bought","FI")
-		if("/obj/item/clothing/glasses/thermal/syndi")
-			feedback_add_details("traitor_uplink_items_bought","TM")
-		if("/obj/item/ammo_magazine/a357")
-			feedback_add_details("traitor_uplink_items_bought","RA")
-		if("/obj/item/clothing/shoes/syndigaloshes")
-			feedback_add_details("traitor_uplink_items_bought","SH")
-		if("/obj/item/weapon/plastique")
-			feedback_add_details("traitor_uplink_items_bought","C4")
-		if("/obj/item/weapon/soap/syndie")
-			feedback_add_details("traitor_uplink_items_bought","SP")
-		if("/obj/item/weapon/storage/toolbox/syndicate")
-			feedback_add_details("traitor_uplink_items_bought","ST")
-
 /obj/item/device/uplink/Topic(href, href_list)
 
 	if (href_list["buy_item"])
@@ -236,7 +176,6 @@ A list of items and costs is stored under the datum of every game mode, alongsid
 			var/boughtItem = chooseRandomItem()
 			if(boughtItem)
 				href_list["buy_item"] = boughtItem
-				feedback_add_details("traitor_uplink_items_bought","RN")
 				return 1
 			else
 				return 0
@@ -250,7 +189,6 @@ A list of items and costs is stored under the datum of every game mode, alongsid
 				//info.spawnlist += href_list["buy_item"]
 
 			uses -= text2num(href_list["cost"])
-			handleStatTracking(href_list["buy_item"]) //Note: chooseRandomItem handles it's own stat tracking. This proc is not meant for 'random'.
 		return 1
 
 

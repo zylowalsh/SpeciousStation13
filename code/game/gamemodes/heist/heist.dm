@@ -239,16 +239,13 @@ var/global/vox_kills = 0 //Used to check the Inviolate.
 
 	world << "\red <FONT size = 3><B>[win_type] [win_group] victory!</B></FONT>"
 	world << "[win_msg]"
-	feedback_set_details("round_end_result","heist - [win_type] [win_group]")
 
 	var/count = 1
 	for(var/datum/objective/objective in raid_objectives)
 		if(objective.check_completion())
 			world << "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='green'><B>Success!</B></font>"
-			feedback_add_details("traitor_objective","[objective.type]|SUCCESS")
 		else
 			world << "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='red'>Fail.</font>"
-			feedback_add_details("traitor_objective","[objective.type]|FAIL")
 		count++
 
 	..()

@@ -404,38 +404,6 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 		else
 			quotedmsg = "says, \"[message]\""
 
-		// --- This following recording is intended for research and feedback in the use of department radio channels ---
-
-		var/part_blackbox_b = "</span><b> \[[freq_text]\]</b> <span class='message'>" // Tweaked for security headsets -- TLE
-		var/blackbox_msg = "[part_a][name][part_blackbox_b][quotedmsg][part_c]"
-		//var/blackbox_admin_msg = "[part_a][M.name] (Real name: [M.real_name])[part_blackbox_b][quotedmsg][part_c]"
-
-		//BR.messages_admin += blackbox_admin_msg
-		if(istype(blackbox))
-			switch(display_freq)
-				if(1459)
-					blackbox.msg_common += blackbox_msg
-				if(1351)
-					blackbox.msg_science += blackbox_msg
-				if(1353)
-					blackbox.msg_command += blackbox_msg
-				if(1355)
-					blackbox.msg_medical += blackbox_msg
-				if(1357)
-					blackbox.msg_engineering += blackbox_msg
-				if(1359)
-					blackbox.msg_security += blackbox_msg
-				if(1441)
-					blackbox.msg_deathsquad += blackbox_msg
-				if(1213)
-					blackbox.msg_syndicate += blackbox_msg
-				if(1347)
-					blackbox.msg_cargo += blackbox_msg
-				else
-					blackbox.messages += blackbox_msg
-
-		//End of research and feedback code.
-
 		var/aitrack = ""
 
 	 /* ###### Send the message ###### */
@@ -678,38 +646,6 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 			part_a = "<span class='comradio'><span class='name'>"
 		else if (display_freq in DEPT_FREQS)
 			part_a = "<span class='deptradio'><span class='name'>"
-
-		// --- This following recording is intended for research and feedback in the use of department radio channels ---
-
-		var/part_blackbox_b = "</span><b> \[[freq_text]\]</b> <span class='message'>" // Tweaked for security headsets -- TLE
-		var/blackbox_msg = "[part_a][source][part_blackbox_b]\"[text]\"[part_c]"
-		//var/blackbox_admin_msg = "[part_a][M.name] (Real name: [M.real_name])[part_blackbox_b][quotedmsg][part_c]"
-
-		//BR.messages_admin += blackbox_admin_msg
-		if(istype(blackbox))
-			switch(display_freq)
-				if(1459)
-					blackbox.msg_common += blackbox_msg
-				if(1351)
-					blackbox.msg_science += blackbox_msg
-				if(1353)
-					blackbox.msg_command += blackbox_msg
-				if(1355)
-					blackbox.msg_medical += blackbox_msg
-				if(1357)
-					blackbox.msg_engineering += blackbox_msg
-				if(1359)
-					blackbox.msg_security += blackbox_msg
-				if(1441)
-					blackbox.msg_deathsquad += blackbox_msg
-				if(1213)
-					blackbox.msg_syndicate += blackbox_msg
-				if(1347)
-					blackbox.msg_cargo += blackbox_msg
-				else
-					blackbox.messages += blackbox_msg
-
-		//End of research and feedback code.
 
 	 /* ###### Send the message ###### */
 

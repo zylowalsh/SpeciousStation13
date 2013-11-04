@@ -12,9 +12,6 @@
 		if(M.client.prefs.toggles & SOUND_MIDI)
 			M << uploaded_sound
 
-	feedback_add_details("admin_verb","PGS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-
 /client/proc/play_local_sound(S as sound)
 	set category = "Fun"
 	set name = "Play Local Sound"
@@ -23,8 +20,6 @@
 	log_admin("[key_name(src)] played a local sound [S]")
 	message_admins("[key_name_admin(src)] played a local sound [S]", 1)
 	playsound(get_turf_loc(src.mob), S, 50, 0, 0)
-	feedback_add_details("admin_verb","PLS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
 
 /*
 /client/proc/cuban_pete()

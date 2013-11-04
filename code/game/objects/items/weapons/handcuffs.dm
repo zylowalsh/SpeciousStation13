@@ -66,10 +66,8 @@
 				C.requests += O
 				spawn( 0 )
 					if(istype(src, /obj/item/weapon/handcuffs/cable))
-						feedback_add_details("handcuffs","C")
 						playsound(src.loc, 'sound/weapons/cablecuff.ogg', 30, 1, -2)
 					else
-						feedback_add_details("handcuffs","H")
 						playsound(src.loc, 'sound/weapons/handcuffs.ogg', 30, 1, -2)
 					O.process()
 			return

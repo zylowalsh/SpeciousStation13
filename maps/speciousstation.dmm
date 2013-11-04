@@ -4583,7 +4583,7 @@
 "bKg" = (/obj/machinery/atmospherics/pipe/simple/supply/hidden,/obj/structure/disposalpipe/segment{dir = 4},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_x = 0},/turf/simulated/floor/plating{icon_state = "warnplate"; dir = 8},/area/maintenance/tunnel6)
 "bKh" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,/obj/structure/disposalpipe/sortjunction{sortType = 9},/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"},/turf/simulated/floor/plating,/area/maintenance/tunnel6)
 "bKi" = (/obj/structure/window/reinforced{dir = 5; health = 1e+007},/obj/machinery/atmospherics/pipe/simple/heat_exchanging,/turf/simulated/floor/chilled{icon_state = "bcircuit"},/area/eng/comms)
-"bKj" = (/obj/structure/window/reinforced{dir = 1; pixel_y = 2},/obj/structure/window/reinforced{dir = 8},/obj/machinery/blackbox_recorder,/turf/simulated/floor/chilled,/area/eng/comms)
+"bKj" = (/obj/structure/window/reinforced{dir = 1; pixel_y = 2},/obj/structure/window/reinforced{dir = 8},/turf/simulated/floor/chilled,/area/eng/comms)
 "bKk" = (/obj/machinery/message_server,/turf/simulated/floor/chilled,/area/eng/comms)
 "bKl" = (/turf/simulated/floor/chilled,/area/eng/comms)
 "bKm" = (/obj/machinery/telecomms/server/presets/supply,/turf/simulated/floor/chilled,/area/eng/comms)

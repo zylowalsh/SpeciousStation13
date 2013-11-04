@@ -34,8 +34,6 @@
 
 	target.verbs |= /client/proc/getruntimelog
 	target << "<font color='red'>You have been granted access to runtime logs. Please use them responsibly or risk being banned.</font>"
-	return
-
 
 //This proc allows download of runtime logs saved within the data/logs/ folder by dreamdeamon.
 //It works similarly to show-server-log.
@@ -54,8 +52,6 @@
 	message_admins("[key_name_admin(src)] accessed file: [path]")
 	src << run( file(path) )
 	src << "Attempting to send file, this may take a fair few minutes if the file is very large."
-	return
-
 
 //This proc allows download of past server logs saved within the data/logs/ folder.
 //It works similarly to show-server-log.
@@ -74,8 +70,6 @@
 	message_admins("[key_name_admin(src)] accessed file: [path]")
 	src << run( file(path) )
 	src << "Attempting to send file, this may take a fair few minutes if the file is very large."
-	return
-
 
 //Other log stuff put here for the sake of organisation
 
@@ -91,8 +85,6 @@
 	else
 		src << "<font color='red'>Error: view_txt_log(): File not found/Invalid path([path]).</font>"
 		return
-	feedback_add_details("admin_verb","VTL") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	return
 
 //Shows today's attack log
 /datum/admins/proc/view_atk_log()
@@ -107,5 +99,3 @@
 		src << "<font color='red'>Error: view_atk_log(): File not found/Invalid path([path]).</font>"
 		return
 	usr << run( file(path) )
-	feedback_add_details("admin_verb","SSAL") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	return

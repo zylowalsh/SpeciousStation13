@@ -1,7 +1,5 @@
 var/list/forbidden_varedit_object_types = list(
-										/datum/admins,						//Admins editing their own admin-power object? Yup, sounds like a good idea.
-										/obj/machinery/blackbox_recorder,	//Prevents people messing with feedback gathering
-										/datum/feedback_variable			//Prevents people messing with feedback gathering
+										/datum/admins						//Admins editing their own admin-power object? Yup, sounds like a good idea.
 									)
 
 /*
@@ -21,7 +19,6 @@ var/list/forbidden_varedit_object_types = list(
 		src << "Game hasn't started yet."
 	else
 		src.modify_variables(ticker)
-		feedback_add_details("admin_verb","ETV") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/mod_list_add_ass() //haha
 

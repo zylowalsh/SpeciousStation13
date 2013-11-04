@@ -48,64 +48,6 @@
 				log_admin("[key_name(usr)] has spawned vox raiders.")
 				if(!src.makeVoxRaiders())
 					usr << "\red Unfortunately there weren't enough candidates available."
-	else if(href_list["dbsearchckey"] || href_list["dbsearchadmin"])
-		var/adminckey = href_list["dbsearchadmin"]
-		var/playerckey = href_list["dbsearchckey"]
-
-		DB_ban_panel(playerckey, adminckey)
-		return
-
-	else if(href_list["dbbanedit"])
-		var/banedit = href_list["dbbanedit"]
-		var/banid = text2num(href_list["dbbanid"])
-		if(!banedit || !banid)
-			return
-
-		DB_ban_edit(banid, banedit)
-		return
-
-	else if(href_list["dbbanaddtype"])
-
-		var/bantype = text2num(href_list["dbbanaddtype"])
-		var/banckey = href_list["dbbanaddckey"]
-		var/banduration = text2num(href_list["dbbaddduration"])
-		var/banjob = href_list["dbbanaddjob"]
-		var/banreason = href_list["dbbanreason"]
-
-		banckey = ckey(banckey)
-
-		switch(bantype)
-			if(BANTYPE_PERMA)
-				if(!banckey || !banreason)
-					usr << "Not enough parameters (Requires ckey and reason)"
-					return
-				banduration = null
-				banjob = null
-			if(BANTYPE_TEMP)
-				if(!banckey || !banreason || !banduration)
-					usr << "Not enough parameters (Requires ckey, reason and duration)"
-					return
-				banjob = null
-			if(BANTYPE_JOB_PERMA)
-				if(!banckey || !banreason || !banjob)
-					usr << "Not enough parameters (Requires ckey, reason and job)"
-					return
-				banduration = null
-			if(BANTYPE_JOB_TEMP)
-				if(!banckey || !banreason || !banjob || !banduration)
-					usr << "Not enough parameters (Requires ckey, reason and job)"
-					return
-
-		var/mob/playermob
-
-		for(var/mob/M in player_list)
-			if(M.ckey == banckey)
-				playermob = M
-				break
-
-		banreason = "(MANUAL BAN) "+banreason
-
-		DB_ban_record(bantype, playermob, banduration, banreason, banjob, null, banckey)
 
 	else if(href_list["editrights"])
 		if(!check_rights(R_PERMISSIONS))
@@ -140,7 +82,6 @@
 
 				message_admins("[key_name_admin(usr)] removed [adm_ckey] from the admins list")
 				log_admin("[key_name(usr)] removed [adm_ckey] from the admins list")
-				log_admin_rank_modification(adm_ckey, "Removed")
 
 		else if(task == "rank")
 			var/new_rank
@@ -156,21 +97,18 @@
 				if(null,"") return
 				if("*New Rank*")
 					new_rank = input("Please input a new rank", "New custom rank", null, null) as null|text
-					if(config.admin_legacy_system)
-						new_rank = ckeyEx(new_rank)
+					new_rank = ckeyEx(new_rank)
 					if(!new_rank)
 						usr << "<font color='red'>Error: Topic 'editrights': Invalid rank</font>"
 						return
-					if(config.admin_legacy_system)
-						if(admin_ranks.len)
-							if(new_rank in admin_ranks)
-								rights = admin_ranks[new_rank]		//we typed a rank which already exists, use its rights
-							else
-								admin_ranks[new_rank] = 0			//add the new rank to admin_ranks
+					if(admin_ranks.len)
+						if(new_rank in admin_ranks)
+							rights = admin_ranks[new_rank]		//we typed a rank which already exists, use its rights
+						else
+							admin_ranks[new_rank] = 0			//add the new rank to admin_ranks
 				else
-					if(config.admin_legacy_system)
-						new_rank = ckeyEx(new_rank)
-						rights = admin_ranks[new_rank]				//we input an existing rank, use its rights
+					new_rank = ckeyEx(new_rank)
+					rights = admin_ranks[new_rank]				//we input an existing rank, use its rights
 
 			if(D)
 				D.disassociate()								//remove adminverbs and unlink from client
@@ -184,7 +122,6 @@
 
 			message_admins("[key_name_admin(usr)] edited the admin rank of [adm_ckey] to [new_rank]")
 			log_admin("[key_name(usr)] edited the admin rank of [adm_ckey] to [new_rank]")
-			log_admin_rank_modification(adm_ckey, new_rank)
 
 		else if(task == "permissions")
 			if(!D)	return
@@ -197,7 +134,6 @@
 
 			message_admins("[key_name_admin(usr)] toggled the [new_permission] permission of [adm_ckey]")
 			log_admin("[key_name(usr)] toggled the [new_permission] permission of [adm_ckey]")
-			log_admin_permission_modification(adm_ckey, permissionlist[new_permission])
 
 		edit_admin_permissions()
 
@@ -355,7 +291,6 @@
 		Banlist["minutes"] << minutes
 		Banlist["bannedby"] << usr.ckey
 		Banlist.cd = "/base"
-		feedback_inc("ban_edit",1)
 		unbanpanel()
 
 	/////////////////////////////////////new ban stuff
@@ -683,67 +618,28 @@
 
 		//Banning comes first
 		if(notbannedlist.len) //at least 1 unbanned job exists in joblist so we have stuff to ban.
-			switch(alert("Temporary Ban?",,"Yes","No", "Cancel"))
-				if("Yes")
-					if(config.ban_legacy_system)
-						usr << "\red Your server is using the legacy banning system, which does not support temporary job bans. Consider upgrading. Aborting ban."
-						return
-					var/mins = input(usr,"How long (in minutes)?","Ban time",1440) as num|null
-					if(!mins)
-						return
-					var/reason = input(usr,"Reason?","Please State Reason","") as text|null
-					if(!reason)
-						return
-
-					var/msg
-					for(var/job in notbannedlist)
-						ban_unban_log_save("[key_name(usr)] temp-jobbanned [key_name(M)] from [job] for [mins] minutes. reason: [reason]")
-						log_admin("[key_name(usr)] temp-jobbanned [key_name(M)] from [job] for [mins] minutes")
-						feedback_inc("ban_job_tmp",1)
-						DB_ban_record(BANTYPE_JOB_TEMP, M, mins, reason, job)
-						feedback_add_details("ban_job_tmp","- [job]")
-						jobban_fullban(M, job, "[reason]; By [usr.ckey] on [time2text(world.realtime)]") //Legacy banning does not support temporary jobbans.
-						if(!msg)
-							msg = job
-						else
-							msg += ", [job]"
-					notes_add(M.ckey, "Banned  from [msg] - [reason]")
-					message_admins("\blue [key_name_admin(usr)] banned [key_name_admin(M)] from [msg] for [mins] minutes", 1)
-					M << "\red<BIG><B>You have been jobbanned by [usr.client.ckey] from: [msg].</B></BIG>"
-					M << "\red <B>The reason is: [reason]</B>"
-					M << "\red This jobban will be lifted in [mins] minutes."
-					href_list["jobban2"] = 1 // lets it fall through and refresh
-					return 1
-				if("No")
-					var/reason = input(usr,"Reason?","Please State Reason","") as text|null
-					if(reason)
-						var/msg
-						for(var/job in notbannedlist)
-							ban_unban_log_save("[key_name(usr)] perma-jobbanned [key_name(M)] from [job]. reason: [reason]")
-							log_admin("[key_name(usr)] perma-banned [key_name(M)] from [job]")
-							feedback_inc("ban_job",1)
-							DB_ban_record(BANTYPE_JOB_PERMA, M, -1, reason, job)
-							feedback_add_details("ban_job","- [job]")
-							jobban_fullban(M, job, "[reason]; By [usr.ckey] on [time2text(world.realtime)]")
-							if(!msg)	msg = job
-							else		msg += ", [job]"
-						notes_add(M.ckey, "Banned  from [msg] - [reason]")
-						message_admins("\blue [key_name_admin(usr)] banned [key_name_admin(M)] from [msg]", 1)
-						M << "\red<BIG><B>You have been jobbanned by [usr.client.ckey] from: [msg].</B></BIG>"
-						M << "\red <B>The reason is: [reason]</B>"
-						M << "\red Jobban can be lifted only upon request."
-						href_list["jobban2"] = 1 // lets it fall through and refresh
-						return 1
-				if("Cancel")
-					return
+			var/reason = input(usr,"Reason?","Please State Reason","") as text|null
+			if(reason)
+				var/msg
+				for(var/job in notbannedlist)
+					ban_unban_log_save("[key_name(usr)] perma-jobbanned [key_name(M)] from [job]. reason: [reason]")
+					log_admin("[key_name(usr)] perma-banned [key_name(M)] from [job]")
+					jobban_fullban(M, job, "[reason]; By [usr.ckey] on [time2text(world.realtime)]")
+					if(!msg)
+						msg = job
+					else
+						msg += ", [job]"
+				notes_add(M.ckey, "Banned  from [msg] - [reason]")
+				message_admins("\blue [key_name_admin(usr)] banned [key_name_admin(M)] from [msg]", 1)
+				M << "\red<BIG><B>You have been jobbanned by [usr.client.ckey] from: [msg].</B></BIG>"
+				M << "\red <B>The reason is: [reason]</B>"
+				M << "\red Jobban can be lifted only upon request."
+				href_list["jobban2"] = 1 // lets it fall through and refresh
+				return 1
 
 		//Unbanning joblist
 		//all jobs in joblist are banned already OR we didn't give a reason (implying they shouldn't be banned)
 		if(joblist.len) //at least 1 banned job exists in joblist so we have stuff to unban.
-			if(!config.ban_legacy_system)
-				usr << "Unfortunately, database based unbanning cannot be done through this panel"
-				DB_ban_panel(M.ckey)
-				return
 			var/msg
 			for(var/job in joblist)
 				var/reason = jobban_isbanned(M, job)
@@ -752,9 +648,6 @@
 					if("Yes")
 						ban_unban_log_save("[key_name(usr)] unjobbanned [key_name(M)] from [job]")
 						log_admin("[key_name(usr)] unbanned [key_name(M)] from [job]")
-						DB_ban_unban(M.ckey, BANTYPE_JOB_PERMA, job)
-						feedback_inc("ban_job_unban",1)
-						feedback_add_details("ban_job_unban","- [job]")
 						jobban_unban(M, job)
 						if(!msg)	msg = job
 						else		msg += ", [job]"
@@ -806,10 +699,6 @@
 				message_admins("\blue [key_name_admin(usr)] removed [t]", 1)
 				jobban_remove(t)
 				href_list["ban"] = 1 // lets it fall through and refresh
-				var/t_split = text2list(t, " - ")
-				var/key = t_split[1]
-				var/job = t_split[2]
-				DB_ban_unban(ckey(key), BANTYPE_JOB_PERMA, job)
 
 	else if(href_list["newban"])
 		if(!check_rights(R_BAN))	return
@@ -832,9 +721,6 @@
 				ban_unban_log_save("[usr.client.ckey] has banned [M.ckey]. - Reason: [reason] - This will be removed in [mins] minutes.")
 				M << "\red<BIG><B>You have been banned by [usr.client.ckey].\nReason: [reason].</B></BIG>"
 				M << "\red This is a temporary ban, it will be removed in [mins] minutes."
-				feedback_inc("ban_tmp",1)
-				DB_ban_record(BANTYPE_TEMP, M, mins, reason)
-				feedback_inc("ban_tmp_mins",mins)
 				if(config.banappeals)
 					M << "\red To try to resolve this matter head to [config.banappeals]"
 				else
@@ -863,8 +749,6 @@
 				ban_unban_log_save("[usr.client.ckey] has permabanned [M.ckey]. - Reason: [reason] - This is a permanent ban.")
 				log_admin("[usr.client.ckey] has banned [M.ckey].\nReason: [reason]\nThis is a permanent ban.")
 				message_admins("\blue[usr.client.ckey] has banned [M.ckey].\nReason: [reason]\nThis is a permanent ban.")
-				feedback_inc("ban_perma",1)
-				DB_ban_record(BANTYPE_PERMA, M, -1, reason)
 
 				del(M.client)
 				//del(M)
@@ -1354,7 +1238,6 @@
 			H.update_inv_l_hand()
 		log_admin("[key_name(H)] got their cookie, spawned by [key_name(src.owner)]")
 		message_admins("[key_name(H)] got their cookie, spawned by [key_name(src.owner)]")
-		feedback_inc("admin_cookies_spawned",1)
 		H << "\blue Your prayers have been answered!! You received the <b>best cookie</b>!"
 
 	else if(href_list["BlueSpaceArtillery"])
@@ -1627,20 +1510,14 @@
 		var/ok = 0
 		switch(href_list["secretsfun"])
 			if("sec_clothes")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","SC")
 				for(var/obj/item/clothing/under/O in world)
 					del(O)
 				ok = 1
 			if("sec_all_clothes")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","SAC")
 				for(var/obj/item/clothing/O in world)
 					del(O)
 				ok = 1
 			if("sec_classic1")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","SC1")
 				for(var/obj/item/clothing/suit/fire/O in world)
 					del(O)
 				for(var/obj/structure/grille/O in world)
@@ -1654,27 +1531,19 @@
 					del(O)
 				ok = 1*/
 			if("monkey")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","M")
 				for(var/mob/living/carbon/human/H in mob_list)
 					spawn(0)
 						H.monkeyize()
 				ok = 1
 			if("corgi")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","M")
 				for(var/mob/living/carbon/human/H in mob_list)
 					spawn(0)
 						H.corgize()
 				ok = 1
 			if("striketeam")
-				if(usr.client.strike_team())
-					feedback_inc("admin_secrets_fun_used",1)
-					feedback_add_details("admin_secrets_fun_used","Strike")
+				usr.client.strike_team()
 			if("tripleAI")
 				usr.client.triple_ai()
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","TriAI")
 			if("gravity")
 				if(!(ticker && ticker.mode))
 					usr << "Please wait until the game starts!  Not sure how it will work otherwise."
@@ -1682,8 +1551,6 @@
 				gravity_is_on = !gravity_is_on
 				for(var/area/A in world)
 					A.gravitychange(gravity_is_on,A)
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","Grav")
 				if(gravity_is_on)
 					log_admin("[key_name(usr)] toggled gravity on.", 1)
 					message_admins("\blue [key_name_admin(usr)] toggled gravity on.", 1)
@@ -1693,32 +1560,22 @@
 					message_admins("\blue [key_name_admin(usr)] toggled gravity off.", 1)
 					command_alert("Feedback surge detected in mass-distributions systems. Artifical gravity has been disabled whilst the system reinitializes. Further failures may result in a gravitational collapse and formation of blackholes. Have a nice day.")
 			if("wave")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","Meteor")
 				log_admin("[key_name(usr)] spawned a meteor wave", 1)
 				message_admins("\blue [key_name_admin(usr)] spawned a meteor wave.", 1)
 				new /datum/event/meteor_wave
 			if("power")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","P")
 				log_admin("[key_name(usr)] made all areas powered", 1)
 				message_admins("\blue [key_name_admin(usr)] made all areas powered", 1)
 				power_restore()
 			if("unpower")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","UP")
 				log_admin("[key_name(usr)] made all areas unpowered", 1)
 				message_admins("\blue [key_name_admin(usr)] made all areas unpowered", 1)
 				power_failure()
 			if("quickpower")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","QP")
 				log_admin("[key_name(usr)] made all SMESs powered", 1)
 				message_admins("\blue [key_name_admin(usr)] made all SMESs powered", 1)
 				power_restore_quick()
 			if("activateprison")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","AP")
 				world << "\blue <B>Transit signature detected.</B>"
 				world << "\blue <B>Incoming shuttle.</B>"
 				/*
@@ -1751,8 +1608,6 @@
 				if(!ticker)
 					alert("The game hasn't started yet!", null, null, null, null, null)
 					return
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","PW")
 				message_admins("\blue [key_name_admin(usr)] teleported all players to the prison station.", 1)
 				for(var/mob/living/carbon/human/H in mob_list)
 					var/turf/loc = find_loc(H)
@@ -1794,8 +1649,6 @@
 				var/objective = copytext(sanitize(input("Enter an objective")),1,MAX_MESSAGE_LEN)
 				if(!objective)
 					return
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","TA([objective])")
 				for(var/mob/living/carbon/human/H in player_list)
 					if(H.stat == 2 || !H.client || !H.mind) continue
 					if(is_special_character(H)) continue
@@ -1823,26 +1676,18 @@
 			if("moveminingshuttle")
 				if(mining_shuttle_moving)
 					return
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","ShM")
 				move_mining_shuttle()
 				message_admins("\blue [key_name_admin(usr)] moved mining shuttle", 1)
 				log_admin("[key_name(usr)] moved the mining shuttle")
 			if("moveferry")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","ShF")
 				move_ferry()
 				message_admins("\blue [key_name_admin(usr)] moved the centcom ferry", 1)
 				log_admin("[key_name(usr)] moved the centcom ferry")
 			if("movealienship")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","ShX")
 				move_alien_ship()
 				message_admins("\blue [key_name_admin(usr)] moved the alien dinghy", 1)
 				log_admin("[key_name(usr)] moved the alien dinghy")
 			if("togglebombcap")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","BC")
 				switch(MAX_EXPLOSION_RANGE)
 					if(14)	MAX_EXPLOSION_RANGE = 16
 					if(16)	MAX_EXPLOSION_RANGE = 20
@@ -1857,8 +1702,6 @@
 				log_admin("[key_name_admin(usr)] changed the bomb cap to [MAX_EXPLOSION_RANGE]")
 
 			if("flicklights")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","FL")
 				while(!usr.stat)
 //knock yourself out to stop the ghosts
 					for(var/mob/M in player_list)
@@ -1930,34 +1773,22 @@
 						sleep(rand(30,400))
 						Wall.ex_act(rand(2,1)) */
 			if("immovable")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","IR")
 				message_admins("[key_name_admin(usr)] has sent an immovable rod to the station", 1)
 				immovablerod()
 			if("prison_break")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","PB")
 				message_admins("[key_name_admin(usr)] has allowed a prison break", 1)
 				prison_break()
 			if("lightout")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","LO")
 				message_admins("[key_name_admin(usr)] has broke a lot of lights", 1)
 				lightsout(1,2)
 			if("blackout")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","BO")
 				message_admins("[key_name_admin(usr)] broke all lights", 1)
 				lightsout(0,0)
 			if("whiteout")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","WO")
 				for(var/obj/machinery/light/L in world)
 					L.fix()
 				message_admins("[key_name_admin(usr)] fixed all lights", 1)
 			if("friendai")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","FA")
 				for(var/mob/aiEye/aE in mob_list)
 					aE.icon_state = "ai_friend"
 				for(var/obj/machinery/M in machines)
@@ -1972,8 +1803,6 @@
 				if(floorIsLava)
 					usr << "The floor is lava already."
 					return
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","LF")
 
 				//Options
 				var/length = input(usr, "How long will the lava last? (in seconds)", "Length", 180) as num
@@ -2024,8 +1853,6 @@
 					floorIsLava = 0
 				return
 			if("virus")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","V")
 				var/answer = alert("Do you want this to be a greater disease or a lesser one?",,"Greater","Lesser")
 				if(answer=="Lesser")
 					virus2_lesser_infection()
@@ -2034,15 +1861,11 @@
 					virus2_greater_infection()
 					message_admins("[key_name_admin(usr)] has triggered a greater virus outbreak.", 1)
 			if("retardify")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","RET")
 				for(var/mob/living/carbon/human/H in player_list)
 					H << "\red <B>You suddenly feel stupid.</B>"
 					H.setBrainLoss(60)
 				message_admins("[key_name_admin(usr)] made everybody retarded")
 			if("fakeguns")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","FG")
 				for(var/obj/item/W in world)
 					if(istype(W, /obj/item/clothing) || istype(W, /obj/item/weapon/card/id) || istype(W, /obj/item/weapon/disk) || istype(W, /obj/item/weapon/tank))
 						continue
@@ -2051,8 +1874,6 @@
 					W.item_state = "gun"
 				message_admins("[key_name_admin(usr)] made every item look like a gun")
 			if("schoolgirl")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","SG")
 				for(var/obj/item/clothing/under/W in world)
 					W.icon_state = "schoolgirl"
 					W.item_state = "w_suit"
@@ -2060,8 +1881,6 @@
 				message_admins("[key_name_admin(usr)] activated Japanese Animes mode")
 				world << sound('sound/AI/animes.ogg')
 			if("eagles")//SCRAW
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","EgL")
 				for(var/obj/machinery/door/airlock/W in world)
 					if(W.z == 1 && !istype(get_area(W), /area/command) && !istype(get_area(W), /area/security))
 						W.req_access = list()
@@ -2069,15 +1888,11 @@
 				command_alert("Centcomm airlock control override activated. Please take this time to get acquainted with your coworkers.")
 				world << sound('sound/AI/commandreport.ogg')
 			if("dorf")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","DF")
 				for(var/mob/living/carbon/human/B in mob_list)
 					B.f_style = "Dward Beard"
 					B.update_hair()
 				message_admins("[key_name_admin(usr)] activated dorf mode")
 			if("ionstorm")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","I")
 				IonStorm()
 				message_admins("[key_name_admin(usr)] triggered an ion storm")
 				var/show_log = alert(usr, "Show ion message?", "Message", "Yes", "No")
@@ -2085,13 +1900,9 @@
 					command_alert("Ion storm detected near the station. Please check all AI-controlled equipment for errors.", "Anomaly Alert")
 					world << sound('sound/AI/ionstorm.ogg')
 			if("spacevines")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","K")
 				//new /datum/event/spacevine
 				message_admins("[key_name_admin(usr)] has spawned spacevines", 1)
 			if("onlyone")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","OO")
 				usr.client.only_one()
 //				message_admins("[key_name_admin(usr)] has triggered a battle to the death (only one)")
 		if(usr)
@@ -2235,7 +2046,6 @@
 				newChannel.author = src.admincaster_signature
 				newChannel.locked = src.admincaster_feed_channel.locked
 				newChannel.is_admin_channel = 1
-				feedback_inc("newscaster_channels",1)
 				news_network.network_channels += newChannel                        //Adding channel to the global network
 				log_admin("[key_name_admin(usr)] created command feed channel: [src.admincaster_feed_channel.channel_name]!")
 				src.admincaster_screen=5
@@ -2262,7 +2072,6 @@
 			newMsg.author = src.admincaster_signature
 			newMsg.body = src.admincaster_feed_message.body
 			newMsg.is_admin_message = 1
-			feedback_inc("newscaster_stories",1)
 			for(var/datum/feed_channel/FC in news_network.network_channels)
 				if(FC.channel_name == src.admincaster_feed_channel.channel_name)
 					FC.messages += newMsg                  //Adding message to the network's appropriate feed_channel
@@ -2418,10 +2227,6 @@
 	else if(href_list["ac_set_signature"])
 		src.admincaster_signature = adminscrub(input(usr, "Provide your desired signature", "Network Identity Handler", ""))
 		src.access_news_network()
-
-	else if(href_list["populate_inactive_customitems"])
-		if(check_rights(R_ADMIN|R_SERVER))
-			populate_inactive_customitems_list(src.owner)
 
 	else if(href_list["vsc"])
 		if(check_rights(R_ADMIN|R_SERVER))
