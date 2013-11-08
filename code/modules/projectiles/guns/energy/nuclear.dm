@@ -43,11 +43,11 @@
 
 	New()
 		..()
-		processing_objects.Add(src)
+		processingObjects.Add(src)
 
 
 	Del()
-		processing_objects.Remove(src)
+		processingObjects.Remove(src)
 		..()
 
 
@@ -82,7 +82,7 @@
 					M << "\red You feel a wave of heat wash over you."
 					M.apply_effect(300, IRRADIATE)
 				crit_fail = 1 //break the gun so it stops recharging
-				processing_objects.Remove(src)
+				processingObjects.Remove(src)
 				update_icon()
 			return 0
 

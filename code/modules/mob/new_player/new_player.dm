@@ -178,7 +178,7 @@
 	//ticker.mode.latespawn(character)
 
 	if(character.mind.assigned_role != "Cyborg")
-		data_core.manifest_inject(character)
+		dataCore.manifest_inject(character)
 		ticker.minds += character.mind//Cyborgs and AIs handle this in the transform proc.	//TODO!!!!! ~Carn
 		AnnounceArrival(character, rank)
 	else
@@ -278,7 +278,7 @@
 /mob/new_player/proc/ViewManifest()
 	var/dat = "<html><body>"
 	dat += "<h4>Crew Manifest</h4>"
-	dat += data_core.get_manifest(OOC = 1)
+	dat += dataCore.get_manifest(OOC = 1)
 
 	src << browse(dat, "window=manifest;size=370x420;can_close=1")
 

@@ -1264,12 +1264,12 @@ var/using_new_click_proc = 0 //TODO ERRORAGE (This is temporary, while the DblCl
 
 
 /atom/proc/get_global_map_pos()
-	if(!islist(global_map) || isemptylist(global_map)) return
+	if(!islist(globalMap) || isemptylist(globalMap)) return
 	var/cur_x = null
 	var/cur_y = null
 	var/list/y_arr = null
-	for(cur_x=1,cur_x<=global_map.len,cur_x++)
-		y_arr = global_map[cur_x]
+	for(cur_x=1,cur_x<=globalMap.len,cur_x++)
+		y_arr = globalMap[cur_x]
 		cur_y = y_arr.Find(src.z)
 		if(cur_y)
 			break

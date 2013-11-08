@@ -31,11 +31,11 @@
 	toggle_secure()
 		secured = !secured
 		if(secured)
-			processing_objects.Add(src)
+			processingObjects.Add(src)
 		else
 			on = 0
 			if(first)	del(first)
-			processing_objects.Remove(src)
+			processingObjects.Remove(src)
 		update_icon()
 		return secured
 

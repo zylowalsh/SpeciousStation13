@@ -115,9 +115,9 @@ turf/simulated
 
 		switch(model.graphic)
 			if("plasma")
-				overlays.Add(plmaster)
+				overlays.Add(plasmaMasterOverlay)
 			if("sleeping_agent")
-				overlays.Add(slmaster)
+				overlays.Add(sleepAgentMasterOverlay)
 
 
 

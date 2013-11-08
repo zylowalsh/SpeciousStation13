@@ -206,8 +206,8 @@ var/global/list/uneatable = list(
 
 /obj/machinery/singularity/proc/eat()
 	set background = 1
-	if(defer_powernet_rebuild != 2)
-		defer_powernet_rebuild = 1
+	if(deferPowernetRebuild != 2)
+		deferPowernetRebuild = 1
 	// Let's just make this one loop.
 	for(var/atom/X in orange(grav_pull,src))
 		var/dist = get_dist(X, src)
@@ -227,8 +227,8 @@ var/global/list/uneatable = list(
 		else if(dist <= consume_range && (isturf(X) || istype(X, /atom/movable)))
 			consume(X)
 
-	if(defer_powernet_rebuild != 2)
-		defer_powernet_rebuild = 0
+	if(deferPowernetRebuild != 2)
+		deferPowernetRebuild = 0
 	return
 
 
@@ -560,11 +560,11 @@ var/global/list/uneatable = list(
 
 /obj/machinery/singularity/narsie/wizard/eat()
 	set background = 1
-	if(defer_powernet_rebuild != 2)
-		defer_powernet_rebuild = 1
+	if(deferPowernetRebuild != 2)
+		deferPowernetRebuild = 1
 	for(var/atom/X in orange(consume_range,src))
 		if(isturf(X) || istype(X, /atom/movable))
 			consume(X)
-	if(defer_powernet_rebuild != 2)
-		defer_powernet_rebuild = 0
+	if(deferPowernetRebuild != 2)
+		deferPowernetRebuild = 0
 	return

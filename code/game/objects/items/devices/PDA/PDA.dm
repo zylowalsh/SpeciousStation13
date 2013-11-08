@@ -502,8 +502,8 @@ var/global/list/obj/item/device/pda/PDAs = list()
 			if (41) //crew manifest
 				dat += "<h4><img src=pda_notes.png> Crew Manifest</h4>"
 				dat += "Entries cannot be modified from this terminal.<br><br>"
-				if(data_core)
-					dat += data_core.get_manifest(1) // make it monochrome
+				if(dataCore)
+					dat += dataCore.get_manifest(1) // make it monochrome
 				dat += "<br>"
 
 			else//Else it links to the cart menu proc. Although, it really uses menu hub 4--menu 4 doesn't really exist as it simply redirects to hub.

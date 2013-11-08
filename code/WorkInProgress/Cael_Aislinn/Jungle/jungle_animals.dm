@@ -12,7 +12,7 @@
 		new new_type(get_turf(src))
 		del(src)
 
-	processing_objects.Add(src)
+	processingObjects.Add(src)
 	spawned_animal = new spawn_type(get_turf(src))
 
 /obj/effect/landmark/animal_spawner/process()
@@ -24,7 +24,7 @@
 			spawned_animal.loc = locate(src.x + rand(-12,12), src.y + rand(-12,12), src.z)
 
 /obj/effect/landmark/animal_spawner/Del()
-	processing_objects.Remove(src)
+	processingObjects.Remove(src)
 
 /obj/effect/landmark/animal_spawner/panther
 	name = "panther spawner"

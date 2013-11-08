@@ -102,10 +102,10 @@
 			del(src)
 
 		spawn_spacevine_piece(src.loc)
-		processing_objects.Add(src)
+		processingObjects.Add(src)
 
 	Del()
-		processing_objects.Remove(src)
+		processingObjects.Remove(src)
 		..()
 
 	proc/spawn_spacevine_piece(var/turf/location)

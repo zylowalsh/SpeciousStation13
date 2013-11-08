@@ -986,7 +986,7 @@ mob/living/carbon/slime/var/temperature_resistance = T0C+75
 
 	New()
 		..()
-		processing_objects.Add(src)
+		processingObjects.Add(src)
 
 	process()
 		var/mob/dead/observer/ghost
@@ -1093,11 +1093,11 @@ mob/living/carbon/slime/var/temperature_resistance = T0C+75
 /obj/item/weapon/reagent_containers/food/snacks/egg/slime/proc/Grow()
 	grown = 1
 	icon_state = "slime egg-grown"
-	processing_objects.Add(src)
+	processingObjects.Add(src)
 	return
 
 /obj/item/weapon/reagent_containers/food/snacks/egg/slime/proc/Hatch()
-	processing_objects.Remove(src)
+	processingObjects.Remove(src)
 	var/turf/T = get_turf(src)
 	src.visible_message("\blue The [name] pulsates and quivers!")
 	spawn(rand(50,100))

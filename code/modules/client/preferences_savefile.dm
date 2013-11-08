@@ -32,10 +32,13 @@
 	savefile_version = SAVEFILE_VERSION_MAX
 
 /datum/preferences/proc/load_preferences()
-	if(!path)				return 0
-	if(!fexists(path))		return 0
+	if(!path)
+		return 0
+	if(!fexists(path))
+		return 0
 	var/savefile/S = new /savefile(path)
-	if(!S)					return 0
+	if(!S)
+		return 0
 	S.cd = "/"
 
 	S["version"] >> savefile_version
@@ -66,9 +69,11 @@
 	return 1
 
 /datum/preferences/proc/save_preferences()
-	if(!path)				return 0
+	if(!path)
+		return 0
 	var/savefile/S = new /savefile(path)
-	if(!S)					return 0
+	if(!S)
+		return 0
 	S.cd = "/"
 
 	S["version"] << savefile_version

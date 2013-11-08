@@ -54,9 +54,9 @@
 	var/datum/gas_mixture/model = return_air()
 	switch(model.graphic)
 		if(1)
-			overlays.Add(plmaster) //TODO: Make invisible plasma an option
+			overlays.Add(plasmaMasterOverlay) //TODO: Make invisible plasma an option
 		if(2)
-			overlays.Add(slmaster)
+			overlays.Add(sleepAgentMasterOverlay)
 
 /turf/simulated/New()
 	..()

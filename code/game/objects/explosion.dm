@@ -35,9 +35,9 @@ proc/explosion(turf/epicenter, devastation_range, heavy_impact_range, light_impa
 
 		var/lighting_controller_was_processing = lighting_controller.processing	//Pause the lighting updates for a bit
 		lighting_controller.processing = 0
-		var/powernet_rebuild_was_deferred_already = defer_powernet_rebuild
-		if(defer_powernet_rebuild != 2)
-			defer_powernet_rebuild = 1
+		var/powernet_rebuild_was_deferred_already = deferPowernetRebuild
+		if(deferPowernetRebuild != 2)
+			deferPowernetRebuild = 1
 
 		if(heavy_impact_range > 1)
 			var/datum/effect/system/explosion/E = new/datum/effect/system/explosion()
@@ -76,8 +76,8 @@ proc/explosion(turf/epicenter, devastation_range, heavy_impact_range, light_impa
 
 		if(!lighting_controller.processing)	lighting_controller.processing = lighting_controller_was_processing
 		if(!powernet_rebuild_was_deferred_already)
-			if(defer_powernet_rebuild != 2)
-				defer_powernet_rebuild = 0
+			if(deferPowernetRebuild != 2)
+				deferPowernetRebuild = 0
 
 	return 1
 

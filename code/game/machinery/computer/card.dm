@@ -55,8 +55,8 @@
 
 		dat += "<h4>Crew Manifest</h4>"
 		dat += "Entries cannot be modified from this terminal.<br><br>"
-		if(data_core)
-			dat += data_core.get_manifest(0) // make it monochrome
+		if(dataCore)
+			dat += dataCore.get_manifest(0) // make it monochrome
 		dat += "<br>"
 		dat += "<a href='?src=\ref[src];choice=print'>Print</a><br>"
 		dat += "<br>"
@@ -64,7 +64,7 @@
 
 		/*var/crew = ""
 		var/list/L = list()
-		for (var/datum/data/record/t in data_core.general)
+		for (var/datum/data/record/t in dataCore.general)
 			var/R = t.fields["name"] + " - " + t.fields["rank"]
 			L += R
 		for(var/R in sortList(L))
@@ -205,7 +205,7 @@
 	switch(href_list["choice"])
 		if ("modify")
 			if (modify)
-				data_core.manifest_modify(modify.registered_name, modify.assignment)
+				dataCore.manifest_modify(modify.registered_name, modify.assignment)
 				modify.name = text("[modify.registered_name]'s ID Card ([modify.assignment])")
 				if(ishuman(usr))
 					modify.loc = usr.loc
@@ -307,7 +307,7 @@
 				var/obj/item/weapon/paper/P = new /obj/item/weapon/paper( loc )
 				/*var/t1 = "<B>Crew Manifest:</B><BR>"
 				var/list/L = list()
-				for (var/datum/data/record/t in data_core.general)
+				for (var/datum/data/record/t in dataCore.general)
 					var/R = t.fields["name"] + " - " + t.fields["rank"]
 					L += R
 				for(var/R in sortList(L))
@@ -315,8 +315,8 @@
 
 				var/t1 = "<h4>Crew Manifest</h4>"
 				t1 += "<br>"
-				if(data_core)
-					t1 += data_core.get_manifest(0) // make it monochrome
+				if(dataCore)
+					t1 += dataCore.get_manifest(0) // make it monochrome
 
 				P.info = t1
 				P.name = "paper- 'Crew Manifest'"

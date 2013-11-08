@@ -435,7 +435,7 @@
 		if(istype(W, /obj/item/weapon/match) && W.lit == 0)
 			W.lit = 1
 			W.icon_state = "match_lit"
-			processing_objects.Add(W)
+			processingObjects.Add(W)
 		W.update_icon()
 		return
 

@@ -14,11 +14,11 @@
 
 	New()
 		..()
-		processing_objects.Add(src)
+		processingObjects.Add(src)
 
 
 	Del()
-		processing_objects.Remove(src)
+		processingObjects.Remove(src)
 		..()
 
 

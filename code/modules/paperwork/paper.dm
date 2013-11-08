@@ -252,7 +252,7 @@
 		t = checkhtml(t)
 
 		// check for exploits
-		for(var/bad in paper_blacklist)
+		for(var/bad in paperBlacklist)
 			if(findtext(t,bad))
 				usr << "\blue You think to yourself, \"Hm.. this is only paper...\""
 				log_admin("PAPER: [usr] ([usr.ckey]) tried to use forbidden word in [src]: [bad].")

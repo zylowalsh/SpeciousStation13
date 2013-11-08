@@ -115,7 +115,7 @@
 
 
 	process()
-		processing_objects.Remove(src)
+		processingObjects.Remove(src)
 		return
 
 

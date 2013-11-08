@@ -1,38 +1,58 @@
-//#define TESTING
 //This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
 
-var/global/obj/effect/datacore/data_core = null
-var/global/obj/effect/overlay/plmaster = null
-var/global/obj/effect/overlay/slmaster = null
+/*
+All coders need to follow these rules, if you want your code to be commited.
 
+- Constants names, which are declared as var/const/, should be all uppercase and each word should be
+	broken by a underscore. ex: I_AM_AN_EXAMPLE
+- All other types of vars and procs names should be mostly lowercase and for each following word the
+	first letter should be uppercase. ex: iAmAnExample  Acronyms are considered one word.
+- Class names are like the example above except for the first word has its first letter uppercased. ex: IAmAnExample
+	When a name isn't set for a class, it will use the class name so be sure you set it.
+- NEVER USE #define MACROS. They are easy to mess up, esp. when someone else comes in after you and edits your code.
+	Use constants instead.
+- Minimize the use of global non-constants and procs.  When I say global, I mean any var or proc that is
+	declared outside a class.  The compiler won't check if something is used or not if it is global.
+- Discribe your code in a comment if it gets difficult or time consuming to read.  No one wants to have to trace
+	a loop within loop, a proc that does multiple things or a var that is used in multiple files.
+- Don't be lazy and name your stuff that does not relate to the current code.  If you use "weaselWackin", then
+	it better be about weasel wackin'.
+- Don't use short non-sense var names(ex: "Bl") unless it is for a loop or a small proc.  If the proc can fit on
+	your screen without having to scroll up or down, it is a small proc.
+- All procs should type check when possible.
+- Don't declare classes and procs without the full name.  It should look this: datum/reagents/proc/reaction_mob(.
+	It is annoying trying to trace what class a proc belongs to by having to follow the indents up 30 pages of code.
+	In addition, it moves the whole code off the right side of the screen.
+- Don't put an empty return statement at the bottom of a proc.  It shows you don't know what you are doing.
+- Lastly, if you are editing something in the code and notice something that doesn't follow these rules, take it
+	upon yourself to fix it.
+*/
+
+//#define TESTING
+
+var/global/obj/effect/datacore/dataCore = null // Stores data related to records, pda, etc.
+var/global/obj/effect/overlay/plasmaMasterOverlay = null // Stores an overlay for plasma in the air
+var/global/obj/effect/overlay/sleepAgentMasterOverlay = null // Stores an overlay for N2O in the air
+
+// Items that ask to be called every cycle
 
 var/global/list/machines = list()
-var/global/list/processing_objects = list()
-var/global/list/active_diseases = list()
+var/global/list/processingObjects = list()
+var/global/list/activeDiseases = list()
 var/global/list/events = list()
-		//items that ask to be called every cycle
 
-var/global/defer_powernet_rebuild = 0		// true if net rebuild will be called manually after an event
+var/global/deferPowernetRebuild = 0 // true if net rebuild will be called manually after an event
 
-var/global/list/global_map = null
-	//list/global_map = list(list(1,5),list(4,3))//an array of map Z levels.
-	//Resulting sector map looks like
-	//|_1_|_4_|
-	//|_5_|_3_|
-	//
-	//1 - SS13
-	//4 - Derelict
-	//3 - AI satellite
-	//5 - empty space
+var/global/list/globalMap = null
 
-
-	//////////////
-var/list/paper_tag_whitelist = list("center","p","div","span","h1","h2","h3","h4","h5","h6","hr","pre",	\
+var/list/paperTagWhitelist = list("center","p","div","span","h1","h2","h3","h4","h5","h6","hr","pre",	\
 	"big","small","font","i","u","b","s","sub","sup","tt","br","hr","ol","ul","li","caption","col",	\
 	"table","td","th","tr")
-var/list/paper_blacklist = list("java","onblur","onchange","onclick","ondblclick","onfocus","onkeydown",	\
+var/list/paperBlacklist = list("java","onblur","onchange","onclick","ondblclick","onfocus","onkeydown",	\
 	"onkeypress","onkeyup","onload","onmousedown","onmousemove","onmouseout","onmouseover",	\
 	"onmouseup","onreset","onselect","onsubmit","onunload")
+
+//Genetic - Which block has mutations
 
 var/BLINDBLOCK = 0
 var/DEAFBLOCK = 0
@@ -65,7 +85,6 @@ var/NOPRINTSBLOCK = 0
 var/SHOCKIMMUNITYBLOCK = 0
 var/SMALLSIZEBLOCK = 0
 
-var/skipupdate = 0
 	///////////////
 var/eventchance = 10 //% per 5 mins
 var/event = 0
@@ -185,20 +204,20 @@ var/list/AAlarmIndexToFlag
 var/list/AAlarmIndexToWireColor
 var/list/AAlarmWireColorToIndex
 
-#define SPEED_OF_LIGHT 3e8 //not exact but hey!
-#define SPEED_OF_LIGHT_SQ 9e+16
-#define FIRE_DAMAGE_MODIFIER 0.0215 //Higher values result in more external fire damage to the skin (default 0.0215)
-#define AIR_DAMAGE_MODIFIER 2.025 //More means less damage from hot air scalding lungs, less = more damage. (default 2.025)
-#define INFINITY 1e31 //closer then enough
+var/const/SPEED_OF_LIGHT = 3e8 //not exact but hey!
+var/const/SPEED_OF_LIGHT_SQ = 9e+16
+var/const/FIRE_DAMAGE_MODIFIER = 0.0215 //Higher values result in more external fire damage to the skin (default 0.0215)
+var/const/AIR_DAMAGE_MODIFIER = 2.025 //More means less damage from hot air scalding lungs, less = more damage. (default 2.025)
+var/const/INFINITY = 1e31 //closer then enough
 
 	//Don't set this very much higher then 1024 unless you like inviting people in to dos your server with message spam
-#define MAX_MESSAGE_LEN 1024
-#define MAX_PAPER_MESSAGE_LEN 3072
-#define MAX_BOOK_MESSAGE_LEN 9216
-#define MAX_NAME_LEN 26
+var/const/MAX_MESSAGE_LEN = 1024
+var/const/MAX_PAPER_MESSAGE_LEN = 3072
+var/const/MAX_BOOK_MESSAGE_LEN = 9216
+var/const/MAX_NAME_LEN = 26
 
-#define shuttle_time_in_station 1800 // 3 minutes in the station
-#define shuttle_time_to_arrive 6000 // 10 minutes to arrive
+var/const/shuttle_time_in_station = 1800 // 3 minutes in the station
+var/const/shuttle_time_to_arrive = 6000 // 10 minutes to arrive
 
 //away missions
 var/list/awaydestinations = list()	//a list of landmarks that the warpgate can take you to

@@ -223,14 +223,14 @@ datum/controller/game_controller/proc/process_mobs()
 
 datum/controller/game_controller/proc/process_diseases()
 	var/i = 1
-	while(i<=active_diseases.len)
-		var/datum/disease/Disease = active_diseases[i]
+	while(i<=activeDiseases.len)
+		var/datum/disease/Disease = activeDiseases[i]
 		if(Disease)
 			last_thing_processed = Disease.type
 			Disease.process()
 			i++
 			continue
-		active_diseases.Cut(i,i+1)
+		activeDiseases.Cut(i,i+1)
 
 datum/controller/game_controller/proc/process_machines()
 	var/i = 1
@@ -248,14 +248,14 @@ datum/controller/game_controller/proc/process_machines()
 
 datum/controller/game_controller/proc/process_objects()
 	var/i = 1
-	while(i<=processing_objects.len)
-		var/obj/Object = processing_objects[i]
+	while(i<=processingObjects.len)
+		var/obj/Object = processingObjects[i]
 		if(Object)
 			last_thing_processed = Object.type
 			Object.process()
 			i++
 			continue
-		processing_objects.Cut(i,i+1)
+		processingObjects.Cut(i,i+1)
 
 datum/controller/game_controller/proc/process_pipenets()
 	last_thing_processed = /datum/pipe_network

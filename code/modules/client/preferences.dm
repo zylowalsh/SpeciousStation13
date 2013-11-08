@@ -38,6 +38,12 @@ datum/preferences
 	var/last_ip
 	var/last_id
 
+	var/firstJoinDate = 0
+	var/lastJoinDate = 0
+
+	var/list/jobNames = list()
+	var/list/numOfJobsPlayed = list()
+
 	//game-preferences
 	var/lastchangelog = ""				//Saved changlog filesize to detect if there was a change
 	var/ooccolor = "#b82e00"
@@ -46,6 +52,9 @@ datum/preferences
 	var/toggles = TOGGLES_DEFAULT
 
 	//character preferences
+	var/isHardcore = 0
+	var/list/previousHardcoreJobs = list()
+
 	var/real_name						//our character's name
 	var/be_random_name = 0				//whether we are a random name every round
 	var/gender = MALE					//gender of character (well duh)
@@ -111,7 +120,6 @@ datum/preferences
 	var/slot_name = ""
 
 /datum/preferences/New(client/C)
-	b_type = pick(4;"O-", 36;"O+", 3;"A-", 28;"A+", 1;"B-", 20;"B+", 1;"AB-", 5;"AB+")
 	if(istype(C))
 		if(!IsGuestKey(C.key))
 			load_path(C.ckey)
@@ -120,6 +128,7 @@ datum/preferences
 					return
 	gender = pick(MALE, FEMALE)
 	real_name = random_name(gender)
+	b_type = pick(8;"O-", 37;"O+", 7;"A-", 33;"A+", 2;"B-", 9;"B+", 1;"AB-", 3;"AB+")
 
 /datum/preferences
 	proc/ZeroSkills(var/forced = 0)

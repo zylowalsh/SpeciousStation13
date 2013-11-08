@@ -10,13 +10,13 @@
 	New(loc, var/h = 100)
 		blobs += src
 		blob_nodes += src
-		processing_objects.Add(src)
+		processingObjects.Add(src)
 		..(loc, h)
 
 
 	Del()
 		blob_nodes -= src
-		processing_objects.Remove(src)
+		processingObjects.Remove(src)
 		..()
 		return
 

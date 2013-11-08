@@ -154,7 +154,7 @@ proc/checkhtml(var/t)
 				tag = copytext(t,start, p)
 				p++
 			tag = copytext(t,start+1, p)
-			if (!(tag in paper_tag_whitelist))	//if it's unkown tag, disarming it
+			if (!(tag in paperTagWhitelist))	//if it's unkown tag, disarming it
 				t = copytext(t,1,start-1) + "&lt;" + copytext(t,start+1)
 		p = findtext(t,"<",p)
 	return t

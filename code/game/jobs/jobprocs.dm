@@ -38,12 +38,12 @@
 /obj/effect/forcefield/mime/New()
 	..()
 	last_process = world.time
-	processing_objects.Add(src)
+	processingObjects.Add(src)
 
 /obj/effect/forcefield/mime/process()
 	timeleft -= (world.time - last_process)
 	if(timeleft <= 0)
-		processing_objects.Remove(src)
+		processingObjects.Remove(src)
 		del(src)
 
 ///////////////////////////////

@@ -44,7 +44,7 @@
 
 
 /obj/structure/cable/Del()						// called when a cable is deleted
-	if(!defer_powernet_rebuild)					// set if network will be rebuilt manually
+	if(!deferPowernetRebuild)					// set if network will be rebuilt manually
 		if(powernet)
 			powernet.cut_cable(src)				// update the powernets
 	cable_list -= src

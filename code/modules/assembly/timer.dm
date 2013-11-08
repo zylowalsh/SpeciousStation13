@@ -20,7 +20,7 @@
 
 	activate()
 		if(!..())	return 0//Cooldown check
-		
+
 		timing = !timing
 
 		update_icon()
@@ -30,10 +30,10 @@
 	toggle_secure()
 		secured = !secured
 		if(secured)
-			processing_objects.Add(src)
+			processingObjects.Add(src)
 		else
 			timing = 0
-			processing_objects.Remove(src)
+			processingObjects.Remove(src)
 		update_icon()
 		return secured
 

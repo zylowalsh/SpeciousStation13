@@ -51,20 +51,20 @@
 
 	sun = new /datum/sun()
 	radio_controller = new /datum/controller/radio()
-	data_core = new /obj/effect/datacore()
+	dataCore = new /obj/effect/datacore()
 	paiController = new /datum/paiController()
 
-	plmaster = new /obj/effect/overlay()
-	plmaster.icon = 'icons/effects/tile_effects.dmi'
-	plmaster.icon_state = "plasma"
-	plmaster.layer = FLY_LAYER
-	plmaster.mouse_opacity = 0
+	plasmaMasterOverlay = new /obj/effect/overlay()
+	plasmaMasterOverlay.icon = 'icons/effects/tile_effects.dmi'
+	plasmaMasterOverlay.icon_state = "plasma"
+	plasmaMasterOverlay.layer = FLY_LAYER
+	plasmaMasterOverlay.mouse_opacity = 0
 
-	slmaster = new /obj/effect/overlay()
-	slmaster.icon = 'icons/effects/tile_effects.dmi'
-	slmaster.icon_state = "sleeping_agent"
-	slmaster.layer = FLY_LAYER
-	slmaster.mouse_opacity = 0
+	sleepAgentMasterOverlay = new /obj/effect/overlay()
+	sleepAgentMasterOverlay.icon = 'icons/effects/tile_effects.dmi'
+	sleepAgentMasterOverlay.icon_state = "sleeping_agent"
+	sleepAgentMasterOverlay.layer = FLY_LAYER
+	sleepAgentMasterOverlay.mouse_opacity = 0
 
 	src.update_status()
 
