@@ -1,5 +1,7 @@
 /datum/job/assistant
 	title = "Assistant"
+	titleFlag = T_ASSISTANT
+	countsAsPlayedInDept = T_CIVILIAN
 	flag = ASSISTANT
 	department_flag = CIVILIAN
 	faction = "Station"

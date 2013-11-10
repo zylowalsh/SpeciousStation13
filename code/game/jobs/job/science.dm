@@ -1,5 +1,7 @@
 /datum/job/rd
 	title = "Research Director"
+	titleFlag = T_RD
+	countsAsPlayedInDept = T_RESEARCH
 	flag = RD
 	department_flag = MEDSCI
 	faction = "Station"
@@ -20,7 +22,8 @@
 	minimal_player_age = 1
 
 	equip(var/mob/living/carbon/human/H)
-		if(!H)	return 0
+		if(!H)
+			return 0
 		H.equip_to_slot_or_del(new /obj/item/device/radio/headset/heads/rd(H), slot_ears)
 		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/brown(H), slot_shoes)
 		H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/research_director(H), slot_w_uniform)
@@ -37,6 +40,8 @@
 
 /datum/job/scientist
 	title = "Scientist"
+	titleFlag = T_SCIENTIST
+	countsAsPlayedInDept = T_RESEARCH
 	flag = SCIENTIST
 	department_flag = MEDSCI
 	faction = "Station"
@@ -49,7 +54,8 @@
 	alt_titles = list("Xenoarcheologist", "Anomalist", "Plasma Researcher")
 
 	equip(var/mob/living/carbon/human/H)
-		if(!H)	return 0
+		if(!H)
+			return 0
 		H.equip_to_slot_or_del(new /obj/item/device/radio/headset/headset_sci(H), slot_ears)
 		H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/scientist(H), slot_w_uniform)
 		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/white(H), slot_shoes)
@@ -61,10 +67,10 @@
 			H.equip_to_slot_or_del(new /obj/item/weapon/storage/box/survival(H.back), slot_in_backpack)
 		return 1
 
-
-
 /datum/job/xenobiologist
 	title = "Xenobiologist"
+	titleFlag = T_XENOBIOLOGIST
+	countsAsPlayedInDept = T_RESEARCH
 	flag = XENOBIOLOGIST
 	department_flag = MEDSCI
 	faction = "Station"
@@ -76,7 +82,8 @@
 	minimal_access = list(access_research, access_xenobiology)
 
 	equip(var/mob/living/carbon/human/H)
-		if(!H) return 0
+		if(!H)
+			return 0
 		H.equip_to_slot_or_del(new /obj/item/device/radio/headset/headset_sci(H), slot_ears)
 		H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/scientist(H), slot_w_uniform)
 		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/white(H), slot_shoes)
@@ -91,6 +98,8 @@
 
 /datum/job/roboticist
 	title = "Roboticist"
+	titleFlag = T_ROBOTICIST
+	countsAsPlayedInDept = T_RESEARCH
 	flag = ROBOTICIST
 	department_flag = MEDSCI
 	faction = "Station"
@@ -103,7 +112,8 @@
 	alt_titles = list("Biomechanical Engineer","Mechatronic Engineer")
 
 	equip(var/mob/living/carbon/human/H)
-		if(!H)	return 0
+		if(!H)
+			return 0
 		H.equip_to_slot_or_del(new /obj/item/device/radio/headset/headset_sci(H), slot_ears)
 		if(H.backbag == 2) H.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack(H), slot_back)
 		if(H.backbag == 3) H.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel_norm(H), slot_back)

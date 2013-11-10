@@ -1,5 +1,7 @@
 /datum/job/ai
 	title = "AI"
+	titleFlag = T_AI
+	countsAsPlayedInDept = T_SILICON
 	flag = AI
 	department_flag = ENGSEC
 	faction = "Station"
@@ -11,13 +13,14 @@
 	minimal_player_age = 5
 
 	equip(var/mob/living/carbon/human/H)
-		if(!H)	return 0
+		if(!H)
+			return 0
 		return 1
-
-
 
 /datum/job/cyborg
 	title = "Cyborg"
+	titleFlag = T_CYBORG
+	countsAsPlayedInDept = T_SILICON
 	flag = CYBORG
 	department_flag = ENGSEC
 	faction = "Station"
@@ -28,5 +31,6 @@
 	minimal_player_age = 4
 
 	equip(var/mob/living/carbon/human/H)
-		if(!H)	return 0
+		if(!H)
+			return 0
 		return 1

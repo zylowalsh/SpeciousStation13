@@ -1,5 +1,7 @@
 /datum/job/hos
 	title = "Head of Security"
+	titleFlag = T_HOS
+	countsAsPlayedInDept = T_SECURITY
 	flag = HOS
 	department_flag = ENGSEC
 	faction = "Station"
@@ -20,7 +22,8 @@
 	minimal_player_age = 2
 
 	equip(var/mob/living/carbon/human/H)
-		if(!H)	return 0
+		if(!H)
+			return 0
 		switch(H.backbag)
 			if(2) H.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/security(H), slot_back)
 			if(3) H.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel_sec(H), slot_back)
@@ -44,10 +47,10 @@
 		L.implanted = 1
 		return 1
 
-
-
 /datum/job/warden
 	title = "Warden"
+	titleFlag = T_WARDEN
+	countsAsPlayedInDept = T_SECURITY
 	flag = WARDEN
 	department_flag = ENGSEC
 	faction = "Station"
@@ -81,10 +84,10 @@
 			H.equip_to_slot_or_del(new /obj/item/weapon/handcuffs(H), slot_in_backpack)
 		return 1
 
-
-
 /datum/job/detective
 	title = "Detective"
+	titleFlag = T_DETECTIVE
+	countsAsPlayedInDept = T_SECURITY
 	flag = DETECTIVE
 	department_flag = ENGSEC
 	faction = "Station"
@@ -99,7 +102,8 @@
 	alt_titles = list("Forensic Technician")
 	minimal_player_age = 1
 	equip(var/mob/living/carbon/human/H)
-		if(!H)	return 0
+		if(!H)
+			return 0
 		H.equip_to_slot_or_del(new /obj/item/device/radio/headset/headset_sec(H), slot_ears)
 		switch(H.backbag)
 			if(2) H.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack(H), slot_back)
@@ -130,10 +134,10 @@
 
 		return 1
 
-
-
 /datum/job/officer
 	title = "Security Officer"
+	titleFlag = T_OFFICER
+	countsAsPlayedInDept = T_SECURITY
 	flag = OFFICER
 	department_flag = ENGSEC
 	faction = "Station"

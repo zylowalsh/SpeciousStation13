@@ -1,5 +1,8 @@
 /datum/job/captain
 	title = "Captain"
+	titleFlag = T_CAPTAIN
+	countsAsPlayedInDept = T_COMMAND
+	minimumTimesAsCommand = 3
 	flag = CAPTAIN
 	department_flag = ENGSEC
 	faction = "Station"
@@ -40,10 +43,11 @@
 	get_access()
 		return get_all_accesses()
 
-
-
 /datum/job/hop
 	title = "Head of Personnel"
+	titleFlag = T_HOP
+	countsAsPlayedInDept = T_COMMAND
+	minimumTimesAsCivilian = 3
 	flag = HOP
 	department_flag = CIVILIAN
 	faction = "Station"
@@ -67,9 +71,9 @@
 			            access_theatre, access_chapel_office, access_library, access_research, access_mining, access_heads_vault, access_mining_station,
 			            access_clown, access_mime, access_hop, access_RC_announce, access_keycard_auth, access_gateway)
 
-
 	equip(var/mob/living/carbon/human/H)
-		if(!H)	return 0
+		if(!H)
+			return 0
 		H.equip_to_slot_or_del(new /obj/item/device/radio/headset/heads/hop(H), slot_ears)
 		switch(H.backbag)
 			if(2) H.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack(H), slot_back)

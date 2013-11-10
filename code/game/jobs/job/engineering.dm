@@ -1,5 +1,8 @@
 /datum/job/chief_engineer
 	title = "Chief Engineer"
+	titleFlag = T_CHIEF_ENG
+	countsAsPlayedInDept = T_ENGINEERING
+	minimumTimesAsEngineering = 3
 	flag = CHIEF
 	department_flag = ENGSEC
 	faction = "Station"
@@ -21,7 +24,8 @@
 
 
 	equip(var/mob/living/carbon/human/H)
-		if(!H)	return 0
+		if(!H)
+			return 0
 		H.equip_to_slot_or_del(new /obj/item/device/radio/headset/heads/ce(H), slot_ears)
 		switch(H.backbag)
 			if(2) H.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/industrial(H), slot_back)
@@ -39,10 +43,10 @@
 			H.equip_to_slot_or_del(new /obj/item/weapon/storage/box/engineer(H.back), slot_in_backpack)
 		return 1
 
-
-
 /datum/job/engineer
 	title = "Station Engineer"
+	titleFlag = T_ENGINEER
+	countsAsPlayedInDept = T_ENGINEERING
 	flag = ENGINEER
 	department_flag = ENGSEC
 	faction = "Station"
@@ -54,9 +58,9 @@
 	minimal_access = list(access_engine, access_engine_equip, access_tech_storage, access_maint_tunnels, access_external_airlocks, access_construction, access_tcomsat)
 	alt_titles = list("Maintenance Technician","Engine Technician","Electrician")
 
-
 	equip(var/mob/living/carbon/human/H)
-		if(!H)	return 0
+		if(!H)
+			return 0
 		H.equip_to_slot_or_del(new /obj/item/device/radio/headset/headset_eng(H), slot_ears)
 		switch(H.backbag)
 			if(2) H.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/industrial(H), slot_back)
@@ -74,10 +78,10 @@
 			H.equip_to_slot_or_del(new /obj/item/weapon/storage/box/engineer(H.back), slot_in_backpack)
 		return 1
 
-
-
 /datum/job/atmos
 	title = "Atmospheric Technician"
+	titleFlag = T_ATMOS_TECH
+	countsAsPlayedInDept = T_ENGINEERING
 	flag = ATMOSTECH
 	department_flag = ENGSEC
 	faction = "Station"
@@ -88,9 +92,9 @@
 	access = list(access_eva, access_engine, access_engine_equip, access_tech_storage, access_maint_tunnels, access_external_airlocks, access_construction, access_atmospherics, access_tcomsat)
 	minimal_access = list(access_atmospherics, access_maint_tunnels, access_construction)
 
-
 	equip(var/mob/living/carbon/human/H)
-		if(!H)	return 0
+		if(!H)
+			return 0
 		H.equip_to_slot_or_del(new /obj/item/device/radio/headset/headset_eng(H), slot_ears)
 		switch(H.backbag)
 			if(2) H.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack(H), slot_back)

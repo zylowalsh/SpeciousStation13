@@ -125,6 +125,9 @@
 	if(!prefs)
 		prefs = new /datum/preferences(src)
 		preferences_datums[ckey] = prefs
+	prefs.lastJoinDate = world.realtime
+	if(prefs.firstJoinDate == 0)
+		prefs.firstJoinDate = world.realtime
 	prefs.last_ip = address				//these are gonna be used for banning
 	prefs.last_id = computer_id			//these are gonna be used for banning
 

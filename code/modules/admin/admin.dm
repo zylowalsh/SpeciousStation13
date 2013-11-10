@@ -54,7 +54,8 @@ var/global/floorIsLava = 0
 		<a href='?src=\ref[src];traitor=\ref[M]'>TP</a> -
 		<a href='?src=\ref[usr];priv_msg=\ref[M]'>PM</a> -
 		<a href='?src=\ref[src];subtlemessage=\ref[M]'>SM</a> -
-		<a href='?src=\ref[src];adminplayerobservejump=\ref[M]'>JMP</a>\] </b><br>
+		<a href='?src=\ref[src];adminplayerobservejump=\ref[M]'>JMP</a>\]</b><br>
+
 		<b>Mob type</b> = [M.type]<br><br>
 		<A href='?src=\ref[src];boot2=\ref[M]'>Kick</A> |
 		<A href='?_src_=holder;warn=[M.ckey]'>Warn</A> |
@@ -145,15 +146,21 @@ var/global/floorIsLava = 0
 				<br>
 			"}
 
-	if (M.client)
+	if(M.client)
+		body += {"<br><br>
+			<b>Statistics:</b>
+			<br>
+			First joined on: [time2text(M.client.prefs.firstJoinDate)]<br>
+			Total joins: [M.client.prefs.getTotalJoins()]<br>
+			[M.client.prefs.getAllJobJoins()]
+
+		"}
+
+	if(M.client)
 		body += {"<br><br>
 			<b>Other actions:</b>
 			<br>
-			<A href='?src=\ref[src];forcespeech=\ref[M]'>Forcesay</A> |
-			<A href='?src=\ref[src];tdome1=\ref[M]'>Thunderdome 1</A> |
-			<A href='?src=\ref[src];tdome2=\ref[M]'>Thunderdome 2</A> |
-			<A href='?src=\ref[src];tdomeadmin=\ref[M]'>Thunderdome Admin</A> |
-			<A href='?src=\ref[src];tdomeobserve=\ref[M]'>Thunderdome Observer</A> |
+			<A href='?src=\ref[src];forcespeech=\ref[M]'>Forcesay</A>
 		"}
 
 	body += {"<br>

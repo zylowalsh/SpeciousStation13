@@ -37,12 +37,11 @@ datum/preferences
 	var/muted = 0
 	var/last_ip
 	var/last_id
-
 	var/firstJoinDate = 0
 	var/lastJoinDate = 0
 
-	var/list/jobNames = list()
-	var/list/numOfJobsPlayed = list()
+	//It uses titleFlag from the datum/job
+	var/list/numOfJobsPlayed[40]
 
 	//game-preferences
 	var/lastchangelog = ""				//Saved changlog filesize to detect if there was a change
@@ -1223,3 +1222,30 @@ datum/preferences
 
 	proc/close_load_dialog(mob/user)
 		user << browse(null, "window=saves")
+
+/datum/preferences/proc/getTotalJoins()
+	var/returnedNum = 0
+	for(var/i in numOfJobsPlayed)
+		returnedNum += numOfJobsPlayed[i]
+	return returnedNum
+
+/datum/preferences/proc/getDeptJoins(var/department as num)
+	var/returnedNum = 0
+	var/datum/job/tmpJob
+	for(var/i = 1, i <= job_master.occupations.len, i++)
+		tmpJob = job_master.occupations[i]
+		if(tmpJob.countsAsPlayedInDept == department)
+			returnedNum += numOfJobsPlayed[i]
+	return returnedNum
+
+/datum/preferences/proc/getAllJobJoins()
+	var/returnedText = ""
+	var/datum/job/tmpJob = null
+	for(var/i = 1, i <= job_master.occupations.len, i++)
+		tmpJob = job_master.occupations[i]
+		if(numOfJobsPlayed[tmpJob.titleFlag] != 0)
+			returnedText += "[tmpJob.title]: [numOfJobsPlayed[tmpJob.titleFlag]] "
+	return returnedText
+
+
+
