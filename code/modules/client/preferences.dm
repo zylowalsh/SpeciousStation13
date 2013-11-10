@@ -1225,8 +1225,11 @@ datum/preferences
 
 /datum/preferences/proc/getTotalJoins()
 	var/returnedNum = 0
-	for(var/i in numOfJobsPlayed)
-		returnedNum += numOfJobsPlayed[i]
+	var/tmpNumPlayed = null
+	for(var/i = 1, i <= numOfJobsPlayed.len, i++)
+		tmpNumPlayed = numOfJobsPlayed[i]
+		if(tmpNumPlayed)
+			returnedNum += tmpNumPlayed
 	return returnedNum
 
 /datum/preferences/proc/getDeptJoins(var/department as num)
@@ -1241,10 +1244,12 @@ datum/preferences
 /datum/preferences/proc/getAllJobJoins()
 	var/returnedText = ""
 	var/datum/job/tmpJob = null
+	var/tmpNumPlayed = null
 	for(var/i = 1, i <= job_master.occupations.len, i++)
 		tmpJob = job_master.occupations[i]
-		if(numOfJobsPlayed[tmpJob.titleFlag] != 0)
-			returnedText += "[tmpJob.title]: [numOfJobsPlayed[tmpJob.titleFlag]] "
+		tmpNumPlayed = numOfJobsPlayed[tmpJob.titleFlag]
+		if(tmpNumPlayed)
+			returnedText += "[tmpJob.title]: <b>[tmpNumPlayed]</b> "
 	return returnedText
 
 

@@ -150,8 +150,8 @@ var/global/floorIsLava = 0
 		body += {"<br><br>
 			<b>Statistics:</b>
 			<br>
-			First joined on: [time2text(M.client.prefs.firstJoinDate)]<br>
-			Total joins: [M.client.prefs.getTotalJoins()]<br>
+			First joined on: <b>[time2text(M.client.prefs.firstJoinDate, "DD MMM YYYY")]</b><br>
+			Total joins: <b>[M.client.prefs.getTotalJoins()]</b><br>
 			[M.client.prefs.getAllJobJoins()]
 
 		"}
