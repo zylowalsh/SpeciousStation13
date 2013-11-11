@@ -110,7 +110,6 @@
 	return 1
 
 /datum/preferences/proc/saveJoinData()
-	world << "saveJoinData() has been called"
 	if(!path)
 		return 0
 	var/savefile/S = new /savefile(path)
