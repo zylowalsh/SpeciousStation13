@@ -123,6 +123,7 @@ datum/preferences
 		if(!IsGuestKey(C.key))
 			load_path(C.ckey)
 			if(load_preferences())
+				loadJoinData()
 				if(load_character())
 					return
 	gender = pick(MALE, FEMALE)
@@ -162,7 +163,8 @@ datum/preferences
 		points -= min(round((age - 20) / 2.5), 4) // every 2.5 years after 20, one extra skillpoint
 		if(age > 30)
 			points -= round((age - 30) / 5) // every 5 years after 30, one extra skillpoint
-		if(original_points > 0 && points <= 0) points = 1
+		if(original_points > 0 && points <= 0)
+			points = 1
 		switch(points)
 			if(0)
 				return "Unconfigured"
@@ -187,7 +189,6 @@ datum/preferences
 
 		if(skills.len == 0)
 			ZeroSkills()
-
 
 		var/HTML = "<body>"
 		HTML += "<b>Select your Skills</b><br>"
@@ -377,7 +378,7 @@ datum/preferences
 
 		user << browse(dat, "window=preferences;size=560x580")
 
-	proc/SetChoices(mob/user, limit = 17, list/splitJobs = list("Chief Medical Officer"), width = 550, height = 550)
+	proc/SetChoices(mob/user, limit = 17, list/splitJobs = list("Chief Medical Officer"), width = 700, height = 550)
 		if(!job_master)
 			return
 
@@ -397,7 +398,8 @@ datum/preferences
 
 		//The job before the current job. I only use this to get the previous jobs color when I'm filling in blank rows.
 		var/datum/job/lastJob
-		if (!job_master)		return
+		if (!job_master)
+			return
 		for(var/datum/job/job in job_master.occupations)
 
 			index += 1
@@ -416,9 +418,8 @@ datum/preferences
 			if(jobban_isbanned(user, rank))
 				HTML += "<font color=red>[rank]</font></td><td><font color=red><b> \[BANNED]</b></font></td></tr>"
 				continue
-			if(!job.player_old_enough(user.client))
-				var/available_in_days = job.available_in_days(user.client)
-				HTML += "<font color=red>[rank]</font></td><td><font color=red> \[IN [(available_in_days)] DAYS]</font></td></tr>"
+			if(!job.hasMinimumJobExperience(user.client))
+				HTML += "<font color=red>[rank]</font></td><td><font color=red><b> \[[job.getRequiredJobExperience(user.client)]]</b></font></td></tr>"
 				continue
 			if((job_civilian_low & ASSISTANT) && (rank != "Assistant"))
 				HTML += "<font color=orange>[rank]</font></td><td></td></tr>"
@@ -1111,6 +1112,7 @@ datum/preferences
 
 					if("reload")
 						load_preferences()
+						loadJoinData()
 						load_character()
 
 					if("open_load_dialog")
@@ -1232,13 +1234,13 @@ datum/preferences
 			returnedNum += tmpNumPlayed
 	return returnedNum
 
-/datum/preferences/proc/getDeptJoins(var/department as num)
+/datum/preferences/proc/getDeptJoins(department)
 	var/returnedNum = 0
 	var/datum/job/tmpJob
 	for(var/i = 1, i <= job_master.occupations.len, i++)
 		tmpJob = job_master.occupations[i]
 		if(tmpJob.countsAsPlayedInDept == department)
-			returnedNum += numOfJobsPlayed[i]
+			returnedNum += numOfJobsPlayed[tmpJob.titleFlag]
 	return returnedNum
 
 /datum/preferences/proc/getAllJobJoins()

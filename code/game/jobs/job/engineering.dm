@@ -1,7 +1,7 @@
 /datum/job/chief_engineer
 	title = "Chief Engineer"
 	titleFlag = T_CHIEF_ENG
-	countsAsPlayedInDept = T_ENGINEERING
+	countsAsPlayedInDept = T_COMMAND
 	minimumTimesAsEngineering = 3
 	flag = CHIEF
 	department_flag = ENGSEC

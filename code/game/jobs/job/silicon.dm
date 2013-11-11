@@ -2,6 +2,10 @@
 	title = "AI"
 	titleFlag = T_AI
 	countsAsPlayedInDept = T_SILICON
+	minimumTimesAsCivilian = 2
+	minimumTimesAsEngineering = 2
+	minimumTimesAsSecurity = 2
+	minimumTimesAsCommand = 1
 	flag = AI
 	department_flag = ENGSEC
 	faction = "Station"
@@ -21,6 +25,10 @@
 	title = "Cyborg"
 	titleFlag = T_CYBORG
 	countsAsPlayedInDept = T_SILICON
+	minimumTimesAsCivilian = 1
+	minimumTimesAsEngineering = 1
+	minimumTimesAsSecurity = 1
+	minimumTimesAsMedical = 1
 	flag = CYBORG
 	department_flag = ENGSEC
 	faction = "Station"

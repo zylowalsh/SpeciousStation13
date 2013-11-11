@@ -1,7 +1,8 @@
 /datum/job/hos
 	title = "Head of Security"
 	titleFlag = T_HOS
-	countsAsPlayedInDept = T_SECURITY
+	countsAsPlayedInDept = T_COMMAND
+	minimumTimesAsSecurity = 3
 	flag = HOS
 	department_flag = ENGSEC
 	faction = "Station"
@@ -51,6 +52,7 @@
 	title = "Warden"
 	titleFlag = T_WARDEN
 	countsAsPlayedInDept = T_SECURITY
+	minimumTimesAsSecurity = 2
 	flag = WARDEN
 	department_flag = ENGSEC
 	faction = "Station"
@@ -88,6 +90,7 @@
 	title = "Detective"
 	titleFlag = T_DETECTIVE
 	countsAsPlayedInDept = T_SECURITY
+	minimumTimesAsSecurity = 1
 	flag = DETECTIVE
 	department_flag = ENGSEC
 	faction = "Station"

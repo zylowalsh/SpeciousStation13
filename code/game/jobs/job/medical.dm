@@ -1,7 +1,7 @@
 /datum/job/cmo
 	title = "Chief Medical Officer"
 	titleFlag = T_CMO
-	countsAsPlayedInDept = T_MEDICAL
+	countsAsPlayedInDept = T_COMMAND
 	minimumTimesAsMedical = 3
 	flag = CMO
 	department_flag = MEDSCI

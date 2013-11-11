@@ -8,4 +8,5 @@
 #ignore any files in config/, except those in subdirectories.
 /config/*
 !/config/*/*
-/maps/backup/*
+/maps/backup/
+data/ban_unban_log.txt

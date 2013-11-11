@@ -116,9 +116,9 @@ var/global/floorIsLava = 0
 
 			//Simple Animals
 			if(isanimal(M))
-				body += "<A href='?src=\ref[src];makeanimal=\ref[M]'>Re-Animalize</A> | "
+				body += "<A href='?src=\ref[src];makeanimal=\ref[M]'>Re-Animalize</A>"
 			else
-				body += "<A href='?src=\ref[src];makeanimal=\ref[M]'>Animalize</A> | "
+				body += "<A href='?src=\ref[src];makeanimal=\ref[M]'>Animalize</A>"
 
 			body += {"<br><br>
 				<b>Rudimentary transformation:</b><font size=2><br>These transformations only create a new mob type and copy stuff over. They do not take into account MMIs and similar mob-specific things. The buttons in 'Transformations' are preferred, when possible.</font><br>
@@ -147,7 +147,7 @@ var/global/floorIsLava = 0
 			"}
 
 	if(M.client)
-		body += {"<br><br>
+		body += {"<br>
 			<b>Statistics:</b>
 			<br>
 			First joined on: <b>[time2text(M.client.prefs.firstJoinDate, "DD MMM YYYY")]</b><br>
@@ -167,7 +167,7 @@ var/global/floorIsLava = 0
 		</body></html>
 	"}
 
-	usr << browse(body, "window=adminplayeropts;size=550x515")
+	usr << browse(body, "window=adminplayeropts;size=550x700")
 
 /datum/player_info/var/author // admin who authored the information
 /datum/player_info/var/rank //rank of admin who made the notes

@@ -1,7 +1,8 @@
 /datum/job/rd
 	title = "Research Director"
 	titleFlag = T_RD
-	countsAsPlayedInDept = T_RESEARCH
+	countsAsPlayedInDept = T_COMMAND
+	minimumTimesAsResearch = 3
 	flag = RD
 	department_flag = MEDSCI
 	faction = "Station"
@@ -35,8 +36,6 @@
 		else
 			H.equip_to_slot_or_del(new /obj/item/weapon/storage/box/survival(H.back), slot_in_backpack)
 		return 1
-
-
 
 /datum/job/scientist
 	title = "Scientist"

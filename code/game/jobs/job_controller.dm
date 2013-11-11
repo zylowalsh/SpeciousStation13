@@ -53,7 +53,7 @@ var/global/datum/controller/occupations/job_master
 				return 0
 			if(jobban_isbanned(player, rank))
 				return 0
-			if(!job.player_old_enough(player.client))
+			if(!job.hasMinimumJobExperience(player.client))
 				return 0
 			var/position_limit = job.total_positions
 			if(!latejoin)
@@ -61,10 +61,12 @@ var/global/datum/controller/occupations/job_master
 			if((job.current_positions < position_limit) || position_limit == -1)
 				Debug("Player: [player] is now Rank: [rank], JCP:[job.current_positions], JPL:[position_limit]")
 				player.mind.assigned_role = rank
-				player.client.prefs.numOfJobsPlayed[job.titleFlag]++
 				player.mind.role_alt_title = GetPlayerAltTitle(player, rank)
 				unassigned -= player
 				job.current_positions++
+
+				player.client.prefs.numOfJobsPlayed[job.titleFlag]++
+				player.client.prefs.saveJoinData()
 				return 1
 		Debug("AR has failed, Player: [player], Rank: [rank]")
 		return 0
@@ -83,7 +85,7 @@ var/global/datum/controller/occupations/job_master
 			if(jobban_isbanned(player, job.title))
 				Debug("FOC isbanned failed, Player: [player]")
 				continue
-			if(!job.player_old_enough(player.client))
+			if(!job.hasMinimumJobExperience(player.client))
 				Debug("FOC player not old enough, Player: [player]")
 				continue
 			if(flag && (!player.client.prefs.be_special & flag))
@@ -110,7 +112,7 @@ var/global/datum/controller/occupations/job_master
 				Debug("GRJ isbanned failed, Player: [player], Job: [job.title]")
 				continue
 
-			if(!job.player_old_enough(player.client))
+			if(!job.hasMinimumJobExperience(player.client))
 				Debug("GRJ player not old enough, Player: [player]")
 				continue
 
@@ -294,7 +296,7 @@ var/global/datum/controller/occupations/job_master
 						Debug("DO isbanned failed, Player: [player], Job:[job.title]")
 						continue
 
-					if(!job.player_old_enough(player.client))
+					if(!job.hasMinimumJobExperience(player.client))
 						Debug("DO player not old enough, Player: [player], Job:[job.title]")
 						continue
 
@@ -531,14 +533,14 @@ var/global/datum/controller/occupations/job_master
 			var/level3 = 0 //low
 			var/level4 = 0 //never
 			var/level5 = 0 //banned
-			var/level6 = 0 //account too young
+			var/level6 = 0 //not enough experience
 			for(var/mob/new_player/player in player_list)
 				if(!(player.ready && player.mind && !player.mind.assigned_role))
 					continue //This player is not ready
 				if(jobban_isbanned(player, job.title))
 					level5++
 					continue
-				if(!job.player_old_enough(player.client))
+				if(!job.hasMinimumJobExperience(player.client))
 					level6++
 					continue
 				if(player.client.prefs.GetJobDepartment(job, 1) & job.flag)

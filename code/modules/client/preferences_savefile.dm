@@ -88,11 +88,50 @@
 
 	return 1
 
-/datum/preferences/proc/load_character(slot)
-	if(!path)				return 0
-	if(!fexists(path))		return 0
+/datum/preferences/proc/loadJoinData()
+	if(!path)
+		return 0
+	if(!fexists(path))
+		return 0
 	var/savefile/S = new /savefile(path)
-	if(!S)					return 0
+	if(!S)
+		return 0
+	S.cd = "/"
+
+	S["firstJoinDate"]		>> firstJoinDate
+	S["lastJoinDate"]		>> lastJoinDate
+	S["numOfJobsPlayed"]     >> numOfJobsPlayed
+
+	if(isnull(firstJoinDate))
+		firstJoinDate = 0
+	if(isnull(lastJoinDate))
+		lastJoinDate = 0
+
+	return 1
+
+/datum/preferences/proc/saveJoinData()
+	world << "saveJoinData() has been called"
+	if(!path)
+		return 0
+	var/savefile/S = new /savefile(path)
+	if(!S)
+		return 0
+	S.cd = "/"
+
+	S["firstJoinDate"]		<< firstJoinDate
+	S["lastJoinDate"]		<< lastJoinDate
+	S["numOfJobsPlayed"]     << numOfJobsPlayed
+
+	return 1
+
+/datum/preferences/proc/load_character(slot)
+	if(!path)
+		return 0
+	if(!fexists(path))
+		return 0
+	var/savefile/S = new /savefile(path)
+	if(!S)
+		return 0
 	S.cd = "/"
 	if(!slot)	slot = default_slot
 	slot = sanitize_integer(slot, 1, MAX_SAVE_SLOTS, initial(default_slot))
@@ -202,9 +241,11 @@
 	return 1
 
 /datum/preferences/proc/save_character()
-	if(!path)				return 0
+	if(!path)
+		return 0
 	var/savefile/S = new /savefile(path)
-	if(!S)					return 0
+	if(!S)
+		return 0
 	S.cd = "/character[default_slot]"
 
 	//Character

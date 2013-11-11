@@ -70,22 +70,65 @@
 	else
 		return src.access.Copy()
 
-//If the configuration option is set to require players to be logged as old enough to play certain jobs, then this proc checks that they are, otherwise it just returns 1
-/datum/job/proc/player_old_enough(client/C)
-	if(available_in_days(C) == 0)
-		return 1	//Available in 0 days = available right now = player is old enough to play.
-	return 0
+/datum/job/proc/hasMinimumJobExperience(client/C)
+	if(minimumTimesAsCivilian)
+		if(minimumTimesAsCivilian > C.prefs.getDeptJoins(T_CIVILIAN))
+			return 0
+	if(minimumTimesAsSecurity)
+		if(minimumTimesAsSecurity > C.prefs.getDeptJoins(T_SECURITY))
+			return 0
+	if(minimumTimesAsMedical)
+		if(minimumTimesAsMedical > C.prefs.getDeptJoins(T_MEDICAL))
+			return 0
+	if(minimumTimesAsEngineering)
+		if(minimumTimesAsEngineering > C.prefs.getDeptJoins(T_ENGINEERING))
+			return 0
+	if(minimumTimesAsCommand)
+		if(minimumTimesAsCommand > C.prefs.getDeptJoins(T_COMMAND))
+			return 0
+	if(minimumTimesAsResearch)
+		if(minimumTimesAsResearch > C.prefs.getDeptJoins(T_RESEARCH))
+			return 0
+	// At this moment, there are no checks for silicon but it is here just in case someone wants it.
+	/*
+	if(minimumTimesAsSilicon)
+		if(minimumTimesAsSilicon > C.prefs.getDeptJoins(T_SILICON))
+			return 0
+	*/
+	return 1
 
-
-/datum/job/proc/available_in_days(client/C)
-	if(!C)
-		return 0
-	if(!config.use_age_restriction_for_jobs)
-		return 0
-	if(!isnum(C.prefs.firstJoinDate))
-		return 0 //This is only a number if the db connection is established, otherwise it is text: "Requires database", meaning these restrictions cannot be enforced
-	if(!isnum(C.prefs.lastJoinDate))
-		return 0
-	if(!isnum(minimal_player_age))
-		return 0
-	return max(0, minimal_player_age - (C.prefs.lastJoinDate - C.prefs.firstJoinDate))
+/datum/job/proc/getRequiredJobExperience(client/C)
+	var/returnedText = ""
+	var/tmpDeptJoins = 0
+	if(minimumTimesAsCivilian)
+		tmpDeptJoins = C.prefs.getDeptJoins(T_CIVILIAN)
+		if(minimumTimesAsCivilian > tmpDeptJoins)
+			returnedText += "CIV: [minimumTimesAsCivilian - tmpDeptJoins] "
+	if(minimumTimesAsSecurity)
+		tmpDeptJoins = C.prefs.getDeptJoins(T_SECURITY)
+		if(minimumTimesAsSecurity > tmpDeptJoins)
+			returnedText += "SEC: [minimumTimesAsSecurity - tmpDeptJoins] "
+	if(minimumTimesAsMedical)
+		tmpDeptJoins = C.prefs.getDeptJoins(T_MEDICAL)
+		if(minimumTimesAsMedical > tmpDeptJoins)
+			returnedText += "MED: [minimumTimesAsMedical - tmpDeptJoins] "
+	if(minimumTimesAsEngineering)
+		tmpDeptJoins = C.prefs.getDeptJoins(T_ENGINEERING)
+		if(minimumTimesAsEngineering > tmpDeptJoins)
+			returnedText += "ENG: [minimumTimesAsEngineering - tmpDeptJoins] "
+	if(minimumTimesAsCommand)
+		tmpDeptJoins = C.prefs.getDeptJoins(T_COMMAND)
+		if(minimumTimesAsCommand > tmpDeptJoins)
+			returnedText += "COMM: [minimumTimesAsCommand - tmpDeptJoins] "
+	if(minimumTimesAsResearch)
+		tmpDeptJoins = C.prefs.getDeptJoins(T_RESEARCH)
+		if(minimumTimesAsResearch > tmpDeptJoins)
+			returnedText += "RES: [minimumTimesAsResearch - tmpDeptJoins] "
+	// At this moment, there are no checks for silicon but it is here just in case someone wants it.
+	/*
+	if(minimumTimesAsSilicon)
+		tmpDeptJoins = C.prefs.getDeptJoins(T_SILICON)
+		if(minimumTimesAsSilicon > tmpDeptJoins)
+			returnedText += "RES: [minimumTimesAsSilicon - tmpDeptJoins] "
+	*/
+	return returnedText

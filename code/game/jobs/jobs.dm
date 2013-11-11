@@ -85,13 +85,13 @@ var/const/T_CARGO_TECH		= 31
 var/const/T_MINER			= 32
 
 //Constants that are used by var/countsAsPlayedInDept
-var/const/T_CIVILIAN		=(1<<0)
-var/const/T_ENGINEERING		=(1<<1)
-var/const/T_SECURITY		=(1<<2)
-var/const/T_MEDICAL			=(1<<3)
-var/const/T_RESEARCH		=(1<<4)
-var/const/T_COMMAND			=(1<<5)
-var/const/T_SILICON			=(1<<6)
+var/const/T_CIVILIAN		= 1
+var/const/T_ENGINEERING		= 2
+var/const/T_SECURITY		= 4
+var/const/T_MEDICAL			= 8
+var/const/T_RESEARCH		= 16
+var/const/T_COMMAND			= 32
+var/const/T_SILICON			= 64
 
 var/list/assistant_occupations = list(
 )
