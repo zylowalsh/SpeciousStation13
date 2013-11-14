@@ -26,13 +26,11 @@
 	fire_sound = 'sound/weapons/Gunshot_smg.ogg'
 	load_method = 2
 
-
 	New()
 		..()
 		empty_mag = new /obj/item/ammo_magazine/a762_bk48/empty(src)
 		update_icon()
 		return
-
 
 	afterattack(atom/target as mob|obj|turf|area, mob/living/user as mob|obj, flag)
 		..()
@@ -41,7 +39,6 @@
 			empty_mag = null
 			update_icon()
 		return
-
 
 	update_icon()
 		..()

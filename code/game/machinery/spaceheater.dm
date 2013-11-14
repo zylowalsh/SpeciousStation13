@@ -108,10 +108,6 @@
 			user.set_machine(src)
 			user << browse("<HEAD><TITLE>Space Heater Control Panel</TITLE></HEAD><TT>[dat]</TT>", "window=spaceheater")
 			onclose(user, "spaceheater")
-
-
-
-
 		else
 			on = !on
 			user.visible_message("\blue [user] switches [on ? "on" : "off"] the [src].","\blue You switch [on ? "on" : "off"] the [src].")

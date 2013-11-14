@@ -74,7 +74,6 @@ display round(lastgen) and plasmatank amount
 		add_avail(power_gen * power_output)
 		UseFuel()
 		src.updateDialog()
-
 	else
 		active = 0
 		icon_state = initial(icon_state)

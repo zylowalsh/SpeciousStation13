@@ -7,8 +7,6 @@ All coders need to follow these rules, if you want your code to be commited.
 	broken by a underscore. ex: I_AM_AN_EXAMPLE
 - All other types of vars and procs names should be mostly lowercase and for each following word the
 	first letter should be uppercase. ex: iAmAnExample  Acronyms are considered one word.
-- Class names are like the example above except for the first word has its first letter uppercased. ex: IAmAnExample
-	When a name isn't set for a class, it will use the class name so be sure you set it.
 - NEVER USE #define MACROS. They are easy to mess up, esp. when someone else comes in after you and edits your code.
 	Use constants instead.
 - Minimize the use of global non-constants and procs.  When I say global, I mean any var or proc that is
