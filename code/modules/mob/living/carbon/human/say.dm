@@ -34,6 +34,25 @@
 				for(var/i = 0,i<imax,i++)
 					message += "E"*/
 
+	if(istype(species, /mob/living/carbon/human/unathi))
+		if(copytext(message, 1, 2) != "*")
+			message = replacetext(message, "s", stutter("ss"))
+
+	if(istype(species, /mob/living/carbon/human/tajaran))
+		if(copytext(message, 1, 2) != "*")
+			message = replacetext(message, "r", stutter("rr"))
+
+	if(istype(species, /mob/living/carbon/human/skrell))
+		if(copytext(message, 1, 2) != "*")
+			if(copytext(message, 1, 2) == ";")
+				message = ";"
+			else
+				message = ""
+			message += "SKR"
+			var/imax = rand(5,20)
+			for(var/i = 0,i<imax,i++)
+				message += "E"
+
 	if(stat != DEAD)
 		for(var/datum/disease/pierrot_throat/D in viruses)
 			var/list/temp_message = text2list(message, " ") //List each word in the message
@@ -43,7 +62,8 @@
 			for(var/i=1, ((i <= D.stage) && (i <= temp_message.len)), i++) //Loop for each stage of the disease or until we run out of words
 				if(prob(3 * D.stage)) //Stage 1: 3% Stage 2: 6% Stage 3: 9% Stage 4: 12%
 					var/H = pick(pick_list)
-					if(findtext(temp_message[H], "*") || findtext(temp_message[H], ";") || findtext(temp_message[H], ":")) continue
+					if(findtext(temp_message[H], "*") || findtext(temp_message[H], ";") || findtext(temp_message[H], ":"))
+						continue
 					temp_message[H] = "HONK"
 					pick_list -= H //Make sure that you dont HONK the same word twice
 				message = dd_list2text(temp_message, " ")
