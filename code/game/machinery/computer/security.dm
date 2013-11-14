@@ -54,24 +54,24 @@
 			switch(screen)
 				if(1.0)
 					dat += {"
-<p style='text-align:center;'>"}
+					<p style='text-align:center;'>"}
 					dat += text("<A href='?src=\ref[];choice=Search Records'>Search Records</A><BR>", src)
 					dat += text("<A href='?src=\ref[];choice=New Record (General)'>New Record</A><BR>", src)
 					dat += {"
-</p>
-<table style="text-align:center;" cellspacing="0" width="100%">
-<tr>
-<th>Records:</th>
-</tr>
-</table>
-<table style="text-align:center;" border="1" cellspacing="0" width="100%">
-<tr>
-<th><A href='?src=\ref[src];choice=Sorting;sort=name'>Name</A></th>
-<th><A href='?src=\ref[src];choice=Sorting;sort=id'>ID</A></th>
-<th><A href='?src=\ref[src];choice=Sorting;sort=rank'>Rank</A></th>
-<th><A href='?src=\ref[src];choice=Sorting;sort=fingerprint'>Fingerprints</A></th>
-<th>Criminal Status</th>
-</tr>"}
+					</p>
+					<table style="text-align:center;" cellspacing="0" width="100%">
+					<tr>
+					<th>Records:</th>
+					</tr>
+					</table>
+					<table style="text-align:center;" border="1" cellspacing="0" width="100%">
+					<tr>
+					<th><A href='?src=\ref[src];choice=Sorting;sort=name'>Name</A></th>
+					<th><A href='?src=\ref[src];choice=Sorting;sort=id'>ID</A></th>
+					<th><A href='?src=\ref[src];choice=Sorting;sort=rank'>Rank</A></th>
+					<th><A href='?src=\ref[src];choice=Sorting;sort=fingerprint'>Fingerprints</A></th>
+					<th>Criminal Status</th>
+					</tr>"}
 					if(!isnull(dataCore.general))
 						for(var/datum/data/record/R in sortRecord(dataCore.general, sortBy, order))
 							var/crimstat = ""
@@ -141,20 +141,20 @@
 						dat += text("ERROR.  String could not be located.<br><br><A href='?src=\ref[];choice=Return'>Back</A>", src)
 					else
 						dat += {"
-<table style="text-align:center;" cellspacing="0" width="100%">
-<tr>					"}
+						<table style="text-align:center;" cellspacing="0" width="100%">
+						<tr>"}
 						dat += text("<th>Search Results for '[]':</th>", tempname)
 						dat += {"
-</tr>
-</table>
-<table style="text-align:center;" border="1" cellspacing="0" width="100%">
-<tr>
-<th>Name</th>
-<th>ID</th>
-<th>Rank</th>
-<th>Fingerprints</th>
-<th>Criminal Status</th>
-</tr>					"}
+						</tr>
+						</table>
+						<table style="text-align:center;" border="1" cellspacing="0" width="100%">
+						<tr>
+						<th>Name</th>
+						<th>ID</th>
+						<th>Rank</th>
+						<th>Fingerprints</th>
+						<th>Criminal Status</th>
+						</tr>					"}
 						for(var/i=1, i<=Perp.len, i += 2)
 							var/crimstat = ""
 							var/datum/data/record/R = Perp[i]

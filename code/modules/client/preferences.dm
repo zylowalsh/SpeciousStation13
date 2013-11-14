@@ -40,7 +40,7 @@ datum/preferences
 	var/firstJoinDate = 0
 	var/lastJoinDate = 0
 
-	//It uses titleFlag from the datum/job
+	//It uses titleFlag from the datum/job as the index
 	var/list/numOfJobsPlayed[40]
 
 	//game-preferences
@@ -53,6 +53,8 @@ datum/preferences
 	//character preferences
 	var/isHardcore = 0
 	var/list/previousHardcoreJobs = list()
+	var/list/previousStatus = list()
+	var/timesCloned = 0
 
 	var/real_name						//our character's name
 	var/be_random_name = 0				//whether we are a random name every round
