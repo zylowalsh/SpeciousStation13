@@ -388,7 +388,6 @@ datum/preferences
 		//width	 - Screen' width. Defaults to 550 to make it look nice.
 		//height 	 - Screen's height. Defaults to 500 to make it look nice.
 
-
 		var/HTML = "<body>"
 		HTML += "<tt><center>"
 		HTML += "<b>Choose occupation chances</b><br>Unavailable occupations are in red.<br><br>"
@@ -402,7 +401,6 @@ datum/preferences
 		if (!job_master)
 			return
 		for(var/datum/job/job in job_master.occupations)
-
 			index += 1
 			if((index >= limit) || (job.title in splitJobs))
 				if((index < limit) && (lastJob != null))

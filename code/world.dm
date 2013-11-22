@@ -1,4 +1,8 @@
-var/const/RECOMMENDED_VERSION = 495
+var/const/RECOMMENDED_VERSION = 501
+
+var/dateAtStart
+var/timeAtStart
+var/dateAtStartString
 
 /world
 	mob = /mob/new_player
@@ -8,18 +12,22 @@ var/const/RECOMMENDED_VERSION = 495
 	cache_lifespan = 0	//stops player uploaded stuff from being kept in the rsc past the current session
 
 /world/New()
-	//logs
-	var/date_string = time2text(world.realtime, "YYYY/MM-Month/DD-Day")
-	log = file("data/logs/runtime/[time2text(world.realtime,"YYYY-MM")].log")		//funtimelog
-	href_logfile = file("data/logs/[date_string] hrefs.htm")
-	diary = file("data/logs/[date_string].log")
-	diaryofmeanpeople = file("data/logs/[date_string] Attack.log")
-	diary << "\n\nStarting up. [time2text(world.timeofday, "hh:mm.ss")]\n---------------------"
-	diaryofmeanpeople << "\n\nStarting up. [time2text(world.timeofday, "hh:mm.ss")]\n---------------------"
+	dateAtStart = world.realtime
+	timeAtStart = world.timeofday
+	dateAtStartString = time2text(dateAtStart, "YYYY/MM-Month/DD-Day")
+	// Setting up logs
+	log = file("data/logs/runtime/[time2text(dateAtStart,"YYYY-MM")].log")
+	href_logfile = file("data/logs/[dateAtStartString] hrefs.htm")
+
+	diary = file("data/logs/[dateAtStartString].log")
+	diaryofmeanpeople = file("data/logs/[dateAtStartString] Attack.log")
+
+	diary << "\n\nStarting up. [time2text(timeAtStart, "hh:mm.ss")]\n---------------------"
+	diaryofmeanpeople << "\n\nStarting up. [time2text(timeAtStart, "hh:mm.ss")]\n---------------------"
 	changelog_hash = md5('html/changelog.html')					//used for telling if the changelog has changed recently
 
 	if(byond_version < RECOMMENDED_VERSION)
-		world.log << "Your server's byond version does not meet the recommended requirements for TGstation code. Please update BYOND"
+		world.log << "Your server's byond version does not meet the recommended requirements. Please update BYOND!"
 
 	make_datum_references_lists()	//initialises global lists for referencing frequently used datums (so that we only ever do it once)
 
@@ -65,40 +73,22 @@ var/const/RECOMMENDED_VERSION = 495
 	sleepAgentMasterOverlay.layer = FLY_LAYER
 	sleepAgentMasterOverlay.mouse_opacity = 0
 
-	src.update_status()
-
-	. = ..()
-
-	sleep_offline = 1
-
 	master_controller = new /datum/controller/game_controller()
-	spawn(1)
+	spawn(-1)
 		master_controller.setup()
 		lighting_controller.Initialize()
 
+	src.update_status()
+
 	process_teleport_locs()			//Sets up the wizard teleport locations
 	process_ghost_teleport_locs()	//Sets up ghost teleport locations.
+	sleep_offline = 1
 
 	spawn(3000)		//so we aren't adding to the round-start lag
 		if(config.ToRban)
 			ToRban_autoupdate()
 		if(config.kick_inactive)
 			KickInactiveClients()
-
-#undef RECOMMENDED_VERSION
-
-	return
-
-//world/Topic(href, href_list[])
-//		world << "Received a Topic() call!"
-//		world << "[href]"
-//		for(var/a in href_list)
-//			world << "[a]"
-//		if(href_list["hello"])
-//			world << "Hello world!"
-//			return "Hello world!"
-//		world << "End of Topic() call."
-//		..()
 
 /world/Topic(T, addr, master, key)
 	diary << "TOPIC: \"[T]\", from:[addr], master:[master], key:[key]"
@@ -137,8 +127,6 @@ var/const/RECOMMENDED_VERSION = 495
 			s["player[n]"] = C.key
 			n++
 		s["players"] = n
-
-		if(revdata)	s["revision"] = revdata.revision
 		s["admins"] = admins
 
 		return list2params(s)

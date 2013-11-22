@@ -238,7 +238,8 @@ turf/proc/shift_to_subarea()
 	lighting_changed = 0
 	var/area/Area = loc
 
-	if(!istype(Area) || !Area.lighting_use_dynamic) return
+	if(!istype(Area) || !Area.lighting_use_dynamic)
+		return
 
 	// change the turf's area depending on its brightness
 	// restrict light to valid levels
@@ -258,7 +259,8 @@ turf/proc/shift_to_subarea()
 			// replicate vars
 			for(var/V in Area.vars)
 				switch(V)
-					if("contents","lighting_overlay","overlays")	continue
+					if("contents","lighting_overlay","overlays")
+						continue
 					else
 						if(issaved(Area.vars[V])) A.vars[V] = Area.vars[V]
 

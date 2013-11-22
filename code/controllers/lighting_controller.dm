@@ -87,7 +87,8 @@ datum/controller/lighting/proc/Initialize(var/z_level)
 			for(var/i=1,i<=world.maxx,i++)
 				for(var/j=1,j<=world.maxy,j++)
 					var/turf/T = locate(i,j,k)
-					if(T)	T.shift_to_subarea()
+					if(T)
+						T.shift_to_subarea()
 
 		changed_turfs.Cut()		// reset the changed list
 
