@@ -1,5 +1,6 @@
-/var/const/OPEN = 1
-/var/const/CLOSED = 2
+var/const/FIREDOOR_OPEN = 1
+var/const/FIREDOOR_CLOSED = 2
+
 /obj/machinery/door/firedoor
 	name = "\improper Emergency Shutter"
 	desc = "Emergency air-tight shutter, capable of sealing off breached areas."
@@ -194,17 +195,17 @@
 		if(needs_to_close)
 			spawn(50)
 				if(alarmed)
-					nextstate = CLOSED
+					nextstate = FIREDOOR_CLOSED
 
 
 	process()
 		if(operating || stat & NOPOWER || !nextstate)
 			return
 		switch(nextstate)
-			if(OPEN)
+			if(FIREDOOR_OPEN)
 				spawn()
 					open()
-			if(CLOSED)
+			if(FIREDOOR_CLOSED)
 				spawn()
 					close()
 		nextstate = null

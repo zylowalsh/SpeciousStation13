@@ -1,4 +1,4 @@
-#define LIQUID_TRANSFER_THRESHOLD 0.05
+var/const/LIQUID_TRANSFER_THRESHOLD = 0.05
 
 var/liquid_delay = 4
 

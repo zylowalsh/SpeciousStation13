@@ -60,11 +60,10 @@ Version 1 changes (from version 0):
 
 */
 
-
-#define SD_ALERT_SCROLL			1
-#define SD_ALERT_SELECT_MULTI	2
-#define SD_ALERT_LINKS			4
-#define SD_ALERT_NOVALIDATE		8
+var/const/SD_ALERT_SCROLL = 1
+var/const/SD_ALERT_SELECT_MULTI = 2
+var/const/SD_ALERT_LINKS = 4
+var/const/SD_ALERT_NOVALIDATE = 8
 
 proc/sd_Alert(client/who, message, title, buttons = list("Ok"),\
 	default, duration = 0, unfocus = 1, size = "300x200", \

@@ -881,7 +881,7 @@ var/list/sacrificed = list()
 					if(prob(5))
 						C.disabilities |= NEARSIGHTED
 						if(prob(10))
-							C.sdisabilities |= BLIND
+							C.sdisabilities |= BOTH_EYES_BLIND
 					C.show_message("\red Suddenly you see red flash that blinds you.", 3)
 					affected++
 				if(affected)

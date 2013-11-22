@@ -1,12 +1,11 @@
-#define MECHA_INT_FIRE 1
-#define MECHA_INT_TEMP_CONTROL 2
-#define MECHA_INT_SHORT_CIRCUIT 4
-#define MECHA_INT_TANK_BREACH 8
-#define MECHA_INT_CONTROL_LOST 16
+var/const/MECHA_INT_FIRE = 1
+var/const/MECHA_INT_TEMP_CONTROL = 2
+var/const/MECHA_INT_SHORT_CIRCUIT = 4
+var/const/MECHA_INT_TANK_BREACH = 8
+var/const/MECHA_INT_CONTROL_LOST = 16
 
-#define MELEE 1
-#define RANGED 2
-
+var/const/MELEE = 1
+var/const/RANGED = 2
 
 /obj/mecha
 	name = "Mecha"

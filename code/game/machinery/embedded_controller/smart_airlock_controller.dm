@@ -1,11 +1,11 @@
 //States for airlock_control
-#define AIRLOCK_STATE_WAIT			0
-#define AIRLOCK_STATE_DEPRESSURIZE	1
-#define AIRLOCK_STATE_PRESSURIZE	2
+var/const/AIRLOCK_STATE_WAIT = 0
+var/const/AIRLOCK_STATE_DEPRESSURIZE_SMART = 1
+var/const/AIRLOCK_STATE_PRESSURIZE_SMART = 2
 
-#define AIRLOCK_TARGET_INOPEN		-1
-#define AIRLOCK_TARGET_NONE			0
-#define AIRLOCK_TARGET_OUTOPEN		1
+var/const/AIRLOCK_TARGET_INOPEN = -1
+var/const/AIRLOCK_TARGET_NONE = 0
+var/const/AIRLOCK_TARGET_OUTOPEN = 1
 
 datum/computer/file/embedded_program/smart_airlock_controller
 	var/id_tag
@@ -152,7 +152,7 @@ datum/computer/file/embedded_program/smart_airlock_controller/process()
 			var/chamber_pressure = memory["chamber_sensor_pressure"]
 			var/target_pressure = memory["target_pressure"]
 			if(chamber_pressure <= target_pressure)
-				state = AIRLOCK_STATE_PRESSURIZE
+				state = AIRLOCK_STATE_PRESSURIZE_SMART
 
 				//send a signal to start pressurizing
 				var/datum/signal/signal = new
@@ -166,7 +166,7 @@ datum/computer/file/embedded_program/smart_airlock_controller/process()
 				post_signal(signal)
 
 			else if(chamber_pressure > target_pressure)
-				state = AIRLOCK_STATE_DEPRESSURIZE
+				state = AIRLOCK_STATE_DEPRESSURIZE_SMART
 
 				//send a signal to start depressurizing
 				var/datum/signal/signal = new
@@ -183,7 +183,7 @@ datum/computer/file/embedded_program/smart_airlock_controller/process()
 		//actually do stuff
 		//override commands are handled elsewhere, otherwise everything proceeds automatically
 		switch(state)
-			if(AIRLOCK_STATE_PRESSURIZE)
+			if(AIRLOCK_STATE_PRESSURIZE_SMART)
 				if(memory["chamber_sensor_pressure"] >= memory["target_pressure"] * 0.95)
 					if(target_state < 0)
 						if(memory["interior_status"] != "open")
@@ -211,7 +211,7 @@ datum/computer/file/embedded_program/smart_airlock_controller/process()
 						post_signal(signal)
 					master.updateDialog()
 
-			if(AIRLOCK_STATE_DEPRESSURIZE)
+			if(AIRLOCK_STATE_DEPRESSURIZE_SMART)
 				if(memory["chamber_sensor_pressure"] <= memory["target_pressure"] * 1.05)
 					if(target_state > 0)
 						if(memory["exterior_status"] != "open")
@@ -359,11 +359,3 @@ obj/machinery/embedded_controller/radio/smart_airlock_controller
 			state_options += "<br>"
 
 		return state_options
-
-#undef AIRLOCK_STATE_PRESSURIZE
-#undef AIRLOCK_STATE_WAIT
-#undef AIRLOCK_STATE_DEPRESSURIZE
-
-#undef AIRLOCK_TARGET_INOPEN
-#undef AIRLOCK_TARGET_CLOSED
-#undef AIRLOCK_TARGET_OUTOPEN

@@ -5,9 +5,10 @@
 // Automatically recharges air (unless off), will flush when ready if pre-set
 // Can hold items and human size things, no other draggables
 // Toilets are a type of disposal bin for small objects only and work on magic. By magic, I mean torque rotation
-#define SEND_PRESSURE 0.05*ONE_ATMOSPHERE
 
 /obj/machinery/disposal
+	var/const/SEND_PRESSURE = 0.05 * ONE_ATMOSPHERE
+
 	name = "disposal unit"
 	desc = "A pneumatic waste disposal unit."
 	icon = 'icons/obj/pipes/disposal.dmi'

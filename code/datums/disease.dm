@@ -1,13 +1,13 @@
-#define SPECIAL -1
-#define NON_CONTAGIOUS 0
-#define BLOOD 1
-#define CONTACT_FEET 2
-#define CONTACT_HANDS 3
-#define CONTACT_GENERAL 4
-#define AIRBORNE 5
+var/const/SPECIAL = -1
+var/const/NON_CONTAGIOUS = 0
+var/const/BLOOD = 1
+var/const/CONTACT_FEET = 2
+var/const/CONTACT_HANDS = 3
+var/const/CONTACT_GENERAL = 4
+var/const/AIRBORNE = 5
 
-#define SCANNER 1
-#define PANDEMIC 2
+var/const/SCANNER = 1
+var/const/PANDEMIC = 2
 
 /*
 
@@ -18,7 +18,6 @@ to null does not delete the object itself. Thank you.
 */
 
 var/list/diseases = typesof(/datum/disease) - /datum/disease
-
 
 /datum/disease
 	var/form = "Virus" //During medscans, what the disease is referred to as

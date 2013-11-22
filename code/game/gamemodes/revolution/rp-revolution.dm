@@ -6,16 +6,18 @@
 // this will also check they're not a head, so it can just be called freely
 // If the rev icons start going wrong for some reason, ticker.mode:update_all_rev_icons() can be called to correct them.
 // If the game somtimes isn't registering a win properly, then ticker.mode.check_win() isn't being called somewhere.
-#define RPREV_REQUIRE_REVS_ALIVE 0
-#define RPREV_REQUIRE_HEADS_ALIVE 0
 
 /datum/game_mode/rp_revolution
+	var/const/RPREV_REQUIRE_REVS_ALIVE = 0
+	var/const/RPREV_REQUIRE_HEADS_ALIVE = 0
+	var/const/WAIT_TIME_LOWER_BOUND = 600 //lower bound on time before intercept arrives (in tenths of seconds)
+	var/const/WAIT_TIME_UPPER_BOUND = 1800 //upper bound on time before intercept arrives (in tenths of seconds)
+
 	name = "rp-revolution"
 	config_tag = "rp-revolution"
 
 	var/finished = 0
-	var/const/waittime_l = 600 //lower bound on time before intercept arrives (in tenths of seconds)
-	var/const/waittime_h = 1800 //upper bound on time before intercept arrives (in tenths of seconds)
+
 	var/all_brigged = 0
 	var/brigged_time = 0
 

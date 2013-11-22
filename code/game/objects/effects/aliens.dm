@@ -175,7 +175,7 @@
 /*
  * Weeds
  */
-#define NODERANGE 3
+var/const/NODERANGE = 3
 
 /obj/effect/alien/weeds
 	name = "weeds"

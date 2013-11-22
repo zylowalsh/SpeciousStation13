@@ -1,10 +1,8 @@
-// the SMES
-// stores power
-
-#define SMESMAXCHARGELEVEL 200000
-#define SMESMAXOUTPUT 200000
-
 /obj/machinery/power/smes
+	var/const/SMESMAXCHARGELEVEL = 200000
+	var/const/SMESMAXOUTPUT = 200000
+	var/const/SMESRATE = 0.05 // rate of internal charge to external power
+
 	name = "power storage unit"
 	desc = "A high-capacity superconducting magnetic energy storage (SMES) unit."
 	icon_state = "smes"
@@ -63,9 +61,6 @@
 
 /obj/machinery/power/smes/proc/chargedisplay()
 	return round(5.5*charge/(capacity ? capacity : 5e6))
-
-#define SMESRATE 0.05			// rate of internal charge to external power
-
 
 /obj/machinery/power/smes/process()
 

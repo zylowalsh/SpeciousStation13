@@ -115,7 +115,6 @@ turf/simulated/wall/impassable_rock
 /*
  * Weeds
  */
-#define NODERANGE 1
 
 /obj/effect/alien/flesh/weeds
 	name = "Fleshy Growth"

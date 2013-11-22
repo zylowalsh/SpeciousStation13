@@ -1,4 +1,4 @@
-#define BORG_CAMERA_BUFFER 30
+var/const/BORG_CAMERA_BUFFER = 30
 
 //UPDATE TRIGGERS, when the chunk (and the surrounding chunks) should update.
 

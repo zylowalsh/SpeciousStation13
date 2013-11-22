@@ -20,7 +20,6 @@
 			if (prob(5))
 				del(src)
 				return
-	return
 
 /obj/structure/stool/blob_act()
 	if(prob(75))
@@ -32,7 +31,6 @@
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 		new /obj/item/stack/sheet/metal(src.loc)
 		del(src)
-	return
 
 /obj/structure/stool/MouseDrop(atom/over_object)
 	if (istype(over_object, /mob/living/carbon/human))

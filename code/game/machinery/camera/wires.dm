@@ -1,9 +1,9 @@
-#define CAMERA_WIRE_FOCUS 1
-#define CAMERA_WIRE_POWER 2
-#define CAMERA_WIRE_LIGHT 3
-#define CAMERA_WIRE_ALARM 4
-#define CAMERA_WIRE_NOTHING1 5
-#define CAMERA_WIRE_NOTHING2 6
+var/const/CAMERA_WIRE_FOCUS = 1
+var/const/CAMERA_WIRE_POWER = 2
+var/const/CAMERA_WIRE_LIGHT = 3
+var/const/CAMERA_WIRE_ALARM = 4
+var/const/CAMERA_WIRE_NOTHING1 = 5
+var/const/CAMERA_WIRE_NOTHING2 = 6
 
 /obj/machinery/camera/proc/randomCameraWires()
 	//to make this not randomize the wires, just set index to 1 and increment it in the flag for loop (after doing everything else).

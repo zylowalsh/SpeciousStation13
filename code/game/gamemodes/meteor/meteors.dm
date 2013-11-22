@@ -1,12 +1,9 @@
-#define METEOR_TEMPERATURE
+var/const/METEOR_TEMPERATURE = 2000
+var/const/METEOR_WAVE_DELAY = 625
+var/const/METEORS_IN_WAVE = 50
+var/const/METEORS_IN_SMALL_WAVE = 10
 
-/var/const/meteor_wave_delay = 625 //minimum wait between waves in tenths of seconds
-//set to at least 100 unless you want evarr ruining every round
-
-/var/const/meteors_in_wave = 50
-/var/const/meteors_in_small_wave = 10
-
-/proc/meteor_wave(var/number = meteors_in_wave)
+/proc/meteor_wave(var/number = METEORS_IN_WAVE)
 	if(!ticker || wavesecret)
 		return
 
@@ -14,10 +11,10 @@
 	for(var/i = 0 to number)
 		spawn(rand(10,100))
 			spawn_meteor()
-	spawn(meteor_wave_delay)
+	spawn(METEOR_WAVE_DELAY)
 		wavesecret = 0
 
-/proc/spawn_meteors(var/number = meteors_in_small_wave)
+/proc/spawn_meteors(var/number = METEORS_IN_SMALL_WAVE)
 	for(var/i = 0; i < number; i++)
 		spawn(0)
 			spawn_meteor()
@@ -98,7 +95,7 @@
 /obj/effect/meteor/Move()
 	var/turf/T = src.loc
 	if (istype(T, /turf))
-		T.hotspot_expose(METEOR_TEMPERATURE, 1000)
+		T.hotspot_expose(, 1000)
 	..()
 	return
 

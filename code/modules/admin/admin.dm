@@ -1,7 +1,7 @@
+var/const/PLAYER_NOTES_ENTRIES_PER_PAGE = 50
 
-var/global/BSACooldown = 0
-var/global/floorIsLava = 0
-
+var/BSACooldown = 0
+var/floorIsLava = 0
 
 ////////////////////////////////
 /proc/message_admins(var/msg)
@@ -174,7 +174,6 @@ var/global/floorIsLava = 0
 /datum/player_info/var/content // text content of the information
 /datum/player_info/var/timestamp // Because this is bloody annoying
 
-#define PLAYER_NOTES_ENTRIES_PER_PAGE 50
 /datum/admins/proc/PlayerNotes()
 	set category = "Admin"
 	set name = "Player Notes"
@@ -631,9 +630,6 @@ var/global/floorIsLava = 0
 			<A href='?src=\ref[src];secretsfun=friendai'>Best Friend AI</A><BR>
 			<A href='?src=\ref[src];secretsfun=floorlava'>The floor is lava! (DANGEROUS: extremely lame)</A><BR>
 			"}
-
-	if(check_rights(R_SERVER,0))
-		dat += "<A href='?src=\ref[src];secretsfun=togglebombcap'>Toggle bomb cap</A><BR>"
 
 	dat += "<BR>"
 

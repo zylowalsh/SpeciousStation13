@@ -372,7 +372,7 @@
 		user << "\red Your eyes are really starting to hurt. This can't be good for you!"
 	if (prob(user.eye_stat - 25 + 1))
 		user << "\red You go blind!"
-		user.sdisabilities |= BLIND
+		user.sdisabilities |= BOTH_EYES_BLIND
 	else if (prob(user.eye_stat - 15 + 1))
 		user << "\red You go blind!"
 		user.eye_blind = 5

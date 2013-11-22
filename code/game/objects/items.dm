@@ -652,7 +652,7 @@
 	//	M = user
 		/*
 		M << "\red You stab yourself in the eye."
-		M.sdisabilities |= BLIND
+		M.sdisabilities |= BOTH_EYES_BLIND
 		M.weakened += 4
 		M.adjustBruteLoss(10)
 		*/
@@ -689,7 +689,7 @@
 		if (prob(M.eye_stat - 10 + 1))
 			if(M.stat != 2)
 				M << "\red You go blind!"
-			M.sdisabilities |= BLIND
+			M.sdisabilities |= BOTH_EYES_BLIND
 	return
 
 /obj/item/clean_blood()

@@ -100,7 +100,7 @@
 		for(var/obj/machinery/door/firedoor/D in all_doors)
 			if(!D.blocked)
 				if(D.operating)
-					D.nextstate = CLOSED
+					D.nextstate = FIREDOOR_CLOSED
 				else if(!D.density)
 					spawn()
 						D.close()
@@ -122,7 +122,7 @@
 		for(var/obj/machinery/door/firedoor/D in all_doors)
 			if(!D.blocked)
 				if(D.operating)
-					D.nextstate = OPEN
+					D.nextstate = FIREDOOR_OPEN
 				else if(D.density)
 					spawn(0)
 					D.open()
@@ -165,7 +165,7 @@
 		for(var/obj/machinery/door/firedoor/D in src)
 			if(!D.blocked)
 				if(D.operating)
-					D.nextstate = OPEN
+					D.nextstate = FIREDOOR_OPEN
 				else if(D.density)
 					spawn(0)
 					D.open()
@@ -187,13 +187,6 @@
 	else
 	//	new lighting behaviour with obj lights
 		icon_state = null
-
-
-/*
-#define EQUIP 1
-#define LIGHT 2
-#define ENVIRON 3
-*/
 
 /area/proc/powered(var/chan)		// return true if the area has power to given channel
 

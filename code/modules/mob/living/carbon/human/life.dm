@@ -1,27 +1,34 @@
 //This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:32
 
-//NOTE: Breathing happens once per FOUR TICKS, unless the last breath fails. In which case it happens once per ONE TICK! So oxyloss healing is done once per 4 ticks while oxyloss damage is applied once per tick!
-#define HUMAN_MAX_OXYLOSS 1 //Defines how much oxyloss humans can get per tick. A tile with no air at all (such as space) applies this value, otherwise it's a percentage of it.
-#define HUMAN_CRIT_MAX_OXYLOSS ( (last_tick_duration) /5) //The amount of damage you'll get when in critical condition. We want this to be a 5 minute deal = 300s. There are 100HP to get through, so (1/3)*last_tick_duration per second. Breaths however only happen every 4 ticks.
-
-#define HEAT_DAMAGE_LEVEL_1 2 //Amount of damage applied when your body temperature just passes the 360.15k safety point
-#define HEAT_DAMAGE_LEVEL_2 4 //Amount of damage applied when your body temperature passes the 400K point
-#define HEAT_DAMAGE_LEVEL_3 8 //Amount of damage applied when your body temperature passes the 1000K point
-
-#define COLD_DAMAGE_LEVEL_1 0.5 //Amount of damage applied when your body temperature just passes the 260.15k safety point
-#define COLD_DAMAGE_LEVEL_2 1.5 //Amount of damage applied when your body temperature passes the 200K point
-#define COLD_DAMAGE_LEVEL_3 3 //Amount of damage applied when your body temperature passes the 120K point
-
-//Note that gas heat damage is only applied once every FOUR ticks.
-#define HEAT_GAS_DAMAGE_LEVEL_1 2 //Amount of damage applied when the current breath's temperature just passes the 360.15k safety point
-#define HEAT_GAS_DAMAGE_LEVEL_2 4 //Amount of damage applied when the current breath's temperature passes the 400K point
-#define HEAT_GAS_DAMAGE_LEVEL_3 8 //Amount of damage applied when the current breath's temperature passes the 1000K point
-
-#define COLD_GAS_DAMAGE_LEVEL_1 0.5 //Amount of damage applied when the current breath's temperature just passes the 260.15k safety point
-#define COLD_GAS_DAMAGE_LEVEL_2 1.5 //Amount of damage applied when the current breath's temperature passes the 200K point
-#define COLD_GAS_DAMAGE_LEVEL_3 3 //Amount of damage applied when the current breath's temperature passes the 120K point
+//The amount of damage you'll get when in critical condition. We want this to be a 5 minute deal = 300s. There are 100HP to get through,
+//  so (1/3)*last_tick_duration per second. Breaths however only happen every 4 ticks.
+#define HUMAN_CRIT_MAX_OXYLOSS ((last_tick_duration) / 5)
 
 /mob/living/carbon/human
+	//NOTE: Breathing happens once per FOUR TICKS, unless the last breath fails. In which case it happens once per ONE TICK! So oxyloss
+	//  healing is done once per 4 ticks while oxyloss damage is applied once per tick!
+
+	//Defines how much oxyloss humans can get per tick. A tile with no air at all (such as space) applies
+	//  this value, otherwise it's a percentage of it.
+	var/const/HUMAN_MAX_OXYLOSS = 1
+
+	var/const/COLD_DAMAGE_LEVEL_1 = 0.5 //Amount of damage applied when your body temperature just passes the 260.15k safety point
+	var/const/COLD_DAMAGE_LEVEL_2 = 1.5 //Amount of damage applied when your body temperature passes the 200K point
+	var/const/COLD_DAMAGE_LEVEL_3 = 3 //Amount of damage applied when your body temperature passes the 120K point
+
+	var/const/HEAT_DAMAGE_LEVEL_1 = 2 //Amount of damage applied when your body temperature just passes the 360.15k safety point
+	var/const/HEAT_DAMAGE_LEVEL_2 = 4 //Amount of damage applied when your body temperature passes the 400K point
+	var/const/HEAT_DAMAGE_LEVEL_3 = 8 //Amount of damage applied when your body temperature passes the 1000K point
+
+	//Note that gas heat damage is only applied once every FOUR ticks.
+	var/const/HEAT_GAS_DAMAGE_LEVEL_1 = 2 //Amount of damage applied when the current breath's temperature just passes the 360.15k safety point
+	var/const/HEAT_GAS_DAMAGE_LEVEL_2 = 4 //Amount of damage applied when the current breath's temperature passes the 400K point
+	var/const/HEAT_GAS_DAMAGE_LEVEL_3 = 8 //Amount of damage applied when the current breath's temperature passes the 1000K point
+
+	var/const/COLD_GAS_DAMAGE_LEVEL_1 = 0.5 //Amount of damage applied when the current breath's temperature just passes the 260.15k safety point
+	var/const/COLD_GAS_DAMAGE_LEVEL_2 = 1.5 //Amount of damage applied when the current breath's temperature passes the 200K point
+	var/const/COLD_GAS_DAMAGE_LEVEL_3 = 3 //Amount of damage applied when the current breath's temperature passes the 120K point
+
 	var/oxygen_alert = 0
 	var/toxins_alert = 0
 	var/fire_alert = 0
@@ -30,13 +37,14 @@
 	var/temperature_alert = 0
 	var/in_stasis = 0
 
-
 /mob/living/carbon/human/Life()
 	set invisibility = 0
 	set background = 1
 
-	if (monkeyizing)	return
-	if(!loc)			return	// Fixing a null error that occurs when the mob isn't found in the world -- TLE
+	if (monkeyizing)
+		return
+	if(!loc)
+		return	// Fixing a null error that occurs when the mob isn't found in the world -- TLE
 
 	..()
 
@@ -537,8 +545,6 @@
 			else
 				loc_temp = environment.temperature
 
-			//world << "Loc temp: [loc_temp] - Body temp: [bodytemperature] - Fireloss: [getFireLoss()] - Thermal protection: [get_thermal_protection()] - Fire protection: [thermal_protection + add_fire_protection(loc_temp)] - Heat capacity: [environment_heat_capacity] - Location: [loc] - src: [src]"
-
 			//Body temperature is adjusted in two steps. Firstly your body tries to stabilize itself a bit.
 			if(stat != 2)
 				stabilize_temperature_from_calories()
@@ -1008,7 +1014,7 @@
 					adjustHalLoss(-1)
 
 			//Eyes
-			if(sdisabilities & BLIND)	//disabled-blind, doesn't get better on its own
+			if(sdisabilities & BOTH_EYES_BLIND)	//disabled-blind, doesn't get better on its own
 				blinded = 1
 			else if(eye_blind)			//blindness, heals slowly over time
 				eye_blind = max(eye_blind-1,0)

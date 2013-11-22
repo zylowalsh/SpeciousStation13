@@ -1,19 +1,13 @@
 //This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:32
 
+//	All telecommunications interactions:
 
-/*
-
-	All telecommunications interactions:
-
-*/
-
-#define STATION_Z 1
-#define TELECOMM_Z 3
+var/const/STATION_Z = 1
+var/const/TELECOMM_Z = 3
 
 /obj/machinery/telecomms
 	var/temp = "" // output message
 	var/construct_op = 0
-
 
 /obj/machinery/telecomms/attackby(obj/item/P as obj, mob/user as mob)
 
@@ -168,7 +162,6 @@
 //
 // You are able to send/receive signals from the station's z level (changeable in the STATION_Z #define) if
 // the relay is on the telecomm satellite (changable in the TELECOMM_Z #define)
-
 
 /obj/machinery/telecomms/relay/proc/toggle_level()
 

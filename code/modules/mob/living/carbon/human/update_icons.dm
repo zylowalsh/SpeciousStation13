@@ -96,33 +96,32 @@ If you have any questions/constructive-comments/bugs-to-report/or have a massivl
 Please contact me on #coderbus IRC. ~Carn x
 */
 
-//Human Overlays Indexes/////////
-#define MUTANTRACE_LAYER		1		//TODO: make part of body?
-#define MUTATIONS_LAYER			2
-#define DAMAGE_LAYER			3
-#define UNIFORM_LAYER			4
-#define ID_LAYER				5
-#define SHOES_LAYER				6
-#define GLOVES_LAYER			7
-#define EARS_LAYER				8
-#define SUIT_LAYER				9
-#define GLASSES_LAYER			10
-#define BELT_LAYER				11		//Possible make this an overlay of somethign required to wear a belt?
-#define SUIT_STORE_LAYER		12
-#define BACK_LAYER				13
-#define HAIR_LAYER				14		//TODO: make part of head layer?
-#define FACEMASK_LAYER			15
-#define HEAD_LAYER				16
-#define HANDCUFF_LAYER			17
-#define LEGCUFF_LAYER			18
-#define L_HAND_LAYER			19
-#define R_HAND_LAYER			20
-#define TAIL_LAYER				21		//bs12 specific. this hack is probably gonna come back to haunt me
-#define TARGETED_LAYER			22		//BS12: Layer for the target overlay from weapon targeting system
-#define TOTAL_LAYERS			22
-//////////////////////////////////
-
 /mob/living/carbon/human
+	//Human Overlays Indexes
+	var/const/MUTANTRACE_LAYER = 1		//TODO: make part of body?
+	var/const/MUTATIONS_LAYER = 2
+	var/const/DAMAGE_LAYER = 3
+	var/const/UNIFORM_LAYER = 4
+	var/const/ID_LAYER = 5
+	var/const/SHOES_LAYER = 6
+	var/const/GLOVES_LAYER = 7
+	var/const/EARS_LAYER = 8
+	var/const/SUIT_LAYER = 9
+	var/const/GLASSES_LAYER = 10
+	var/const/BELT_LAYER = 11		//Possible make this an overlay of somethign required to wear a belt?
+	var/const/SUIT_STORE_LAYER = 12
+	var/const/BACK_LAYER = 13
+	var/const/HAIR_LAYER = 14		//TODO: make part of head layer?
+	var/const/FACEMASK_LAYER = 15
+	var/const/HEAD_LAYER = 16
+	var/const/HANDCUFF_LAYER = 17
+	var/const/LEGCUFF_LAYER = 18
+	var/const/L_HAND_LAYER = 19
+	var/const/R_HAND_LAYER = 20
+	var/const/TAIL_LAYER = 21		//bs12 specific. this hack is probably gonna come back to haunt me
+	var/const/TARGETED_LAYER = 22		//BS12: Layer for the target overlay from weapon targeting system
+	var/const/TOTAL_LAYERS = 22
+
 	var/list/overlays_lying[TOTAL_LAYERS]
 	var/list/overlays_standing[TOTAL_LAYERS]
 	var/previous_damage_appearance // store what the body last looked like, so we only have to update it if something changed

@@ -1,4 +1,4 @@
-var/bomb_set
+var/const/NUKE_RANGE = 80
 
 /obj/machinery/nuclearbomb
 	name = "\improper Nuclear Fission Explosive"
@@ -257,8 +257,6 @@ var/bomb_set
 		return ..()
 	return
 
-
-#define NUKERANGE 80
 /obj/machinery/nuclearbomb/proc/explode()
 	if (src.safety)
 		src.timing = 0
@@ -277,7 +275,7 @@ var/bomb_set
 	var/off_station = 0
 	var/turf/bomb_location = get_turf(src)
 	if( bomb_location && (bomb_location.z == 1) )
-		if( (bomb_location.x < (128-NUKERANGE)) || (bomb_location.x > (128+NUKERANGE)) || (bomb_location.y < (128-NUKERANGE)) || (bomb_location.y > (128+NUKERANGE)) )
+		if( (bomb_location.x < (128-NUKE_RANGE)) || (bomb_location.x > (128+NUKE_RANGE)) || (bomb_location.y < (128-NUKE_RANGE)) || (bomb_location.y > (128+NUKE_RANGE)) )
 			off_station = 1
 	else
 		off_station = 2

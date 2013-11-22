@@ -1,4 +1,6 @@
 /obj/machinery/power/generator_type2
+	var/const/GENRATE = 800		// generator output coefficient from Q
+
 	name = "thermoelectric generator"
 	desc = "It's a high efficiency thermoelectric generator."
 	icon_state = "teg"
@@ -12,7 +14,6 @@
 	var/lastgen = 0
 	var/lastgenlev = -1
 
-
 /obj/machinery/power/generator_type2/New()
 	..()
 	spawn(5)
@@ -21,7 +22,6 @@
 		if(!input1 || !input2)
 			stat |= BROKEN
 		updateicon()
-
 
 /obj/machinery/power/generator_type2/proc/updateicon()
 
@@ -32,9 +32,6 @@
 
 		if(lastgenlev != 0)
 			overlays += image('icons/obj/power.dmi', "teg-op[lastgenlev]")
-
-#define GENRATE 800		// generator output coefficient from Q
-
 
 /obj/machinery/power/generator_type2/process()
 	if(!input1 || !input2)
@@ -92,12 +89,10 @@
 	if(stat & (BROKEN|NOPOWER)) return
 	interact(user)
 
-
 /obj/machinery/power/generator_type2/attack_hand(mob/user)
 	add_fingerprint(user)
 	if(stat & (BROKEN|NOPOWER)) return
 	interact(user)
-
 
 /obj/machinery/power/generator_type2/interact(mob/user)
 	if ( (get_dist(src, user) > 1 ) && (!istype(user, /mob/living/silicon/ai)))

@@ -1,50 +1,50 @@
 
-#define RIOTS 1
-#define WILD_ANIMAL_ATTACK 2
-#define INDUSTRIAL_ACCIDENT 3
-#define BIOHAZARD_OUTBREAK 4
-#define WARSHIPS_ARRIVE 5
-#define PIRATES 6
-#define CORPORATE_ATTACK 7
-#define ALIEN_RAIDERS 8
-#define AI_LIBERATION 9
-#define MOURNING 10
-#define CULT_CELL_REVEALED 11
-#define SECURITY_BREACH 12
-#define ANIMAL_RIGHTS_RAID 13
-#define FESTIVAL 14
+var/const/RIOTS = 1
+var/const/WILD_ANIMAL_ATTACK = 2
+var/const/INDUSTRIAL_ACCIDENT = 3
+var/const/BIOHAZARD_OUTBREAK = 4
+var/const/WARSHIPS_ARRIVE = 5
+var/const/PIRATES = 6
+var/const/CORPORATE_ATTACK = 7
+var/const/ALIEN_RAIDERS = 8
+var/const/AI_LIBERATION = 9
+var/const/MOURNING = 10
+var/const/CULT_CELL_REVEALED = 11
+var/const/SECURITY_BREACH = 12
+var/const/ANIMAL_RIGHTS_RAID = 13
+var/const/FESTIVAL = 14
 
-#define RESEARCH_BREAKTHROUGH 15
-#define BARGAINS 16
-#define SONG_DEBUT 17
-#define MOVIE_RELEASE 18
-#define BIG_GAME_HUNTERS 19
-#define ELECTION 20
-#define GOSSIP 21
-#define TOURISM 22
-#define CELEBRITY_DEATH 23
-#define RESIGNATION 24
+var/const/RESEARCH_BREAKTHROUGH = 15
+var/const/BARGAINS = 16
+var/const/SONG_DEBUT = 17
+var/const/MOVIE_RELEASE = 18
+var/const/BIG_GAME_HUNTERS = 19
+var/const/ELECTION = 20
+var/const/GOSSIP = 21
+var/const/TOURISM = 22
+var/const/CELEBRITY_DEATH = 23
+var/const/RESIGNATION = 24
 
-#define DEFAULT 1
+var/const/DEFAULT = 1
 
-#define ADMINISTRATIVE 2
-#define CLOTHING 3
-#define SECURITY 4
-#define SPECIAL_SECURITY 5
+var/const/ADMINISTRATIVE = 2
+var/const/CLOTHING = 3
+var/const/SECURITY = 4
+var/const/SPECIAL_SECURITY = 5
 
-#define FOOD 6
-#define ANIMALS 7
+var/const/FOOD = 6
+var/const/ANIMALS = 7
 
-#define MINERALS 8
+var/const/MINERALS = 8
 
-#define EMERGENCY 9
-#define GAS 10
-#define MAINTENANCE 11
-#define ELECTRICAL 12
-#define ROBOTICS 13
-#define BIOMEDICAL 14
+var/const/EMERGENCY = 9
+var/const/ECON_GAS = 10
+var/const/MAINTENANCE = 11
+var/const/ELECTRICAL = 12
+var/const/ROBOTICS = 13
+var/const/BIOMEDICAL = 14
 
-#define EVA 15
+var/const/EVA = 15
 
 //---- The following corporations are friendly with NanoTrasen and loosely enable trade and travel:
 //Corporation NanoTrasen - Generalised / high tech research and plasma exploitation.

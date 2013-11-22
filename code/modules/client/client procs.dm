@@ -1,9 +1,9 @@
 	////////////
 	//SECURITY//
 	////////////
-#define TOPIC_SPAM_DELAY	4		//4 ticks is about 3/10ths of a second
-#define UPLOAD_LIMIT		10485760	//Restricts client uploads to the server to 10MB //Boosted this thing. What's the worst that can happen?
-#define MIN_CLIENT_VERSION	0		//Just an ambiguously low version for now, I don't want to suddenly stop people playing.
+var/const/TOPIC_SPAM_DELAY = 4		//4 ticks is about 3/10ths of a second
+var/const/UPLOAD_LIMIT = 10485760	//Restricts client uploads to the server to 10MB //Boosted this thing. What's the worst that can happen?
+var/const/MIN_CLIENT_VERSION = 0		//Just an ambiguously low version for now, I don't want to suddenly stop people playing.
 									//I would just like the code ready should it ever need to be used.
 	/*
 	When somebody clicks a link in game, this Topic is called first.

@@ -75,7 +75,7 @@
 							 "<span class='notice'>You direct [src] to [M]'s eyes.</span>")
 
 		if(istype(M, /mob/living/carbon/human) || istype(M, /mob/living/carbon/monkey))	//robots and aliens are unaffected
-			if(M.stat == DEAD || M.sdisabilities & BLIND)	//mob is dead or fully blind
+			if(M.stat == DEAD || M.sdisabilities & BOTH_EYES_BLIND)	//mob is dead or fully blind
 				user << "<span class='notice'>[M] pupils does not react to the light!</span>"
 			else if(XRAY in M.mutations)	//mob has X-RAY vision
 				user << "<span class='notice'>[M] pupils give an eerie glow!</span>"

@@ -1,10 +1,9 @@
-#define VOX_SHUTTLE_MOVE_TIME 260
-#define VOX_SHUTTLE_COOLDOWN 460
-
-//Copied from Syndicate shuttle.
-var/global/vox_shuttle_location
+var/vox_shuttle_location
 
 /obj/machinery/computer/vox_station
+	var/const/VOX_SHUTTLE_MOVE_TIME = 260
+	var/const/VOX_SHUTTLE_COOLDOWN = 460
+
 	name = "vox skipjack terminal"
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "syndishuttle"
@@ -17,7 +16,6 @@ var/global/vox_shuttle_location
 
 /obj/machinery/computer/vox_station/New()
 	curr_location= locate(/area/shuttle/vox/station)
-
 
 /obj/machinery/computer/vox_station/proc/vox_move_to(area/destination as area)
 	if(moving)	return
@@ -39,7 +37,6 @@ var/global/vox_shuttle_location
 	moving = 0
 
 	return 1
-
 
 /obj/machinery/computer/vox_station/attackby(obj/item/I as obj, mob/user as mob)
 	return attack_hand(user)

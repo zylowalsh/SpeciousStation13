@@ -1,7 +1,7 @@
 
 // MOVED HERE FROM ULTRALIGHT WHICH IS PROBABLY A BAD THING
-#define UL_I_FALLOFF_SQUARE 0
-#define UL_I_FALLOFF_ROUND 1
+var/const/UL_I_FALLOFF_SQUARE = 0
+var/const/UL_I_FALLOFF_ROUND = 1
 #define ul_FalloffStyle UL_I_FALLOFF_ROUND // Sets the lighting falloff to be either squared or circular.
 var/list/ul_FastRoot = list(0, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5,
 							5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,

@@ -1,7 +1,7 @@
 
 //########################## CONTRABAND ;3333333333333333333 -Agouri ###################################################
 
-#define NUM_OF_POSTER_DESIGNS 10
+var/const/NUM_OF_POSTER_DESIGNS = 10
 
 /obj/item/weapon/contraband
 	name = "contraband item"

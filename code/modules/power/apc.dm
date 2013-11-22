@@ -1,10 +1,3 @@
-#define APC_WIRE_IDSCAN 1
-#define APC_WIRE_MAIN_POWER1 2
-#define APC_WIRE_MAIN_POWER2 3
-#define APC_WIRE_AI_CONTROL 4
-
-#define APC_UPDATE_ICON_COOLDOWN 200 // 20 seconds
-
 // the Area Power Controller (APC), formerly Power Distribution Unit (PDU)
 // one per area, needs wire conection to power network
 
@@ -17,6 +10,12 @@
 
 
 /obj/machinery/power/apc
+	var/const/APC_WIRE_IDSCAN = 1
+	var/const/APC_WIRE_MAIN_POWER1 = 2
+	var/const/APC_WIRE_MAIN_POWER2 = 3
+	var/const/APC_WIRE_AI_CONTROL = 4
+	var/const/APC_UPDATE_ICON_COOLDOWN = 200 // 20 seconds
+
 	name = "area power controller"
 
 	icon_state = "apc0"
@@ -27,7 +26,7 @@
 	var/areastring = null
 	var/obj/item/weapon/cell/cell
 	var/start_charge = 90				// initial cell charge %
-	var/cell_type = 2500				// 0=no cell, 1=regular, 2=high-cap (x5) <- old, now it's just 0=no cell, otherwise dictate cellcapacity by changing this value. 1 used to be 1000, 2 was 2500
+	var/cell_type = 2500		// 0=no cell, 1=regular, 2=high-cap (x5) <- old, now it's just 0=no cell, otherwise dictate cellcapacity by changing this value. 1 used to be 1000, 2 was 2500
 	var/opened = 0 //0=closed, 1=opened, 2=cover removed
 	var/shorted = 0
 	var/lighting = 3

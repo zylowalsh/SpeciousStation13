@@ -482,7 +482,7 @@
 					adjustHalLoss(-1)
 
 			//Eyes
-			if(sdisabilities & BLIND)	//disabled-blind, doesn't get better on its own
+			if(sdisabilities & BOTH_EYES_BLIND)	//disabled-blind, doesn't get better on its own
 				blinded = 1
 			else if(eye_blind)			//blindness, heals slowly over time
 				eye_blind = max(eye_blind-1,0)

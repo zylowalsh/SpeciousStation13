@@ -1,15 +1,13 @@
 // The lighting system
 //
 // consists of light fixtures (/obj/machinery/light) and light tube/bulb items (/obj/item/weapon/light)
-
-
 // status values shared between lighting fixtures and items
-#define LIGHT_OK 0
-#define LIGHT_EMPTY 1
-#define LIGHT_BROKEN 2
-#define LIGHT_BURNED 3
+var/const/LIGHT_OK = 0
+var/const/LIGHT_EMPTY = 1
+var/const/LIGHT_BROKEN = 2
+var/const/LIGHT_BURNED = 3
 
-
+var/const/LIGHTING_POWER_FACTOR = 20
 
 /obj/item/light_fixture_frame
 	name = "light fixture frame"
@@ -568,12 +566,6 @@
 /obj/machinery/light/blob_act()
 	if(prob(75))
 		broken()
-
-
-// timed process
-// use power
-
-#define LIGHTING_POWER_FACTOR 20		//20W per unit luminosity
 
 /obj/machinery/light/process()//TODO: remove/add this from machines to save on processing as needed ~Carn PRIORITY
 	if(on)

@@ -1,10 +1,10 @@
 //States for airlock_control
-#define AIRLOCK_STATE_INOPEN		-2
-#define AIRLOCK_STATE_PRESSURIZE	-1
-#define AIRLOCK_STATE_CLOSED		0
-#define AIRLOCK_STATE_DEPRESSURIZE	1
-#define AIRLOCK_STATE_OUTOPEN		2
-#define AIRLOCK_STATE_BOTHOPEN		3
+var/const/AIRLOCK_STATE_INOPEN = -2
+var/const/AIRLOCK_STATE_PRESSURIZE = -1
+var/const/AIRLOCK_STATE_CLOSED = 0
+var/const/AIRLOCK_STATE_DEPRESSURIZE = 1
+var/const/AIRLOCK_STATE_OUTOPEN = 2
+var/const/AIRLOCK_STATE_BOTHOPEN = 3
 
 datum/computer/file/embedded_program/airlock_controller
 	var/id_tag

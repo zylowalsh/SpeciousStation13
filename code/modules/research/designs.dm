@@ -32,11 +32,11 @@ other types of metals and chemistry for reagents).
 
 
 */
-#define	IMPRINTER	1	//For circuits. Uses glass/chemicals.
-#define PROTOLATHE	2	//New stuff. Uses glass/metal/chemicals
-#define	AUTOLATHE	4	//Uses glass/metal only.
-#define CRAFTLATHE	8	//Uses fuck if I know. For use eventually.
-#define MECHFAB		16 //Remember, objects utilising this flag should have construction_time and construction_cost vars.
+var/const/IMPRINTER = 1	//For circuits. Uses glass/chemicals.
+var/const/PROTOLATHE = 2	//New stuff. Uses glass/metal/chemicals
+var/const/AUTOLATHE = 4	//Uses glass/metal only.
+var/const/CRAFTLATHE = 8	//Uses fuck if I know. For use eventually.
+var/const/MECHFAB = 16 //Remember, objects utilising this flag should have construction_time and construction_cost vars.
 //Note: More then one of these can be added to a design but imprinter and lathe designs are incompatable.
 
 datum/design						//Datum for object designs, used in construction

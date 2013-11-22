@@ -33,13 +33,13 @@
 	var/projectile = null//Holder for projectile type, to avoid so many else if chains
 
 	var/mode = 0
-#define SECBOT_IDLE 		0		// idle
-#define SECBOT_HUNT 		1		// found target, hunting
-#define SECBOT_PREP_ARREST 	2		// at target, preparing to arrest
-#define SECBOT_ARREST		3		// arresting target
-#define SECBOT_START_PATROL	4		// start patrol
-#define SECBOT_PATROL		5		// patrolling
-#define SECBOT_SUMMON		6		// summoned by PDA
+	var/const/SECBOT_IDLE = 0		// idle
+	var/const/SECBOT_HUNT = 1		// found target, hunting
+	var/const/SECBOT_PREP_ARREST = 2		// at target, preparing to arrest
+	var/const/SECBOT_ARREST = 3		// arresting target
+	var/const/SECBOT_START_PATROL = 4		// start patrol
+	var/const/SECBOT_PATROL = 5		// patrolling
+	var/const/SECBOT_SUMMON = 6		// summoned by PDA
 
 	var/auto_patrol = 0		// set to make bot automatically patrol
 

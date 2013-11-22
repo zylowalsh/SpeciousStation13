@@ -1,4 +1,4 @@
-#define MISSILE_SPEED 5
+var/const/MISSILE_SPEED = 5
 
 //automated turret that shoots missiles at meteors
 

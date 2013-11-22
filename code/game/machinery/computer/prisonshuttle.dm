@@ -1,7 +1,7 @@
 //Config stuff
-#define PRISON_MOVETIME 150	//Time to station is milliseconds.
-#define PRISON_STATION_AREATYPE "/area/shuttle/prison/station" //Type of the prison shuttle area for station
-#define PRISON_DOCK_AREATYPE "/area/shuttle/prison/prison"	//Type of the prison shuttle area for dock
+var/const/PRISON_MOVETIME = 150	//Time to station is milliseconds.
+var/const/PRISON_STATION_AREATYPE = "/area/shuttle/prison/station" //Type of the prison shuttle area for station
+var/const/PRISON_DOCK_AREATYPE = "/area/shuttle/prison/prison"	//Type of the prison shuttle area for dock
 
 var/prison_shuttle_moving_to_station = 0
 var/prison_shuttle_moving_to_prison = 0

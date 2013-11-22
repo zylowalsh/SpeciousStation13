@@ -1,11 +1,10 @@
-
-#define SPINNING_WEB 1
-#define LAYING_EGGS 2
-#define MOVING_TO_TARGET 3
-#define SPINNING_COCOON 4
-
 //basic spider mob, these generally guard nests
 /mob/living/simple_animal/hostile/giant_spider
+	var/const/SPINNING_WEB = 1
+	var/const/LAYING_EGGS = 2
+	var/const/MOVING_TO_TARGET = 3
+	var/const/SPINNING_COCOON = 4
+
 	name = "giant spider"
 	desc = "Furry and black, it makes you shudder to look at it. This one has deep red eyes."
 	icon_state = "guard"

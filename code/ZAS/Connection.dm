@@ -2,9 +2,9 @@
 This object is contained within zone/var/connections. It's generated whenever two turfs from different zones are linked.
 Indirect connections will not merge the two zones after they reach equilibrium.
 */
-#define CONNECTION_DIRECT   2
-#define CONNECTION_INDIRECT 1
-#define CONNECTION_CLOSED   0
+var/const/CONNECTION_DIRECT = 2
+var/const/CONNECTION_INDIRECT = 1
+var/const/CONNECTION_CLOSED = 0
 
 /connection
 	var/turf/simulated/A

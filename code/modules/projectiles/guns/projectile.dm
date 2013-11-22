@@ -1,10 +1,10 @@
-#define SPEEDLOADER 0
-#define FROM_BOX 1
-#define MAGAZINE 2
-
 /obj/item/weapon/gun/projectile
-	desc = "A classic revolver. Uses 357 ammo"
+	var/const/SPEEDLOADER = 0
+	var/const/FROM_BOX = 1
+	var/const/MAGAZINE = 2
+
 	name = "revolver"
+	desc = "A classic revolver. Uses 357 ammo"
 	icon_state = "revolver"
 	caliber = "357"
 	origin_tech = "combat=2;materials=2"

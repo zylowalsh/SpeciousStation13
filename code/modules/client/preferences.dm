@@ -1,8 +1,12 @@
 //This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:33
 
+var/const/GET_RANDOM_JOB = 0
+var/const/BE_ASSISTANT = 1
+var/const/RETURN_TO_LOBBY = 2
+
 var/list/preferences_datums = list()
 
-var/global/list/special_roles = list( //keep synced with the defines BE_* in setup.dm --rastaf
+var/list/special_roles = list( //keep synced with the defines BE_* in setup.dm --rastaf
 //some autodetection here.
 	"traitor" = IS_MODE_COMPILED("traitor"),             // 0
 	"operative" = IS_MODE_COMPILED("nuclear"),           // 1
@@ -19,14 +23,9 @@ var/global/list/special_roles = list( //keep synced with the defines BE_* in set
 	"diona" = 1,                                         // 12
 )
 
-var/const/MAX_SAVE_SLOTS = 10
-
-//used for alternate_option
-#define GET_RANDOM_JOB 0
-#define BE_ASSISTANT 1
-#define RETURN_TO_LOBBY 2
-
 datum/preferences
+	var/const/MAX_SAVE_SLOTS = 10
+
 	//doohickeys for savefiles
 	var/path
 	var/default_slot = 1				//Holder so it doesn't default to slot 1, rather the last one used
@@ -880,7 +879,7 @@ datum/preferences
 						if(config.usealienwhitelist)
 							for(var/L in all_languages)
 								var/datum/language/lang = all_languages[L]
-								if((!(lang.flags & RESTRICTED)) && (is_alien_whitelisted(user, L)||(!( lang.flags & WHITELISTED ))))
+								if((!(lang.flags & RESTRICTED_LANG)) && (is_alien_whitelisted(user, L)||(!( lang.flags & WHITELISTED_LANG ))))
 									new_languages += lang
 									languages_available = 1
 
@@ -889,7 +888,7 @@ datum/preferences
 						else
 							for(var/L in all_languages)
 								var/datum/language/lang = all_languages[L]
-								if(!(lang.flags & RESTRICTED))
+								if(!(lang.flags & RESTRICTED_LANG))
 									new_languages += lang
 
 						language = input("Please select a secondary language", "Character Generation", null) in new_languages

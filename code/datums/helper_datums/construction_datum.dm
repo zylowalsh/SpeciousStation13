@@ -1,7 +1,7 @@
-#define FORWARD -1
-#define BACKWARD 1
-
 /datum/construction
+	var/const/FORWARD = -1
+	var/const/BACKWARD = 1
+
 	var/list/steps
 	var/atom/holder
 	var/result

@@ -10,10 +10,10 @@
 	SHIFT      - Tells the parser to push the current operator onto the stack.
 	REDUCE		 - Tells the parser to reduce the stack.
 */
-#define OPERATOR  1
-#define VALUE     2
-#define SHIFT     0
-#define REDUCE    1
+var/const/OPERATOR = 1
+var/const/VALUE = 2
+var/const/SHIFT = 0
+var/const/REDUCE = 1
 
 /*
 	Class: nS_Parser

@@ -1,4 +1,5 @@
-#define LOGIC_HIGH 5
+var/const/LOGIC_HIGH = 5
+var/const/RELAY_POWER_TRANSFER = 2000	//How much power a relay transfers through.
 
 //Indicators only have one input and no outputs
 /obj/machinery/logic/indicator
@@ -263,8 +264,6 @@
 		pn_output.newavail = max(pn_output.avail, LOGIC_HIGH)	//Set the output avilable power to 5 or whatever it was before.
 	else
 		pn_output.newload += LOGIC_HIGH		//Otherwise increase the load to 5
-
-#define RELAY_POWER_TRANSFER 2000	//How much power a relay transfers through.
 
 //RELAY - input1 governs the flow from input2 to output
 /obj/machinery/logic/twoinput/relay/process()

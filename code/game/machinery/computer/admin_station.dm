@@ -1,7 +1,7 @@
-#define ADMIN_SHUTTLE_MOVE_TIME 240
-#define ADMIN_SHUTTLE_COOLDOWN 200
-
 /obj/machinery/computer/admin_station
+	var/const/ADMIN_SHUTTLE_MOVE_TIME = 240
+	var/const/ADMIN_SHUTTLE_COOLDOWN = 200
+
 	name = "Landale's shuttle terminal"
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "escape"
@@ -10,16 +10,17 @@
 	var/moving = 0
 	var/lastMove = 0
 
-
 /obj/machinery/computer/admin_station/New()
 	curr_location= locate(/area/shuttle/administration/centcom)
 
-
 /obj/machinery/computer/admin_station/proc/admin_move_to(area/destination as area)
-	if(moving)	return
-	if(lastMove + ADMIN_SHUTTLE_COOLDOWN > world.time)	return
+	if(moving)
+		return
+	if(lastMove + ADMIN_SHUTTLE_COOLDOWN > world.time)
+		return
 	var/area/dest_location = locate(destination)
-	if(curr_location == dest_location)	return
+	if(curr_location == dest_location)
+		return
 
 	moving = 1
 	lastMove = world.time
@@ -34,7 +35,6 @@
 	curr_location = dest_location
 	moving = 0
 	return 1
-
 
 /obj/machinery/computer/admin_station/attackby(obj/item/I as obj, mob/user as mob)
 	return attack_hand(user)
@@ -66,11 +66,10 @@
 
 	user << browse(dat, "window=computer;size=575x450")
 	onclose(user, "computer")
-	return
-
 
 /obj/machinery/computer/admin_station/Topic(href, href_list)
-	if(!isliving(usr))	return
+	if(!isliving(usr))
+		return
 	var/mob/living/user = usr
 
 	if(in_range(src, user) || istype(user, /mob/living/silicon))
@@ -95,7 +94,6 @@
 
 	add_fingerprint(usr)
 	updateUsrDialog()
-	return
 
 /obj/machinery/computer/admin_station/bullet_act(var/obj/item/projectile/Proj)
 	visible_message("[Proj] ricochets off [src]!")	//let's not let them fuck themselves in the rear

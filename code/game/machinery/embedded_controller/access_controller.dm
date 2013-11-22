@@ -1,7 +1,7 @@
 //States for airlock_control
-#define ACCESS_STATE_INTERNAL	-1
-#define ACCESS_STATE_LOCKED		0
-#define ACCESS_STATE_EXTERNAL	1
+var/const/ACCESS_STATE_INTERNAL = -1
+var/const/ACCESS_STATE_LOCKED = 0
+var/const/ACCESS_STATE_EXTERNAL = 1
 
 datum/computer/file/embedded_program/access_controller
 	var/id_tag

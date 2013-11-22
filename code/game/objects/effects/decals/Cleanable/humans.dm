@@ -1,4 +1,5 @@
-#define DRYING_TIME 5 * 60*10			//for 1 unit of depth in puddle (amount var)
+var/const/DRYING_TIME = 5 * 60 * 10			//for 1 unit of depth in puddle (amount var)
+
 /obj/effect/decal/cleanable/blood
 	name = "blood"
 	desc = "It's red and gooey. Perhaps it's the chef's cooking?"

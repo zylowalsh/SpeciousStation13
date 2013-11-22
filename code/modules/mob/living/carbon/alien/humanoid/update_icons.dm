@@ -1,13 +1,15 @@
 //Xeno Overlays Indexes//////////
-#define X_HEAD_LAYER			1
-#define X_SUIT_LAYER			2
-#define X_L_HAND_LAYER			3
-#define X_R_HAND_LAYER			4
-#define TARGETED_LAYER			5
-#define X_TOTAL_LAYERS			5
+
 /////////////////////////////////
 
 /mob/living/carbon/alien/humanoid
+	var/const/X_HEAD_LAYER = 1
+	var/const/X_SUIT_LAYER = 2
+	var/const/X_L_HAND_LAYER = 3
+	var/const/X_R_HAND_LAYER = 4
+	var/const/TARGETED_LAYER = 5
+	var/const/X_TOTAL_LAYERS = 5
+
 	var/list/overlays_lying[X_TOTAL_LAYERS]
 	var/list/overlays_standing[X_TOTAL_LAYERS]
 
@@ -40,7 +42,8 @@
 
 /mob/living/carbon/alien/humanoid/regenerate_icons()
 	..()
-	if (monkeyizing)	return
+	if (monkeyizing)
+		return
 
 	update_inv_head(0)
 	update_inv_wear_suit(0)

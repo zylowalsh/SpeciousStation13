@@ -1,8 +1,8 @@
 //By Carnwennan
 //fetches an external list and processes it into a list of ip addresses.
 //It then stores the processed list into a savefile for later use
-#define TORFILE "data/ToR_ban.bdb"
-#define TOR_UPDATE_INTERVAL 216000	//~6 hours
+var/const/TORFILE = "data/ToR_ban.bdb"
+var/const/TOR_UPDATE_INTERVAL = 216000	//~6 hours
 
 /proc/ToRban_isbanned(var/ip_address)
 	var/savefile/F = new(TORFILE)
@@ -83,6 +83,3 @@
 				else
 					src << "<font color='red'><b>Address is not a known ToR address</b></font>"
 	return
-
-#undef TORFILE
-#undef TOR_UPDATE_INTERVAL

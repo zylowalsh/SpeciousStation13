@@ -37,7 +37,7 @@
 	if(!client)	return
 
 	if (type)
-		if(type & 1 && (sdisabilities & BLIND || blinded || paralysis) )//Vision related
+		if(type & 1 && (sdisabilities & BOTH_EYES_BLIND || blinded || paralysis) )//Vision related
 			if (!( alt ))
 				return
 			else
@@ -49,7 +49,7 @@
 			else
 				msg = alt
 				type = alt_type
-				if ((type & 1 && sdisabilities & BLIND))
+				if ((type & 1 && sdisabilities & BOTH_EYES_BLIND))
 					return
 	// Added voice muffling for Issue 41.
 	if(stat == UNCONSCIOUS || sleeping > 0)

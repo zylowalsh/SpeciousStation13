@@ -7,7 +7,7 @@
 
 */
 
-#define RANDOM_STARTING_LEVEL 2
+var/const/RANDOM_STARTING_LEVEL = 2
 
 var/list/archive_diseases = list()
 
@@ -413,11 +413,3 @@ var/list/advance_cures = 	list(
 			name_symptoms += S.name
 		message_admins("[key_name_admin(user)] has triggered a custom virus outbreak of [D.name]! It has these symptoms: [english_list(name_symptoms)]")
 
-/*
-/mob/verb/test()
-
-	for(var/datum/disease/D in activeDiseases)
-		src << "<a href='?_src_=vars;Vars=\ref[D]'>[D.name] - [D.holder]</a>"
-*/
-
-#undef RANDOM_STARTING_LEVEL

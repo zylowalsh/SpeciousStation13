@@ -1,3 +1,5 @@
+var/const/MAX_STORED_POWER = 500
+
 /obj/machinery/shield
 		name = "Emergency energy shield"
 		desc = "An energy shield used to contain hull breaches."
@@ -323,7 +325,7 @@
 	return
 
 ////FIELD GEN START //shameless copypasta from fieldgen, powersink, and grille
-#define maxstoredpower 500
+
 /obj/machinery/shieldwallgen
 		name = "Shield Generator"
 		desc = "A shield generator."
@@ -407,8 +409,8 @@
 		power()
 		if(power)
 			storedpower -= 50 //this way it can survive longer and survive at all
-	if(storedpower >= maxstoredpower)
-		storedpower = maxstoredpower
+	if(storedpower >= MAX_STORED_POWER)
+		storedpower = MAX_STORED_POWER
 	if(storedpower <= 0)
 		storedpower = 0
 //	if(shieldload >= maxshieldload) //there was a loop caused by specifics of process(), so this was needed.

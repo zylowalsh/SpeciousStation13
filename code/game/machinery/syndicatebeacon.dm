@@ -5,6 +5,7 @@
 //	If he accepts there is a random chance he will be accepted, rejected, or rejected and killed
 //	Bringing certain items can help improve the chance to become a traitor
 
+var/const/SCREWED = 32
 
 /obj/machinery/syndicate_beacon
 	name = "ominous beacon"
@@ -100,10 +101,6 @@
 	proc/selfdestruct()
 		selfdestructing = 1
 		spawn() explosion(src.loc, rand(3,8), rand(1,3), 1, 10)
-
-
-
-#define SCREWED 32
 
 /obj/machinery/singularity_beacon //not the best place for it but it's a hack job anyway -- Urist
 	name = "ominous beacon"

@@ -2,27 +2,27 @@
 Buildable pipes
 Buildable meters
 */
-#define PIPE_SIMPLE_STRAIGHT	0
-#define PIPE_SIMPLE_BENT		1
-#define PIPE_HE_STRAIGHT		2
-#define PIPE_HE_BENT			3
-#define PIPE_CONNECTOR			4
-#define PIPE_MANIFOLD			5
-#define PIPE_JUNCTION			6
-#define PIPE_UVENT				7
-#define PIPE_MVALVE				8
-#define PIPE_PUMP				9
-#define PIPE_SCRUBBER			10
-#define PIPE_INSULATED_STRAIGHT	11
-#define PIPE_INSULATED_BENT		12
-#define PIPE_GAS_FILTER			13
-#define PIPE_GAS_MIXER			14
-#define PIPE_PASSIVE_GATE       15
-#define PIPE_VOLUME_PUMP        16
-#define PIPE_HEAT_EXCHANGE      17
-#define PIPE_MTVALVE			18
-#define PIPE_MANIFOLD4W			19
-#define PIPE_CAP				20
+var/const/PIPE_SIMPLE_STRAIGHT = 0
+var/const/PIPE_SIMPLE_BENT = 1
+var/const/PIPE_HE_STRAIGHT = 2
+var/const/PIPE_HE_BENT = 3
+var/const/PIPE_CONNECTOR = 4
+var/const/PIPE_MANIFOLD = 5
+var/const/PIPE_JUNCTION = 6
+var/const/PIPE_UVENT = 7
+var/const/PIPE_MVALVE = 8
+var/const/PIPE_PUMP = 9
+var/const/PIPE_SCRUBBER = 10
+var/const/PIPE_INSULATED_STRAIGHT = 11
+var/const/PIPE_INSULATED_BENT = 12
+var/const/PIPE_GAS_FILTER = 13
+var/const/PIPE_GAS_MIXER = 14
+var/const/PIPE_PASSIVE_GATE = 15
+var/const/PIPE_VOLUME_PUMP = 16
+var/const/PIPE_HEAT_EXCHANGE = 17
+var/const/PIPE_MTVALVE = 18
+var/const/PIPE_MANIFOLD4W = 19
+var/const/PIPE_CAP = 20
 
 /obj/item/pipe
 	name = "pipe"
@@ -348,7 +348,7 @@ Buildable meters
 			if (M.node3)
 				M.node3.initialize()
 				M.node3.build_network()
-			
+
 		if(PIPE_MANIFOLD4W)		//4-way manifold
 			var/obj/machinery/atmospherics/pipe/manifold4w/M = new( src.loc )
 			M.dir = dir
@@ -515,7 +515,7 @@ Buildable meters
 			if (P.node2)
 				P.node2.initialize()
 				P.node2.build_network()
-				
+
 		if(PIPE_MTVALVE)		//manual t-valve
 			var/obj/machinery/atmospherics/tvalve/V = new(src.loc)
 			V.dir = dir
@@ -535,7 +535,7 @@ Buildable meters
 			if (V.node3)
 				V.node3.initialize()
 				V.node3.build_network()
-				
+
 		if(PIPE_CAP)
 			var/obj/machinery/atmospherics/pipe/cap/C = new(src.loc)
 			C.dir = dir

@@ -86,7 +86,7 @@
 			if(!banglet && !(istype(src , /obj/item/weapon/grenade/flashbang/clusterbang)))
 				if (prob(M.eye_stat - 20 + 1))
 					M << "\red You can't see anything!"
-					M.sdisabilities |= BLIND
+					M.sdisabilities |= BOTH_EYES_BLIND
 		if (M.ear_damage >= 15)
 			M << "\red Your ears start to ring badly!"
 			if(!banglet && !(istype(src , /obj/item/weapon/grenade/flashbang/clusterbang)))

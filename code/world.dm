@@ -1,3 +1,5 @@
+var/const/RECOMMENDED_VERSION = 495
+
 /world
 	mob = /mob/new_player
 	turf = /turf/space
@@ -5,9 +7,6 @@
 	view = "15x15"
 	cache_lifespan = 0	//stops player uploaded stuff from being kept in the rsc past the current session
 
-
-
-#define RECOMMENDED_VERSION 495
 /world/New()
 	//logs
 	var/date_string = time2text(world.realtime, "YYYY/MM-Month/DD-Day")
@@ -157,9 +156,8 @@
 
 	..(reason)
 
-
-#define INACTIVITY_KICK	6000	//10 minutes in ticks (approx.)
 /world/proc/KickInactiveClients()
+	var/const/INACTIVITY_KICK = 6000 //10 minutes in ticks (approx.)
 	spawn(-1)
 		set background = 1
 		while(1)
@@ -170,8 +168,6 @@
 						log_access("AFK: [key_name(C)]")
 						C << "\red You have been inactive for more than 10 minutes and have been disconnected."
 						del(C)
-#undef INACTIVITY_KICK
-
 
 /world/proc/load_mode()
 	var/list/Lines = file2list("data/mode.txt")

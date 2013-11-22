@@ -1,8 +1,8 @@
-#define BORG_WIRE_LAWCHECK 1
-#define BORG_WIRE_MAIN_POWER1 2
-#define BORG_WIRE_MAIN_POWER2 3
-#define BORG_WIRE_AI_CONTROL 4
-#define BORG_WIRE_CAMERA 5
+var/const/BORG_WIRE_LAWCHECK = 1
+var/const/BORG_WIRE_MAIN_POWER1 = 2
+var/const/BORG_WIRE_MAIN_POWER2 = 3
+var/const/BORG_WIRE_AI_CONTROL = 4
+var/const/BORG_WIRE_CAMERA = 5
 
 /proc/RandomBorgWires()
 	//to make this not randomize the wires, just set index to 1 and increment it in the flag for loop (after doing everything else).

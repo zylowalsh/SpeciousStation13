@@ -221,43 +221,6 @@
 		temp_change = (temperature - current)
 		return temp_change
 
-	/*
-	proc/get_thermal_protection()
-		var/thermal_protection = 1.0
-		//Handle normal clothing
-		if(head && (head.body_parts_covered & HEAD))
-			thermal_protection += 0.5
-		if(wear_suit && (wear_suit.body_parts_covered & UPPER_TORSO))
-			thermal_protection += 0.5
-		if(wear_suit && (wear_suit.body_parts_covered & LEGS))
-			thermal_protection += 0.2
-		if(wear_suit && (wear_suit.body_parts_covered & ARMS))
-			thermal_protection += 0.2
-		if(wear_suit && (wear_suit.body_parts_covered & HANDS))
-			thermal_protection += 0.2
-		if(wear_suit && (wear_suit.flags & SUITSPACE))
-			thermal_protection += 3
-		if(COLD_RESISTANCE in mutations)
-			thermal_protection += 5
-
-		return thermal_protection
-
-	proc/add_fire_protection(var/temp)
-		var/fire_prot = 0
-		if(head)
-			if(head.protective_temperature > temp)
-				fire_prot += (head.protective_temperature/10)
-		if(wear_mask)
-			if(wear_mask.protective_temperature > temp)
-				fire_prot += (wear_mask.protective_temperature/10)
-		if(wear_suit)
-			if(wear_suit.protective_temperature > temp)
-				fire_prot += (wear_suit.protective_temperature/10)
-
-
-		return fire_prot
-	*/
-
 	proc/handle_chemicals_in_body()
 
 		if(reagents) reagents.metabolize(src)
@@ -340,7 +303,7 @@
 				move_delay_add = max(0, move_delay_add - rand(1, 2))
 
 			//Eyes
-			if(sdisabilities & BLIND)		//disabled-blind, doesn't get better on its own
+			if(sdisabilities & BOTH_EYES_BLIND)		//disabled-blind, doesn't get better on its own
 				blinded = 1
 			else if(eye_blind)			//blindness, heals slowly over time
 				eye_blind = max(eye_blind-1,0)

@@ -1,3 +1,10 @@
+var/const/COMPFRICTION = 5e5
+var/const/COMPSTARTERLOAD = 2800
+
+var/const/TURBPRES = 9000000
+var/const/TURBGENQ = 20000
+var/const/TURBGENG = 0.8
+
 /obj/machinery/compressor
 	name = "compressor"
 	desc = "The compressor stage of a gas turbine generator."
@@ -51,10 +58,6 @@
 		if(!turbine)
 			stat |= BROKEN
 
-
-#define COMPFRICTION 5e5
-#define COMPSTARTERLOAD 2800
-
 /obj/machinery/compressor/process()
 	if(!starter)
 		return
@@ -104,11 +107,6 @@
 		compressor = locate() in get_step(src, get_dir(outturf, src))
 		if(!compressor)
 			stat |= BROKEN
-
-
-#define TURBPRES 9000000
-#define TURBGENQ 20000
-#define TURBGENG 0.8
 
 /obj/machinery/power/turbine/process()
 	if(!compressor.starter)
@@ -199,15 +197,6 @@
 		usr.machine = null
 
 	return
-
-
-
-
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
 
 /obj/machinery/computer/turbine_computer/New()
 	..()

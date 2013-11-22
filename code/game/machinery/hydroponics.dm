@@ -1,4 +1,4 @@
-#define HYDRO_SPEED_MULTIPLIER 0.25
+var/const/HYDRO_SPEED_MULTIPLIER = 0.25
 
 /obj/machinery/hydroponics
 	name = "hydroponics tray"

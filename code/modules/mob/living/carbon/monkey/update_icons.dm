@@ -1,11 +1,11 @@
 //Monkey Overlays Indexes////////
-#define M_MASK_LAYER			1
-#define M_BACK_LAYER			2
-#define M_HANDCUFF_LAYER		3
-#define M_L_HAND_LAYER			4
-#define M_R_HAND_LAYER			5
-#define TARGETED_LAYER			6
-#define M_TOTAL_LAYERS			6
+var/const/M_MASK_LAYER = 1
+var/const/M_BACK_LAYER = 2
+var/const/M_HANDCUFF_LAYER = 3
+var/const/M_L_HAND_LAYER = 4
+var/const/M_R_HAND_LAYER = 5
+var/const/TARGETED_LAYER = 6
+var/const/M_TOTAL_LAYERS = 6
 /////////////////////////////////
 
 /mob/living/carbon/monkey

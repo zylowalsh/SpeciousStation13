@@ -180,7 +180,6 @@
 	killer << "Use the code words in the order provided, during regular conversation, to identify other agents. Proceed with caution, however, as everyone is a potential foe."
 	//End code phrase.
 
-
 /datum/game_mode/proc/auto_declare_completion_traitor()
 	if(traitors.len)
 		var/text = "<FONT size = 2><B>The traitors were:</B></FONT>"
@@ -222,7 +221,6 @@
 
 		world << text
 	return 1
-
 
 /datum/game_mode/proc/equip_traitor(mob/living/carbon/human/traitor_mob, var/safety = 0)
 	if (!istype(traitor_mob))

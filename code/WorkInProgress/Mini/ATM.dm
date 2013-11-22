@@ -7,10 +7,10 @@ log transactions
 
 */
 
-#define NO_SCREEN 0
-#define CHANGE_SECURITY_LEVEL 1
-#define TRANSFER_FUNDS 2
-#define VIEW_TRANSACTION_LOGS 3
+var/const/NO_SCREEN = 0
+var/const/CHANGE_SECURITY_LEVEL = 1
+var/const/TRANSFER_FUNDS = 2
+var/const/VIEW_TRANSACTION_LOGS = 3
 
 /obj/item/weapon/card/id/var/money = 2000
 

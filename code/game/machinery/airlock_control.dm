@@ -1,4 +1,4 @@
-#define AIRLOCK_CONTROL_RANGE 5
+var/const/AIRLOCK_CONTROL_RANGE = 5
 
 // This code allows for airlocks to be controlled externally by setting an id_tag and comm frequency (disables ID access)
 obj/machinery/door/airlock
@@ -90,7 +90,7 @@ obj/machinery/door/airlock/Bumped(atom/AM)
 
 			radio_connection.post_signal(src, signal, range = AIRLOCK_CONTROL_RANGE, filter = RADIO_AIRLOCK)
 	return
-		
+
 obj/machinery/door/airlock/proc/set_frequency(new_frequency)
 	radio_controller.remove_object(src, frequency)
 	if(new_frequency)

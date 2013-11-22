@@ -1,9 +1,8 @@
 //This file was auto-corrected by findeclaration.exe on 29/05/2012 15:03:04
 
-#define BOOK_VERSION_MIN	1
-#define BOOK_VERSION_MAX	2
-#define BOOK_PATH			"data/books/"
-#define BOOKS_USE_SQL		0				// no guarentee for this branch to work right with sql
+var/const/BOOK_VERSION_MIN = 1
+var/const/BOOK_VERSION_MAX = 2
+var/const/BOOK_PATH = "data/books/"
 
 var/global/datum/book_manager/book_mgr = new()
 
@@ -44,18 +43,7 @@ datum/book_manager/proc/freeid()
 	if(!isbn)
 		return
 
-	if(BOOKS_USE_SQL && config.sql_enabled)
-		var/DBConnection/dbcon = new()
-		dbcon.Connect("dbi:mysql:[sqldb]:[sqladdress]:[sqlport]","[sqllogin]","[sqlpass]")
-		if(!dbcon.IsConnected())
-			alert("Connection to Archive has been severed. Aborting.")
-		else
-			var/DBQuery/query = dbcon.NewQuery("DELETE FROM library WHERE id=[isbn]")
-			if(!query.Execute())
-				usr << query.ErrorMsg()
-			dbcon.Disconnect()
-	else
-		book_mgr.remove(isbn)
+	book_mgr.remove(isbn)
 	log_admin("[usr.key] has deleted the book [isbn]")
 
 // delete a book
@@ -105,7 +93,6 @@ datum/archived_book/New(var/path)
 		if(findtext(dat,"<"+tag))
 			dat = ""
 			return
-
 
 datum/archived_book/proc/save()
 	var/savefile/F = new(book_mgr.path(id))

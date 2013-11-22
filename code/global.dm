@@ -28,20 +28,26 @@ All coders need to follow these rules, if you want your code to be commited.
 
 //#define TESTING
 
-var/global/obj/effect/datacore/dataCore = null // Stores data related to records, pda, etc.
-var/global/obj/effect/overlay/plasmaMasterOverlay = null // Stores an overlay for plasma in the air
-var/global/obj/effect/overlay/sleepAgentMasterOverlay = null // Stores an overlay for N2O in the air
+var/obj/effect/datacore/dataCore = null // Stores data related to records, pda, etc.
+var/obj/effect/overlay/plasmaMasterOverlay = null // Stores an overlay for plasma in the air
+var/obj/effect/overlay/sleepAgentMasterOverlay = null // Stores an overlay for N2O in the air
 
 // Items that ask to be called every cycle
 
-var/global/list/machines = list()
-var/global/list/processingObjects = list()
-var/global/list/activeDiseases = list()
-var/global/list/events = list()
+var/list/machines = list()
+var/list/processingObjects = list()
+var/list/activeDiseases = list()
+var/list/events = list()
 
-var/global/deferPowernetRebuild = 0 // true if net rebuild will be called manually after an event
+var/deferPowernetRebuild = 0 // true if net rebuild will be called manually after an event
 
-var/global/list/globalMap = null
+var/list/globalMap = null
+
+//The flag to determine if the nuclear bomb is set or not
+var/bomb_set = 0
+
+//Stores a series of stuff including all jobs, who needs jobs and debug info relating to jobs.
+var/datum/controller/occupations/job_master
 
 var/list/paperTagWhitelist = list("center","p","div","span","h1","h2","h3","h4","h5","h6","hr","pre",	\
 	"big","small","font","i","u","b","s","sub","sup","tt","br","hr","ol","ul","li","caption","col",	\

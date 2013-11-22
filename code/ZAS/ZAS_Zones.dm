@@ -127,7 +127,7 @@ var/list/CounterDoorDirections = list(SOUTH,EAST) //Which directions doors turfs
  //PROCESSING//
 //////////////
 
-#define QUANTIZE(variable)		(round(variable,0.0001))
+#define QUANTIZE(variable) (round(variable,0.0001))
 
 /zone/proc/process()
 	. = 1

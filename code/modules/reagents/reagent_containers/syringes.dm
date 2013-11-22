@@ -1,9 +1,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// Syringes.
 ////////////////////////////////////////////////////////////////////////////////
-#define SYRINGE_DRAW 0
-#define SYRINGE_INJECT 1
-#define SYRINGE_BROKEN 2
+var/const/SYRINGE_DRAW = 0
+var/const/SYRINGE_INJECT = 1
+var/const/SYRINGE_BROKEN = 2
 
 /obj/item/weapon/reagent_containers/syringe
 	name = "Syringe"

@@ -1,4 +1,4 @@
-#define UPDATE_BUFFER 25 // 2.5 seconds
+var/const/UPDATE_BUFFER = 25 // 2.5 seconds
 
 // CAMERA CHUNK
 //

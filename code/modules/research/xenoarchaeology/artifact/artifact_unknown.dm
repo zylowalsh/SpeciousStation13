@@ -1,23 +1,23 @@
+var/const/EFFECT_TOUCH = 0
+var/const/EFFECT_AURA = 1
+var/const/EFFECT_PULSE = 2
+var/const/MAX_EFFECT = 2
 
-#define EFFECT_TOUCH 0
-#define EFFECT_AURA 1
-#define EFFECT_PULSE 2
-#define MAX_EFFECT 2
+var/const/TRIGGER_TOUCH = 0
+var/const/TRIGGER_WATER = 1
+var/const/TRIGGER_ACID = 2
+var/const/TRIGGER_VOLATILE = 3
+var/const/TRIGGER_TOXIN = 4
+var/const/TRIGGER_FORCE = 5
+var/const/TRIGGER_ENERGY = 6
+var/const/TRIGGER_HEAT = 7
+var/const/TRIGGER_COLD = 8
+var/const/TRIGGER_PLASMA = 9
+var/const/TRIGGER_OXY = 10
+var/const/TRIGGER_CO2 = 11
+var/const/TRIGGER_NITRO = 12
+var/const/MAX_TRIGGER = 12
 
-#define TRIGGER_TOUCH 0
-#define TRIGGER_WATER 1
-#define TRIGGER_ACID 2
-#define TRIGGER_VOLATILE 3
-#define TRIGGER_TOXIN 4
-#define TRIGGER_FORCE 5
-#define TRIGGER_ENERGY 6
-#define TRIGGER_HEAT 7
-#define TRIGGER_COLD 8
-#define TRIGGER_PLASMA 9
-#define TRIGGER_OXY 10
-#define TRIGGER_CO2 11
-#define TRIGGER_NITRO 12
-#define MAX_TRIGGER 12
 /*
 //sleeping gas appears to be bugged, currently
 var/list/valid_primary_effect_types = list(\
@@ -107,11 +107,6 @@ var/list/valid_secondary_effect_types = list(\
 		desc = "A strange alien device."
 		if(prob(25))
 			my_effect.trigger = rand(1,4)
-
-#define TRIGGER_PLASMA 9
-#define TRIGGER_OXY 10
-#define TRIGGER_CO2 11
-#define TRIGGER_NITRO 12
 
 /obj/machinery/artifact/process()
 	if(my_effect)

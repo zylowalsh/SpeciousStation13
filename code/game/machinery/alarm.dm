@@ -1,3 +1,28 @@
+var/const/AALARM_MODE_SCRUBBING = 1
+var/const/AALARM_MODE_REPLACEMENT = 2 //like scrubbing, but faster.
+var/const/AALARM_MODE_PANIC = 3 //constantly sucks all air
+var/const/AALARM_MODE_CYCLE = 4 //sucks off all air, then refill and switches to scrubbing
+var/const/AALARM_MODE_FILL = 5 //emergency fill
+var/const/AALARM_MODE_OFF = 6 //Shuts it all down.
+
+var/const/AALARM_SCREEN_MAIN = 1
+var/const/AALARM_SCREEN_VENT = 2
+var/const/AALARM_SCREEN_SCRUB = 3
+var/const/AALARM_SCREEN_MODE = 4
+var/const/AALARM_SCREEN_SENSORS = 5
+
+var/const/AALARM_REPORT_TIMEOUT = 100
+
+var/const/RCON_NO = 1
+var/const/RCON_AUTO = 2
+var/const/RCON_YES = 3
+
+//1000 joules equates to about 1 degree every 2 seconds for a single tile of air.
+var/const/MAX_ENERGY_CHANGE = 1000
+
+var/const/MAX_TEMPERATURE = 90
+var/const/MIN_TEMPERATURE = -40
+
 ////////////////////////////////////////
 //CONTAINS: Air Alarms and Fire Alarms//
 ////////////////////////////////////////
@@ -22,37 +47,6 @@
 		flagIndex+=1
 	return AAlarmwires
 
-#define AALARM_WIRE_IDSCAN		1	//Added wires
-#define AALARM_WIRE_POWER		2
-#define AALARM_WIRE_SYPHON		3
-#define AALARM_WIRE_AI_CONTROL	4
-#define AALARM_WIRE_AALARM		5
-
-#define AALARM_MODE_SCRUBBING	1
-#define AALARM_MODE_REPLACEMENT	2 //like scrubbing, but faster.
-#define AALARM_MODE_PANIC		3 //constantly sucks all air
-#define AALARM_MODE_CYCLE		4 //sucks off all air, then refill and switches to scrubbing
-#define AALARM_MODE_FILL		5 //emergency fill
-#define AALARM_MODE_OFF			6 //Shuts it all down.
-
-#define AALARM_SCREEN_MAIN		1
-#define AALARM_SCREEN_VENT		2
-#define AALARM_SCREEN_SCRUB		3
-#define AALARM_SCREEN_MODE		4
-#define AALARM_SCREEN_SENSORS	5
-
-#define AALARM_REPORT_TIMEOUT 100
-
-#define RCON_NO		1
-#define RCON_AUTO	2
-#define RCON_YES	3
-
-//1000 joules equates to about 1 degree every 2 seconds for a single tile of air.
-#define MAX_ENERGY_CHANGE 1000
-
-#define MAX_TEMPERATURE 90
-#define MIN_TEMPERATURE -40
-
 //all air alarms in area are connected via magic
 /area
 	var/obj/machinery/alarm/master_air_alarm
@@ -62,6 +56,12 @@
 	var/list/air_scrub_info = list()
 
 /obj/machinery/alarm
+	var/const/AALARM_WIRE_IDSCAN = 1	//Added wires
+	var/const/AALARM_WIRE_POWER = 2
+	var/const/AALARM_WIRE_SYPHON = 3
+	var/const/AALARM_WIRE_AI_CONTROL = 4
+	var/const/AALARM_WIRE_AALARM = 5
+
 	name = "alarm"
 	icon = 'icons/obj/monitors.dmi'
 	icon_state = "alarm0"
@@ -451,7 +451,7 @@
 			if(istype(E,/obj/machinery/door/firedoor))
 				if(!E:blocked)
 					if(E.operating)
-						E:nextstate = CLOSED
+						E:nextstate = FIREDOOR_CLOSED
 					else if(!E.density)
 						spawn(0)
 							E.close()
@@ -487,7 +487,7 @@
 			if(istype(E, /obj/machinery/door/firedoor))
 				if(!E:blocked)
 					if(E.operating)
-						E:nextstate = OPEN
+						E:nextstate = FIREDOOR_OPEN
 					else if(E.density)
 						spawn(0)
 							E.open()

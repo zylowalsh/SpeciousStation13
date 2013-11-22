@@ -2,6 +2,11 @@
 				EXTERNAL ORGANS
 ****************************************************/
 /datum/organ/external
+	//Updating germ levels. Handles organ germ levels and necrosis.
+	var/const/GANGREN_LEVEL_ONE = 100
+	var/const/GANGREN_LEVEL_TWO = 1000
+	var/const/GANGREN_LEVEL_TERMINAL = 2500
+
 	name = "external"
 	var/icon_name = null
 	var/body_part = null
@@ -270,11 +275,7 @@
 	update_icon()
 	return
 
-//Updating germ levels. Handles organ germ levels and necrosis.
-#define GANGREN_LEVEL_ONE		100
-#define GANGREN_LEVEL_TWO		1000
-#define GANGREN_LEVEL_TERMINAL	2500
-#define GERM_TRANSFER_AMOUNT	germ_level/500
+#define GERM_TRANSFER_AMOUNT (germ_level / 500)
 /datum/organ/external/proc/update_germs()
 	if(germ_level > 0 && owner.bodytemperature >= 170)	//cryo stops germs from moving and doing their bad stuffs
 		//Syncing germ levels with external wounds

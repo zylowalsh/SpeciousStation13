@@ -1,4 +1,4 @@
-#define SAY_MINIMUM_PRESSURE 10
+var/const/SAY_MINIMUM_PRESSURE = 10
 var/list/department_radio_keys = list(
 	  ":r" = "right hand",	"#r" = "right hand",	".r" = "right hand",
 	  ":l" = "left hand",	"#l" = "left hand",		".l" = "left hand",

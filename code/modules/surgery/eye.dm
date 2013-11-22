@@ -122,7 +122,7 @@
 		user.visible_message("\blue [user] cauterizes the incision around [target]'s eyes with \the [tool].", \
 		"\blue You cauterize the incision around [target]'s eyes with \the [tool].")
 		if (target.op_stage.eyes == 3)
-			target.sdisabilities &= ~BLIND
+			target.sdisabilities &= ~BOTH_EYES_BLIND
 			target.eye_stat = 0
 		target.op_stage.eyes = 0
 

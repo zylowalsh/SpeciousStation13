@@ -1,14 +1,13 @@
 //Handles how much the temperature changes on power use. (Joules/Kelvin)
 //Equates to as much heat energy per kelvin as a quarter tile of air.
-#define XENOARCH_HEAT_CAPACITY 5000
+var/const/XENOARCH_HEAT_CAPACITY = 5000
 
 //Handles heat transfer to the air. (In watts)
 //Can heat a single tile 2 degrees per tick.
-#define XENOARCH_MAX_ENERGY_TRANSFER 4000
+var/const/XENOARCH_MAX_ENERGY_TRANSFER = 4000
 
 //How many joules of electrical energy produce how many joules of heat energy?
-#define XENOARCH_HEAT_COEFFICIENT 3
-
+var/const/XENOARCH_HEAT_COEFFICIENT = 3
 
 /obj/machinery/anomaly
 	name = "Analysis machine"

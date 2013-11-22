@@ -5,7 +5,7 @@
 //Firstly, they use memory. TGstation has one of the highest memory usage of all the ss13 branches.
 //Secondly, they are usually stored in an object. This means that they aren't centralised. It also means that
 //the data is lost when the object is deleted! This is especially annoying for things like the singulo engine!
-#define INVESTIGATE_DIR "data/investigate/"
+var/const/INVESTIGATE_DIR = "data/investigate/"
 
 //SYSTEM
 /proc/investigate_subject2file(var/subject)

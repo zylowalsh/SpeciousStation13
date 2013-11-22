@@ -31,10 +31,10 @@
 		No directional lighting support. Fairly easy to add this and the code is ready.
 */
 
-#define LIGHTING_MAX_LUMINOSITY 12	//Hard maximum luminosity to prevet lag which could be caused by coders making mini-suns
-#define LIGHTING_MAX_LUMINOSITY_MOB 7	//Mobs get their own max because 60-odd human suns running around would be pretty silly
-#define LIGHTING_LAYER 10			//Drawing layer for lighting overlays
-#define LIGHTING_ICON 'icons/effects/ss13_dark_alpha7.dmi'	//Icon used for lighting shading effects
+var/const/LIGHTING_MAX_LUMINOSITY = 12	//Hard maximum luminosity to prevet lag which could be caused by coders making mini-suns
+var/const/LIGHTING_MAX_LUMINOSITY_MOB = 7	//Mobs get their own max because 60-odd human suns running around would be pretty silly
+var/const/LIGHTING_LAYER = 10			//Drawing layer for lighting overlays
+var/const/LIGHTING_ICON = 'icons/effects/ss13_dark_alpha7.dmi'	//Icon used for lighting shading effects
 
 datum/light_source
 	var/atom/owner
@@ -299,9 +299,3 @@ area
 			if(!lighting_subarea)	// see if this is a lighting subarea already
 			//show the dark overlay so areas, not yet in a lighting subarea, won't be bright as day and look silly.
 				SetLightLevel(4)
-
-
-#undef LIGHTING_MAX_LUMINOSITY
-#undef LIGHTING_MAX_LUMINOSITY_MOB
-#undef LIGHTING_LAYER
-//#undef LIGHTING_ICON

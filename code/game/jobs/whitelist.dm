@@ -1,4 +1,4 @@
-#define WHITELISTFILE "data/whitelist.txt"
+var/const/WHITELISTFILE = "data/whitelist.txt"
 
 var/list/whitelist = list()
 
@@ -38,5 +38,3 @@ proc/load_alienwhitelist()
 				return 1
 
 	return 0
-
-#undef WHITELISTFILE

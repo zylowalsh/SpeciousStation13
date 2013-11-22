@@ -501,7 +501,7 @@
 			M << "\blue Your body feels warm."
 			M.mutations.Add(COLD_RESISTANCE)
 	if (isblockon(getblock(M.dna.struc_enzymes, BLINDBLOCK,3),BLINDBLOCK))
-		M.sdisabilities |= BLIND
+		M.sdisabilities |= BOTH_EYES_BLIND
 		M << "\red You can't seem to see anything."
 	if (isblockon(getblock(M.dna.struc_enzymes, TELEBLOCK,3),TELEBLOCK))
 		if(probinj(15,inj) || (TK in old_mutations))

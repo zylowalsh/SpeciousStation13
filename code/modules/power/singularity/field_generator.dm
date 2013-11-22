@@ -12,8 +12,9 @@ field_generator power level display
    -Aygar
 */
 
-#define field_generator_max_power 250
 /obj/machinery/field_generator
+	var/const/FIELD_GENERATOR_MAX_POWER = 250
+
 	name = "Field Generator"
 	desc = "A large thermal battery that projects a high amount of energy when powered."
 	icon = 'icons/obj/machines/field_generator.dmi'
@@ -42,7 +43,7 @@ field_generator power level display
 		overlays += "+on"
 	// Power level indicator
 	// Scale % power to % num_power_levels and truncate value
-	var/level = round(num_power_levels * power / field_generator_max_power)
+	var/level = round(num_power_levels * power / FIELD_GENERATOR_MAX_POWER)
 	// Clamp between 0 and num_power_levels for out of range power values
 	level = between(0, level, num_power_levels)
 	if(level)
@@ -63,7 +64,7 @@ field_generator power level display
 		if(active == 0)
 			active = 1
 			state = 2
-			power = field_generator_max_power
+			power = FIELD_GENERATOR_MAX_POWER
 			anchored = 1
 			warming_up = 3
 			start_fields()
@@ -203,8 +204,8 @@ field_generator power level display
 		return 1
 
 	update_icon()
-	if(src.power > field_generator_max_power)
-		src.power = field_generator_max_power
+	if(src.power > FIELD_GENERATOR_MAX_POWER)
+		src.power = FIELD_GENERATOR_MAX_POWER
 
 	var/power_draw = 2
 	for (var/obj/machinery/containment_field/F in fields)

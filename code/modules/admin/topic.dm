@@ -1688,19 +1688,6 @@
 				move_alien_ship()
 				message_admins("\blue [key_name_admin(usr)] moved the alien dinghy", 1)
 				log_admin("[key_name(usr)] moved the alien dinghy")
-			if("togglebombcap")
-				switch(MAX_EXPLOSION_RANGE)
-					if(14)	MAX_EXPLOSION_RANGE = 16
-					if(16)	MAX_EXPLOSION_RANGE = 20
-					if(20)	MAX_EXPLOSION_RANGE = 28
-					if(28)	MAX_EXPLOSION_RANGE = 56
-					if(56)	MAX_EXPLOSION_RANGE = 128
-					if(128)	MAX_EXPLOSION_RANGE = 14
-				var/range_dev = MAX_EXPLOSION_RANGE *0.25
-				var/range_high = MAX_EXPLOSION_RANGE *0.5
-				var/range_low = MAX_EXPLOSION_RANGE
-				message_admins("\red <b> [key_name_admin(usr)] changed the bomb cap to [range_dev], [range_high], [range_low]</b>", 1)
-				log_admin("[key_name_admin(usr)] changed the bomb cap to [MAX_EXPLOSION_RANGE]")
 
 			if("flicklights")
 				while(!usr.stat)

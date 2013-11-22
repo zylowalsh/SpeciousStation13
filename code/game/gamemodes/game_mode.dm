@@ -107,15 +107,12 @@ Implants;
 /datum/game_mode/proc/post_setup()
 	spawn (ROUNDSTART_LOGOUT_REPORT_TIME)
 		display_roundstart_logout_report()
-
 	return 1
-
 
 ///process()
 ///Called by the gameticker
 /datum/game_mode/proc/process()
 	return 0
-
 
 /datum/game_mode/proc/check_finished() //to be called by ticker
 	if(emergency_shuttle.location==2 || station_was_nuked)
@@ -125,44 +122,47 @@ Implants;
 /datum/game_mode/proc/declare_completion()
 	return 0
 
+// This should be used to fix all the findtext() stuff in gameticker.dm's declare_completion() proc.
+/datum/game_mode/proc/auto_declare_completion()
+	log_debug("auto_declare_completion() hasn't been overrided or called it's super")
+
 /datum/game_mode/proc/check_win() //universal trigger to be called at mob death, nuke explosion, etc. To be called from everywhere.
 	return 0
-
 
 /datum/game_mode/proc/send_intercept()
 	var/intercepttext = "<FONT size = 3><B>Cent. Com. Update</B> Requested status information:</FONT><HR>"
 	intercepttext += "<B> In case you have misplaced your copy, attached is a list of personnel whom reliable sources&trade; suspect may be affiliated with the Syndicate:</B><br>"
 
-
 	var/list/suspects = list()
-	for(var/mob/living/carbon/human/man in player_list) if(man.client && man.mind)
-		// NT relation option
-		var/special_role = man.mind.special_role
-		if (special_role == "Wizard" || special_role == "Ninja" || special_role == "Syndicate")
-			continue	//NT intelligence ruled out possiblity that those are too classy to pretend to be a crew.
-		if(man.client.prefs.nanotrasen_relation == "Opposed" && prob(50) || \
-		   man.client.prefs.nanotrasen_relation == "Skeptical" && prob(20))
-			suspects += man
-		// Antags
-		else if(special_role == "traitor" && prob(40) || \
-		   special_role == "Changeling" && prob(50) || \
-		   special_role == "Cultist" && prob(30) || \
-		   special_role == "Head Revolutionary" && prob(30))
-			suspects += man
+	for(var/mob/living/carbon/human/man in player_list)
+		if(man.client && man.mind)
+			// NT relation option
+			var/special_role = man.mind.special_role
+			if (special_role == "Wizard" || special_role == "Ninja" || special_role == "Syndicate")
+				continue	//NT intelligence ruled out possiblity that those are too classy to pretend to be a crew.
+			if(man.client.prefs.nanotrasen_relation == "Opposed" && prob(50) || \
+			   man.client.prefs.nanotrasen_relation == "Skeptical" && prob(20))
+				suspects += man
+			// Antags
+			else if(special_role == "traitor" && prob(40) || \
+			   special_role == "Changeling" && prob(50) || \
+			   special_role == "Cultist" && prob(30) || \
+			   special_role == "Head Revolutionary" && prob(30))
+				suspects += man
 
-			// If they're a traitor or likewise, give them extra TC in exchange.
-			var/obj/item/device/uplink/hidden/suplink = man.mind.find_syndicate_uplink()
-			if(suplink)
-				var/extra = 4
-				suplink.uses += extra
-				man << "\red We have received notice that enemy intelligence suspects you to be linked with us. We have thus invested significant resources to increase your uplink's capacity."
-			else
-				// Give them a warning!
-				man << "\red They are on to you!"
+				// If they're a traitor or likewise, give them extra TC in exchange.
+				var/obj/item/device/uplink/hidden/suplink = man.mind.find_syndicate_uplink()
+				if(suplink)
+					var/extra = 4
+					suplink.uses += extra
+					man << "\red We have received notice that enemy intelligence suspects you to be linked with us. We have thus invested significant resources to increase your uplink's capacity."
+				else
+					// Give them a warning!
+					man << "\red They are on to you!"
 
-		// Some poor people who were just in the wrong place at the wrong time..
-		else if(prob(10))
-			suspects += man
+			// Some poor people who were just in the wrong place at the wrong time..
+			else if(prob(10))
+				suspects += man
 	for(var/mob/M in suspects)
 		switch(rand(1, 100))
 			if(1 to 50)
@@ -179,14 +179,6 @@ Implants;
 			comm.messagetitle.Add("Cent. Com. Status Summary")
 			comm.messagetext.Add(intercepttext)
 	world << sound('commandreport.ogg')
-
-/*	command_alert("Summary downloaded and printed out at all communications consoles.", "Enemy communication intercept. Security Level Elevated.")
-	for(var/mob/M in player_list)
-		if(!istype(M,/mob/new_player))
-			M << sound('sound/AI/intercept.ogg')
-	if(security_level < SEC_LEVEL_BLUE)
-		set_security_level(SEC_LEVEL_BLUE)*/
-
 
 /datum/game_mode/proc/get_players_for_role(var/role, override_jobbans=0)
 	var/list/players = list()
@@ -237,58 +229,6 @@ Implants;
 			for(var/job in restricted_jobs)
 				if(player.assigned_role == job)
 					candidates -= player
-
-	/*if(candidates.len < recommended_enemies)
-		for(var/mob/new_player/player in players)
-			if(player.client && player.ready)
-				if(!(player.client.prefs.be_special & role)) // We don't have enough people who want to be antagonist, make a seperate list of people who don't want to be one
-					if(!jobban_isbanned(player, "Syndicate") && !jobban_isbanned(player, roletext)) //Nodrak/Carn: Antag Job-bans
-						drafted += player.mind
-
-	if(restricted_jobs)
-		for(var/datum/mind/player in drafted)				// Remove people who can't be an antagonist
-			for(var/job in restricted_jobs)
-				if(player.assigned_role == job)
-					drafted -= player
-
-	drafted = shuffle(drafted) // Will hopefully increase randomness, Donkie
-
-	while(candidates.len < recommended_enemies)				// Pick randomlly just the number of people we need and add them to our list of candidates
-		if(drafted.len > 0)
-			applicant = pick(drafted)
-			if(applicant)
-				candidates += applicant
-				log_debug("[applicant.key] was force-drafted as [roletext], because there aren't enough candidates.")
-				drafted.Remove(applicant)
-
-		else												// Not enough scrubs, ABORT ABORT ABORT
-			break
-
-	if(candidates.len < recommended_enemies && override_jobbans) //If we still don't have enough people, we're going to start drafting banned people.
-		for(var/mob/new_player/player in players)
-			if (player.client && player.ready)
-				if(jobban_isbanned(player, "Syndicate") || jobban_isbanned(player, roletext)) //Nodrak/Carn: Antag Job-bans
-					drafted += player.mind
-
-	if(restricted_jobs)
-		for(var/datum/mind/player in drafted)				// Remove people who can't be an antagonist
-			for(var/job in restricted_jobs)
-				if(player.assigned_role == job)
-					drafted -= player
-
-	drafted = shuffle(drafted) // Will hopefully increase randomness, Donkie
-
-	while(candidates.len < recommended_enemies)				// Pick randomlly just the number of people we need and add them to our list of candidates
-		if(drafted.len > 0)
-			applicant = pick(drafted)
-			if(applicant)
-				candidates += applicant
-				drafted.Remove(applicant)
-				log_debug("[applicant.key] was force-drafted as [roletext], because there aren't enough candidates.")
-
-		else												// Not enough scrubs, ABORT ABORT ABORT
-			break
-	*/
 
 	return candidates		// Returns: The number of people who had the antagonist role set to yes, regardless of recomended_enemies, if that number is greater than recommended_enemies
 							//			recommended_enemies if the number of people with that role set to yes is less than recomended_enemies,
@@ -351,7 +291,6 @@ proc/display_roundstart_logout_report()
 			if(!found)
 				msg += "<b>[L.name]</b> ([L.ckey]), the [L.job] (<font color='#ffcc00'><b>Disconnected</b></font>)\n"
 
-
 		if(L.ckey && L.client)
 			if(L.client.inactivity >= (ROUNDSTART_LOGOUT_REPORT_TIME / 2))	//Connected, but inactive (alt+tabbed or something)
 				msg += "<b>[L.name]</b> ([L.ckey]), the [L.job] (<font color='#ffcc00'><b>Connected, Inactive</b></font>)\n"
@@ -384,13 +323,9 @@ proc/display_roundstart_logout_report()
 					else
 						msg += "<b>[L.name]</b> ([ckey(D.mind.key)]), the [L.job] (<font color='red'><b>Ghosted</b></font>)\n"
 						continue //Ghosted while alive
-
-
-
 	for(var/mob/M in mob_list)
 		if(M.client && M.client.holder)
 			M << msg
-
 
 proc/get_nt_opposed()
 	var/list/dudes = list()

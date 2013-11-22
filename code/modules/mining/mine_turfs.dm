@@ -1,8 +1,8 @@
 /**********************Mineral deposits**************************/
 
-#define XENOARCH_SPAWN_CHANCE 0.5
-#define XENOARCH_SPREAD_CHANCE 15
-#define ARTIFACT_SPAWN_CHANCE 20
+var/const/XENOARCH_SPAWN_CHANCE = 0.5
+var/const/XENOARCH_SPREAD_CHANCE = 15
+var/const/ARTIFACT_SPAWN_CHANCE = 20
 
 /turf/simulated/mineral //wall piece
 	name = "Rock"

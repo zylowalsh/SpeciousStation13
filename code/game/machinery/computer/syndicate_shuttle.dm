@@ -1,5 +1,5 @@
-#define SYNDICATE_SHUTTLE_MOVE_TIME 240
-#define SYNDICATE_SHUTTLE_COOLDOWN 200
+var/const/SYNDICATE_SHUTTLE_MOVE_TIME = 240
+var/const/SYNDICATE_SHUTTLE_COOLDOWN = 200
 
 /obj/machinery/computer/syndicate_station
 	name = "syndicate shuttle terminal"

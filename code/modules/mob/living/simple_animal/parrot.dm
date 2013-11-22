@@ -8,24 +8,19 @@
  *		Sub-types
  */
 
-/*
- * Defines
- */
-
-//Only a maximum of one action and one intent should be active at any given time.
-//Actions
-#define PARROT_PERCH 1		//Sitting/sleeping, not moving
-#define PARROT_SWOOP 2		//Moving towards or away from a target
-#define PARROT_WANDER 4		//Moving without a specific target in mind
-
-//Intents
-#define PARROT_STEAL 8		//Flying towards a target to steal it/from it
-#define PARROT_ATTACK 16	//Flying towards a target to attack it
-#define PARROT_RETURN 32	//Flying towards its perch
-#define PARROT_FLEE 64		//Flying away from its attacker
-
-
 /mob/living/simple_animal/parrot
+	//Only a maximum of one action and one intent should be active at any given time.
+	//Actions
+	var/const/PARROT_PERCH = 1		//Sitting/sleeping, not moving
+	var/const/PARROT_SWOOP = 2		//Moving towards or away from a target
+	var/const/PARROT_WANDER = 4		//Moving without a specific target in mind
+
+	//Intents
+	var/const/PARROT_STEAL = 8		//Flying towards a target to steal it/from it
+	var/const/PARROT_ATTACK = 16	//Flying towards a target to attack it
+	var/const/PARROT_RETURN = 32	//Flying towards its perch
+	var/const/PARROT_FLEE = 64		//Flying away from its attacker
+
 	name = "\improper Parrot"
 	desc = "The parrot squaks, \"It's a Parrot! BAWWK!\""
 	icon = 'icons/mob/animal.dmi'

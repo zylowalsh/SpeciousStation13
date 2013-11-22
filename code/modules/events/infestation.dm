@@ -1,16 +1,16 @@
-#define LOC_KITCHEN 0
-#define LOC_ATMOS 1
-#define LOC_INCIN 2
-#define LOC_CHAPEL 3
-#define LOC_LIBRARY 4
-#define LOC_HYDRO 5
-#define LOC_VAULT 6
-#define LOC_CONSTR 7
-#define LOC_TECH 8
+var/const/LOC_KITCHEN = 0
+var/const/LOC_ATMOS = 1
+var/const/LOC_INCIN = 2
+var/const/LOC_CHAPEL = 3
+var/const/LOC_LIBRARY = 4
+var/const/LOC_HYDRO = 5
+var/const/LOC_VAULT = 6
+var/const/LOC_CONSTR = 7
+var/const/LOC_TECH = 8
 
-#define VERM_MICE 0
-#define VERM_LIZARDS 1
-#define VERM_SPIDERS 2
+var/const/VERM_MICE = 0
+var/const/VERM_LIZARDS = 1
+var/const/VERM_SPIDERS = 2
 
 /datum/event/infestation
 	announceWhen = 10

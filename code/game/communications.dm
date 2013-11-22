@@ -124,8 +124,8 @@ var/const/SCI_FREQ = 1351
 var/const/MED_FREQ = 1355
 var/const/SUP_FREQ = 1347
 
-#define TRANSMISSION_WIRE	0
-#define TRANSMISSION_RADIO	1
+var/const/TRANSMISSION_WIRE = 0
+var/const/TRANSMISSION_RADIO = 1
 
 /* filters */
 var/const/RADIO_TO_AIRALARM = "1"

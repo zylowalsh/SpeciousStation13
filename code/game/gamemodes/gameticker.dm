@@ -1,10 +1,9 @@
 var/global/datum/controller/gameticker/ticker
 
-#define GAME_STATE_PREGAME		1
-#define GAME_STATE_SETTING_UP	2
-#define GAME_STATE_PLAYING		3
-#define GAME_STATE_FINISHED		4
-
+var/const/GAME_STATE_PREGAME = 1
+var/const/GAME_STATE_SETTING_UP = 2
+var/const/GAME_STATE_PLAYING = 3
+var/const/GAME_STATE_FINISHED = 4
 
 /datum/controller/gameticker
 	var/const/restart_timeout = 600
