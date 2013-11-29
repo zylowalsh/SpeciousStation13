@@ -1,4 +1,4 @@
-/datum/data/vending_product
+/datum/vending_product
 	var/product_name = "generic"
 	var/product_path = null
 	var/amount = 0
@@ -18,7 +18,7 @@
 	var/active = 1 //No sales pitches if off!
 	var/vend_ready = 1 //Are we ready to vend?? Is it time??
 	var/vend_delay = 10 //How long does it take to vend?
-	var/datum/data/vending_product/currently_vending = null // A /datum/data/vending_product instance of what we're paying for right now.
+	var/datum/vending_product/currently_vending = null // A /datum/vending_product instance of what we're paying for right now.
 
 	// To be filled out at compile time
 	var/list/products	= list() // For each, use the following pattern:
@@ -118,7 +118,7 @@
 		if(isnull(amount)) amount = 1
 
 		var/atom/temp = new typepath(null)
-		var/datum/data/vending_product/R = new /datum/data/vending_product()
+		var/datum/vending_product/R = new /datum/vending_product()
 		R.product_name = temp.name
 		R.product_path = typepath
 		R.amount = amount
@@ -262,7 +262,7 @@
 		if(src.coin && src.extended_inventory)
 			display_records = src.product_records + src.hidden_records + src.coin_records
 
-		for (var/datum/data/vending_product/R in display_records)
+		for (var/datum/vending_product/R in display_records)
 			dat += "<FONT color = '[R.display_color]'><B>[R.product_name]</B>:"
 			dat += " <b>[R.amount]</b> </font>"
 			if(R.price)
@@ -343,7 +343,7 @@
 				flick(src.icon_deny,src)
 				return
 
-			var/datum/data/vending_product/R = locate(href_list["vend"])
+			var/datum/vending_product/R = locate(href_list["vend"])
 			if (!R || !istype(R) || !R.product_path || R.amount <= 0)
 				return
 
@@ -391,7 +391,7 @@
 		return
 	return
 
-/obj/machinery/vending/proc/vend(datum/data/vending_product/R, mob/user)
+/obj/machinery/vending/proc/vend(datum/vending_product/R, mob/user)
 	if ((!src.allowed(user)) && (!src.emagged) && (src.wires & WIRE_SCANID)) //For SECURE VENDING MACHINES YEAH
 		user << "\red Access denied." //Unless emagged of course
 		flick(src.icon_deny,src)
@@ -474,7 +474,7 @@
 
 //Oh no we're malfunctioning!  Dump out some product and break.
 /obj/machinery/vending/proc/malfunction()
-	for(var/datum/data/vending_product/R in src.product_records)
+	for(var/datum/vending_product/R in src.product_records)
 		if (R.amount <= 0) //Try to use a record that actually has something to dump.
 			continue
 		var/dump_path = R.product_path
@@ -497,7 +497,7 @@
 	if(!target)
 		return 0
 
-	for(var/datum/data/vending_product/R in src.product_records)
+	for(var/datum/vending_product/R in src.product_records)
 		if (R.amount <= 0) //Try to use a record that actually has something to dump.
 			continue
 		var/dump_path = R.product_path

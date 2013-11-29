@@ -625,7 +625,7 @@ var/list/ai_list = list()
 
 		var/personnel_list[] = list()
 
-		for(var/datum/data/record/t in dataCore.locked)//Look in data core locked.
+		for(var/datum/record/t in dataCore.locked)//Look in data core locked.
 			personnel_list["[t.fields["name"]]: [t.fields["rank"]]"] = t.fields["image"]//Pull names, rank, and image.
 
 		if(personnel_list.len)

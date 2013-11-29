@@ -64,7 +64,7 @@
 
 		/*var/crew = ""
 		var/list/L = list()
-		for (var/datum/data/record/t in dataCore.general)
+		for (var/datum/record/t in dataCore.general)
 			var/R = t.fields["name"] + " - " + t.fields["rank"]
 			L += R
 		for(var/R in sortList(L))
@@ -307,7 +307,7 @@
 				var/obj/item/weapon/paper/P = new /obj/item/weapon/paper( loc )
 				/*var/t1 = "<B>Crew Manifest:</B><BR>"
 				var/list/L = list()
-				for (var/datum/data/record/t in dataCore.general)
+				for (var/datum/record/t in dataCore.general)
 					var/R = t.fields["name"] + " - " + t.fields["rank"]
 					L += R
 				for(var/R in sortList(L))

@@ -265,7 +265,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 	if(oldname)
 		//update the datacore records! This is goig to be a bit costly.
 		for(var/list/L in list(dataCore.general, dataCore.medical, dataCore.security, dataCore.locked))
-			for(var/datum/data/record/R in L)
+			for(var/datum/record/R in L)
 				if(R.fields["name"] == oldname)
 					R.fields["name"] = newname
 					break

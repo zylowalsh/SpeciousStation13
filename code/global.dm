@@ -28,7 +28,7 @@ All coders need to follow these rules, if you want your code to be commited.
 
 //#define TESTING
 
-var/obj/effect/datacore/dataCore = null // Stores data related to records, pda, etc.
+var/datum/datacore/dataCore = null // Stores data related to records, pda, etc.
 var/obj/effect/overlay/plasmaMasterOverlay = null // Stores an overlay for plasma in the air
 var/obj/effect/overlay/sleepAgentMasterOverlay = null // Stores an overlay for N2O in the air
 

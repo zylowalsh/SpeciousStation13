@@ -400,9 +400,9 @@
 			perpname = name
 
 		if(perpname)
-			for (var/datum/data/record/E in dataCore.general)
+			for (var/datum/record/E in dataCore.general)
 				if(E.fields["name"] == perpname)
-					for (var/datum/data/record/R in dataCore.security)
+					for (var/datum/record/R in dataCore.security)
 						if(R.fields["id"] == E.fields["id"])
 							criminal = R.fields["criminal"]
 
@@ -422,9 +422,9 @@
 		else
 			perpname = src.name
 
-		for (var/datum/data/record/E in dataCore.general)
+		for (var/datum/record/E in dataCore.general)
 			if (E.fields["name"] == perpname)
-				for (var/datum/data/record/R in dataCore.general)
+				for (var/datum/record/R in dataCore.general)
 					if (R.fields["id"] == E.fields["id"])
 						medical = R.fields["p_stat"]
 

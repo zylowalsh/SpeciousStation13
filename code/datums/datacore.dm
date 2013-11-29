@@ -1,5 +1,105 @@
+/datum/datacore
+	var/medical[] = list()
+	var/general[] = list()
+	var/security[] = list()
+	//This list tracks characters spawned in the world and cannot be modified in-game. Currently referenced by respawn_character().
+	var/locked[] = list()
 
-/obj/effect/datacore/proc/manifest(var/nosleep = 0)
+/datum/record
+	var/name = "Default Record"
+	var/list/fields = list()
+
+/datum/datacore/proc/get_manifest(monochrome, OOC)
+	var/heads
+	var/sec
+	var/eng
+	var/med
+	var/sci
+	var/civ
+	var/bot
+	var/misc
+
+	var/dat = {"
+	<head><style>
+		.manifest {border-collapse:collapse;}
+		.manifest td, th {border:1px solid [monochrome?"black":"#DEF; background-color:white; color:black"]; padding:.25em}
+		.manifest th {height: 2em; [monochrome?"border-top-width: 3px":"background-color: #48C; color:white"]}
+		.manifest tr.head th { [monochrome?"border-top-width: 1px":"background-color: #488;"] }
+		.manifest td:first-child {text-align:right}
+		.manifest tr.alt td {[monochrome?"border-top-width: 2px":"background-color: #DEF"]}
+	</style></head>
+	<table class="manifest" width='350px'>
+	<tr class='head'><th>Name</th><th>Rank</th><th>Activity</th></tr>
+	"}
+
+	for(var/datum/record/t in dataCore.general)
+		var/isActive = ""
+		var/tempString = ""
+
+		var/name = t.fields["name"]
+		var/rank = t.fields["rank"]
+		var/real_rank = t.fields["real_rank"]
+
+		if(OOC)
+			var/active = 0
+			for(var/mob/M in player_list)
+				if(M.real_name == name && M.client && M.client.inactivity <= 6000)
+					active = 1
+					break
+			isActive = active ? "Active" : "Inactive"
+		else
+			isActive = t.fields["p_stat"]
+
+		tempString = "<td>[name]</td><td>[rank]</td><td>[isActive]</td></tr>"
+
+		if(real_rank in command_positions)
+			heads += tempString
+		else if(real_rank in security_positions)
+			sec += tempString
+		else if(real_rank in engineering_positions)
+			eng += tempString
+		else if(real_rank in medical_positions)
+			med += tempString
+		else if(real_rank in science_positions)
+			sci += tempString
+		else if(real_rank in civilian_positions)
+			civ += tempString
+		else if(real_rank in nonhuman_positions)
+			bot += tempString
+		else
+			misc += tempString
+
+	if(heads)
+		dat += "<tr><th colspan=3>Heads</th></tr>"
+		dat += heads
+	if(sec)
+		dat += "<tr><th colspan=3>Security</th></tr>"
+		dat += sec
+	if(eng)
+		dat += "<tr><th colspan=3>Engineering</th></tr>"
+		dat += eng
+	if(med)
+		dat += "<tr><th colspan=3>Medical</th></tr>"
+		dat += med
+	if(sci)
+		dat += "<tr><th colspan=3>Science</th></tr>"
+		dat += sci
+	if(civ)
+		dat += "<tr><th colspan=3>Civilian</th></tr>"
+		dat += civ
+	if(bot)
+		dat += "<tr><th colspan=3>Silicon</th></tr>"
+		dat += bot
+	if(misc)
+		dat += "<tr><th colspan=3>Miscellaneous</th></tr>"
+		dat += misc
+
+	dat += "</table>"
+	dat = replacetext(dat, "\n", "") // so it can be placed on paper correctly
+	dat = replacetext(dat, "\t", "")
+	return dat
+
+/datum/datacore/proc/manifest(var/nosleep = 0)
 	spawn()
 		if(!nosleep)
 			sleep(40)
@@ -7,11 +107,11 @@
 			manifest_inject(H)
 		return
 
-/obj/effect/datacore/proc/manifest_modify(var/name, var/assignment)
-	var/datum/data/record/foundrecord
+/datum/datacore/proc/manifest_modify(var/name, var/assignment)
+	var/datum/record/foundrecord
 	var/real_title = assignment
 
-	for(var/datum/data/record/t in dataCore.general)
+	for(var/datum/record/t in dataCore.general)
 		if (t)
 			if(t.fields["name"] == name)
 				foundrecord = t
@@ -30,7 +130,7 @@
 		foundrecord.fields["rank"] = assignment
 		foundrecord.fields["real_rank"] = real_title
 
-/obj/effect/datacore/proc/manifest_inject(var/mob/living/carbon/human/H)
+/datum/datacore/proc/manifest_inject(var/mob/living/carbon/human/H)
 	if(H.mind && (H.mind.assigned_role != "MODE"))
 		var/assignment
 		if(H.mind.role_alt_title)
@@ -46,7 +146,7 @@
 
 
 		//General Record
-		var/datum/data/record/G = new()
+		var/datum/record/G = new()
 		G.fields["id"]			= id
 		G.fields["name"]		= H.real_name
 		G.fields["real_rank"]	= H.mind.assigned_role
@@ -65,7 +165,7 @@
 		general += G
 
 		//Medical Record
-		var/datum/data/record/M = new()
+		var/datum/record/M = new()
 		M.fields["id"]			= id
 		M.fields["name"]		= H.real_name
 		M.fields["b_type"]		= H.b_type
@@ -85,7 +185,7 @@
 		medical += M
 
 		//Security Record
-		var/datum/data/record/S = new()
+		var/datum/record/S = new()
 		S.fields["id"]			= id
 		S.fields["name"]		= H.real_name
 		S.fields["criminal"]	= "None"
@@ -101,7 +201,7 @@
 		security += S
 
 		//Locked Record
-		var/datum/data/record/L = new()
+		var/datum/record/L = new()
 		L.fields["id"]			= md5("[H.real_name][H.mind.assigned_role]")
 		L.fields["name"]		= H.real_name
 		L.fields["rank"] = H.mind.assigned_role

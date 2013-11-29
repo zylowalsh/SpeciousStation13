@@ -714,7 +714,7 @@ Auto Patrol: []"},
 			threatcount += 2
 
 	if(src.check_records)
-		for (var/datum/data/record/E in dataCore.general)
+		for (var/datum/record/E in dataCore.general)
 			var/perpname = perp.name
 			if(perp.wear_id)
 				var/obj/item/weapon/card/id/id = perp.wear_id.GetID()
@@ -722,7 +722,7 @@ Auto Patrol: []"},
 					perpname = id.registered_name
 
 			if(E.fields["name"] == perpname)
-				for (var/datum/data/record/R in dataCore.security)
+				for (var/datum/record/R in dataCore.security)
 					if((R.fields["id"] == E.fields["id"]) && (R.fields["criminal"] == "*Arrest*"))
 						threatcount = 4
 						break

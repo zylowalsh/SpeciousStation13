@@ -78,14 +78,14 @@ obj/machinery/scanner/attack_hand(mob/living/carbon/human/user)
 	print.info = text
 	print.stamped = 1
 
-	for(var/datum/data/record/test in dataCore.general)
+	for(var/datum/record/test in dataCore.general)
 		if (test.fields["name"] == mname)
 			return
 
-	var/datum/data/record/G = new()
-	var/datum/data/record/M = new()
-	var/datum/data/record/S = new()
-	var/datum/data/record/L = new()
+	var/datum/record/G = new()
+	var/datum/record/M = new()
+	var/datum/record/S = new()
+	var/datum/record/L = new()
 	G.fields["rank"] = "Unassigned"
 	G.fields["real_rank"] = G.fields["rank"]
 	G.fields["name"] = mname

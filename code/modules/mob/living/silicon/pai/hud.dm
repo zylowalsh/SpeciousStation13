@@ -27,10 +27,10 @@
 				holder.icon_state = "hudunknown"
 				client.images += holder
 
-			for(var/datum/data/record/E in dataCore.general)
+			for(var/datum/record/E in dataCore.general)
 				if(E.fields["name"] == perpname)
 					holder = perp.hud_list[WANTED_HUD]
-					for(var/datum/data/record/R in dataCore.security)
+					for(var/datum/record/R in dataCore.security)
 						if((R.fields["id"] == E.fields["id"]) && (R.fields["criminal"] == "*Arrest*"))
 							holder.icon_state = "hudwanted"
 							client.images += holder

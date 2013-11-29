@@ -89,7 +89,7 @@
 	var/scantemp = "Scanner unoccupied"
 	var/menu = 1 //Which menu screen to display
 	var/list/records = list()
-	var/datum/data/record/active_record = null
+	var/datum/record/active_record = null
 	var/obj/item/weapon/disk/data/diskette = null //Mostly so the geneticist can steal everything.
 	var/loading = 0 // Nice loading text
 
@@ -215,7 +215,7 @@
 		if(2)
 			dat += "<h4>Current records</h4>"
 			dat += "<a href='byond://?src=\ref[src];menu=1'>Back</a><br><br>"
-			for(var/datum/data/record/R in src.records)
+			for(var/datum/record/R in src.records)
 				dat += "<a href='byond://?src=\ref[src];view_rec=\ref[R]'>[R.fields["id"]]-[R.fields["name"]]</a><br>"
 
 		if(3)
@@ -296,7 +296,7 @@
 
 	else if (href_list["view_rec"])
 		src.active_record = locate(href_list["view_rec"])
-		if(istype(src.active_record,/datum/data/record))
+		if(istype(src.active_record,/datum/record))
 			if ((isnull(src.active_record.fields["ckey"])) || (src.active_record.fields["ckey"] == ""))
 				del(src.active_record)
 				src.temp = "ERROR: Record Corrupt"
@@ -377,7 +377,7 @@
 		src.updateUsrDialog()
 
 	else if (href_list["clone"])
-		var/datum/data/record/C = locate(href_list["clone"])
+		var/datum/record/C = locate(href_list["clone"])
 		//Look for that player! They better be dead!
 		if(istype(C))
 			//Can't clone without someone to clone.  Or a pod.  Or if the pod is busy. Or full of gibs.
@@ -442,7 +442,7 @@
 
 	subject.dna.check_integrity()
 
-	var/datum/data/record/R = new /datum/data/record(  )
+	var/datum/record/R = new /datum/record(  )
 	R.fields["mrace"] = subject.species
 	R.fields["ckey"] = subject.ckey
 	R.fields["name"] = subject.real_name
@@ -469,7 +469,7 @@
 //Find a specific record by key.
 /obj/machinery/computer/cloning/proc/find_record(var/find_key)
 	var/selected_record = null
-	for(var/datum/data/record/R in src.records)
+	for(var/datum/record/R in src.records)
 		if (R.fields["ckey"] == find_key)
 			selected_record = R
 			break

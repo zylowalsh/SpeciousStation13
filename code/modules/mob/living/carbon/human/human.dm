@@ -545,9 +545,9 @@
 				perpname = name
 
 			if(perpname)
-				for (var/datum/data/record/E in dataCore.general)
+				for (var/datum/record/E in dataCore.general)
 					if (E.fields["name"] == perpname)
-						for (var/datum/data/record/R in dataCore.security)
+						for (var/datum/record/R in dataCore.security)
 							if (R.fields["id"] == E.fields["id"])
 
 								var/setcriminal = input(usr, "Specify a new criminal status for this person.", "Security HUD", R.fields["criminal"]) in list("None", "*Arrest*", "Incarcerated", "Parolled", "Released", "Cancel")
@@ -581,9 +581,9 @@
 					perpname = tempPda.owner
 			else
 				perpname = src.name
-			for (var/datum/data/record/E in dataCore.general)
+			for (var/datum/record/E in dataCore.general)
 				if (E.fields["name"] == perpname)
-					for (var/datum/data/record/R in dataCore.security)
+					for (var/datum/record/R in dataCore.security)
 						if (R.fields["id"] == E.fields["id"])
 							if(hasHUD(usr,"security"))
 								usr << "<b>Name:</b> [R.fields["name"]]	<b>Criminal Status:</b> [R.fields["criminal"]]"
@@ -611,9 +611,9 @@
 					perpname = tempPda.owner
 			else
 				perpname = src.name
-			for (var/datum/data/record/E in dataCore.general)
+			for (var/datum/record/E in dataCore.general)
 				if (E.fields["name"] == perpname)
-					for (var/datum/data/record/R in dataCore.security)
+					for (var/datum/record/R in dataCore.security)
 						if (R.fields["id"] == E.fields["id"])
 							if(hasHUD(usr,"security"))
 								read = 1
@@ -639,9 +639,9 @@
 					perpname = tempPda.owner
 			else
 				perpname = src.name
-			for (var/datum/data/record/E in dataCore.general)
+			for (var/datum/record/E in dataCore.general)
 				if (E.fields["name"] == perpname)
-					for (var/datum/data/record/R in dataCore.security)
+					for (var/datum/record/R in dataCore.security)
 						if (R.fields["id"] == E.fields["id"])
 							if(hasHUD(usr,"security"))
 								var/t1 = copytext(sanitize(input("Add Comment:", "Sec. records", null, null)  as message),1,MAX_MESSAGE_LEN)
@@ -671,9 +671,9 @@
 			else
 				perpname = src.name
 
-			for (var/datum/data/record/E in dataCore.general)
+			for (var/datum/record/E in dataCore.general)
 				if (E.fields["name"] == perpname)
-					for (var/datum/data/record/R in dataCore.general)
+					for (var/datum/record/R in dataCore.general)
 						if (R.fields["id"] == E.fields["id"])
 
 							var/setmedical = input(usr, "Specify a new medical status for this person.", "Medical HUD", R.fields["p_stat"]) in list("*SSD*", "*Deceased*", "Physically Unfit", "Active", "Disabled", "Cancel")
@@ -707,9 +707,9 @@
 					perpname = tempPda.owner
 			else
 				perpname = src.name
-			for (var/datum/data/record/E in dataCore.general)
+			for (var/datum/record/E in dataCore.general)
 				if (E.fields["name"] == perpname)
-					for (var/datum/data/record/R in dataCore.medical)
+					for (var/datum/record/R in dataCore.medical)
 						if (R.fields["id"] == E.fields["id"])
 							if(hasHUD(usr,"medical"))
 								usr << "<b>Name:</b> [R.fields["name"]]	<b>Blood Type:</b> [R.fields["b_type"]]"
@@ -738,9 +738,9 @@
 					perpname = tempPda.owner
 			else
 				perpname = src.name
-			for (var/datum/data/record/E in dataCore.general)
+			for (var/datum/record/E in dataCore.general)
 				if (E.fields["name"] == perpname)
-					for (var/datum/data/record/R in dataCore.medical)
+					for (var/datum/record/R in dataCore.medical)
 						if (R.fields["id"] == E.fields["id"])
 							if(hasHUD(usr,"medical"))
 								read = 1
@@ -766,9 +766,9 @@
 					perpname = tempPda.owner
 			else
 				perpname = src.name
-			for (var/datum/data/record/E in dataCore.general)
+			for (var/datum/record/E in dataCore.general)
 				if (E.fields["name"] == perpname)
-					for (var/datum/data/record/R in dataCore.medical)
+					for (var/datum/record/R in dataCore.medical)
 						if (R.fields["id"] == E.fields["id"])
 							if(hasHUD(usr,"medical"))
 								var/t1 = copytext(sanitize(input("Add Comment:", "Med. records", null, null)  as message),1,MAX_MESSAGE_LEN)

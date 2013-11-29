@@ -274,12 +274,12 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	//Ok, it's not a xeno or a monkey. So, spawn a human.
 	var/mob/living/carbon/human/new_character = new(pick(latejoin))//The mob being spawned.
 
-	var/datum/data/record/record_found			//Referenced to later to either randomize or not randomize the character.
+	var/datum/record/record_found			//Referenced to later to either randomize or not randomize the character.
 	if(G_found.mind && !G_found.mind.active)	//mind isn't currently in use by someone/something
 		/*Try and locate a record for the person being respawned through dataCore.
 		This isn't an exact science but it does the trick more often than not.*/
 		var/id = md5("[G_found.real_name][G_found.mind.assigned_role]")
-		for(var/datum/data/record/t in dataCore.locked)
+		for(var/datum/record/t in dataCore.locked)
 			if(t.fields["id"]==id)
 				record_found = t//We shall now reference the record.
 				break

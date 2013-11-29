@@ -10,7 +10,7 @@
 	var/authenticated = null
 	var/rank = null
 	var/screen = null
-	var/datum/data/record/active1 = null
+	var/datum/record/active1 = null
 	var/a_id = null
 	var/temp = null
 	var/printing = null
@@ -71,8 +71,8 @@
 <th><A href='?src=\ref[src];choice=Sorting;sort=fingerprint'>Fingerprints</A></th>
 </tr>"}
 					if(!isnull(dataCore.general))
-						for(var/datum/data/record/R in sortRecord(dataCore.general, sortBy, order))
-							for(var/datum/data/record/E in dataCore.security)
+						for(var/datum/record/R in sortRecord(dataCore.general, sortBy, order))
+							for(var/datum/record/E in dataCore.security)
 							var/background
 							dat += text("<tr style=[]><td><A href='?src=\ref[];choice=Browse Record;d_rec=\ref[]'>[]</a></td>", background, src, R, R.fields["name"])
 							dat += text("<td>[]</td>", R.fields["id"])
@@ -86,7 +86,7 @@
 					dat += "<BR><A href='?src=\ref[src];choice=Delete All Records'>Delete All Records</A><BR><BR><A href='?src=\ref[src];choice=Return'>Back</A>"
 				if(3.0)
 					dat += "<CENTER><B>Employment Record</B></CENTER><BR>"
-					if ((istype(active1, /datum/data/record) && dataCore.general.Find(active1)))
+					if ((istype(active1, /datum/record) && dataCore.general.Find(active1)))
 						var/icon/front = new(active1.fields["photo"], dir = SOUTH)
 						var/icon/side = new(active1.fields["photo"], dir = WEST)
 						user << browse_rsc(front, "front.png")
@@ -126,9 +126,9 @@
 </tr>					"}
 						for(var/i=1, i<=Perp.len, i += 2)
 							var/crimstat = ""
-							var/datum/data/record/R = Perp[i]
-							if(istype(Perp[i+1],/datum/data/record/))
-								var/datum/data/record/E = Perp[i+1]
+							var/datum/record/R = Perp[i]
+							if(istype(Perp[i+1],/datum/record/))
+								var/datum/record/E = Perp[i+1]
 								crimstat = E.fields["criminal"]
 							var/background
 							background = "'background-color:#00FF7F;'"
@@ -224,7 +224,7 @@ What a mess.*/
 				var/list/components = text2list(t1, " ")
 				if(components.len > 5)
 					return //Lets not let them search too greedily.
-				for(var/datum/data/record/R in dataCore.general)
+				for(var/datum/record/R in dataCore.general)
 					var/temptext = R.fields["name"] + " " + R.fields["id"] + " " + R.fields["fingerprint"] + " " + R.fields["rank"]
 					for(var/i = 1, i<=components.len, i++)
 						if(findtext(temptext,components[i]))
@@ -232,8 +232,8 @@ What a mess.*/
 							prelist[1] = R
 							Perp += prelist
 				for(var/i = 1, i<=Perp.len, i+=2)
-					for(var/datum/data/record/E in dataCore.security)
-						var/datum/data/record/R = Perp[i]
+					for(var/datum/record/E in dataCore.security)
+						var/datum/record/R = Perp[i]
 						if ((E.fields["name"] == R.fields["name"] && E.fields["id"] == R.fields["id"]))
 							Perp[i+1] = E
 				tempname = t1
@@ -244,11 +244,11 @@ What a mess.*/
 				active1 = null
 
 			if ("Browse Record")
-				var/datum/data/record/R = locate(href_list["d_rec"])
+				var/datum/record/R = locate(href_list["d_rec"])
 				if (!( dataCore.general.Find(R) ))
 					temp = "Record Not Found!"
 				else
-					for(var/datum/data/record/E in dataCore.security)
+					for(var/datum/record/E in dataCore.security)
 					active1 = R
 					screen = 3
 
@@ -258,13 +258,13 @@ What a mess.*/
 					return
 				active1 = null
 				t1 = lowertext(t1)
-				for(var/datum/data/record/R in dataCore.general)
+				for(var/datum/record/R in dataCore.general)
 					if (lowertext(R.fields["fingerprint"]) == t1)
 						active1 = R
 				if (!( active1 ))
 					temp = text("Could not locate record [].", t1)
 				else
-					for(var/datum/data/record/E in dataCore.security)
+					for(var/datum/record/E in dataCore.security)
 						if ((E.fields["name"] == active1.fields["name"] || E.fields["id"] == active1.fields["id"]))
 					screen = 3	*/
 
@@ -274,7 +274,7 @@ What a mess.*/
 					sleep(50)
 					var/obj/item/weapon/paper/P = new /obj/item/weapon/paper( loc )
 					P.info = "<CENTER><B>Employment Record</B></CENTER><BR>"
-					if ((istype(active1, /datum/data/record) && dataCore.general.Find(active1)))
+					if ((istype(active1, /datum/record) && dataCore.general.Find(active1)))
 						P.info += text("Name: [] ID: []<BR>\nSex: []<BR>\nAge: []<BR>\nFingerprint: []<BR>\nPhysical Status: []<BR>\nMental Status: []<BR>\nEmployment/Skills Summary:[]<BR>", active1.fields["name"], active1.fields["id"], active1.fields["sex"], active1.fields["age"], active1.fields["fingerprint"], active1.fields["p_stat"], active1.fields["m_stat"], active1.fields["notes"])
 					else
 						P.info += "<B>General Record Lost!</B><BR>"
@@ -289,7 +289,7 @@ What a mess.*/
 				temp += "<a href='?src=\ref[src];choice=Clear Screen'>No</a>"
 
 			if ("Purge All Records")
-				for(var/datum/data/record/R in dataCore.security)
+				for(var/datum/record/R in dataCore.security)
 					del(R)
 				temp = "All Employment records deleted."
 
@@ -300,7 +300,7 @@ What a mess.*/
 					temp += "<a href='?src=\ref[src];choice=Clear Screen'>No</a>"
 //RECORD CREATE
 			if ("New Record (General)")
-				var/datum/data/record/G = new /datum/data/record()
+				var/datum/record/G = new /datum/record()
 				G.fields["name"] = "New Record"
 				G.fields["id"] = text("[]", add_zero(num2hex(rand(1, 1.6777215E7)), 6))
 				G.fields["rank"] = "Unassigned"
@@ -319,31 +319,31 @@ What a mess.*/
 				var/a1 = active1
 				switch(href_list["field"])
 					if("name")
-						if (istype(active1, /datum/data/record))
+						if (istype(active1, /datum/record))
 							var/t1 = input("Please input name:", "Secure. records", active1.fields["name"], null)  as text
 							if ((!( t1 ) || !length(trim(t1)) || !( authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon)))) || active1 != a1)
 								return
 							active1.fields["name"] = t1
 					if("id")
-						if (istype(active1, /datum/data/record))
+						if (istype(active1, /datum/record))
 							var/t1 = copytext(sanitize(input("Please input id:", "Secure. records", active1.fields["id"], null)  as text),1,MAX_MESSAGE_LEN)
 							if ((!( t1 ) || !( authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))) || active1 != a1))
 								return
 							active1.fields["id"] = t1
 					if("fingerprint")
-						if (istype(active1, /datum/data/record))
+						if (istype(active1, /datum/record))
 							var/t1 = copytext(sanitize(input("Please input fingerprint hash:", "Secure. records", active1.fields["fingerprint"], null)  as text),1,MAX_MESSAGE_LEN)
 							if ((!( t1 ) || !( authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))) || active1 != a1))
 								return
 							active1.fields["fingerprint"] = t1
 					if("sex")
-						if (istype(active1, /datum/data/record))
+						if (istype(active1, /datum/record))
 							if (active1.fields["sex"] == "Male")
 								active1.fields["sex"] = "Female"
 							else
 								active1.fields["sex"] = "Male"
 					if("age")
-						if (istype(active1, /datum/data/record))
+						if (istype(active1, /datum/record))
 							var/t1 = input("Please input age:", "Secure. records", active1.fields["age"], null)  as num
 							if ((!( t1 ) || !( authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))) || active1 != a1))
 								return
@@ -351,7 +351,7 @@ What a mess.*/
 					if("rank")
 						var/list/L = list( "Head of Personnel", "Captain", "AI" )
 						//This was so silly before the change. Now it actually works without beating your head against the keyboard. /N
-						if ((istype(active1, /datum/data/record) && L.Find(rank)))
+						if ((istype(active1, /datum/record) && L.Find(rank)))
 							temp = "<h5>Rank:</h5>"
 							temp += "<ul>"
 							for(var/rank in get_all_jobs())
@@ -360,7 +360,7 @@ What a mess.*/
 						else
 							alert(usr, "You do not have the required rank to do this!")
 					if("species")
-						if (istype(active1, /datum/data/record))
+						if (istype(active1, /datum/record))
 							var/t1 = copytext(sanitize(input("Please enter race:", "General records", active1.fields["species"], null)  as message),1,MAX_MESSAGE_LEN)
 							if ((!( t1 ) || !( authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))) || active1 != a1))
 								return
@@ -378,7 +378,7 @@ What a mess.*/
 
 					if ("Delete Record (ALL) Execute")
 						if (active1)
-							for(var/datum/data/record/R in dataCore.medical)
+							for(var/datum/record/R in dataCore.medical)
 								if ((R.fields["name"] == active1.fields["name"] || R.fields["id"] == active1.fields["id"]))
 									del(R)
 								else
@@ -395,7 +395,7 @@ What a mess.*/
 		..(severity)
 		return
 
-	for(var/datum/data/record/R in dataCore.security)
+	for(var/datum/record/R in dataCore.security)
 		if(prob(10/severity))
 			switch(rand(1,6))
 				if(1)

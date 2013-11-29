@@ -58,7 +58,7 @@ var/dateAtStartString
 
 	sun = new /datum/sun()
 	radio_controller = new /datum/controller/radio()
-	dataCore = new /obj/effect/datacore()
+	dataCore = new /datum/datacore()
 	paiController = new /datum/paiController()
 
 	plasmaMasterOverlay = new /obj/effect/overlay()

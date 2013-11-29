@@ -23,9 +23,9 @@
 	var/access_hydroponics = 0
 	var/mode = null
 	var/menu
-	var/datum/data/record/active1 = null //General
-	var/datum/data/record/active2 = null //Medical
-	var/datum/data/record/active3 = null //Security
+	var/datum/record/active1 = null //General
+	var/datum/record/active2 = null //Medical
+	var/datum/record/active3 = null //Security
 	var/obj/machinery/power/monitor/powmonitor = null // Power Monitor
 	var/list/powermonitors = list()
 	var/message1	// used for status_displays
@@ -337,13 +337,13 @@ Code:
 			if (44) //medical records //This thing only displays a single screen so it's hard to really get the sub-menu stuff working.
 				menu = "<h4><img src=pda_medical.png> Medical Record List</h4>"
 				if(!isnull(dataCore.general))
-					for (var/datum/data/record/R in sortRecord(dataCore.general))
+					for (var/datum/record/R in sortRecord(dataCore.general))
 						menu += "<a href='byond://?src=\ref[src];choice=Medical Records;target=\ref[R]'>[R.fields["id"]]: [R.fields["name"]]<br>"
 				menu += "<br>"
 			if(441)
 				menu = "<h4><img src=pda_medical.png> Medical Record</h4>"
 
-				if (istype(active1, /datum/data/record) && (active1 in dataCore.general))
+				if (istype(active1, /datum/record) && (active1 in dataCore.general))
 					menu += "Name: [active1.fields["name"]] ID: [active1.fields["id"]]<br>"
 					menu += "Sex: [active1.fields["sex"]]<br>"
 					menu += "Age: [active1.fields["age"]]<br>"
@@ -357,7 +357,7 @@ Code:
 				menu += "<br>"
 
 				menu += "<h4><img src=pda_medical.png> Medical Data</h4>"
-				if (istype(active2, /datum/data/record) && (active2 in dataCore.medical))
+				if (istype(active2, /datum/record) && (active2 in dataCore.medical))
 					menu += "Blood Type: [active2.fields["b_type"]]<br><br>"
 
 					menu += "Minor Disabilities: [active2.fields["mi_dis"]]<br>"
@@ -380,14 +380,14 @@ Code:
 			if (45) //security records
 				menu = "<h4><img src=pda_cuffs.png> Security Record List</h4>"
 				if(!isnull(dataCore.general))
-					for (var/datum/data/record/R in sortRecord(dataCore.general))
+					for (var/datum/record/R in sortRecord(dataCore.general))
 						menu += "<a href='byond://?src=\ref[src];choice=Security Records;target=\ref[R]'>[R.fields["id"]]: [R.fields["name"]]<br>"
 
 				menu += "<br>"
 			if(451)
 				menu = "<h4><img src=pda_cuffs.png> Security Record</h4>"
 
-				if (istype(active1, /datum/data/record) && (active1 in dataCore.general))
+				if (istype(active1, /datum/record) && (active1 in dataCore.general))
 					menu += "Name: [active1.fields["name"]] ID: [active1.fields["id"]]<br>"
 					menu += "Sex: [active1.fields["sex"]]<br>"
 					menu += "Age: [active1.fields["age"]]<br>"
@@ -401,7 +401,7 @@ Code:
 				menu += "<br>"
 
 				menu += "<h4><img src=pda_cuffs.png> Security Data</h4>"
-				if (istype(active3, /datum/data/record) && (active3 in dataCore.security))
+				if (istype(active3, /datum/record) && (active3 in dataCore.security))
 					menu += "Criminal Status: [active3.fields["criminal"]]<br>"
 
 					menu += "Minor Crimes: [active3.fields["mi_crim"]]<br>"
@@ -613,12 +613,12 @@ Code:
 
 	switch(href_list["choice"])
 		if("Medical Records")
-			var/datum/data/record/R = locate(href_list["target"])
-			var/datum/data/record/M = locate(href_list["target"])
+			var/datum/record/R = locate(href_list["target"])
+			var/datum/record/M = locate(href_list["target"])
 			loc:mode = 441
 			mode = 441
 			if (R in dataCore.general)
-				for (var/datum/data/record/E in dataCore.medical)
+				for (var/datum/record/E in dataCore.medical)
 					if ((E.fields["name"] == R.fields["name"] || E.fields["id"] == R.fields["id"]))
 						M = E
 						break
@@ -626,12 +626,12 @@ Code:
 				active2 = M
 
 		if("Security Records")
-			var/datum/data/record/R = locate(href_list["target"])
-			var/datum/data/record/S = locate(href_list["target"])
+			var/datum/record/R = locate(href_list["target"])
+			var/datum/record/S = locate(href_list["target"])
 			loc:mode = 451
 			mode = 451
 			if (R in dataCore.general)
-				for (var/datum/data/record/E in dataCore.security)
+				for (var/datum/record/E in dataCore.security)
 					if ((E.fields["name"] == R.fields["name"] || E.fields["id"] == R.fields["id"]))
 						S = E
 						break

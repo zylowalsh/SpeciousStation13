@@ -226,7 +226,7 @@ proc/listclearnulls(list/list)
 
 
 //Mergesort: Specifically for record datums in a list.
-/proc/sortRecord(var/list/datum/data/record/L, var/field = "name", var/order = 1)
+/proc/sortRecord(var/list/datum/record/L, var/field = "name", var/order = 1)
 	if(isnull(L))
 		return list()
 	if(L.len < 2)
@@ -235,17 +235,17 @@ proc/listclearnulls(list/list)
 	return mergeRecordLists(sortRecord(L.Copy(0, middle), field, order), sortRecord(L.Copy(middle), field, order), field, order)
 
 //Mergsort: does the actual sorting and returns the results back to sortRecord
-/proc/mergeRecordLists(var/list/datum/data/record/L, var/list/datum/data/record/R, var/field = "name", var/order = 1)
+/proc/mergeRecordLists(var/list/datum/record/L, var/list/datum/record/R, var/field = "name", var/order = 1)
 	var/Li=1
 	var/Ri=1
 	var/list/result = new()
 	if(!isnull(L) && !isnull(R))
 		while(Li <= L.len && Ri <= R.len)
-			var/datum/data/record/rL = L[Li]
+			var/datum/record/rL = L[Li]
 			if(isnull(rL))
 				L -= rL
 				continue
-			var/datum/data/record/rR = R[Ri]
+			var/datum/record/rR = R[Ri]
 			if(isnull(rR))
 				R -= rR
 				continue
