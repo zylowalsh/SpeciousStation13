@@ -54,7 +54,7 @@
 
 	var/dat = {"Location: [curr_location]<br>
 	Ready to move[max(lastMove + ADMIN_SHUTTLE_COOLDOWN - world.time, 0) ? " in [max(round((lastMove + ADMIN_SHUTTLE_COOLDOWN - world.time) * 0.1), 0)] seconds" : ": now"]<br>
-	<a href='?src=\ref[src];centcom=1'>CentCom</a><br>
+	<a href='?src=\ref[src];centcom=1'>[HEADQUARTERS_NAME]</a><br>
 	<a href='?src=\ref[src];station=1'>Dock at Station</a><br>
 	<a href='?src=\ref[src];station_s=1'>South of Station</a><br>
 	<a href='?src=\ref[src];derelictShip=1'>Derelict Ship</a><br>

@@ -38,11 +38,9 @@
 		output += "<p><a href='byond://?src=\ref[src];late_join=1'>Join Game!</A></p>"
 
 	output += "<p><a href='byond://?src=\ref[src];observe=1'>Observe</A></p>"
-
 	output += "</div>"
 
-	src << browse(output,"window=playersetup;size=210x240;can_close=0")
-	return
+	src << browse(output, "window=playersetup;size=210x240;can_close=0")
 
 /mob/new_player/Stat()
 	..()
@@ -206,12 +204,12 @@
 	var/dat = "<html><body><center>"
 	dat += "Round Duration: [round(hours)]h [round(mins)]m<br>"
 
-	if(emergency_shuttle) //In case Nanotrasen decides reposess CentComm's shuttles.
-		if(emergency_shuttle.direction == 2) //Shuttle is going to centcomm, not recalled
+	if(emergencyShuttle) //In case Nanotrasen decides reposess CentComm's shuttles.
+		if(emergencyShuttle.shuttleState == RETURNING_FROM_STATION || emergencyShuttle.shuttleState == RETURNED_FROM_STATION) //Shuttle is going to centcomm, not recalled
 			dat += "<font color='red'><b>The station has been evacuated.</b></font><br>"
-		if(emergency_shuttle.direction == 1 && emergency_shuttle.timeleft() < 300 && emergency_shuttle.alert == 0) // Emergency shuttle is past the point of no recall
+		if(emergencyShuttle.shuttleState == GOING_TO_STATION || emergencyShuttle.shuttleState == AT_STATION) // Emergency shuttle is past the point of no recall
 			dat += "<font color='red'>The station is currently undergoing evacuation procedures.</font><br>"
-		if(emergency_shuttle.direction == 1 && emergency_shuttle.alert == 1) // Crew transfer initiated
+		if(emergencyShuttle.online && emergencyShuttle.evacType == CREW_CYCLE) // Crew transfer initiated
 			dat += "<font color='red'>The station is currently undergoing crew transfer procedures.</font><br>"
 
 	dat += "Choose from the following open positions:<br>"

@@ -1465,6 +1465,4 @@
 
 		return temp
 
-
-#undef HUMAN_MAX_OXYLOSS
 #undef HUMAN_CRIT_MAX_OXYLOSS

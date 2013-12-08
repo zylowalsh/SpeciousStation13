@@ -49,6 +49,3 @@ var/const/ENABLE_MEMOS = 1				//using a define because screw making a config var
 		if(ckey)
 			F.dir.Remove(ckey)
 			src << "<b>Removed Memo created by [ckey].</b>"
-
-#undef MEMOFILE
-#undef ENABLE_MEMOS

@@ -240,8 +240,6 @@ Alien plants should do something if theres a lot of poison
 	return 1
 */
 
-#undef NODERANGE
-
 //clothing, weapons, and other items that can be worn or used in some way
 
 /obj/item/clothing/under/rank/navywarden

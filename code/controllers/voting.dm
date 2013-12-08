@@ -153,7 +153,7 @@ datum/controller/vote
 						world << "<font color='red'><b>The round will start soon.</b></font>"
 				if("crew_transfer")
 					if(. == "Initiate Crew Transfer")
-						init_shift_change(null, 1)
+						initShiftChange(null)
 
 
 		if(restart)

@@ -89,10 +89,10 @@ var/list/ai_list = list()
 	aiMulti = new(src)
 
 	if (istype(loc, /turf))
-		verbs.Add(/mob/living/silicon/ai/proc/ai_call_shuttle,/mob/living/silicon/ai/proc/ai_camera_track, \
-		/mob/living/silicon/ai/proc/ai_camera_list, /mob/living/silicon/ai/proc/ai_network_change, \
-		/mob/living/silicon/ai/proc/ai_statuschange, /mob/living/silicon/ai/proc/ai_hologram_change, \
-		/mob/living/silicon/ai/proc/toggle_camera_light)
+		verbs.Add(/mob/living/silicon/ai/proc/aiCallShuttle, /mob/living/silicon/ai/proc/ai_camera_track, \
+			/mob/living/silicon/ai/proc/ai_camera_list, /mob/living/silicon/ai/proc/ai_network_change, \
+			/mob/living/silicon/ai/proc/ai_statuschange, /mob/living/silicon/ai/proc/ai_hologram_change, \
+			/mob/living/silicon/ai/proc/toggle_camera_light)
 
 	if(!safety)//Only used by AIize() to successfully spawn an AI.
 		if (!B)//If there is no player/brain inside.
@@ -223,7 +223,7 @@ var/list/ai_list = list()
 	set name = "Show Crew Manifest"
 	show_station_manifest()
 
-/mob/living/silicon/ai/proc/ai_call_shuttle()
+/mob/living/silicon/ai/proc/aiCallShuttle()
 	set category = "AI Commands"
 	set name = "Call Emergency Shuttle"
 	if(src.stat == 2)
@@ -236,30 +236,26 @@ var/list/ai_list = list()
 			return
 
 	var/confirm = alert("Are you sure you want to call the shuttle?", "Confirm Shuttle Call", "Yes", "No")
-
 	if(confirm == "Yes")
-		call_shuttle_proc(src)
+		callShuttle(src)
 
 	// hack to display shuttle timer
-	if(emergency_shuttle.online)
+	if(emergencyShuttle.online)
 		var/obj/machinery/computer/communications/C = locate() in machines
 		if(C)
 			C.post_status("shuttle")
 
-	return
-
-/mob/living/silicon/ai/proc/ai_cancel_call()
+/mob/living/silicon/ai/proc/aiCancelCall()
 	set category = "AI Commands"
 	if(src.stat == 2)
 		src << "You can't send the shuttle back because you are dead!"
 		return
-	if(istype(usr,/mob/living/silicon/ai))
+	if(istype(usr, /mob/living/silicon/ai))
 		var/mob/living/silicon/ai/AI = src
 		if(AI.control_disabled)
 			src	 << "Wireless control is disabled!"
 			return
-	cancel_call_proc(src)
-	return
+	recallShuttle(src)
 
 /mob/living/silicon/ai/check_eye(var/mob/user as mob)
 	if (!current)
@@ -283,7 +279,7 @@ var/list/ai_list = list()
 			if(1)
 				view_core()
 			if(2)
-				ai_call_shuttle()
+				aiCallShuttle()
 	..()
 
 /mob/living/silicon/ai/ex_act(severity)
@@ -625,7 +621,7 @@ var/list/ai_list = list()
 
 		var/personnel_list[] = list()
 
-		for(var/datum/record/t in dataCore.locked)//Look in data core locked.
+		for(var/datum/record/t in dataCore.locked)//Look in dataCore locked.
 			personnel_list["[t.fields["name"]]: [t.fields["rank"]]"] = t.fields["image"]//Pull names, rank, and image.
 
 		if(personnel_list.len)

@@ -1014,3 +1014,12 @@
 	icon_state = "jnettie_belt"
 	item_state = "jnettie_belt"
 
+/obj/item/clothing/under/fluff/tokis_turtleneck
+    name = "The Chronomancer"
+    desc = "Ok, who put the AI in the washing machine?"
+    icon = 'icons/obj/custom_items.dmi'
+    icon_state = "tactishirt"
+    item_state = "tactishirt"
+    item_color = "tactishirt"
+
+

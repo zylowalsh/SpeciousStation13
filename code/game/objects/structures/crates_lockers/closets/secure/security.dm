@@ -27,10 +27,8 @@
 		new /obj/item/clothing/gloves/captain(src)
 		new /obj/item/weapon/gun/energy/gun(src)
 		new /obj/item/clothing/suit/armor/captain(src)
-		new /obj/item/weapon/melee/telebaton(src)
+		new /obj/item/weapon/melee/baton(src)
 		new /obj/item/clothing/under/dress/dress_cap(src)
-		return
-
 
 
 /obj/structure/closet/secure_closet/hop
@@ -82,9 +80,6 @@
 		new /obj/item/clothing/shoes/leather(src)
 		new /obj/item/clothing/shoes/white(src)
 		new /obj/item/clothing/under/rank/head_of_personnel_whimsy(src)
-		return
-
-
 
 /obj/structure/closet/secure_closet/hos
 	name = "Head of Security's Locker"
@@ -119,10 +114,7 @@
 		new /obj/item/weapon/melee/baton(src)
 		new /obj/item/weapon/gun/energy/gun(src)
 		new /obj/item/clothing/tie/holster/waist(src)
-		new /obj/item/weapon/melee/telebaton(src)
-		return
-
-
+		new /obj/item/weapon/melee/baton(src)
 
 /obj/structure/closet/secure_closet/warden
 	name = "Warden's Locker"
@@ -133,7 +125,6 @@
 	icon_opened = "wardensecureopen"
 	icon_broken = "wardensecurebroken"
 	icon_off = "wardensecureoff"
-
 
 	New()
 		..()

@@ -140,9 +140,3 @@ var/const/BORG_WIRE_CAMERA = 5
 			usr << browse(null, "window=borgwires")
 			usr.unset_machine()
 			return
-
-#undef BORG_WIRE_LAWCHECK
-#undef BORG_WIRE_MAIN_POWER1
-#undef BORG_WIRE_MAIN_POWER2
-#undef BORG_WIRE_AI_CONTROL
-#undef BORG_WIRE_CAMERA

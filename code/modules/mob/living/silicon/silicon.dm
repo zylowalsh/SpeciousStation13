@@ -167,11 +167,10 @@
 
 // this function displays the shuttles ETA in the status panel if the shuttle has been called
 /mob/living/silicon/proc/show_emergency_shuttle_eta()
-	if(emergency_shuttle.online && emergency_shuttle.location < 2)
-		var/timeleft = emergency_shuttle.timeleft()
-		if (timeleft)
-			stat(null, "ETA-[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]")
-
+	if(emergencyShuttle.shuttleState == PREPARING_TO_LAUNCH)
+		var/timeLeft = emergencyShuttle.getTimeLeft()
+		if (timeLeft)
+			stat(null, "ETA-[(timeLeft / 60) % 60]:[add_zero(num2text(timeLeft % 60), 2)]")
 
 // This adds the basic clock, shuttle recall timer, and malf_ai info to all silicon lifeforms
 /mob/living/silicon/Stat()

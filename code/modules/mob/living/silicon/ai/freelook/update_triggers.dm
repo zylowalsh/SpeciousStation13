@@ -100,5 +100,3 @@ var/const/BORG_CAMERA_BUFFER = 30
 	if(open_networks.len)
 		cameranet.removeCamera(src)
 	..()
-
-#undef BORG_CAMERA_BUFFER

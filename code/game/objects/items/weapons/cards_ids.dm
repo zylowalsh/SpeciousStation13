@@ -190,10 +190,10 @@
 		..()
 
 /obj/item/weapon/card/id/centcom
-	name = "\improper CentCom. ID"
-	desc = "An ID straight from Cent. Com."
+	name = "\improper CentCom ID"
+	desc = "An ID straight from CentCom"
 	icon_state = "centcom"
-	registered_name = "Central Command"
+	registered_name = "CentCom"
 	assignment = "General"
 	New()
 		access = get_all_centcom_access()

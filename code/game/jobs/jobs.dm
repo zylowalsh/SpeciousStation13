@@ -116,7 +116,7 @@ var/list/medical_positions = list(
 	"Medical Doctor",
 	"Geneticist",
 	"Psychiatrist",
-	"Chemist"
+	"Emergency Medical Technician"
 )
 
 var/list/science_positions = list(

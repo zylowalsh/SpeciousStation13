@@ -50,7 +50,7 @@
 		if("Supply Shuttle")
 			debug_variables(supply_shuttle)
 		if("Emergency Shuttle")
-			debug_variables(emergency_shuttle)
+			debug_variables(emergencyShuttle)
 		if("Configuration")
 			debug_variables(config)
 		if("pAI")

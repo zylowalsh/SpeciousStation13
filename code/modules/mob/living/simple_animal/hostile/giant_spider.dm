@@ -194,8 +194,3 @@
 		else
 			busy = 0
 			stop_automated_movement = 0
-
-#undef SPINNING_WEB
-#undef LAYING_EGGS
-#undef MOVING_TO_TARGET
-#undef SPINNING_COCOON

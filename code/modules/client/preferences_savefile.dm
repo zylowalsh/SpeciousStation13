@@ -11,8 +11,8 @@ var/const/SAVEFILE_VERSION_MAX = 10
 //if a file was updated, return 1
 /datum/preferences/proc/savefile_update()
 	if(savefile_version < 8)	//lazily delete everything + additional files so they can be saved in the new format
-		for(var/ckey in preferences_datums)
-			var/datum/preferences/D = preferences_datums[ckey]
+		for(var/ckey in allPreferences)
+			var/datum/preferences/D = allPreferences[ckey]
 			if(D == src)
 				var/delpath = "data/player_saves/[copytext(ckey,1,2)]/[ckey]/"
 				if(delpath && fexists(delpath))
@@ -27,7 +27,8 @@ var/const/SAVEFILE_VERSION_MAX = 10
 	return 0
 
 /datum/preferences/proc/load_path(ckey,filename="preferences.sav")
-	if(!ckey)	return
+	if(!ckey)
+		return
 	path = "data/player_saves/[copytext(ckey,1,2)]/[ckey]/[filename]"
 	savefile_version = SAVEFILE_VERSION_MAX
 
@@ -178,10 +179,6 @@ var/const/SAVEFILE_VERSION_MAX = 10
 	S["job_engsec_low"]		>> job_engsec_low
 
 	//Miscellaneous
-	S["flavor_text"]		>> flavor_text
-	S["med_record"]			>> med_record
-	S["sec_record"]			>> sec_record
-	S["gen_record"]			>> gen_record
 	S["be_special"]			>> be_special
 	S["disabilities"]		>> disabilities
 	S["player_alt_titles"]		>> player_alt_titles
@@ -240,9 +237,11 @@ var/const/SAVEFILE_VERSION_MAX = 10
 	return 1
 
 /datum/preferences/proc/save_character()
+	var/savefile/S
 	if(!path)
 		return 0
-	var/savefile/S = new /savefile(path)
+	S = new /savefile(path)
+
 	if(!S)
 		return 0
 	S.cd = "/character[default_slot]"
@@ -284,10 +283,6 @@ var/const/SAVEFILE_VERSION_MAX = 10
 	S["job_engsec_low"]		<< job_engsec_low
 
 	//Miscellaneous
-	S["flavor_text"]		<< flavor_text
-	S["med_record"]			<< med_record
-	S["sec_record"]			<< sec_record
-	S["gen_record"]			<< gen_record
 	S["player_alt_titles"]		<< player_alt_titles
 	S["be_special"]			<< be_special
 	S["disabilities"]		<< disabilities
@@ -301,6 +296,43 @@ var/const/SAVEFILE_VERSION_MAX = 10
 
 	return 1
 
+/datum/preferences/proc/loadRecords(slot)
+	if(!path)
+		return 0
+	if(!fexists(path))
+		return 0
+	var/savefile/S = new /savefile(path)
+	if(!S)
+		return 0
+	S.cd = "/"
+	if(!slot)
+		slot = default_slot
+	slot = sanitize_integer(slot, 1, MAX_SAVE_SLOTS, initial(default_slot))
+	if(slot != default_slot)
+		default_slot = slot
+		S["default_slot"] << slot
+	S.cd = "/character[slot]"
 
-#undef SAVEFILE_VERSION_MAX
-#undef SAVEFILE_VERSION_MIN
+	S["med_record"] >> medRecord
+	S["sec_record"] >> secRecord
+	S["gen_record"] >> genRecord
+
+	world << "loadRecords() is returning"
+	return 1
+
+/datum/preferences/proc/saveRecords(slot, dataCoreIndex)
+	var/savefile/S
+	if(!path)
+		return 0
+	S = new /savefile(path)
+
+	if(!S)
+		return 0
+	S.cd = "/character[slot]"
+
+	S["med_record"] << dataCore.medical[dataCoreIndex]
+	S["sec_record"] << dataCore.security[dataCoreIndex]
+	S["gen_record"] << dataCore.general[dataCoreIndex]
+
+	world << "saveRecords() is returning"
+	return 1

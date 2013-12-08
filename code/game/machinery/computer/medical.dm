@@ -406,7 +406,7 @@
 					var/datum/record/R = new /datum/record(  )
 					R.fields["name"] = src.active1.fields["name"]
 					R.fields["id"] = src.active1.fields["id"]
-					R.name = text("Medical Record #[]", R.fields["id"])
+					R.recordName = text("Medical Record #[]", R.fields["id"])
 					R.fields["b_type"] = "Unknown"
 					R.fields["b_dna"] = "Unknown"
 					R.fields["mi_dis"] = "None"

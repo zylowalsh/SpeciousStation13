@@ -436,17 +436,12 @@ var/global/list/uneatable = list(
 
 /obj/machinery/singularity/proc/emp_area()
 	empulse(src, 8, 10)
-	return
-
 
 /obj/machinery/singularity/proc/pulse()
 
 	for(var/obj/machinery/power/rad_collector/R in rad_collectors)
 		if(get_dist(R, src) <= 15) // Better than using orange() every process
 			R.receive_pulse(energy)
-	return
-
-
 
 /obj/machinery/singularity/narsie //Moving narsie to a child object of the singularity so it can be made to function differently. --NEO
 	name = "Nar-Sie"
@@ -474,8 +469,8 @@ var/global/list/uneatable = list(
 /obj/machinery/singularity/narsie/large/New()
 	..()
 	world << "<font size='28' color='red'><b>NAR-SIE HAS RISEN</b></font>"
-	if(emergency_shuttle)
-		emergency_shuttle.incall(0.5) // Cannot recall
+	if(emergencyShuttle)
+		emergencyShuttle.callShuttle()
 
 /obj/machinery/singularity/narsie/process()
 	eat()

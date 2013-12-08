@@ -392,7 +392,7 @@ What a mess.*/
 					var/datum/record/R = new /datum/record()
 					R.fields["name"] = active1.fields["name"]
 					R.fields["id"] = active1.fields["id"]
-					R.name = text("Security Record #[]", R.fields["id"])
+					R.recordName = text("Security Record #[]", R.fields["id"])
 					R.fields["criminal"] = "None"
 					R.fields["mi_crim"] = "None"
 					R.fields["mi_crim_d"] = "No minor crime convictions."

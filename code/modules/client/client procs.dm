@@ -99,7 +99,7 @@ var/const/MIN_CLIENT_VERSION = 0		//Just an ambiguously low version for now, I d
 		return null
 
 	if(IsGuestKey(key))
-		alert(src,"Baystation12 doesn't allow guest accounts to play. Please go to http://www.byond.com/ and register for a key.","Guest","OK")
+		alert(src,"Space Station 13 doesn't allow guest accounts to play. Please go to http://www.byond.com/ and register for a key.","Guest","OK")
 		del(src)
 		return
 
@@ -121,10 +121,10 @@ var/const/MIN_CLIENT_VERSION = 0		//Just an ambiguously low version for now, I d
 		holder.owner = src
 
 	//preferences datum - also holds some persistant data for the client (because we may as well keep these datums to a minimum)
-	prefs = preferences_datums[ckey]
+	prefs = allPreferences[ckey]
 	if(!prefs)
 		prefs = new /datum/preferences(src)
-		preferences_datums[ckey] = prefs
+		allPreferences[ckey] = prefs
 	prefs.lastJoinDate = world.realtime
 	if(prefs.firstJoinDate == 0)
 		prefs.firstJoinDate = world.realtime
@@ -163,10 +163,6 @@ var/const/MIN_CLIENT_VERSION = 0		//Just an ambiguously low version for now, I d
 	directory -= ckey
 	clients -= src
 	return ..()
-
-#undef TOPIC_SPAM_DELAY
-#undef UPLOAD_LIMIT
-#undef MIN_CLIENT_VERSION
 
 //checks if a client is afk
 //3000 frames = 5 minutes

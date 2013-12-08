@@ -1,24 +1,20 @@
-//STRIKE TEAMS
+var/const/SYNDICATE_COMMANDOS_POSSIBLE = 6 //if more Commandos are needed in the future
+var/sentSyndicateStrikeTeam = FALSE
 
-var/const/syndicate_commandos_possible = 6 //if more Commandos are needed in the future
-var/global/sent_syndicate_strike_team = 0
-/client/proc/syndicate_strike_team()
+/client/proc/syndicateStrikeTeam()
 	set category = "Fun"
 	set name = "Spawn Syndicate Strike Team"
 	set desc = "Spawns a squad of commandos in the Syndicate Mothership if you want to run an admin event."
+
 	if(!src.holder)
 		src << "Only administrators may use this command."
 		return
+
 	if(!ticker)
 		alert("The game hasn't started yet!")
 		return
-//	if(world.time < 6000)
-//		alert("Not so fast, buddy. Wait a few minutes until the game gets going. There are [(6000-world.time)/10] seconds remaining.")
-//		return
-	if(sent_syndicate_strike_team == 1)
-		alert("The Syndicate are already sending a team, Mr. Dumbass.")
-		return
-	if(alert("Do you want to send in the Syndicate Strike Team? Once enabled, this is irreversible.",,"Yes","No")=="No")
+
+	if(alert("Do you want to send in the Syndicate Strike Team? Once enabled, this is irreversible.",,"Yes","No") == "No")
 		return
 	alert("This 'mode' will go on until everyone is dead or the station is destroyed. You may also admin-call the evac shuttle when appropriate. Spawned syndicates have internals cameras which are viewable through a monitor inside the Syndicate Mothership Bridge. Assigning the team's detailed task is recommended from there. While you will be able to manually pick the candidates from active ghosts, their assignment in the squad will be random.")
 
@@ -29,25 +25,24 @@ var/global/sent_syndicate_strike_team = 0
 			if(alert("Error, no mission set. Do you want to exit the setup process?",,"Yes","No")=="Yes")
 				return
 
-	if(sent_syndicate_strike_team)
-		src << "Looks like someone beat you to it."
+	if(sentSyndicateStrikeTeam)
+		src << "The syndicate has already sent a team"
 		return
 
-	sent_syndicate_strike_team = 1
+	sentSyndicateStrikeTeam = TRUE
 
-	if (emergency_shuttle.direction == 1 && emergency_shuttle.online == 1)
-		emergency_shuttle.recall()
+	emergencyShuttle.recall()
 
-	var/syndicate_commando_number = syndicate_commandos_possible //for selecting a leader
-	var/syndicate_leader_selected = 0 //when the leader is chosen. The last person spawned.
+	var/syndicateCommandoNumber = SYNDICATE_COMMANDOS_POSSIBLE //for selecting a leader
+	var/syndicateLeaderSelected = 0 //when the leader is chosen. The last person spawned.
 
 //Code for spawning a nuke auth code.
-	var/nuke_code
-	var/temp_code
+	var/nukeCode
+	var/tempCode
 	for(var/obj/machinery/nuclearbomb/N in world)
-		temp_code = text2num(N.r_code)
-		if(temp_code)//if it's actually a number. It won't convert any non-numericals.
-			nuke_code = N.r_code
+		tempCode = text2num(N.r_code)
+		if(tempCode)//if it's actually a number. It won't convert any non-numericals.
+			nukeCode = N.r_code
 			break
 
 //Generates a list of commandos from active ghosts. Then the user picks which characters to respawn as the commandos.
@@ -57,33 +52,35 @@ var/global/sent_syndicate_strike_team = 0
 		if(!G.client.holder && !G.client.is_afk())	//Whoever called/has the proc won't be added to the list.
 			if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
 				candidates += G.key
-	for(var/i=commandos_possible,(i>0&&candidates.len),i--)//Decrease with every commando selected.
-		var/candidate = input("Pick characters to spawn as the commandos. This will go on until there either no more ghosts to pick from or the slots are full.", "Active Players") as null|anything in candidates	//It will auto-pick a person when there is only one candidate.
-		candidates -= candidate		//Subtract from candidates.
-		commandos += candidate//Add their ghost to commandos.
+	for(var/i = SYNDICATE_COMMANDOS_POSSIBLE, (i>0 && candidates.len) ,i--)//Decrease with every commando selected.
+		var/candidate = input("Pick characters to spawn as the commandos. This will go on until there either no more ghosts to pick from \
+			or the slots are full.", "Active Players") as null|anything in candidates	//It will auto-pick a person when there is only one candidate.
+		candidates -= candidate	//Subtract from candidates.
+		commandos += candidate //Add their ghost to commandos.
 
 //Spawns commandos and equips them.
 	for(var/obj/effect/landmark/L in landmarks_list)
-		if(syndicate_commando_number<=0)	break
+		if(syndicateCommandoNumber <= 0)
+			break
 		if (L.name == "Syndicate-Commando")
-			syndicate_leader_selected = syndicate_commando_number == 1?1:0
+			syndicateLeaderSelected = syndicateCommandoNumber == 1 ? 1 : 0
 
-			var/mob/living/carbon/human/new_syndicate_commando = create_syndicate_death_commando(L, syndicate_leader_selected)
+			var/mob/living/carbon/human/newSyndicateCommando = create_syndicate_death_commando(L, syndicateLeaderSelected)
 
 			if(commandos.len)
-				new_syndicate_commando.key = pick(commandos)
-				commandos -= new_syndicate_commando.key
-				new_syndicate_commando.internal = new_syndicate_commando.s_store
-				new_syndicate_commando.internals.icon_state = "internal1"
+				newSyndicateCommando.key = pick(commandos)
+				commandos -= newSyndicateCommando.key
+				newSyndicateCommando.internal = newSyndicateCommando.s_store
+				newSyndicateCommando.internals.icon_state = "internal1"
 
 			//So they don't forget their code or mission.
-			if(nuke_code)
-				new_syndicate_commando.mind.store_memory("<B>Nuke Code:</B> \red [nuke_code].")
-			new_syndicate_commando.mind.store_memory("<B>Mission:</B> \red [input].")
+			if(nukeCode)
+				newSyndicateCommando.mind.store_memory("<B>Nuke Code:</B> \red [nukeCode].")
+			newSyndicateCommando.mind.store_memory("<B>Mission:</B> \red [input].")
 
-			new_syndicate_commando << "\blue You are an Elite Syndicate. [!syndicate_leader_selected?"commando":"<B>LEADER</B>"] in the service of the Syndicate. \nYour current mission is: \red<B>[input]</B>"
+			newSyndicateCommando << "\blue You are an Elite Syndicate. [!syndicateLeaderSelected ? "commando" : "<B>LEADER</B>"] in the service of the Syndicate. \nYour current mission is: \red<B>[input]</B>"
 
-			syndicate_commando_number--
+			syndicateCommandoNumber--
 
 //Spawns the rest of the commando gear.
 //	for (var/obj/effect/landmark/L)

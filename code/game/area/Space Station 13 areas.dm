@@ -146,7 +146,7 @@ proc/process_ghost_teleport_locs()
 	icon_state = "shuttle2"
 
 /area/shuttle/escape/centcom
-	name = "\improper Emergency Shuttle Centcom"
+	name = "\improper Emergency Shuttle CentCom"
 	icon_state = "shuttle"
 
 /area/shuttle/escape/transit // the area to pass through for 3 minute transit
@@ -304,7 +304,7 @@ proc/process_ghost_teleport_locs()
 	name = "\improper Administration Shuttle"
 
 /area/shuttle/administration/centcom
-	name = "\improper Administration Shuttle Centcom"
+	name = "\improper Administration Shuttle CentCom"
 	icon_state = "shuttlered"
 
 /area/shuttle/administration/station
@@ -439,33 +439,33 @@ proc/process_ghost_teleport_locs()
 // CENTCOM
 
 /area/centcom // ABSTRACT
-	name = "\improper Centcom"
+	name = "\improper CentCom"
 	icon_state = "centcom"
 	requires_power = 0
 
 /area/centcom/control
-	name = "\improper Centcom Control"
+	name = "\improper CentCom Control"
 
 /area/centcom/evac
-	name = "\improper Centcom Emergency Shuttle"
+	name = "\improper CentCom Emergency Shuttle"
 
 /area/centcom/suppy
-	name = "\improper Centcom Supply Shuttle"
+	name = "\improper CentCom Supply Shuttle"
 
 /area/centcom/ferry
-	name = "\improper Centcom Transport Shuttle"
+	name = "\improper CentCom Transport Shuttle"
 
 /area/centcom/shuttle
-	name = "\improper Centcom Administration Shuttle"
+	name = "\improper CentCom Administration Shuttle"
 
 /area/centcom/death_squad
-	name = "\improper Centcom Special Operations"
+	name = "\improper CentCom Special Operations"
 
 /area/centcom/living
-	name = "\improper Centcom Living Quarters"
+	name = "\improper CentCom Living Quarters"
 
 /area/centcom/ert
-	name = "\improper Centcom ERT"
+	name = "\improper CentCom ERT"
 
 /area/centcom/zylo
 	name = "Zylo's Office"

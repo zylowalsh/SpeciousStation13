@@ -89,6 +89,8 @@
 	var/list/pinned = list()    //List of things pinning this creature to walls (see living_defense.dm)
 	var/list/embedded = list()  //Embedded items, since simple mobs don't have organs.
 	var/list/languages = list() // For speaking/listening.
+	var/dataCoreName // Name at the start of the round for the hardcore mode system
+	var/prefsSaveSlot // What slot the character is saved in prefs
 	var/name_archive //For admin things like possession
 
 	var/timeofdeath = 0.0//Living

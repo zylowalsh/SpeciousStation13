@@ -960,4 +960,3 @@ obj/machinery/hydroponics/attackby(var/obj/item/O as obj, var/mob/user as mob)
 			SetLuminosity(0)
 		return
 
-#undef HYDRO_SPEED_MULTIPLIER

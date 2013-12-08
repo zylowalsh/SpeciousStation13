@@ -299,9 +299,6 @@ Alien plants should do something if theres a lot of poison
 	return 1
 */
 
-#undef NODERANGE
-
-
 /*
  * Acid
  */

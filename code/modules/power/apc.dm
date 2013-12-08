@@ -1277,5 +1277,3 @@
 		return 1
 	else
 		return 0
-
-#undef APC_UPDATE_ICON_COOLDOWN

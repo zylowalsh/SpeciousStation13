@@ -396,8 +396,3 @@ var/const/CONNECTION_CLOSED = 0
 			DisconnectZones(zone_A, zone_B)
 		ConnectZones(A.zone, B.zone, indirect)
 		zone_B = B.zone
-
-
-#undef CONNECTION_DIRECT
-#undef CONNECTION_INDIRECT
-#undef CONNECTION_CLOSED

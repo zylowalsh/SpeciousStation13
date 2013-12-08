@@ -164,5 +164,3 @@ var/const/UPDATE_BUFFER = 25 // 2.5 seconds
 		if(!t.obscured)
 			t.obscured = image('icons/effects/cameravis.dmi', t, "black", 15)
 		obscured += t.obscured
-
-#undef UPDATE_BUFFER

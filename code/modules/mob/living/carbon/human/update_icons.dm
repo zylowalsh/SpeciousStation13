@@ -821,27 +821,3 @@ proc/get_damage_icon_part(damage_state, body_part)
 	var/image/face_lying_image = new /image(icon = face_lying)
 	return face_lying_image
 
-//Human Overlays Indexes/////////
-#undef MUTANTRACE_LAYER
-#undef MUTATIONS_LAYER
-#undef DAMAGE_LAYER
-#undef UNIFORM_LAYER
-#undef ID_LAYER
-#undef SHOES_LAYER
-#undef GLOVES_LAYER
-#undef EARS_LAYER
-#undef SUIT_LAYER
-#undef GLASSES_LAYER
-#undef FACEMASK_LAYER
-#undef BELT_LAYER
-#undef SUIT_STORE_LAYER
-#undef BACK_LAYER
-#undef HAIR_LAYER
-#undef HEAD_LAYER
-#undef HANDCUFF_LAYER
-#undef LEGCUFF_LAYER
-#undef L_HAND_LAYER
-#undef R_HAND_LAYER
-#undef TAIL_LAYER
-#undef TARGETED_LAYER
-#undef TOTAL_LAYERS

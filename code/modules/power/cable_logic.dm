@@ -285,7 +285,3 @@ var/const/RELAY_POWER_TRANSFER = 2000	//How much power a relay transfers through
 		if(pn_input2.avail >= RELAY_POWER_TRANSFER)
 			pn_input2.newload += RELAY_POWER_TRANSFER
 			pn_output.newavail += RELAY_POWER_TRANSFER
-
-
-#undef RELAY_POWER_TRANSFER
-#undef LOGIC_HIGH

@@ -36,223 +36,204 @@
 
 	// new display
 	// register for radio system
-	New()
-		..()
-		spawn(5)	// must wait for map loading to finish
-			if(radio_controller)
-				radio_controller.add_object(src, frequency)
+/obj/machinery/status_display/New()
+	..()
+	spawn(5)	// must wait for map loading to finish
+		if(radio_controller)
+			radio_controller.add_object(src, frequency)
 
-
-	// timed process
-
-	process()
-		if(stat & NOPOWER)
-			overlays.Cut()
-			return
-
-		update()
-
-	emp_act(severity)
-		if(stat & (BROKEN|NOPOWER))
-			..(severity)
-			return
-		set_picture("ai_bsod")
-		..(severity)
-
-	// set what is displayed
-
-	proc/update()
-
-		if(friendc && mode!=4) //Makes all status displays except supply shuttle timer display the eye -- Urist
-			set_picture("ai_friend")
-			return
-
-		if(mode==0)
-			overlays.Cut()
-			return
-
-		if(mode==3)	// alert picture, no change
-			return
-
-		if(mode==1)	// shuttle timer
-			if(emergency_shuttle.online)
-				var/displayloc
-				if(emergency_shuttle.location == 1)
-					displayloc = "ETD "
-				else
-					displayloc = "ETA "
-
-				var/displaytime = get_shuttle_timer()
-				if(lentext(displaytime) > 5)
-					displaytime = "**~**"
-
-				update_display(displayloc, displaytime)
-				return
-			else
-				overlays.Cut()
-				return
-
-		if(mode==4)		// supply shuttle timer
-			var/disp1
-			var/disp2
-			if(supply_shuttle.moving)
-				disp1 = "SPPLY"
-				disp2 = get_supply_shuttle_timer()
-				if(lentext(disp1) > 5)
-					disp1 = "**~**"
-
-			else
-				if(supply_shuttle.at_station)
-					disp1 = "SPPLY"
-					disp2 = "STATN"
-				else
-					disp1 = "SPPLY"
-					disp2 = "AWAY"
-
-			update_display(disp1, disp2)
-
-
-
-		if(mode==2)
-			var/line1
-			var/line2
-
-			if(!index1)
-				line1 = message1
-			else
-				line1 = copytext(message1+message1, index1, index1+5)
-				if(index1++ > (lentext(message1)))
-					index1 = 1
-
-			if(!index2)
-				line2 = message2
-			else
-				line2 = copytext(message2+message2, index2, index2+5)
-				if(index2++ > (lentext(message2)))
-					index2 = 1
-
-			update_display(line1, line2)
-
-			// the following allows 2 updates per process, giving faster scrolling
-			if((index1 || index2) && repeat_update)	// if either line is scrolling
-													// and we haven't forced an update yet
-
-				spawn(5)
-					repeat_update = 0
-					update()		// set to update again in 5 ticks
-					repeat_update = 1
-
-	proc/set_message(var/m1, var/m2)
-		if(m1)
-			index1 = (lentext(m1) > 5)
-			message1 = uppertext(m1)
-		else
-			message1 = ""
-			index1 = 0
-
-		if(m2)
-			index2 = (lentext(m2) > 5)
-			message2 = uppertext(m2)
-		else
-			message2 = null
-			index2 = 0
-		repeat_update = 1
-
-	proc/set_picture(var/state)
-		picture_state = state
+/obj/machinery/status_display/process()
+	if(stat & NOPOWER)
 		overlays.Cut()
-		overlays += image('icons/obj/status_display.dmi', icon_state=picture_state)
+		return
 
-	proc/update_display(var/line1, var/line2)
+	update()
 
-		if(line1 == lastdisplayline1 && line2 == lastdisplayline2)
-			return			// no change, no need to update
+/obj/machinery/status_display/emp_act(severity)
+	if(stat & (BROKEN|NOPOWER))
+		..(severity)
+		return
+	set_picture("ai_bsod")
+	..(severity)
 
-		lastdisplayline1 = line1
-		lastdisplayline2 = line2
+/obj/machinery/status_display/proc/update()
 
-		if(line2 == null)		// single line display
+	if(friendc && mode != 4) //Makes all status displays except supply shuttle timer display the eye -- Urist
+		set_picture("ai_friend")
+		return
+
+	if(mode==0)
+		overlays.Cut()
+		return
+
+	if(mode==3)	// alert picture, no change
+		return
+
+	if(mode==1)	// shuttle timer
+		if(emergencyShuttle.online)
+			var/displayloc
+			if(emergencyShuttle.shuttleState == PREPARING_TO_LAUNCH)
+				displayloc = "LOAD"
+			else if(emergencyShuttle.shuttleState == AT_STATION)
+				displayloc = "ETD "
+			else if(emergencyShuttle.shuttleState == SHUTTLE_CANCELED)
+				displayloc = "UNLOAD"
+			else
+				displayloc = "ETA "
+
+			var/displaytime = get_shuttle_timer()
+			if(lentext(displaytime) > 5)
+				displaytime = "**~**"
+
+			update_display(displayloc, displaytime)
+			return
+		else
 			overlays.Cut()
-			overlays += texticon(line1, 23, -13)
-		else					// dual line display
+			return
 
-			overlays.Cut()
-			overlays += texticon(line1, 23, -9)
-			overlays += texticon(line2, 23, -17)
-
-
-	// return shuttle timer as text
-
-	proc/get_shuttle_timer()
-		var/timeleft = emergency_shuttle.timeleft()
-		if(timeleft)
-			return "[add_zero(num2text((timeleft / 60) % 60),2)]~[add_zero(num2text(timeleft % 60), 2)]"
-			// note ~ translates into a blinking :
-		return ""
-
-	proc/get_supply_shuttle_timer()
+	if(mode==4)		// supply shuttle timer
+		var/disp1
+		var/disp2
 		if(supply_shuttle.moving)
-			var/timeleft = round((supply_shuttle.eta_timeofday - world.timeofday) / 10,1)
-			return "[add_zero(num2text((timeleft / 60) % 60),2)]~[add_zero(num2text(timeleft % 60), 2)]"
-			// note ~ translates into a blinking :
-		return ""
+			disp1 = "SPPLY"
+			disp2 = get_supply_shuttle_timer()
+			if(lentext(disp1) > 5)
+				disp1 = "**~**"
 
+		else
+			if(supply_shuttle.at_station)
+				disp1 = "SPPLY"
+				disp2 = "STATN"
+			else
+				disp1 = "SPPLY"
+				disp2 = "AWAY"
 
+		update_display(disp1, disp2)
 
+	if(mode==2)
+		var/line1
+		var/line2
+
+		if(!index1)
+			line1 = message1
+		else
+			line1 = copytext(message1+message1, index1, index1+5)
+			if(index1++ > (lentext(message1)))
+				index1 = 1
+
+		if(!index2)
+			line2 = message2
+		else
+			line2 = copytext(message2+message2, index2, index2+5)
+			if(index2++ > (lentext(message2)))
+				index2 = 1
+
+		update_display(line1, line2)
+
+		// the following allows 2 updates per process, giving faster scrolling
+		if((index1 || index2) && repeat_update)	// if either line is scrolling
+												// and we haven't forced an update yet
+
+			spawn(5)
+				repeat_update = 0
+				update()		// set to update again in 5 ticks
+				repeat_update = 1
+
+/obj/machinery/status_display/proc/set_message(var/m1, var/m2)
+	if(m1)
+		index1 = (lentext(m1) > 5)
+		message1 = uppertext(m1)
+	else
+		message1 = ""
+		index1 = 0
+
+	if(m2)
+		index2 = (lentext(m2) > 5)
+		message2 = uppertext(m2)
+	else
+		message2 = null
+		index2 = 0
+	repeat_update = 1
+
+/obj/machinery/status_display/proc/set_picture(var/state)
+	picture_state = state
+	overlays.Cut()
+	overlays += image('icons/obj/status_display.dmi', icon_state=picture_state)
+
+/obj/machinery/status_display/proc/update_display(var/line1, var/line2)
+
+	if(line1 == lastdisplayline1 && line2 == lastdisplayline2)
+		return			// no change, no need to update
+
+	lastdisplayline1 = line1
+	lastdisplayline2 = line2
+
+	if(line2 == null)		// single line display
+		overlays.Cut()
+		overlays += texticon(line1, 23, -13)
+	else					// dual line display
+
+		overlays.Cut()
+		overlays += texticon(line1, 23, -9)
+		overlays += texticon(line2, 23, -17)
+
+/obj/machinery/status_display/proc/get_shuttle_timer()
+	var/timeLeft = emergencyShuttle.getTimeLeft()
+	if(timeLeft)
+		return "[add_zero(num2text((timeLeft / 60) % 60),2)]~[add_zero(num2text(timeLeft % 60), 2)]"
+		// note ~ translates into a blinking :
+	return ""
+
+/obj/machinery/status_display/proc/get_supply_shuttle_timer()
+	if(supply_shuttle.moving)
+		var/timeleft = round((supply_shuttle.eta_timeofday - world.timeofday) / 10,1)
+		return "[add_zero(num2text((timeleft / 60) % 60),2)]~[add_zero(num2text(timeleft % 60), 2)]"
+		// note ~ translates into a blinking :
+	return ""
 
 	// return an icon of a time text string (tn)
 	// valid characters are 0-9 and :
 	// px, py are pixel offsets
-	proc/texticon(var/tn, var/px = 0, var/py = 0)
-		var/image/I = image('icons/obj/status_display.dmi', "blank")
+/obj/machinery/status_display/proc/texticon(var/tn, var/px = 0, var/py = 0)
+	var/image/I = image('icons/obj/status_display.dmi', "blank")
 
+	var/len = lentext(tn)
 
-		var/len = lentext(tn)
+	for(var/d = 1 to len)
+		var/char = copytext(tn, len-d+1, len-d+2)
 
-		for(var/d = 1 to len)
+		if(char == " ")
+			continue
 
+		var/image/ID = image('icons/obj/status_display.dmi', icon_state=char)
 
-			var/char = copytext(tn, len-d+1, len-d+2)
+		ID.pixel_x = -(d-1)*5 + px
+		ID.pixel_y = py
 
-			if(char == " ")
-				continue
+		I.overlays += ID
 
-			var/image/ID = image('icons/obj/status_display.dmi', icon_state=char)
+	return I
 
-			ID.pixel_x = -(d-1)*5 + px
-			ID.pixel_y = py
+/obj/machinery/status_display/receive_signal(datum/signal/signal)
 
-			I.overlays += ID
+	switch(signal.data["command"])
+		if("blank")
+			mode = 0
 
-		return I
+		if("shuttle")
+			mode = 1
 
+		if("message")
+			mode = 2
+			set_message(signal.data["msg1"], signal.data["msg2"])
 
+		if("alert")
+			mode = 3
+			set_picture(signal.data["picture_state"])
 
-
-
-
-	receive_signal(datum/signal/signal)
-
-		switch(signal.data["command"])
-			if("blank")
-				mode = 0
-
-			if("shuttle")
-				mode = 1
-
-			if("message")
-				mode = 2
-				set_message(signal.data["msg1"], signal.data["msg2"])
-
-			if("alert")
-				mode = 3
-				set_picture(signal.data["picture_state"])
-
-			if("supply")
-				if(supply_display)
-					mode = 4
-
-
+		if("supply")
+			if(supply_display)
+				mode = 4
 
 /obj/machinery/ai_status_display
 	icon = 'icons/obj/status_display.dmi'

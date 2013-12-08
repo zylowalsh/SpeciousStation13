@@ -119,7 +119,7 @@
 		O.show_laws()
 		O << "<b>These laws may be changed by other players, or by you being the traitor.</b>"
 
-	O.verbs += /mob/living/silicon/ai/proc/ai_call_shuttle
+	O.verbs += /mob/living/silicon/ai/proc/aiCallShuttle
 	O.verbs += /mob/living/silicon/ai/proc/show_laws_verb
 	O.verbs += /mob/living/silicon/ai/proc/ai_camera_track
 	O.verbs += /mob/living/silicon/ai/proc/ai_alerts

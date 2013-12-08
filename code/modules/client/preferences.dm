@@ -4,7 +4,7 @@ var/const/GET_RANDOM_JOB = 0
 var/const/BE_ASSISTANT = 1
 var/const/RETURN_TO_LOBBY = 2
 
-var/list/preferences_datums = list()
+var/list/allPreferences = list()
 
 var/list/special_roles = list( //keep synced with the defines BE_* in setup.dm --rastaf
 //some autodetection here.
@@ -107,15 +107,14 @@ datum/preferences
 
 	var/list/player_alt_titles = new()		// the default name of a job like "Medical Doctor"
 
-	var/flavor_text = ""
-	var/med_record = ""
-	var/sec_record = ""
-	var/gen_record = ""
+	var/datum/record/medRecord
+	var/datum/record/secRecord
+	var/datum/record/genRecord
 	var/disabilities = 0
 
 	var/nanotrasen_relation = "Neutral"
 
-		// OOC Metadata:
+	// OOC Metadata:
 	var/metadata = ""
 	var/slot_name = ""
 
@@ -126,6 +125,7 @@ datum/preferences
 			if(load_preferences())
 				loadJoinData()
 				if(load_character())
+					loadRecords()
 					return
 	gender = pick(MALE, FEMALE)
 	real_name = random_name(gender)
@@ -331,16 +331,6 @@ datum/preferences
 
 		dat += "\t<a href=\"byond://?src=\ref[user];preference=skills\"><b>Set Skills</b> (<i>[GetSkillClass(used_skillpoints)][used_skillpoints > 0 ? " [used_skillpoints]" : "0"])</i></a><br>"
 
-		dat += "<a href='byond://?src=\ref[user];preference=flavor_text;task=input'><b>Set Flavor Text</b></a><br>"
-		if(lentext(flavor_text) <= 40)
-			if(!lentext(flavor_text))
-				dat += "\[...\]"
-			else
-				dat += "[flavor_text]"
-		else
-			dat += "[copytext(flavor_text, 1, 37)]...<br>"
-		dat += "<br>"
-
 		dat += "<br><b>Hair</b><br>"
 		dat += "<a href='?_src_=prefs;preference=hair;task=input'>Change Color</a> <font face='fixedsys' size='3' color='#[num2hex(r_hair, 2)][num2hex(g_hair, 2)][num2hex(b_hair, 2)]'><table style='display:inline;' bgcolor='#[num2hex(r_hair, 2)][num2hex(g_hair, 2)][num2hex(b_hair)]'><tr><td>__</td></tr></table></font> "
 		dat += " Style: <a href='?_src_=prefs;preference=h_style;task=input'>[h_style]</a><br>"
@@ -498,24 +488,9 @@ datum/preferences
 
 		HTML += "<a href=\"byond://?src=\ref[user];preference=records;task=med_record\">Medical Records</a><br>"
 
-		if(lentext(med_record) <= 40)
-			HTML += "[med_record]"
-		else
-			HTML += "[copytext(med_record, 1, 37)]..."
-
 		HTML += "<br><br><a href=\"byond://?src=\ref[user];preference=records;task=gen_record\">Employment Records</a><br>"
 
-		if(lentext(gen_record) <= 40)
-			HTML += "[gen_record]"
-		else
-			HTML += "[copytext(gen_record, 1, 37)]..."
-
 		HTML += "<br><br><a href=\"byond://?src=\ref[user];preference=records;task=sec_record\">Security Records</a><br>"
-
-		if(lentext(sec_record) <= 40)
-			HTML += "[sec_record]<br>"
-		else
-			HTML += "[copytext(sec_record, 1, 37)]...<br>"
 
 		HTML += "<br>"
 		HTML += "<a href=\"byond://?src=\ref[user];preference=records;records=-1\">\[Done\]</a>"
@@ -724,7 +699,7 @@ datum/preferences
 			else
 				SetSkills(user)
 			return 1
-
+		/*
 		else if(href_list["preference"] == "records")
 			if(text2num(href_list["record"]) >= 1)
 				SetRecords(user)
@@ -759,7 +734,7 @@ datum/preferences
 
 					gen_record = genmsg
 					SetRecords(user)
-
+		*/
 		switch(href_list["task"])
 			if("random")
 				switch(href_list["preference"])
@@ -987,15 +962,6 @@ datum/preferences
 						if(new_relation)
 							nanotrasen_relation = new_relation
 
-					if("flavor_text")
-						var/msg = input(usr,"Set the flavor text in your 'examine' verb. This can also be used for OOC notes and preferences!","Flavor Text",html_decode(flavor_text)) as message
-
-						if(msg != null)
-							msg = copytext(msg, 1, MAX_MESSAGE_LEN)
-							msg = html_encode(msg)
-
-							flavor_text = msg
-
 					if("disabilities")
 						if(text2num(href_list["disabilities"]) >= -1)
 							if(text2num(href_list["disabilities"]) >= 0)
@@ -1113,6 +1079,7 @@ datum/preferences
 						load_preferences()
 						loadJoinData()
 						load_character()
+						loadRecords()
 
 					if("open_load_dialog")
 						if(!IsGuestKey(user.key))
@@ -1123,6 +1090,7 @@ datum/preferences
 
 					if("changeslot")
 						load_character(text2num(href_list["num"]))
+						loadRecords(text2num(href_list["num"]))
 						close_load_dialog(user)
 
 		ShowChoices(user)
@@ -1145,10 +1113,9 @@ datum/preferences
 		if(character.dna)
 			character.dna.real_name = character.real_name
 
-		character.flavor_text = flavor_text
-		character.med_record = med_record
-		character.sec_record = sec_record
-		character.gen_record = gen_record
+		character.med_record = medRecord
+		character.sec_record = secRecord
+		character.gen_record = genRecord
 
 		character.gender = gender
 		character.age = age

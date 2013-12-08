@@ -32,8 +32,6 @@
 	var/stat_msg1
 	var/stat_msg2
 
-
-
 /obj/machinery/computer/communications/process()
 	if(..())
 		if(state != STATE_STATUSDISPLAY)
@@ -112,8 +110,8 @@
 				src.state = STATE_CALLSHUTTLE
 		if("callshuttle2")
 			if(src.authenticated)
-				call_shuttle_proc(usr)
-				if(emergency_shuttle.online)
+				callShuttle(usr)
+				if(emergencyShuttle.online)
 					post_status("shuttle")
 			src.state = STATE_DEFAULT
 		if("cancelshuttle")
@@ -122,7 +120,7 @@
 				src.state = STATE_CANCELSHUTTLE
 		if("cancelshuttle2")
 			if(src.authenticated)
-				cancel_call_proc(usr)
+				recallShuttle(usr)
 			src.state = STATE_DEFAULT
 		if("messagelist")
 			src.currmsg = 0
@@ -171,13 +169,12 @@
 
 		// OMG CENTCOMM LETTERHEAD
 		if("MessageCentcomm")
-			var/input = stripped_input(usr, "Please choose a message to transmit to Centcomm via quantum entanglement.  Please be aware that this process is very expensive, and abuse will lead to... termination.  Transmission does not guarantee a response.", "To abort, send an empty message.", "")
+			var/input = stripped_input(usr, "Please choose a message to transmit to [HEADQUARTERS_NAME] via quantum entanglement.  Please be aware that this process is very expensive, and abuse will lead to... termination.  Transmission does not guarantee a response.", "To abort, send an empty message.", "")
 			if(!input || !(usr in view(1,src)))
 				return
 			Centcomm_announce(input, usr)
 			usr << "Message transmitted."
-			log_say("[key_name(usr)] has made a Centcomm announcement: [input]")
-
+			log_say("[key_name(usr)] has made a [HEADQUARTERS_NAME] announcement: [input]")
 
 		// OMG SYNDICATE ...LETTERHEAD
 		if("MessageSyndicate")
@@ -194,8 +191,6 @@
 			src.emagged = 0
 			src.updateDialog()
 
-
-
 		// AI interface
 		if("ai-main")
 			src.aicurrmsg = 0
@@ -203,7 +198,7 @@
 		if("ai-callshuttle")
 			src.aistate = STATE_CALLSHUTTLE
 		if("ai-callshuttle2")
-			call_shuttle_proc(usr)
+			callShuttle(usr)
 			src.aistate = STATE_DEFAULT
 		if("ai-messagelist")
 			src.aicurrmsg = 0
@@ -265,9 +260,9 @@
 
 	user.set_machine(src)
 	var/dat = "<head><title>Communications Console</title></head><body>"
-	if (emergency_shuttle.online && emergency_shuttle.location==0)
-		var/timeleft = emergency_shuttle.timeleft()
-		dat += "<B>Emergency shuttle</B>\n<BR>\nETA: [timeleft / 60 % 60]:[add_zero(num2text(timeleft % 60), 2)]<BR>"
+	if (emergencyShuttle.shuttleState == PREPARING_TO_LAUNCH)
+		var/timeLeft = emergencyShuttle.getTimeLeft()
+		dat += "<B>Emergency shuttle</B>\n<BR>\nETA: [timeLeft / 60 % 60]:[add_zero(num2text(timeLeft % 60), 2)]<BR>"
 
 	if (istype(user, /mob/living/silicon))
 		var/dat2 = src.interact_ai(user) // give the AI a different interact proc to limit its access
@@ -285,15 +280,14 @@
 					dat += "<BR>\[ <A HREF='?src=\ref[src];operation=announce'>Make An Announcement</A> \]"
 					dat += "<BR>\[ <A HREF='?src=\ref[src];operation=changeseclevel'>Change alert level</A> \]"
 				if(src.emagged == 0)
-					dat += "<BR>\[ <A HREF='?src=\ref[src];operation=MessageCentcomm'>Send an emergency message to Centcomm</A> \]"
+					dat += "<BR>\[ <A HREF='?src=\ref[src];operation=MessageCentcomm'>Send an emergency message to [HEADQUARTERS_NAME]</A> \]"
 				else
 					dat += "<BR>\[ <A HREF='?src=\ref[src];operation=MessageSyndicate'>Send an emergency message to \[UNKNOWN\]</A> \]"
 					dat += "<BR>\[ <A HREF='?src=\ref[src];operation=RestoreBackup'>Restore Backup Routing Data</A> \]"
-				if(emergency_shuttle.location==0)
-					if (emergency_shuttle.online)
-						dat += "<BR>\[ <A HREF='?src=\ref[src];operation=cancelshuttle'>Cancel Shuttle Call</A> \]"
-					else
-						dat += "<BR>\[ <A HREF='?src=\ref[src];operation=callshuttle'>Call Emergency Shuttle</A> \]"
+				if(emergencyShuttle.shuttleState == PREPARING_TO_LAUNCH)
+					dat += "<BR>\[ <A HREF='?src=\ref[src];operation=cancelshuttle'>Cancel Shuttle Call</A> \]"
+				else
+					dat += "<BR>\[ <A HREF='?src=\ref[src];operation=callshuttle'>Call Emergency Shuttle</A> \]"
 
 				dat += "<BR>\[ <A HREF='?src=\ref[src];operation=status'>Set Status Display</A> \]"
 			else
@@ -357,7 +351,7 @@
 	var/dat = ""
 	switch(src.aistate)
 		if(STATE_DEFAULT)
-			if(emergency_shuttle.location==0 && !emergency_shuttle.online)
+			if(emergencyShuttle.shuttleState == IDLE_AT_CENTCOM)
 				dat += "<BR>\[ <A HREF='?src=\ref[src];operation=ai-callshuttle'>Call Emergency Shuttle</A> \]"
 			dat += "<BR>\[ <A HREF='?src=\ref[src];operation=ai-messagelist'>Message List</A> \]"
 			dat += "<BR>\[ <A HREF='?src=\ref[src];operation=ai-status'>Set Status Display</A> \]"
@@ -405,97 +399,103 @@
 		PS.allowedtocall = !(PS.allowedtocall)
 */
 
-/proc/call_shuttle_proc(var/mob/user)
-	if ((!( ticker ) || emergency_shuttle.location))
+/proc/callShuttle(var/mob/user)
+	if (!ticker)
 		return
 
-	if(sent_strike_team == 1)
-		user << "Centcom will not allow the shuttle to be called. Consider all contracts terminated."
+	if(sentStrikeTeam == TRUE)
+		user << "[HEADQUARTERS_NAME] will not allow the shuttle to be called. Consider all contracts terminated."
+		return
+	if(!SHUTTLE_TESTING)
+		if(world.time < 6000) // Ten minute grace period to let the game get going without lolmetagaming. -- TLE
+			user << "The emergency shuttle is refueling. Please wait another [round((6000-world.time)/600)] minutes before trying again."
+			return
+
+	if(emergencyShuttle.shuttleState == SHUTTLE_CANCELED)
+		user << "The emergency shuttle was canceled.  Please wait [round(emergencyShuttle.getTimeLeft() / 60)] minutes before trying again."
 		return
 
-	if(world.time < 6000) // Ten minute grace period to let the game get going without lolmetagaming. -- TLE
-		user << "The emergency shuttle is refueling. Please wait another [round((6000-world.time)/600)] minutes before trying again."
-		return
-
-	if(emergency_shuttle.direction == -1)
-		user << "The emergency shuttle may not be called while returning to CentCom."
-		return
-
-	if(emergency_shuttle.online)
+	if(emergencyShuttle.shuttleState == GOING_TO_STATION)
 		user << "The emergency shuttle is already on its way."
 		return
 
-	if(ticker.mode.name == "blob")
-		user << "Under directive 7-10, [station_name()] is quarantined until further notice."
+	if(emergencyShuttle.shuttleState == AT_STATION)
+		user << "The emergency shuttle has docked at the station."
 		return
 
-	emergency_shuttle.incall()
+	if(emergencyShuttle.shuttleState == RETURNING_FROM_STATION)
+		user << "The emergency shuttle has left the station."
+		return
+
+	if(emergencyShuttle.shuttleState == RETURNED_FROM_STATION)
+		user << "The emergency shuttle has returned to the [HEADQUARTERS_NAME]."
+		return
+
+	if(ticker.mode.canShuttleBeCalled == FALSE)
+		user << ticker.mode.messageWhenShuttleIsDenied
+		//user << "Under directive 7-10, [station_name()] is quarantined until further notice."
+		return
+
+	emergencyShuttle.callShuttle()
 	log_game("[key_name(user)] has called the shuttle.")
 	message_admins("[key_name_admin(user)] has called the shuttle.", 1)
-	captain_announce("The emergency shuttle has been called. It will arrive in [round(emergency_shuttle.timeleft()/60)] minutes.")
-	world << sound('sound/AI/shuttlecalled.ogg')
 
-	return
 
-/proc/init_shift_change(var/mob/user, var/force = 0)
-	if ((!( ticker ) || emergency_shuttle.location))
+/proc/initShiftChange(var/mob/user)
+	if (!ticker)
 		return
 
-	if(emergency_shuttle.direction == -1)
-		user << "The shuttle may not be called while returning to CentCom."
+	if(sentStrikeTeam == TRUE)
+		user << "[HEADQUARTERS_NAME] will not allow the shuttle to be called. Consider all contracts terminated."
 		return
 
-	if(emergency_shuttle.online)
-		user << "The shuttle is already on its way."
+	if(world.time < 54000) // 30 minute grace period to let the game get going
+		user << "The shuttle is refueling. Please wait another [round((54000-world.time)/600)] minutes before trying again."//may need to change "/600"
 		return
 
-	// if force is 0, some things may stop the shuttle call
-	if(!force)
-		if(emergency_shuttle.deny_shuttle)
-			user << "Centcom does not currently have a shuttle available in your sector. Please try again later."
-			return
+	if(emergencyShuttle.shuttleState == GOING_TO_STATION)
+		user << "The emergency shuttle is already on its way."
+		return
 
-		if(sent_strike_team == 1)
-			user << "Centcom will not allow the shuttle to be called. Consider all contracts terminated."
-			return
+	if(emergencyShuttle.shuttleState == AT_STATION)
+		user << "The emergency shuttle has docked at the station."
+		return
 
-		if(world.time < 54000) // 30 minute grace period to let the game get going
-			user << "The shuttle is refueling. Please wait another [round((54000-world.time)/600)] minutes before trying again."//may need to change "/600"
-			return
+	if(emergencyShuttle.shuttleState == RETURNING_FROM_STATION)
+		user << "The emergency shuttle has left the station."
+		return
 
-		if(ticker.mode.name == "revolution" || ticker.mode.name == "AI malfunction" || ticker.mode.name == "sandbox")
-			//New version pretends to call the shuttle but cause the shuttle to return after a random duration.
-			emergency_shuttle.fake_recall = rand(300,500)
+	if(emergencyShuttle.shuttleState == RETURNED_FROM_STATION)
+		user << "The emergency shuttle has returned to the [HEADQUARTERS_NAME]."
+		return
 
-		if(ticker.mode.name == "blob" || ticker.mode.name == "epidemic")
-			user << "Under directive 7-10, [station_name()] is quarantined until further notice."
-			return
+	if(emergencyShuttle.denyShuttle)
+		user << "[HEADQUARTERS_NAME] does not currently have a shuttle available in your sector. Please try again later."
+		return
 
-	emergency_shuttle.shuttlealert(1)
-	emergency_shuttle.incall()
+	if(ticker.mode.canShuttleBeCalled == TRUE)
+		user << ticker.mode.messageWhenShuttleIsDenied
+		return
+
+	emergencyShuttle.callShuttle(CREW_CYCLE, FALSE, FALSE)
+
 	log_game("[key_name(user)] has called the shuttle.")
 	message_admins("[key_name_admin(user)] has called the shuttle.", 1)
-	captain_announce("A crew transfer has been initiated. The shuttle has been called. It will arrive in [round(emergency_shuttle.timeleft()/60)] minutes.")
 
-	return
-
-/proc/cancel_call_proc(var/mob/user)
-	if ((!( ticker ) || emergency_shuttle.location || emergency_shuttle.direction == 0 || emergency_shuttle.timeleft() < 300))
-		return
-	if((ticker.mode.name == "blob")||(ticker.mode.name == "meteor"))
+/proc/recallShuttle(var/mob/user)
+	if (!ticker)
 		return
 
-	if(emergency_shuttle.direction != -1 && emergency_shuttle.online) //check that shuttle isn't already heading to centcomm
-		emergency_shuttle.recall()
-		log_game("[key_name(user)] has recalled the shuttle.")
-		message_admins("[key_name_admin(user)] has recalled the shuttle.", 1)
-	return
+	emergencyShuttle.recall()
+	log_game("[key_name(user)] has recalled the shuttle.")
+	message_admins("[key_name_admin(user)] has recalled the shuttle.", 1)
 
 /obj/machinery/computer/communications/proc/post_status(var/command, var/data1, var/data2)
 
 	var/datum/radio_frequency/frequency = radio_controller.return_frequency(1435)
 
-	if(!frequency) return
+	if(!frequency)
+		return
 
 	var/datum/signal/status_signal = new
 	status_signal.source = src
@@ -528,14 +528,12 @@
 		if(!shuttlecaller.stat && shuttlecaller.client && istype(shuttlecaller.loc,/turf))
 			return ..()
 
-	if(ticker.mode.name == "revolution" || ticker.mode.name == "AI malfunction" || sent_strike_team)
+	if(ticker.mode.name == "revolution" || ticker.mode.name == "AI malfunction" || sentStrikeTeam)
 		return ..()
 
-	emergency_shuttle.incall(2)
+	emergencyShuttle.callShuttle()
 	log_game("All the AIs, comm consoles and boards are destroyed. Shuttle called.")
 	message_admins("All the AIs, comm consoles and boards are destroyed. Shuttle called.", 1)
-	captain_announce("The emergency shuttle has been called. It will arrive in [round(emergency_shuttle.timeleft()/60)] minutes.")
-	world << sound('sound/AI/shuttlecalled.ogg')
 
 	..()
 
@@ -553,13 +551,10 @@
 		if(!shuttlecaller.stat && shuttlecaller.client && istype(shuttlecaller.loc,/turf))
 			return ..()
 
-	if(ticker.mode.name == "revolution" || ticker.mode.name == "AI malfunction" || sent_strike_team)
+	if(ticker.mode.name == "revolution" || ticker.mode.name == "AI malfunction" || sentStrikeTeam)
 		return ..()
 
-	emergency_shuttle.incall(2)
+	emergencyShuttle.callShuttle()
 	log_game("All the AIs, comm consoles and boards are destroyed. Shuttle called.")
 	message_admins("All the AIs, comm consoles and boards are destroyed. Shuttle called.", 1)
-	captain_announce("The emergency shuttle has been called. It will arrive in [round(emergency_shuttle.timeleft()/60)] minutes.")
-	world << sound('sound/AI/shuttlecalled.ogg')
-
 	..()

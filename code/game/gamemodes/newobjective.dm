@@ -261,7 +261,7 @@ datum/objective
 			target = targeta
 			job = joba
 			weight = get_points(job)
-			explanation_text = "Frame [target.current.real_name], the [target.assigned_role] for a crime and make sure they are arrested and brought back to the Centcom station alive.  We'll handle the rest from there."
+			explanation_text = "Frame [target.current.real_name], the [target.assigned_role] for a crime and make sure they are arrested and brought back to the [HEADQUARTERS_NAME] station alive.  We'll handle the rest from there."
 
 		check_completion()
 			if(emergency_shuttle.location<2)
@@ -954,7 +954,8 @@ datum/objective
 				var/target_amount = 50
 				var/found_amount = 0.0//Always starts as zero.
 				for(var/obj/item/I in owner.current.get_contents())
-					if(!istype(I, steal_target))	continue//If it's not actually that item.
+					if(!istype(I, steal_target))
+						continue//If it's not actually that item.
 					found_amount += I:amount
 				return found_amount>=target_amount
 
@@ -1451,7 +1452,8 @@ datum/objective/silence
 		var/area/pod1 =    locate(/area/shuttle/escape_pod1/centcom)
 		var/area/pod2 =    locate(/area/shuttle/escape_pod2/centcom)
 		var/area/pod3 =    locate(/area/shuttle/escape_pod3/centcom)
-		var/area/pod4 =    locate(/area/shuttle/escape_pod5/centcom)
+		var/area/pod4 =    locate(/area/shuttle/escape_pod4/centcom)
+		var/area/pod5 =    locate(/area/shuttle/escape_pod5/centcom)
 
 		for(var/mob/living/player in world)
 			if (player == owner.current)

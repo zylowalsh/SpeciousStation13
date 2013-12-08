@@ -358,5 +358,3 @@
 	if(Limit) return "[href]=-[Limit]'>-</A>"+rate+"[href]=[Limit]'>+</A>"
 	return rate
 
-
-#undef SMESRATE

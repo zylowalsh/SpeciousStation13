@@ -160,11 +160,3 @@ var/const/CAMERA_WIRE_NOTHING2 = 6
 			usr << browse(null, "window=wires")
 			usr.unset_machine()
 			return
-
-
-#undef CAMERA_WIRE_FOCUS
-#undef CAMERA_WIRE_POWER
-#undef CAMERA_WIRE_LIGHT
-#undef CAMERA_WIRE_ALARM
-#undef CAMERA_WIRE_NOTHING1
-#undef CAMERA_WIRE_NOTHING2

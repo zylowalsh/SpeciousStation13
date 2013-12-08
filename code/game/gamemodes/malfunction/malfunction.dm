@@ -4,6 +4,7 @@
 /datum/game_mode/malfunction
 	name = "AI malfunction"
 	config_tag = "malfunction"
+	shuttleFakedCalled = TRUE
 	required_players = 2
 	required_players_secret = 15
 	required_enemies = 1
@@ -62,8 +63,6 @@
 			if(alert(AI_mind.current,"Do you want to use an alternative sprite for your real core?",,"Yes","No")=="Yes")
 				AI_mind.current.icon_state = "ai-malf2"
 */
-	if(emergency_shuttle)
-		emergency_shuttle.always_fake_recall = 1
 	spawn (rand(waittime_l, waittime_h))
 		send_intercept()
 	..()
@@ -131,8 +130,6 @@
 		return 1
 	if (is_malf_ai_dead())
 		if(config.continous_rounds)
-			if(emergency_shuttle)
-				emergency_shuttle.always_fake_recall = 0
 			malf_mode_declared = 0
 		else
 			return 1
@@ -178,6 +175,7 @@
 	set category = "Malfunction"
 	set name = "Explode"
 	set desc = "Station go boom"
+
 	if (!ticker.mode:to_nuke_or_not_to_nuke)
 		return
 	ticker.mode:to_nuke_or_not_to_nuke = 0
@@ -197,22 +195,20 @@
 		if(ticker.mode)
 			ticker.mode:station_was_nuked = 1
 			ticker.mode:explosion_in_progress = 0
-	return
-
 
 /datum/game_mode/malfunction/declare_completion()
-	var/malf_dead = is_malf_ai_dead()
-	var/crew_evacuated = (emergency_shuttle.location==2)
+	var/malfDead = is_malf_ai_dead()
+	var/crewEvacuated = (emergencyShuttle.shuttleState == RETURNED_FROM_STATION)
 
 	if      ( station_captured &&                station_was_nuked)
 		world << "<FONT size = 3><B>AI Victory</B></FONT>"
 		world << "<B>Everyone was killed by the self-destruct!</B>"
 
-	else if ( station_captured &&  malf_dead && !station_was_nuked)
+	else if ( station_captured &&  malfDead && !station_was_nuked)
 		world << "<FONT size = 3><B>Neutral Victory</B></FONT>"
 		world << "<B>The AI has been killed!</B> The staff has lose control over the station."
 
-	else if ( station_captured && !malf_dead && !station_was_nuked)
+	else if ( station_captured && !malfDead && !station_was_nuked)
 		world << "<FONT size = 3><B>AI Victory</B></FONT>"
 		world << "<B>The AI has chosen not to explode you all!</B>"
 
@@ -220,15 +216,15 @@
 		world << "<FONT size = 3><B>Neutral Victory</B></FONT>"
 		world << "<B>Everyone was killed by the nuclear blast!</B>"
 
-	else if (!station_captured &&  malf_dead && !station_was_nuked)
+	else if (!station_captured &&  malfDead && !station_was_nuked)
 		world << "<FONT size = 3><B>Human Victory</B></FONT>"
 		world << "<B>The AI has been killed!</B> The staff is victorious."
 
-	else if (!station_captured && !malf_dead && !station_was_nuked && crew_evacuated)
+	else if (!station_captured && !malfDead && !station_was_nuked && crewEvacuated)
 		world << "<FONT size = 3><B>Neutral Victory</B></FONT>"
 		world << "<B>The Corporation has lose [station_name()]! All survived personnel will be fired!</B>"
 
-	else if (!station_captured && !malf_dead && !station_was_nuked && !crew_evacuated)
+	else if (!station_captured && !malfDead && !station_was_nuked && !crewEvacuated)
 		world << "<FONT size = 3><B>Neutral Victory</B></FONT>"
 		world << "<B>Round was mysteriously interrupted!</B>"
 	..()

@@ -213,5 +213,4 @@ var/const/SCREWED = 32
 	icontype = "beaconsynd"
 	icon_state = "beaconsynd0"
 
-#undef SCREWED
 

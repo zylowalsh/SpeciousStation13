@@ -37,7 +37,7 @@ var/const/ANIMALS = 7
 
 var/const/MINERALS = 8
 
-var/const/EMERGENCY = 9
+var/const/ECON_EMERGENCY = 9
 var/const/ECON_GAS = 10
 var/const/MAINTENANCE = 11
 var/const/ELECTRICAL = 12
@@ -69,7 +69,7 @@ var/setup_economy = 0
 		return
 	var/datum/feed_channel/newChannel = new /datum/feed_channel
 	newChannel.channel_name = "Tau Ceti Daily"
-	newChannel.author = "CentComm Minister of Information"
+	newChannel.author = "[HEADQUARTERS_NAME] Minister of Information"
 	newChannel.locked = 1
 	newChannel.is_admin_channel = 1
 	news_network.network_channels += newChannel

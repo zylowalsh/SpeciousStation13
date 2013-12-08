@@ -250,14 +250,7 @@
 		if(!is_type_in_list(disk_area, centcom_areas))
 			disk_rescued = 0
 			break
-	var/crew_evacuated = (emergency_shuttle.location==2)
-	//var/operatives_are_dead = is_operatives_are_dead()
-
-
-	//nukes_left
-	//station_was_nuked
-	//derp //Used for tracking if the syndies actually haul the nuke to the station	//no
-	//herp //Used for tracking if the syndies got the shuttle off of the z-level	//NO, DON'T FUCKING NAME VARS LIKE THIS
+	var/crewEvacuated = (emergencyShuttle.shuttleState == RETURNED_FROM_STATION)
 
 	if      (!disk_rescued && station_was_nuked && !syndies_didnt_escape)
 		world << "<FONT size = 3><B>Syndicate Major Victory!</B></FONT>"
@@ -287,11 +280,11 @@
 		world << "<FONT size = 3><B>Syndicate Minor Victory!</B></FONT>"
 		world << "<B>The Research Staff failed to secure the authentication disk but did manage to kill most of the [syndicate_name()] Operatives!</B>"
 
-	else if (!disk_rescued && crew_evacuated)
+	else if (!disk_rescued && crewEvacuated)
 		world << "<FONT size = 3><B>Syndicate Minor Victory!</B></FONT>"
 		world << "<B>[syndicate_name()] operatives recovered the abandoned authentication disk but detonation of [station_name()] was averted.</B> Next time, don't lose the disk!"
 
-	else if (!disk_rescued && !crew_evacuated)
+	else if (!disk_rescued && !crewEvacuated)
 		world << "<FONT size = 3><B>Neutral Victory</B></FONT>"
 		world << "<B>Round was mysteriously interrupted!</B>"
 

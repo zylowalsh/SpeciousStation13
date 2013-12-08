@@ -243,7 +243,7 @@ Malf AIs/silicons aren't added. Monkeys aren't added. Messes with objective comp
 						ninja_mind.objectives += ninja_objective
 					mission_set = 1
 
-			if(sent_strike_team&&side=="heel"&&antagonist_list.len)//If a strike team was sent, murder them all like a champ.
+			if(sentStrikeTeam && side=="heel" && antagonist_list.len)//If a strike team was sent, murder them all like a champ.
 				for(current_mind in antagonist_list)//Search and destroy. Since we already have an antagonist list, they should appear there.
 					if(current_mind && current_mind.special_role=="Death Commando")
 						commando_list += current_mind

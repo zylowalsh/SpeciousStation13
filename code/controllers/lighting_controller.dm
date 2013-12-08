@@ -128,4 +128,3 @@ datum/controller/lighting/proc/Recover()
 				msg += "\t [varname] = [varval1] -> [varval2]\n"
 	world.log << msg
 
-#undef LIGHTING_ICON

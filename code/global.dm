@@ -3,24 +3,42 @@
 /*
 All coders need to follow these rules, if you want your code to be commited.
 
-- Constants names, which are declared as var/const/, should be all uppercase and each word should be
+Naming Conventions:
+- Constant names, which are declared as "var/const/", should be all uppercase and each word should be
 	broken by a underscore. ex: I_AM_AN_EXAMPLE
+- Class names are like the example above except they should be all lowercase. ex: i_am_an_example
+	When the var name isn't set for a class, it will use the class name so be sure you set it.
 - All other types of vars and procs names should be mostly lowercase and for each following word the
 	first letter should be uppercase. ex: iAmAnExample  Acronyms are considered one word.
+- Do not put the word "var" or "proc" in your names.  If you use the naming convention from above you won't
+	need to id what it is.
+
+Usage Conventions:
 - NEVER USE #define MACROS. They are easy to mess up, esp. when someone else comes in after you and edits your code.
 	Use constants instead.
 - Minimize the use of global non-constants and procs.  When I say global, I mean any var or proc that is
-	declared outside a class.  The compiler won't check if something is used or not if it is global.
-- Discribe your code in a comment if it gets difficult or time consuming to read.  No one wants to have to trace
-	a loop within loop, a proc that does multiple things or a var that is used in multiple files.
+	declared outside a class.  The compiler won't check if something is used if it is global.
+- Code with things the compiler checks.  There is a reason it is there.
+- Minimize text comparasions when possible.  Instead, compare nums.  In most cases, it will save CPU.
+- Don't use the proc call() or anything like it.  The compiler won't check it.  There is a reason inherience exists.
+- Describe your code in a comment if it gets difficult or time consuming to read.  No one wants to have to trace
+	a loop within loop, a proc that does multiple things or a var that is used in multiple files.  Naming something
+	that describes what it does can help minimizing the comments you have write.
 - Don't be lazy and name your stuff that does not relate to the current code.  If you use "weaselWackin", then
 	it better be about weasel wackin'.
+- Use constants when using flags.  Make sure you name them approprately and put them in the correct scope.  It sucks
+	looking up the following: "randomVarFromAnotherFile.blah == 1"  At a glance, nobody knows if the var blah uses
+	flag, a boolean or etc.  In addition, put it in the correct scope. If the flag is used outside the class then it
+	needs to be global.
+- While BYOND doesn't have booleans, they have the constants TRUE and FALSE for use.  Use them if your var is a boolean.
 - Don't use short non-sense var names(ex: "Bl") unless it is for a loop or a small proc.  If the proc can fit on
 	your screen without having to scroll up or down, it is a small proc.
 - All procs should type check when possible.
-- Don't declare classes and procs without the full name.  It should look this: datum/reagents/proc/reaction_mob(.
+- Don't declare classes and procs without the full name.  It should look this: datum/reagents/proc/reaction_mob().
 	It is annoying trying to trace what class a proc belongs to by having to follow the indents up 30 pages of code.
 	In addition, it moves the whole code off the right side of the screen.
+- Use the '\' to break up a long statement.  No one wants to scroll right and left to read what is there.  Make sure
+	you indent the following lines.
 - Don't put an empty return statement at the bottom of a proc.  It shows you don't know what you are doing.
 - Lastly, if you are editing something in the code and notice something that doesn't follow these rules, take it
 	upon yourself to fix it.
@@ -101,6 +119,7 @@ var/diaryofmeanpeople = null
 var/href_logfile = null
 var/station_name = "NSS Nilith"
 var/game_version = "Specious Station 13"
+var/const/HEADQUARTERS_NAME = "CentCom"
 var/changelog_hash = ""
 
 var/datum/air_tunnel/air_tunnel1/SS13_airtunnel = null

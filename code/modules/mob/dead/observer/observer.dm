@@ -109,8 +109,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(usr)
 		usr << desc
 
-/mob/dead/observer/can_use_hands()	return 0
-/mob/dead/observer/is_active()		return 0
+/mob/dead/observer/can_use_hands()
+	return 0
+/mob/dead/observer/is_active()
+	return 0
 
 /mob/dead/observer/Stat()
 	..()
@@ -124,11 +126,11 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 					//world << "DEBUG: malf mode ticker test"
 					if(ticker.mode:malf_mode_declared)
 						stat(null, "Time left: [max(ticker.mode:AI_win_timeleft/(ticker.mode:apcs/3), 0)]")
-		if(emergency_shuttle)
-			if(emergency_shuttle.online && emergency_shuttle.location < 2)
-				var/timeleft = emergency_shuttle.timeleft()
-				if (timeleft)
-					stat(null, "ETA-[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]")
+		if(emergencyShuttle)
+			if(emergencyShuttle.shuttleState == PREPARING_TO_LAUNCH)
+				var/timeLeft = emergencyShuttle.getTimeLeft()
+				if (timeLeft)
+					stat(null, "ETA-[(timeLeft / 60) % 60]:[add_zero(num2text(timeLeft % 60), 2)]")
 
 /mob/dead/observer/verb/reenter_corpse()
 	set category = "Ghost"

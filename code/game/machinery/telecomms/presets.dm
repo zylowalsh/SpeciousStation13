@@ -25,7 +25,7 @@
 	autolinkers = list("r_relay")
 
 /obj/machinery/telecomms/relay/preset/centcom
-	id = "Centcom Relay"
+	id = "CentCom Relay"
 	hide = 1
 	toggled = 1
 	//anchored = 1

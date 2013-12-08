@@ -558,7 +558,6 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	access = access_robotics
 	group = "Engineering"
 
-
 /datum/supply_packs/robotics
 	name = "Robotics Assembly Crate"
 	contains = list(/obj/item/device/assembly/prox_sensor,

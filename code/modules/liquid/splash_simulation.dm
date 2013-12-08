@@ -198,5 +198,3 @@ obj/proc/liquid_pass()
 
 obj/machinery/door/liquid_pass()
 	return !density
-
-#undef LIQUID_TRANSFER_THRESHOLD

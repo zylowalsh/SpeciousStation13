@@ -115,12 +115,4 @@ var/const/M_TOTAL_LAYERS = 6
 		overlays_standing[TARGETED_LAYER]	= null
 	if(update_icons)		update_icons()
 
-//Monkey Overlays Indexes////////
-#undef M_MASK_LAYER
-#undef M_BACK_LAYER
-#undef M_HANDCUFF_LAYER
-#undef M_L_HAND_LAYER
-#undef M_R_HAND_LAYER
-#undef TARGETED_LAYER
-#undef M_TOTAL_LAYERS
 

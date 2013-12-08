@@ -285,10 +285,10 @@ var/const/GAME_STATE_FINISHED = 4
 
 		mode.process()
 
-		emergency_shuttle.process()
+		emergencyShuttle.process()
 
-		var/mode_finished = mode.check_finished() || (emergency_shuttle.location == 2 && emergency_shuttle.alert == 1)
-		if(!mode.explosion_in_progress && mode_finished)
+		var/modeFinished = mode.check_finished() || emergencyShuttle.shuttleState == RETURNED_FROM_STATION
+		if(!mode.explosion_in_progress && modeFinished)
 			current_state = GAME_STATE_FINISHED
 
 			spawn
@@ -318,8 +318,18 @@ var/const/GAME_STATE_FINISHED = 4
 			if(F.name == name)
 				return F
 
-
 /datum/controller/gameticker/proc/declare_completion()
+
+	// Saves all the records to the prefs savefile if the character still exists.
+	for(var/mob/living/carbon/human/h in mob_list)
+		if(!isnull(h.dataCoreName))
+			var/datum/record/l[] = dataCore.locked
+			var/datum/record/r
+			var/datum/preferences/p = allPreferences[h.mind.key]
+			for(var/i = 1, i < l.len, i++)
+				r = l[i]
+				if(h.dataCoreName == r.fields["name"])
+					p.saveRecords(h.prefsSaveSlot, i)
 
 	for (var/mob/living/silicon/ai/aiPlayer in mob_list)
 		if (aiPlayer.stat != 2)

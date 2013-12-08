@@ -99,17 +99,3 @@ var/const/VERM_SPIDERS = 2
 
 /datum/event/infestation/announce()
 	command_alert("Bioscans indicate that [vermstring] have been breeding in [locstring]. Clear them out, before this starts to affect productivity.", "Vermin infestation")
-
-#undef LOC_KITCHEN
-#undef LOC_ATMOS
-#undef LOC_INCIN
-#undef LOC_CHAPEL
-#undef LOC_LIBRARY
-#undef LOC_HYDRO
-#undef LOC_VAULT
-#undef LOC_TECH
-#undef LOC_ASSEMBLY
-
-#undef VERM_MICE
-#undef VERM_LIZARDS
-#undef VERM_SPIDERS

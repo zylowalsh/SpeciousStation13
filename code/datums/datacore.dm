@@ -1,13 +1,51 @@
 /datum/datacore
-	var/medical[] = list()
-	var/general[] = list()
-	var/security[] = list()
+	var/general[] = new/list()
+	var/medical[] = new/list()
+	var/security[] = new/list()
 	//This list tracks characters spawned in the world and cannot be modified in-game. Currently referenced by respawn_character().
-	var/locked[] = list()
+	var/locked[] = new/list()
 
 /datum/record
-	var/name = "Default Record"
-	var/list/fields = list()
+	var/recordName = "Default Record"
+	var/fields[] = new/list()
+
+/*
+/datum/record/general
+	var/id
+	var/name
+	var/rank
+	var/realRank
+	var/age
+	var/fingerprint
+	var/gender
+	var/species
+	var/pStat
+	var/mStat
+	var/employmentHistory
+	var/generalNotes
+	var/tmp/photo
+
+/datum/record/medical
+	var/medNotes
+	var/bType
+	var/bDNA
+	var/minorDisability
+	var/minorDisabilityDesc
+	var/majorDisability
+	var/majorDisabilityDesc
+	var/algergies
+	var/alergiesDesc
+	var/cdi
+	var/cdiDesc
+
+/datum/record/security
+	var/criminal
+	var/minorCrimes
+	var/minorCrimesDesc
+	var/majorCrimes
+	var/majorCrimesDesc
+	var/secNotes
+*/
 
 /datum/datacore/proc/get_manifest(monochrome, OOC)
 	var/heads
@@ -132,6 +170,9 @@
 
 /datum/datacore/proc/manifest_inject(var/mob/living/carbon/human/H)
 	if(H.mind && (H.mind.assigned_role != "MODE"))
+		H.dataCoreName = H.real_name
+		H.prefsSaveSlot = H.client.prefs.default_slot
+
 		var/assignment
 		if(H.mind.role_alt_title)
 			assignment = H.mind.role_alt_title
@@ -142,69 +183,77 @@
 		else
 			assignment = "Unassigned"
 
-		var/id = add_zero(num2hex(rand(1, 1.6777215E7)), 6)	//this was the best they could come up with? A large random number? *sigh*
+		if(isnull(H.client.prefs.genRecord))
+			var/id = add_zero(num2hex(rand(1, 1.6777215E7)), 6)	//this was the best they could come up with? A large random number? *sigh*
 
+			//General Record
+			var/datum/record/G = new()
+			G.fields["id"]			= id
+			G.fields["name"]		= H.real_name
+			G.fields["real_rank"]	= H.mind.assigned_role
+			G.fields["rank"]		= assignment
+			G.fields["age"]			= H.age
+			G.fields["fingerprint"]	= md5(H.dna.uni_identity)
+			G.fields["p_stat"]		= "Active"
+			G.fields["m_stat"]		= "Stable"
+			G.fields["sex"]			= H.gender
+			G.fields["species"]		= H.get_species()
+			G.fields["photo"]		= get_id_photo(H)
+			if(H.gen_record && !jobban_isbanned(H, "Records"))
+				G.fields["notes"] = H.gen_record
+			else
+				G.fields["notes"] = "No notes found."
+			general += G
 
-		//General Record
-		var/datum/record/G = new()
-		G.fields["id"]			= id
-		G.fields["name"]		= H.real_name
-		G.fields["real_rank"]	= H.mind.assigned_role
-		G.fields["rank"]		= assignment
-		G.fields["age"]			= H.age
-		G.fields["fingerprint"]	= md5(H.dna.uni_identity)
-		G.fields["p_stat"]		= "Active"
-		G.fields["m_stat"]		= "Stable"
-		G.fields["sex"]			= H.gender
-		G.fields["species"]		= H.get_species()
-		G.fields["photo"]		= get_id_photo(H)
-		if(H.gen_record && !jobban_isbanned(H, "Records"))
-			G.fields["notes"] = H.gen_record
+			//Medical Record
+			var/datum/record/M = new()
+			M.fields["id"]			= id
+			M.fields["name"]		= H.real_name
+			M.fields["b_type"]		= H.b_type
+			M.fields["b_dna"]		= H.dna.unique_enzymes
+			M.fields["mi_dis"]		= "None"
+			M.fields["mi_dis_d"]	= "No minor disabilities have been declared."
+			M.fields["ma_dis"]		= "None"
+			M.fields["ma_dis_d"]	= "No major disabilities have been diagnosed."
+			M.fields["alg"]			= "None"
+			M.fields["alg_d"]		= "No allergies have been detected in this patient."
+			M.fields["cdi"]			= "None"
+			M.fields["cdi_d"]		= "No diseases have been diagnosed at the moment."
+			if(H.med_record && !jobban_isbanned(H, "Records"))
+				M.fields["notes"] = H.med_record
+			else
+				M.fields["notes"] = "No notes found."
+			medical += M
+
+			//Security Record
+			var/datum/record/S = new()
+			S.fields["id"]			= id
+			S.fields["name"]		= H.real_name
+			S.fields["criminal"]	= "None"
+			S.fields["mi_crim"]		= "None"
+			S.fields["mi_crim_d"]	= "No minor crime convictions."
+			S.fields["ma_crim"]		= "None"
+			S.fields["ma_crim_d"]	= "No major crime convictions."
+			S.fields["notes"]		= "No notes."
+			if(H.sec_record && !jobban_isbanned(H, "Records"))
+				S.fields["notes"] = H.sec_record
+			else
+				S.fields["notes"] = "No notes."
+			security += S
+
 		else
-			G.fields["notes"] = "No notes found."
-		general += G
-
-		//Medical Record
-		var/datum/record/M = new()
-		M.fields["id"]			= id
-		M.fields["name"]		= H.real_name
-		M.fields["b_type"]		= H.b_type
-		M.fields["b_dna"]		= H.dna.unique_enzymes
-		M.fields["mi_dis"]		= "None"
-		M.fields["mi_dis_d"]	= "No minor disabilities have been declared."
-		M.fields["ma_dis"]		= "None"
-		M.fields["ma_dis_d"]	= "No major disabilities have been diagnosed."
-		M.fields["alg"]			= "None"
-		M.fields["alg_d"]		= "No allergies have been detected in this patient."
-		M.fields["cdi"]			= "None"
-		M.fields["cdi_d"]		= "No diseases have been diagnosed at the moment."
-		if(H.med_record && !jobban_isbanned(H, "Records"))
-			M.fields["notes"] = H.med_record
-		else
-			M.fields["notes"] = "No notes found."
-		medical += M
-
-		//Security Record
-		var/datum/record/S = new()
-		S.fields["id"]			= id
-		S.fields["name"]		= H.real_name
-		S.fields["criminal"]	= "None"
-		S.fields["mi_crim"]		= "None"
-		S.fields["mi_crim_d"]	= "No minor crime convictions."
-		S.fields["ma_crim"]		= "None"
-		S.fields["ma_crim_d"]	= "No major crime convictions."
-		S.fields["notes"]		= "No notes."
-		if(H.sec_record && !jobban_isbanned(H, "Records"))
-			S.fields["notes"] = H.sec_record
-		else
-			S.fields["notes"] = "No notes."
-		security += S
+			H.client.prefs.genRecord.fields["real_rank"]	= H.mind.assigned_role
+			H.client.prefs.genRecord.fields["rank"]			= assignment
+			H.client.prefs.genRecord.fields["p_stat"]		= "Active"
+			general += H.client.prefs.genRecord
+			medical += H.client.prefs.medRecord
+			security += H.client.prefs.secRecord
 
 		//Locked Record
 		var/datum/record/L = new()
 		L.fields["id"]			= md5("[H.real_name][H.mind.assigned_role]")
 		L.fields["name"]		= H.real_name
-		L.fields["rank"] = H.mind.assigned_role
+		L.fields["rank"] 		= H.mind.assigned_role
 		L.fields["age"]			= H.age
 		L.fields["sex"]			= H.gender
 		L.fields["b_type"]		= H.b_type
@@ -213,8 +262,6 @@
 		L.fields["identity"]	= H.dna.uni_identity
 		L.fields["image"]		= getFlatIcon(H,0)	//This is god-awful
 		locked += L
-	return
-
 
 proc/get_id_photo(var/mob/living/carbon/human/H)
 	var/icon/preview_icon = null

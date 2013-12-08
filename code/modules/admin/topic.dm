@@ -136,12 +136,9 @@
 			log_admin("[key_name(usr)] toggled the [new_permission] permission of [adm_ckey]")
 
 		edit_admin_permissions()
-
+	/*
 	else if(href_list["call_shuttle"])
-		if(!check_rights(R_ADMIN))	return
-
-		if( ticker.mode.name == "blob" )
-			alert("You can't call the shuttle during blob!")
+		if(!check_rights(R_ADMIN))
 			return
 
 		switch(href_list["call_shuttle"])
@@ -177,7 +174,7 @@
 		captain_announce("The emergency shuttle has been called. It will arrive in [round(emergency_shuttle.timeleft()/60)] minutes.")
 		message_admins("\blue [key_name_admin(usr)] edited the Emergency Shuttle's timeleft to [emergency_shuttle.timeleft()]", 1)
 		href_list["secretsadmin"] = "check_antagonist"
-
+	*/
 	else if(href_list["delay_round_end"])
 		if(!check_rights(R_SERVER))	return
 
@@ -1682,8 +1679,8 @@
 				log_admin("[key_name(usr)] moved the mining shuttle")
 			if("moveferry")
 				move_ferry()
-				message_admins("\blue [key_name_admin(usr)] moved the centcom ferry", 1)
-				log_admin("[key_name(usr)] moved the centcom ferry")
+				message_admins("\blue [key_name_admin(usr)] moved the [HEADQUARTERS_NAME] ferry", 1)
+				log_admin("[key_name(usr)] moved the [HEADQUARTERS_NAME] ferry")
 			if("movealienship")
 				move_alien_ship()
 				message_admins("\blue [key_name_admin(usr)] moved the alien dinghy", 1)
@@ -1873,7 +1870,7 @@
 					if(W.z == 1 && !istype(get_area(W), /area/command) && !istype(get_area(W), /area/security))
 						W.req_access = list()
 				message_admins("[key_name_admin(usr)] activated Egalitarian Station mode")
-				command_alert("Centcomm airlock control override activated. Please take this time to get acquainted with your coworkers.")
+				command_alert("[HEADQUARTERS_NAME] airlock control override activated. Please take this time to get acquainted with your coworkers.")
 				world << sound('sound/AI/commandreport.ogg')
 			if("dorf")
 				for(var/mob/living/carbon/human/B in mob_list)
