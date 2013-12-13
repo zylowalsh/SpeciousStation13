@@ -85,31 +85,36 @@
  * Security Record Cabinets
  */
 /obj/structure/filingcabinet/security
-	var/virgin = 1
-
+	var/virgin = TRUE
 
 /obj/structure/filingcabinet/security/attack_hand(mob/user as mob)
 	if(virgin)
-		for(var/datum/record/G in dataCore.general)
+		for(var/datum/record/G in dataCore.allRecords)
 			var/datum/record/S
-			for(var/datum/record/R in dataCore.security)
-				if((R.fields["name"] == G.fields["name"] || R.fields["id"] == G.fields["id"]))
+			for(var/datum/record/R in dataCore.allRecords)
+				if((R.name == G.name || R.id == G.id))
 					S = R
 					break
 			var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(src)
 			P.info = "<CENTER><B>Security Record</B></CENTER><BR>"
-			P.info += "Name: [G.fields["name"]] ID: [G.fields["id"]]<BR>\nSex: [G.fields["sex"]]<BR>\nAge: [G.fields["age"]]<BR>\nFingerprint: [G.fields["fingerprint"]]<BR>\nPhysical Status: [G.fields["p_stat"]]<BR>\nMental Status: [G.fields["m_stat"]]<BR>"
-			P.info += "<BR>\n<CENTER><B>Security Data</B></CENTER><BR>\nCriminal Status: [S.fields["criminal"]]<BR>\n<BR>\nMinor Crimes: [S.fields["mi_crim"]]<BR>\nDetails: [S.fields["mi_crim_d"]]<BR>\n<BR>\nMajor Crimes: [S.fields["ma_crim"]]<BR>\nDetails: [S.fields["ma_crim_d"]]<BR>\n<BR>\nImportant Notes:<BR>\n\t[S.fields["notes"]]<BR>\n<BR>\n<CENTER><B>Comments/Log</B></CENTER><BR>"
-			var/counter = 1
-			while(S.fields["com_[counter]"])
-				P.info += "[S.fields["com_[counter]"]]<BR>"
-				counter++
+			P.info += "Name: [G.name] ID: [G.id]<BR>\n \
+				Sex: [G.gender]<BR>\n \
+				Age: [G.age]<BR>\n \
+				Fingerprint: [G.fingerprint]<BR>\n \
+				Physical Status: [G.pStat]<BR>\n \
+				Mental Status: [G.mStat]<BR>"
+			P.info += "<BR>\n<CENTER><B>Security Data</B></CENTER><BR>\n \
+				Criminal Status: [S.criminal]<BR>\n \<BR>\n \
+				Minor Crimes: [S.minorCrimes]<BR>\n \
+				Details: [S.minorCrimesDesc]<BR>\n<BR>\n \
+				Major Crimes: [S.majorCrimes]<BR>\n \
+				Details: [S.majorCrimesDesc]<BR>\n<BR>\n \
+				Important Notes:<BR>\n\t[S.secNotes]<BR>"
 			P.info += "</TT>"
-			P.name = "paper - '[G.fields["name"]]'"
-			virgin = 0	//tabbing here is correct- it's possible for people to try and use it
-						//before the records have been generated, so we do this inside the loop.
+			P.name = "paper - '[G.name]'"
+			virgin = FALSE	//tabbing here is correct- it's possible for people to try and use it
+							//before the records have been generated, so we do this inside the loop.
 	..()
-
 
 /*
  * Medical Record Cabinets
@@ -119,22 +124,30 @@
 
 /obj/structure/filingcabinet/medical/attack_hand(mob/user as mob)
 	if(virgin)
-		for(var/datum/record/G in dataCore.general)
-			var/datum/record/M
-			for(var/datum/record/R in dataCore.medical)
-				if((R.fields["name"] == G.fields["name"] || R.fields["id"] == G.fields["id"]))
-					M = R
-					break
+		for(var/datum/record/G in dataCore.allRecords)
 			var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(src)
 			P.info = "<CENTER><B>Medical Record</B></CENTER><BR>"
-			P.info += "Name: [G.fields["name"]] ID: [G.fields["id"]]<BR>\nSex: [G.fields["sex"]]<BR>\nAge: [G.fields["age"]]<BR>\nFingerprint: [G.fields["fingerprint"]]<BR>\nPhysical Status: [G.fields["p_stat"]]<BR>\nMental Status: [G.fields["m_stat"]]<BR>"
-			P.info += "<BR>\n<CENTER><B>Medical Data</B></CENTER><BR>\nBlood Type: [M.fields["b_type"]]<BR>\nDNA: [M.fields["b_dna"]]<BR>\n<BR>\nMinor Disabilities: [M.fields["mi_dis"]]<BR>\nDetails: [M.fields["mi_dis_d"]]<BR>\n<BR>\nMajor Disabilities: [M.fields["ma_dis"]]<BR>\nDetails: [M.fields["ma_dis_d"]]<BR>\n<BR>\nAllergies: [M.fields["alg"]]<BR>\nDetails: [M.fields["alg_d"]]<BR>\n<BR>\nCurrent Diseases: [M.fields["cdi"]] (per disease info placed in log/comment section)<BR>\nDetails: [M.fields["cdi_d"]]<BR>\n<BR>\nImportant Notes:<BR>\n\t[M.fields["notes"]]<BR>\n<BR>\n<CENTER><B>Comments/Log</B></CENTER><BR>"
-			var/counter = 1
-			while(M.fields["com_[counter]"])
-				P.info += "[M.fields["com_[counter]"]]<BR>"
-				counter++
+			P.info += "Name: [G.name] ID: [G.id]<BR>\n \
+				Sex: [G.gender]<BR>\n \
+				Age: [G.age]<BR>\n \
+				Fingerprint: [G.fingerprint]<BR>\n \
+				Physical Status: [G.pStat]<BR>\n \
+				Mental Status: [G.mStat]<BR>"
+			P.info += "<BR>\n<CENTER><B>Medical Data</B></CENTER><BR>\n \
+				Blood Type: [G.bType]<BR>\n \
+				DNA: [G.bDNA]<BR>\n<BR>\n \
+				Minor Disabilities: [G.minorDisability]<BR>\n \
+				Details: [G.minorDisabilityDesc]<BR>\n<BR>\n \
+				Major Disabilities: [G.majorDisability]<BR>\n \
+				Details: [G.majorDisabilityDesc]<BR>\n<BR>\n \
+				Allergies: [G.allergies]<BR>\n \
+				Details: [G.allergiesDesc]<BR>\n<BR>\n \
+				Current Diseases: [G.cdi] (per disease info placed in log/comment section)<BR>\n \
+				Details: [G.cdiDesc]<BR>\n<BR>\n \
+				Important Notes:<BR>\n\t[G.medNotes]<BR>"
+
 			P.info += "</TT>"
-			P.name = "paper - '[G.fields["name"]]'"
+			P.name = "paper - '[G.name]'"
 			virgin = 0	//tabbing here is correct- it's possible for people to try and use it
 						//before the records have been generated, so we do this inside the loop.
 	..()

@@ -177,17 +177,15 @@
 
 	ticker.mode.latespawn(character)
 
-	//ticker.mode.latespawn(character)
-
 	if(character.mind.assigned_role != "Cyborg")
-		dataCore.manifest_inject(character)
+		dataCore.manifestInject(character)
 		ticker.minds += character.mind//Cyborgs and AIs handle this in the transform proc.	//TODO!!!!! ~Carn
-		AnnounceArrival(character, rank)
+		announceArrival(character, rank)
 	else
 		character.Robotize()
 	del(src)
 
-/mob/new_player/proc/AnnounceArrival(var/mob/living/carbon/human/character, var/rank)
+proc/announceArrival(var/mob/living/carbon/human/character, var/rank)
 	if (ticker.current_state == GAME_STATE_PLAYING)
 		var/obj/item/device/radio/intercom/a = new /obj/item/device/radio/intercom(null)// BS12 EDIT Arrivals Announcement Computer, rather than the AI.
 		if(character.mind.role_alt_title)

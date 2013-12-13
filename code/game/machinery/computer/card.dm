@@ -205,7 +205,7 @@
 	switch(href_list["choice"])
 		if ("modify")
 			if (modify)
-				dataCore.manifest_modify(modify.registered_name, modify.assignment)
+				dataCore.manifestModify(modify.registered_name, modify.assignment)
 				modify.name = text("[modify.registered_name]'s ID Card ([modify.assignment])")
 				if(ishuman(usr))
 					modify.loc = usr.loc

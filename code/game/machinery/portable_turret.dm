@@ -591,7 +591,7 @@ Status: []<BR>"},
 			threatcount += 2
 
 	if (src.check_records) // if the turret can check the records, check if they are set to *Arrest* on records
-		for (var/datum/record/E in dataCore.general)
+		for (var/datum/record/E in dataCore.allRecords)
 
 			var/perpname = perp.name
 			if (perp.wear_id)
@@ -599,19 +599,12 @@ Status: []<BR>"},
 				if (id)
 					perpname = id.registered_name
 
-			if (E.fields["name"] == perpname)
-				for (var/datum/record/R in dataCore.security)
-					if ((R.fields["id"] == E.fields["id"]) && (R.fields["criminal"] == "*Arrest*"))
+			if (E.name == perpname)
+				for (var/datum/record/R in dataCore.allRecords)
+					if ((R.id == E.id) && (R.criminal == "*Arrest*"))
 						threatcount = 4
 						break
-
-
-
 	return threatcount
-
-
-
-
 
 /obj/machinery/porta_turret/proc/shootAt(var/atom/movable/target) // shoots at a target
 	if(disabled)

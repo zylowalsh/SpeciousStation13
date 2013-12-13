@@ -214,7 +214,7 @@ If a guy was gibbed and you want to revive him, this is a good way to do so.
 Works kind of like entering the game with a new character. Character receives a new mind if they didn't have one.
 Traitors and the like can also be revived with the previous role mostly intact.
 /N */
-/client/proc/respawn_character()
+/client/proc/respawnCharacter()
 	set category = "Special Verbs"
 	set name = "Respawn Character"
 	set desc = "Respawn a person that has been gibbed/dusted/killed. They must be a ghost for this to work and preferably should not have a body to go back into."
@@ -225,101 +225,107 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!input)
 		return
 
-	var/mob/dead/observer/G_found
+	var/mob/dead/observer/observer
 	for(var/mob/dead/observer/G in player_list)
 		if(G.ckey == input)
-			G_found = G
+			observer = G
 			break
 
-	if(!G_found)//If a ghost was not found.
+	if(!observer)//If a ghost was not found.
 		usr << "<font color='red'>There is no active key like that in the game or the person is not currently a ghost.</font>"
 		return
 
-	if(G_found.mind && !G_found.mind.active)	//mind isn't currently in use by someone/something
+	if(observer.mind && !observer.mind.active)	//mind isn't currently in use by someone/something
 		//Check if they were an alien
-		if(G_found.mind.assigned_role=="Alien")
-			if(alert("This character appears to have been an alien. Would you like to respawn them as such?",,"Yes","No")=="Yes")
+		if(observer.mind.assigned_role=="Alien")
+			if(alert("This character appears to have been an alien. Would you like to respawn them as such?",,"Yes","No") == "Yes")
 				var/turf/T
-				if(xeno_spawn.len)	T = pick(xeno_spawn)
-				else				T = pick(latejoin)
+				if(xeno_spawn.len)
+					T = pick(xeno_spawn)
+				else
+					T = pick(latejoin)
 
-				var/mob/living/carbon/alien/new_xeno
-				switch(G_found.mind.special_role)//If they have a mind, we can determine which caste they were.
-					if("Hunter")	new_xeno = new /mob/living/carbon/alien/humanoid/hunter(T)
-					if("Sentinel")	new_xeno = new /mob/living/carbon/alien/humanoid/sentinel(T)
-					if("Drone")		new_xeno = new /mob/living/carbon/alien/humanoid/drone(T)
-					if("Queen")		new_xeno = new /mob/living/carbon/alien/humanoid/queen(T)
+				var/mob/living/carbon/alien/newXeno
+				switch(observer.mind.special_role)//If they have a mind, we can determine which caste they were.
+					if("Hunter")
+						newXeno = new /mob/living/carbon/alien/humanoid/hunter(T)
+					if("Sentinel")
+						newXeno = new /mob/living/carbon/alien/humanoid/sentinel(T)
+					if("Drone")
+						newXeno = new /mob/living/carbon/alien/humanoid/drone(T)
+					if("Queen")
+						newXeno = new /mob/living/carbon/alien/humanoid/queen(T)
 					else//If we don't know what special role they have, for whatever reason, or they're a larva.
-						create_xeno(G_found.ckey)
+						create_xeno(observer.ckey)
 						return
 
 				//Now to give them their mind back.
-				G_found.mind.transfer_to(new_xeno)	//be careful when doing stuff like this! I've already checked the mind isn't in use
-				new_xeno.key = G_found.key
-				new_xeno << "You have been fully respawned. Enjoy the game."
-				message_admins("\blue [key_name_admin(usr)] has respawned [new_xeno.key] as a filthy xeno.", 1)
+				observer.mind.transfer_to(newXeno)	//be careful when doing stuff like this! I've already checked the mind isn't in use
+				newXeno.key = observer.key
+				newXeno << "You have been fully respawned. Enjoy the game."
+				message_admins("\blue [key_name_admin(usr)] has respawned [newXeno.key] as a filthy xeno.", 1)
 				return	//all done. The ghost is auto-deleted
 
 		//check if they were a monkey
-		else if(findtext(G_found.real_name,"monkey"))
-			if(alert("This character appears to have been a monkey. Would you like to respawn them as such?",,"Yes","No")=="Yes")
-				var/mob/living/carbon/monkey/new_monkey = new(pick(latejoin))
-				G_found.mind.transfer_to(new_monkey)	//be careful when doing stuff like this! I've already checked the mind isn't in use
-				new_monkey.key = G_found.key
-				new_monkey << "You have been fully respawned. Enjoy the game."
-				message_admins("\blue [key_name_admin(usr)] has respawned [new_monkey.key] as a filthy xeno.", 1)
+		else if(findtext(observer.real_name, "monkey"))
+			if(alert("This character appears to have been a monkey. Would you like to respawn them as such?",,"Yes","No") == "Yes")
+				var/mob/living/carbon/monkey/newMonkey = new(pick(latejoin))
+				observer.mind.transfer_to(newMonkey)	//be careful when doing stuff like this! I've already checked the mind isn't in use
+				newMonkey.key = observer.key
+				newMonkey << "You have been fully respawned. Enjoy the game."
+				message_admins("\blue [key_name_admin(usr)] has respawned [newMonkey.key] as a filthy xeno.", 1)
 				return	//all done. The ghost is auto-deleted
 
-
 	//Ok, it's not a xeno or a monkey. So, spawn a human.
-	var/mob/living/carbon/human/new_character = new(pick(latejoin))//The mob being spawned.
+	var/mob/living/carbon/human/newCharacter = new(pick(latejoin))//The mob being spawned.
 
-	var/datum/record/record_found			//Referenced to later to either randomize or not randomize the character.
-	if(G_found.mind && !G_found.mind.active)	//mind isn't currently in use by someone/something
+	var/datum/locked_record/recordFound			//Referenced to later to either randomize or not randomize the character.
+	if(observer.mind && !observer.mind.active)	//mind isn't currently in use by someone/something
 		/*Try and locate a record for the person being respawned through dataCore.
 		This isn't an exact science but it does the trick more often than not.*/
-		var/id = md5("[G_found.real_name][G_found.mind.assigned_role]")
-		for(var/datum/record/t in dataCore.locked)
-			if(t.fields["id"]==id)
-				record_found = t//We shall now reference the record.
+		var/id = md5("[observer.real_name][observer.mind.assigned_role]")
+		for(var/datum/locked_record/t in dataCore.lockedRecords)
+			if(t.id == id)
+				recordFound = t//We shall now reference the record.
 				break
 
-	if(record_found)//If they have a record we can determine a few things.
-		new_character.real_name = record_found.fields["name"]
-		new_character.gender = record_found.fields["sex"]
-		new_character.age = record_found.fields["age"]
-		new_character.b_type = record_found.fields["b_type"]
+	if(recordFound)//If they have a record we can determine a few things.
+		newCharacter.real_name = recordFound.name
+		newCharacter.gender = recordFound.gender
+		newCharacter.age = recordFound.age
+		newCharacter.b_type = recordFound.bType
 	else
-		new_character.gender = pick(MALE,FEMALE)
+		newCharacter.gender = pick(MALE,FEMALE)
 		var/datum/preferences/A = new()
-		A.randomize_appearance_for(new_character)
-		new_character.real_name = G_found.real_name
+		A.randomize_appearance_for(newCharacter)
+		newCharacter.real_name = observer.real_name
 
-	if(!new_character.real_name)
-		if(new_character.gender == MALE)
-			new_character.real_name = capitalize(pick(first_names_male)) + " " + capitalize(pick(last_names))
+	if(!newCharacter.real_name)
+		if(newCharacter.gender == MALE)
+			newCharacter.real_name = capitalize(pick(first_names_male)) + " " + capitalize(pick(last_names))
 		else
-			new_character.real_name = capitalize(pick(first_names_female)) + " " + capitalize(pick(last_names))
-	new_character.name = new_character.real_name
+			newCharacter.real_name = capitalize(pick(first_names_female)) + " " + capitalize(pick(last_names))
+	newCharacter.name = newCharacter.real_name
 
-	if(G_found.mind && !G_found.mind.active)
-		G_found.mind.transfer_to(new_character)	//be careful when doing stuff like this! I've already checked the mind isn't in use
-		new_character.mind.special_verbs = list()
+	if(observer.mind && !observer.mind.active)
+		observer.mind.transfer_to(newCharacter)	//be careful when doing stuff like this! I've already checked the mind isn't in use
+		newCharacter.mind.special_verbs = list()
 	else
-		new_character.mind_initialize()
-	if(!new_character.mind.assigned_role)	new_character.mind.assigned_role = "Assistant"//If they somehow got a null assigned role.
+		newCharacter.mind_initialize()
+	if(!newCharacter.mind.assigned_role)
+		newCharacter.mind.assigned_role = "Assistant"//If they somehow got a null assigned role.
 
 	//DNA
-	if(record_found)//Pull up their name from database records if they did have a mind.
-		new_character.dna = new()//Let's first give them a new DNA.
-		new_character.dna.unique_enzymes = record_found.fields["b_dna"]//Enzymes are based on real name but we'll use the record for conformity.
-		new_character.dna.struc_enzymes = record_found.fields["enzymes"]//This is the default of enzymes so I think it's safe to go with.
-		new_character.dna.uni_identity = record_found.fields["identity"]//DNA identity is carried over.
-		updateappearance(new_character,new_character.dna.uni_identity)//Now we configure their appearance based on their unique identity, same as with a DNA machine or somesuch.
+	if(recordFound)//Pull up their name from database records if they did have a mind.
+		newCharacter.dna = new()//Let's first give them a new DNA.
+		newCharacter.dna.unique_enzymes = recordFound.bDNA //Enzymes are based on real name but we'll use the record for conformity.
+		newCharacter.dna.struc_enzymes = recordFound.enzymes //This is the default of enzymes so I think it's safe to go with.
+		newCharacter.dna.uni_identity = recordFound.identity //DNA identity is carried over.
+		updateappearance(newCharacter, newCharacter.dna.uni_identity) //Now we configure their appearance based on their unique identity, same as with a DNA machine or somesuch.
 	else//If they have no records, we just do a random DNA for them, based on their random appearance/savefile.
-		new_character.dna.ready_dna(new_character)
+		newCharacter.dna.ready_dna(newCharacter)
 
-	new_character.key = G_found.key
+	newCharacter.key = observer.key
 
 	/*
 	The code below functions with the assumption that the mob is already a traitor if they have a special role.
@@ -329,71 +335,71 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	//Two variables to properly announce later on.
 	var/admin = key_name_admin(src)
-	var/player_key = G_found.key
+	var/playerKey = observer.key
 
 	//Now for special roles and equipment.
-	switch(new_character.mind.special_role)
+	switch(newCharacter.mind.special_role)
 		if("traitor")
-			job_master.EquipRank(new_character, new_character.mind.assigned_role, 1)
-			ticker.mode.equip_traitor(new_character)
+			job_master.EquipRank(newCharacter, newCharacter.mind.assigned_role, 1)
+			ticker.mode.equip_traitor(newCharacter)
 		if("Wizard")
-			new_character.loc = pick(wizardstart)
+			newCharacter.loc = pick(wizardstart)
 			//ticker.mode.learn_basic_spells(new_character)
-			ticker.mode.equip_wizard(new_character)
+			ticker.mode.equip_wizard(newCharacter)
 		if("Syndicate")
 			var/obj/effect/landmark/synd_spawn = locate("landmark*Syndicate-Spawn")
 			if(synd_spawn)
-				new_character.loc = get_turf(synd_spawn)
-			call(/datum/game_mode/proc/equip_syndicate)(new_character)
+				newCharacter.loc = get_turf(synd_spawn)
+			ticker.mode.equip_syndicate(newCharacter)
 		if("Ninja")
-			new_character.equip_space_ninja()
-			new_character.internal = new_character.s_store
-			new_character.internals.icon_state = "internal1"
+			newCharacter.equip_space_ninja()
+			newCharacter.internal = newCharacter.s_store
+			newCharacter.internals.icon_state = "internal1"
 			if(ninjastart.len == 0)
-				new_character << "<B>\red A proper starting location for you could not be found, please report this bug!</B>"
-				new_character << "<B>\red Attempting to place at a carpspawn.</B>"
+				newCharacter << "<B>\red A proper starting location for you could not be found, please report this bug!</B>"
+				newCharacter << "<B>\red Attempting to place at a carpspawn.</B>"
 				for(var/obj/effect/landmark/L in landmarks_list)
 					if(L.name == "carpspawn")
 						ninjastart.Add(L)
 				if(ninjastart.len == 0 && latejoin.len > 0)
-					new_character << "<B>\red Still no spawneable locations could be found. Defaulting to latejoin.</B>"
-					new_character.loc = pick(latejoin)
+					newCharacter << "<B>\red Still no spawneable locations could be found. Defaulting to latejoin.</B>"
+					newCharacter.loc = pick(latejoin)
 				else if (ninjastart.len == 0)
-					new_character << "<B>\red Still no spawneable locations could be found. Aborting.</B>"
+					newCharacter << "<B>\red Still no spawneable locations could be found. Aborting.</B>"
 
 		if("Death Commando")//Leaves them at late-join spawn.
-			new_character.equip_death_commando()
-			new_character.internal = new_character.s_store
-			new_character.internals.icon_state = "internal1"
+			newCharacter.equip_death_commando()
+			newCharacter.internal = newCharacter.s_store
+			newCharacter.internals.icon_state = "internal1"
 		else//They may also be a cyborg or AI.
-			switch(new_character.mind.assigned_role)
+			switch(newCharacter.mind.assigned_role)
 				if("Cyborg")//More rigging to make em' work and check if they're traitor.
-					new_character = new_character.Robotize()
-					if(new_character.mind.special_role=="traitor")
-						call(/datum/game_mode/proc/add_law_zero)(new_character)
+					newCharacter = newCharacter.Robotize()
+					if(newCharacter.mind.special_role == "traitor")
+						ticker.mode.add_law_zero(newCharacter)
 				if("AI")
-					new_character = new_character.AIize()
-					if(new_character.mind.special_role=="traitor")
-						call(/datum/game_mode/proc/add_law_zero)(new_character)
+					newCharacter = newCharacter.AIize()
+					if(newCharacter.mind.special_role == "traitor")
+						ticker.mode.add_law_zero(newCharacter)
 				//Add aliens.
 				else
-					job_master.EquipRank(new_character, new_character.mind.assigned_role, 1)//Or we simply equip them.
+					job_master.EquipRank(newCharacter, newCharacter.mind.assigned_role, 1)//Or we simply equip them.
 
 	//Announces the character on all the systems, based on the record.
-	if(!issilicon(new_character))//If they are not a cyborg/AI.
-		if(!record_found&&new_character.mind.assigned_role!="MODE")//If there are no records for them. If they have a record, this info is already in there. MODE people are not announced anyway.
+	if(!issilicon(newCharacter))//If they are not a cyborg/AI.
+		if(!recordFound && newCharacter.mind.assigned_role != "MODE")//If there are no records for them. If they have a record, this info is already in there. MODE people are not announced anyway.
 			//Power to the user!
-			if(alert(new_character,"Warning: No data core entry detected. Would you like to announce the arrival of this character by adding them to various databases, such as medical records?",,"No","Yes")=="Yes")
-				dataCore.manifest_inject(new_character)
+			if(alert(newCharacter,"Warning: No data core entry detected. Would you like to announce the arrival of this character by adding them to various databases, such as medical records?",,"No","Yes")=="Yes")
+				dataCore.manifestInject(newCharacter)
 
-			if(alert(new_character,"Would you like an active AI to announce this character?",,"No","Yes")=="Yes")
-				call(/mob/new_player/proc/AnnounceArrival)(new_character, new_character.mind.assigned_role)
+			if(alert(newCharacter,"Would you like an active AI to announce this character?",,"No","Yes") == "Yes")
+				announceArrival(newCharacter, newCharacter.mind.assigned_role)
 
-	message_admins("\blue [admin] has respawned [player_key] as [new_character.real_name].", 1)
+	message_admins("\blue [admin] has respawned [playerKey] as [newCharacter.real_name].", 1)
 
-	new_character << "You have been fully respawned. Enjoy the game."
+	newCharacter << "You have been fully respawned. Enjoy the game."
 
-	return new_character
+	return newCharacter
 
 /client/proc/cmd_admin_add_freeform_ai_law()
 	set category = "Fun"

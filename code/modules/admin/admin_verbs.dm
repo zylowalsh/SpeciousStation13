@@ -100,8 +100,7 @@ var/list/admin_verbs_fun = list(
 	)
 var/list/admin_verbs_spawn = list(
 	/datum/admins/proc/spawn_atom,		/*allows us to spawn instances*/
-	/client/proc/respawn_character
-	)
+	/client/proc/respawnCharacter)
 var/list/admin_verbs_server = list(
 	/client/proc/Set_Holiday,
 	/client/proc/ToRban,
@@ -148,8 +147,7 @@ var/list/admin_verbs_permissions = list(
 	/client/proc/edit_admin_permissions
 	)
 var/list/admin_verbs_rejuv = list(
-	/client/proc/respawn_character
-	)
+	/client/proc/respawnCharacter)
 
 //verbs which can be hidden - needs work
 var/list/admin_verbs_hideable = list(

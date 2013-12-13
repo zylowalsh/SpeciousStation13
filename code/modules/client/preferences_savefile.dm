@@ -296,7 +296,7 @@ var/const/SAVEFILE_VERSION_MAX = 10
 
 	return 1
 
-/datum/preferences/proc/loadRecords(slot)
+/datum/preferences/proc/loadRecord(slot)
 	if(!path)
 		return 0
 	if(!fexists(path))
@@ -313,14 +313,14 @@ var/const/SAVEFILE_VERSION_MAX = 10
 		S["default_slot"] << slot
 	S.cd = "/character[slot]"
 
-	S["med_record"] >> medRecord
-	S["sec_record"] >> secRecord
-	S["gen_record"] >> genRecord
+	S["record"] >> record
+	if(!isnull(record))
+		world << record.name + " is loading in."
 
 	world << "loadRecords() is returning"
 	return 1
 
-/datum/preferences/proc/saveRecords(slot, dataCoreIndex)
+/datum/preferences/proc/saveRecord(slot, dataCoreIndex)
 	var/savefile/S
 	if(!path)
 		return 0
@@ -330,9 +330,9 @@ var/const/SAVEFILE_VERSION_MAX = 10
 		return 0
 	S.cd = "/character[slot]"
 
-	S["med_record"] << dataCore.medical[dataCoreIndex]
-	S["sec_record"] << dataCore.security[dataCoreIndex]
-	S["gen_record"] << dataCore.general[dataCoreIndex]
+	var/datum/record/test = dataCore.allRecords[dataCoreIndex]
+	world << test.name + " is saving."
+	S["record"] << dataCore.allRecords[dataCoreIndex]
 
 	world << "saveRecords() is returning"
 	return 1

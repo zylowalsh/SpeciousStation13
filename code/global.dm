@@ -1,5 +1,3 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
-
 /*
 All coders need to follow these rules, if you want your code to be commited.
 
@@ -39,6 +37,18 @@ Usage Conventions:
 	In addition, it moves the whole code off the right side of the screen.
 - Use the '\' to break up a long statement.  No one wants to scroll right and left to read what is there.  Make sure
 	you indent the following lines.
+- Don't use the text() proc.  Just put your statement in the string with [].  It doesn't make it more readable when you
+	put an important part of the code at the end of the line that is prob. of the right side of the page.  The following
+	is a line of code I just fixed from one of the html windows.
+
+	dat += text("<A href='?src=\ref[];choice=Log In'>{Log In}</A>", src)
+
+- Don't use associative lists unless it will help with optimizing the code.  I don't want to see a class with only one list
+	that stores all its variables with other stuff calling blah.theOnlyList["importantStuff"]. I have spent weeks trying to fix
+	the record system because of this.  I have seen a class used for multiple independent reasons with common indexs like
+	"name" or "id".  This is completely unacceptable.  A good use of it would be like the global list for all the preferences.
+	Each one is saved allPreferences[ckey].  Since ckey is recorded in a ton of places, it is easy to look up an
+	user's prefs without having to search for it.
 - Don't put an empty return statement at the bottom of a proc.  It shows you don't know what you are doing.
 - Lastly, if you are editing something in the code and notice something that doesn't follow these rules, take it
 	upon yourself to fix it.

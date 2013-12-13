@@ -18,7 +18,7 @@
 	w_class = 1.0
 	var/associated_account_number = 0
 
-	var/list/files = list(  )
+	var/list/files = list()
 
 /obj/item/weapon/card/data
 	name = "data disk"

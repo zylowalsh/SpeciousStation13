@@ -91,7 +91,7 @@ var/list/ai_list = list()
 	if (istype(loc, /turf))
 		verbs.Add(/mob/living/silicon/ai/proc/aiCallShuttle, /mob/living/silicon/ai/proc/ai_camera_track, \
 			/mob/living/silicon/ai/proc/ai_camera_list, /mob/living/silicon/ai/proc/ai_network_change, \
-			/mob/living/silicon/ai/proc/ai_statuschange, /mob/living/silicon/ai/proc/ai_hologram_change, \
+			/mob/living/silicon/ai/proc/ai_statuschange, /mob/living/silicon/ai/proc/aiHologramChange, \
 			/mob/living/silicon/ai/proc/toggle_camera_light)
 
 	if(!safety)//Only used by AIize() to successfully spawn an AI.
@@ -610,8 +610,7 @@ var/list/ai_list = list()
 				SD.friendc = 0
 	return
 
-//I am the icon meister. Bow fefore me.	//>fefore
-/mob/living/silicon/ai/proc/ai_hologram_change()
+/mob/living/silicon/ai/proc/aiHologramChange()
 	set name = "Change Hologram"
 	set desc = "Change the default hologram available to AI to something else."
 	set category = "AI Commands"
@@ -619,26 +618,26 @@ var/list/ai_list = list()
 	var/input
 	if(alert("Would you like to select a hologram based on a crew member or switch to unique avatar?",,"Crew Member","Unique")=="Crew Member")
 
-		var/personnel_list[] = list()
+		var/personnelList[] = list()
 
-		for(var/datum/record/t in dataCore.locked)//Look in dataCore locked.
-			personnel_list["[t.fields["name"]]: [t.fields["rank"]]"] = t.fields["image"]//Pull names, rank, and image.
+		for(var/datum/locked_record/t in dataCore.lockedRecords)
+			personnelList["[t.name]: [t.rank]"] = t.image//Pull names, rank, and image.
 
-		if(personnel_list.len)
-			input = input("Select a crew member:") as null|anything in personnel_list
-			var/icon/character_icon = personnel_list[input]
-			if(character_icon)
+		if(personnelList.len)
+			input = input("Select a crew member:") as null|anything in personnelList
+			var/icon/characterIcon = personnelList[input]
+			if(characterIcon)
 				del(holo_icon)//Clear old icon so we're not storing it in memory.
-				holo_icon = getHologramIcon(icon(character_icon))
+				holo_icon = getHologramIcon(icon(characterIcon))
 		else
 			alert("No suitable records found. Aborting.")
 
 	else
-		var/icon_list[] = list(
-		"default",
-		"floating face"
-		)
-		input = input("Please select a hologram:") as null|anything in icon_list
+		var/iconList[] = list(
+			"default",
+			"floating face"
+			)
+		input = input("Please select a hologram:") as null|anything in iconList
 		if(input)
 			del(holo_icon)
 			switch(input)
@@ -646,7 +645,6 @@ var/list/ai_list = list()
 					holo_icon = getHologramIcon(icon('icons/mob/AI.dmi',"holo1"))
 				if("floating face")
 					holo_icon = getHologramIcon(icon('icons/mob/AI.dmi',"holo2"))
-	return
 
 /mob/living/silicon/ai/proc/corereturn()
 	set category = "Malfunction"

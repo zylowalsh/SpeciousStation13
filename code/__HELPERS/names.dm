@@ -177,8 +177,8 @@ var/syndicate_code_response//Code response for traitors.
 	var/locations[] = teleportlocs.len ? teleportlocs : drinks//if null, defaults to drinks instead.
 
 	var/names[] = list()
-	for(var/datum/record/t in dataCore.general)//Picks from crew manifest.
-		names += t.fields["name"]
+	for(var/datum/record/t in dataCore.allRecords)//Picks from crew manifest.
+		names += t.name
 
 	var/maxwords = words//Extra var to check for duplicates.
 

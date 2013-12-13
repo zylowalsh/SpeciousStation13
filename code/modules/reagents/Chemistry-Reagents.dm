@@ -100,9 +100,8 @@ datum
 				..()
 				return
 
-
 		blood
-			data = new/list("donor"=null,"viruses"=null,"blood_DNA"=null,"blood_type"=null,"resistances"=null,"trace_chem"=null, "antibodies" = null)
+			data = new/list("donor"=null,"viruses"=null,"blood_DNA"=null,"blood_type"=null,"resistances"=null,"trace_chem"=null)
 			name = "Blood"
 			id = "blood"
 			reagent_state = LIQUID
@@ -115,23 +114,12 @@ datum
 					for(var/datum/disease/D in self.data["viruses"])
 						//var/datum/disease/virus = new D.type(0, D, 1)
 						// We don't spread.
-						if(D.spread_type == SPECIAL || D.spread_type == NON_CONTAGIOUS) continue
-
+						if(D.spread_type == SPECIAL || D.spread_type == NON_CONTAGIOUS)
+							continue
 						if(method == TOUCH)
 							M.contract_disease(D)
 						else //injected
 							M.contract_disease(D, 1, 0)
-				if(self.data && self.data["virus2"] && istype(M, /mob/living/carbon))//infecting...
-					if(method == TOUCH)
-						infect_virus2(M,self.data["virus2"])
-					else
-						infect_virus2(M,self.data["virus2"],1)
-				if(self.data && self.data["antibodies"] && istype(M, /mob/living/carbon))//... and curing
-					var/mob/living/carbon/C = M
-					C.antibodies |= self.data["antibodies"]
-
-
-
 
 			reaction_turf(var/turf/simulated/T, var/volume)//splash the blood all over the place
 				if(!istype(T)) return
@@ -926,17 +914,6 @@ datum
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
 				M.apply_effect(2 * REAGENTS_EFFECT_MULTIPLIER,IRRADIATE,0)
-				// radium may increase your chances to cure a disease
-				if(istype(M,/mob/living/carbon)) // make sure to only use it on carbon mobs
-					var/mob/living/carbon/C = M
-					if(C.virus2.len)
-						for (var/ID in C.virus2)
-							var/datum/disease2/disease/V = C.virus2[ID]
-							if(prob(5))
-								if(prob(50))
-									M.radiation += 50 // curing it that way may kill you instead
-									M.adjustToxLoss(100)
-								M:antibodies |= V.antigen
 				..()
 				return
 
@@ -946,7 +923,6 @@ datum
 					if(!istype(T, /turf/space))
 						new /obj/effect/decal/cleanable/greenglow(T)
 						return
-
 
 		ryetalyn
 			name = "Ryetalyn"

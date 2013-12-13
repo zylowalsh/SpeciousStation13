@@ -387,52 +387,45 @@
 
 
 	if(hasHUD(usr,"security"))
-		var/perpname = "wot"
+		var/targetName = "wot"
 		var/criminal = "None"
 
 		if(wear_id)
 			var/obj/item/weapon/card/id/I = wear_id.GetID()
 			if(I)
-				perpname = I.registered_name
+				targetName = I.registered_name
 			else
-				perpname = name
+				targetName = name
 		else
-			perpname = name
+			targetName = name
 
-		if(perpname)
-			for (var/datum/record/E in dataCore.general)
-				if(E.fields["name"] == perpname)
-					for (var/datum/record/R in dataCore.security)
-						if(R.fields["id"] == E.fields["id"])
-							criminal = R.fields["criminal"]
+		if(targetName)
+			for (var/datum/record/R in dataCore.allRecords)
+				if(R.name == targetName)
+					criminal = R.criminal
 
 			msg += "<span class = 'deptradio'>Criminal status:</span> <a href='?src=\ref[src];criminal=1'>\[[criminal]\]</a>\n"
 			msg += "<span class = 'deptradio'>Security records:</span> <a href='?src=\ref[src];secrecord=`'>\[View\]</a>  <a href='?src=\ref[src];secrecordadd=`'>\[Add comment\]</a>\n"
 
 	if(hasHUD(usr,"medical"))
-		var/perpname = "wot"
+		var/targetName = "wot"
 		var/medical = "None"
 
 		if(wear_id)
 			if(istype(wear_id,/obj/item/weapon/card/id))
-				perpname = wear_id:registered_name
-			else if(istype(wear_id,/obj/item/device/pda))
-				var/obj/item/device/pda/tempPda = wear_id
-				perpname = tempPda.owner
+				targetName = wear_id:registered_name
+			else if(istype(wear_id, /obj/item/device/pda))
+				var/obj/item/device/pda/tempPDA = wear_id
+				targetName = tempPDA.owner
 		else
-			perpname = src.name
+			targetName = src.name
 
-		for (var/datum/record/E in dataCore.general)
-			if (E.fields["name"] == perpname)
-				for (var/datum/record/R in dataCore.general)
-					if (R.fields["id"] == E.fields["id"])
-						medical = R.fields["p_stat"]
+		for (var/datum/record/R in dataCore.allRecords)
+			if (R.name == targetName)
+				medical = R.pStat
 
 		msg += "<span class = 'deptradio'>Physical status:</span> <a href='?src=\ref[src];medical=1'>\[[medical]\]</a>\n"
 		msg += "<span class = 'deptradio'>Medical records:</span> <a href='?src=\ref[src];medrecord=`'>\[View\]</a> <a href='?src=\ref[src];medrecordadd=`'>\[Add comment\]</a>\n"
-
-
-	if(print_flavor_text()) msg += "[print_flavor_text()]\n"
 
 	msg += "*---------*</span>"
 	if (pose)

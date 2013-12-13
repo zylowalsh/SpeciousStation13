@@ -11,42 +11,41 @@
 		for(var/mob/living/carbon/human/perp in view(T))
 			if(src.see_invisible < perp.invisibility)
 				continue
-			var/perpname = "wot"
+			var/targetName = "wot"
 			holder = perp.hud_list[ID_HUD]
 			if(perp.wear_id)
 				var/obj/item/weapon/card/id/I = perp.wear_id.GetID()
 				if(I)
-					perpname = I.registered_name
+					targetName = I.registered_name
 					holder.icon_state = "hud[ckey(perp:wear_id:GetJobName())]"
 					client.images += holder
 				else
-					perpname = perp.name
+					targetName = perp.name
 					holder.icon_state = "hudunknown"
 					client.images += holder
 			else
 				holder.icon_state = "hudunknown"
 				client.images += holder
 
-			for(var/datum/record/E in dataCore.general)
-				if(E.fields["name"] == perpname)
+			for(var/datum/record/R in dataCore.allRecords)
+				if(R.name == targetName)
 					holder = perp.hud_list[WANTED_HUD]
-					for(var/datum/record/R in dataCore.security)
-						if((R.fields["id"] == E.fields["id"]) && (R.fields["criminal"] == "*Arrest*"))
-							holder.icon_state = "hudwanted"
-							client.images += holder
-							break
-						else if((R.fields["id"] == E.fields["id"]) && (R.fields["criminal"] == "Incarcerated"))
-							holder.icon_state = "hudprisoner"
-							client.images += holder
-							break
-						else if((R.fields["id"] == E.fields["id"]) && (R.fields["criminal"] == "Parolled"))
-							holder.icon_state = "hudparolled"
-							client.images += holder
-							break
-						else if((R.fields["id"] == E.fields["id"]) && (R.fields["criminal"] == "Released"))
-							holder.icon_state = "hudreleased"
-							client.images += holder
-							break
+					if(R.criminal == "*Arrest*")
+						holder.icon_state = "hudwanted"
+						client.images += holder
+						break
+					else if(R.criminal == "Incarcerated")
+						holder.icon_state = "hudprisoner"
+						client.images += holder
+						break
+					else if(R.criminal == "Parolled")
+						holder.icon_state = "hudparolled"
+						client.images += holder
+						break
+					else if(R.criminal == "Released")
+						holder.icon_state = "hudreleased"
+						client.images += holder
+						break
 
 /mob/living/silicon/pai/proc/medicalHUD()
 	if(client)
@@ -58,12 +57,7 @@
 			var/foundVirus = 0
 			for(var/datum/disease/D in patient.viruses)
 				if(!D.hidden[SCANNER])
-					foundVirus++
-
-			for (var/ID in patient.virus2)
-				if (ID in virusDB)
-					foundVirus = 1
-					break
+					foundVirus = TRUE
 
 			holder = patient.hud_list[HEALTH_HUD]
 			if(patient.stat == 2)

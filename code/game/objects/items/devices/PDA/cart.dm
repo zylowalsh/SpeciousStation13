@@ -217,8 +217,6 @@
 			if (M.client && M.machine == loc)
 				loc:attack_self(M)
 
-		return
-
 	proc/post_status(var/command, var/data1, var/data2)
 
 		var/datum/radio_frequency/frequency = radio_controller.return_frequency(1435)
@@ -336,82 +334,82 @@ Code:
 
 			if (44) //medical records //This thing only displays a single screen so it's hard to really get the sub-menu stuff working.
 				menu = "<h4><img src=pda_medical.png> Medical Record List</h4>"
-				if(!isnull(dataCore.general))
-					for (var/datum/record/R in sortRecord(dataCore.general))
-						menu += "<a href='byond://?src=\ref[src];choice=Medical Records;target=\ref[R]'>[R.fields["id"]]: [R.fields["name"]]<br>"
+				if(!isnull(dataCore.allRecords))
+					for (var/datum/record/R in sortRecord(dataCore.allRecords))
+						menu += "<a href='byond://?src=\ref[src];choice=Medical Records;target=\ref[R]'>[R.id]: [R.name]<br>"
 				menu += "<br>"
 			if(441)
 				menu = "<h4><img src=pda_medical.png> Medical Record</h4>"
 
-				if (istype(active1, /datum/record) && (active1 in dataCore.general))
-					menu += "Name: [active1.fields["name"]] ID: [active1.fields["id"]]<br>"
-					menu += "Sex: [active1.fields["sex"]]<br>"
-					menu += "Age: [active1.fields["age"]]<br>"
-					menu += "Rank: [active1.fields["rank"]]<br>"
-					menu += "Fingerprint: [active1.fields["fingerprint"]]<br>"
-					menu += "Physical Status: [active1.fields["p_stat"]]<br>"
-					menu += "Mental Status: [active1.fields["m_stat"]]<br>"
+				if (istype(active1, /datum/record) && (active1 in dataCore.allRecords))
+					menu += "Name: [active1.name] ID: [active1.id]<br>"
+					menu += "Sex: [active1.gender]<br>"
+					menu += "Age: [active1.age]<br>"
+					menu += "Rank: [active1.rank]<br>"
+					menu += "Fingerprint: [active1.fingerprint]<br>"
+					menu += "Physical Status: [active1.pStat]<br>"
+					menu += "Mental Status: [active1.mStat]<br>"
 				else
 					menu += "<b>Record Lost!</b><br>"
 
 				menu += "<br>"
 
 				menu += "<h4><img src=pda_medical.png> Medical Data</h4>"
-				if (istype(active2, /datum/record) && (active2 in dataCore.medical))
-					menu += "Blood Type: [active2.fields["b_type"]]<br><br>"
+				if (istype(active2, /datum/record) && (active2 in dataCore.allRecords))
+					menu += "Blood Type: [active2.bType]<br><br>"
 
-					menu += "Minor Disabilities: [active2.fields["mi_dis"]]<br>"
-					menu += "Details: [active2.fields["mi_dis_d"]]<br><br>"
+					menu += "Minor Disabilities: [active2.minorDisability]<br>"
+					menu += "Details: [active2.minorDisabilityDesc]<br><br>"
 
-					menu += "Major Disabilities: [active2.fields["ma_dis"]]<br>"
-					menu += "Details: [active2.fields["ma_dis_d"]]<br><br>"
+					menu += "Major Disabilities: [active2.majorDisability]<br>"
+					menu += "Details: [active2.majorDisabilityDesc]<br><br>"
 
-					menu += "Allergies: [active2.fields["alg"]]<br>"
-					menu += "Details: [active2.fields["alg_d"]]<br><br>"
+					menu += "Allergies: [active2.allergies]<br>"
+					menu += "Details: [active2.allergiesDesc]<br><br>"
 
-					menu += "Current Diseases: [active2.fields["cdi"]]<br>"
-					menu += "Details: [active2.fields["cdi_d"]]<br><br>"
+					menu += "Current Diseases: [active2.cdi]<br>"
+					menu += "Details: [active2.cdiDesc]<br><br>"
 
-					menu += "Important Notes: [active2.fields["notes"]]<br>"
+					menu += "Important Notes: [active2.medNotes]<br>"
 				else
 					menu += "<b>Record Lost!</b><br>"
 
 				menu += "<br>"
 			if (45) //security records
 				menu = "<h4><img src=pda_cuffs.png> Security Record List</h4>"
-				if(!isnull(dataCore.general))
-					for (var/datum/record/R in sortRecord(dataCore.general))
-						menu += "<a href='byond://?src=\ref[src];choice=Security Records;target=\ref[R]'>[R.fields["id"]]: [R.fields["name"]]<br>"
+				if(!isnull(dataCore.allRecords))
+					for (var/datum/record/R in sortRecord(dataCore.allRecords))
+						menu += "<a href='byond://?src=\ref[src];choice=Security Records;target=\ref[R]'>[R.id]: [R.name]<br>"
 
 				menu += "<br>"
 			if(451)
 				menu = "<h4><img src=pda_cuffs.png> Security Record</h4>"
 
-				if (istype(active1, /datum/record) && (active1 in dataCore.general))
-					menu += "Name: [active1.fields["name"]] ID: [active1.fields["id"]]<br>"
-					menu += "Sex: [active1.fields["sex"]]<br>"
-					menu += "Age: [active1.fields["age"]]<br>"
-					menu += "Rank: [active1.fields["rank"]]<br>"
-					menu += "Fingerprint: [active1.fields["fingerprint"]]<br>"
-					menu += "Physical Status: [active1.fields["p_stat"]]<br>"
-					menu += "Mental Status: [active1.fields["m_stat"]]<br>"
+				if (istype(active1, /datum/record) && (active1 in dataCore.allRecords))
+					menu += "Name: [active1.name] ID: [active1.id]<br>"
+					menu += "Sex: [active1.gender]<br>"
+					menu += "Age: [active1.age]<br>"
+					menu += "Rank: [active1.rank]<br>"
+					menu += "Fingerprint: [active1.fingerprint]<br>"
+					menu += "Physical Status: [active1.pStat]<br>"
+					menu += "Mental Status: [active1.mStat]<br>"
 				else
 					menu += "<b>Record Lost!</b><br>"
 
 				menu += "<br>"
 
 				menu += "<h4><img src=pda_cuffs.png> Security Data</h4>"
-				if (istype(active3, /datum/record) && (active3 in dataCore.security))
-					menu += "Criminal Status: [active3.fields["criminal"]]<br>"
+				if (istype(active3, /datum/record) && (active3 in dataCore.allRecords))
+					menu += "Criminal Status: [active3.criminal]]<br>"
 
-					menu += "Minor Crimes: [active3.fields["mi_crim"]]<br>"
-					menu += "Details: [active3.fields["mi_crim"]]<br><br>"
+					menu += "Minor Crimes: [active3.minorCrimes]<br>"
+					menu += "Details: [active3.minorCrimesDesc]<br><br>"
 
-					menu += "Major Crimes: [active3.fields["ma_crim"]]<br>"
-					menu += "Details: [active3.fields["ma_crim_d"]]<br><br>"
+					menu += "Major Crimes: [active3.majorCrimes]<br>"
+					menu += "Details: [active3.majorCrimesDesc]<br><br>"
 
 					menu += "Important Notes:<br>"
-					menu += "[active3.fields["notes"]]"
+					menu += "[active3.secNotes]"
 				else
 					menu += "<b>Record Lost!</b><br>"
 
@@ -617,9 +615,9 @@ Code:
 			var/datum/record/M = locate(href_list["target"])
 			loc:mode = 441
 			mode = 441
-			if (R in dataCore.general)
-				for (var/datum/record/E in dataCore.medical)
-					if ((E.fields["name"] == R.fields["name"] || E.fields["id"] == R.fields["id"]))
+			if (R in dataCore.allRecords)
+				for (var/datum/record/E in dataCore.allRecords)
+					if ((E.name == R.name || E.id == R.id))
 						M = E
 						break
 				active1 = R
@@ -630,9 +628,9 @@ Code:
 			var/datum/record/S = locate(href_list["target"])
 			loc:mode = 451
 			mode = 451
-			if (R in dataCore.general)
-				for (var/datum/record/E in dataCore.security)
-					if ((E.fields["name"] == R.fields["name"] || E.fields["id"] == R.fields["id"]))
+			if (R in dataCore.allRecords)
+				for (var/datum/record/E in dataCore.allRecords)
+					if ((E.name == R.name || E.id == R.id))
 						S = E
 						break
 				active1 = R

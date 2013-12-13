@@ -185,7 +185,6 @@
 	changeling.geneticdamage = 30
 	src.dna = chosen_dna
 	src.real_name = chosen_dna.real_name
-	src.flavor_text = ""
 	updateappearance(src, src.dna.uni_identity)
 	domutcheck(src, null)
 

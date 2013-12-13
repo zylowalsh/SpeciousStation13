@@ -253,22 +253,23 @@ Turf and target are seperate in case you want to teleport some distance from a t
 
 //This will update a mob's name, real_name, mind.name, dataCore records, pda and id
 //Calling this proc without an oldname will only update the mob and skip updating the pda, id and records ~Carn
-/mob/proc/fully_replace_character_name(var/oldname,var/newname)
-	if(!newname)	return 0
-	real_name = newname
-	name = newname
+/mob/proc/fully_replace_character_name(var/oldName, var/newName)
+	if(!newName)	return 0
+	real_name = newName
+	name = newName
 	if(mind)
-		mind.name = newname
+		mind.name = newName
 	if(dna)
 		dna.real_name = real_name
 
-	if(oldname)
+	if(oldName)
 		//update the datacore records! This is goig to be a bit costly.
-		for(var/list/L in list(dataCore.general, dataCore.medical, dataCore.security, dataCore.locked))
-			for(var/datum/record/R in L)
-				if(R.fields["name"] == oldname)
-					R.fields["name"] = newname
-					break
+		for(var/datum/record/r in dataCore.allRecords)
+			if(r.name == oldName)
+				r.name = newName
+		for(var/datum/locked_record/r in dataCore.lockedRecords)
+			if(r.name == oldName)
+				r.name = newName
 
 		//update our pda and id if we have them on our person
 		var/list/searching = GetAllContents(searchDepth = 3)
@@ -278,22 +279,22 @@ Turf and target are seperate in case you want to teleport some distance from a t
 		for(var/A in searching)
 			if( search_id && istype(A,/obj/item/weapon/card/id) )
 				var/obj/item/weapon/card/id/ID = A
-				if(ID.registered_name == oldname)
-					ID.registered_name = newname
-					ID.name = "[newname]'s ID Card ([ID.assignment])"
-					if(!search_pda)	break
+				if(ID.registered_name == oldName)
+					ID.registered_name = newName
+					ID.name = "[newName]'s ID Card ([ID.assignment])"
+					if(!search_pda)
+						break
 					search_id = 0
 
 			else if( search_pda && istype(A,/obj/item/device/pda) )
 				var/obj/item/device/pda/PDA = A
-				if(PDA.owner == oldname)
-					PDA.owner = newname
-					PDA.name = "PDA-[newname] ([PDA.ownjob])"
-					if(!search_id)	break
+				if(PDA.owner == oldName)
+					PDA.owner = newName
+					PDA.name = "PDA-[newName] ([PDA.ownjob])"
+					if(!search_id)
+						break
 					search_pda = 0
 	return 1
-
-
 
 //Generalised helper proc for letting mobs rename themselves. Used to be clname() and ainame()
 //Last modified by Carn
@@ -339,7 +340,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 					A.aiPDA.name = newname + " (" + A.aiPDA.ownjob + ")"
 
 
-		fully_replace_character_name(oldname,newname)
+		fully_replace_character_name(oldname, newname)
 
 
 

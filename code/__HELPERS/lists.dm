@@ -222,10 +222,6 @@ proc/listclearnulls(list/list)
 		return (result + L.Copy(Li, 0))
 	return (result + R.Copy(Ri, 0))
 
-
-
-
-//Mergesort: Specifically for record datums in a list.
 /proc/sortRecord(var/list/datum/record/L, var/field = "name", var/order = 1)
 	if(isnull(L))
 		return list()
@@ -249,17 +245,30 @@ proc/listclearnulls(list/list)
 			if(isnull(rR))
 				R -= rR
 				continue
-			if(sorttext(rL.fields[field], rR.fields[field]) == order)
-				result += L[Li++]
-			else
-				result += R[Ri++]
-
+			switch(field)
+				if("name")
+					if(sorttext(rL.name, rR.name) == order)
+						result += L[Li++]
+					else
+						result += R[Ri++]
+				if("id")
+					if(sorttext(rL.id, rR.id) == order)
+						result += L[Li++]
+					else
+						result += R[Ri++]
+				if("rank")
+					if(sorttext(rL.rank, rR.rank) == order)
+						result += L[Li++]
+					else
+						result += R[Ri++]
+				if("fingerprint")
+					if(sorttext(rL.fingerprint, rR.fingerprint) == order)
+						result += L[Li++]
+					else
+						result += R[Ri++]
 		if(Li <= L.len)
 			return (result + L.Copy(Li, 0))
 	return (result + R.Copy(Ri, 0))
-
-
-
 
 //Mergesort: any value in a list
 /proc/sortList(var/list/L)

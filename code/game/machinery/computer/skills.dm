@@ -52,97 +52,96 @@
 		if (authenticated)
 			switch(screen)
 				if(1.0)
-					dat += {"
-<p style='text-align:center;'>"}
+					dat += {"<p style='text-align:center;'>"}
 					dat += text("<A href='?src=\ref[];choice=Search Records'>Search Records</A><BR>", src)
 					dat += text("<A href='?src=\ref[];choice=New Record (General)'>New Record</A><BR>", src)
 					dat += {"
-</p>
-<table style="text-align:center;" cellspacing="0" width="100%">
-<tr>
-<th>Records:</th>
-</tr>
-</table>
-<table style="text-align:center;" border="1" cellspacing="0" width="100%">
-<tr>
-<th><A href='?src=\ref[src];choice=Sorting;sort=name'>Name</A></th>
-<th><A href='?src=\ref[src];choice=Sorting;sort=id'>ID</A></th>
-<th><A href='?src=\ref[src];choice=Sorting;sort=rank'>Rank</A></th>
-<th><A href='?src=\ref[src];choice=Sorting;sort=fingerprint'>Fingerprints</A></th>
-</tr>"}
-					if(!isnull(dataCore.general))
-						for(var/datum/record/R in sortRecord(dataCore.general, sortBy, order))
-							for(var/datum/record/E in dataCore.security)
+						</p>
+						<table style="text-align:center;" cellspacing="0" width="100%">
+						<tr>
+						<th>Records:</th>
+						</tr>
+						</table>
+						<table style="text-align:center;" border="1" cellspacing="0" width="100%">
+						<tr>
+						<th><A href='?src=\ref[src];choice=Sorting;sort=name'>Name</A></th>
+						<th><A href='?src=\ref[src];choice=Sorting;sort=id'>ID</A></th>
+						<th><A href='?src=\ref[src];choice=Sorting;sort=rank'>Rank</A></th>
+						<th><A href='?src=\ref[src];choice=Sorting;sort=fingerprint'>Fingerprints</A></th>
+						</tr>"}
+					if(!isnull(dataCore.allRecords))
+						for(var/datum/record/R in sortRecord(dataCore.allRecords, sortBy, order))
+							for(var/datum/record/E in dataCore.allRecords)
 							var/background
-							dat += text("<tr style=[]><td><A href='?src=\ref[];choice=Browse Record;d_rec=\ref[]'>[]</a></td>", background, src, R, R.fields["name"])
-							dat += text("<td>[]</td>", R.fields["id"])
-							dat += text("<td>[]</td>", R.fields["rank"])
-							dat += text("<td>[]</td>", R.fields["fingerprint"])
+							dat += "<tr style=[background]><td><A href='?src=\ref[src];choice=Browse Record;d_rec=\ref[R]'>[R.name]</a></td>"
+							dat += "<td>[R.id]</td>"
+							dat += "<td>[R.rank]</td>"
+							dat += "<td>[R.fingerprint]</td>"
 						dat += "</table><hr width='75%' />"
-					dat += text("<A href='?src=\ref[];choice=Record Maintenance'>Record Maintenance</A><br><br>", src)
-					dat += text("<A href='?src=\ref[];choice=Log Out'>{Log Out}</A>",src)
+					dat += "<A href='?src=\ref[src];choice=Record Maintenance'>Record Maintenance</A><br><br>"
+					dat += "<A href='?src=\ref[src];choice=Log Out'>{Log Out}</A>"
 				if(2.0)
 					dat += "<B>Records Maintenance</B><HR>"
 					dat += "<BR><A href='?src=\ref[src];choice=Delete All Records'>Delete All Records</A><BR><BR><A href='?src=\ref[src];choice=Return'>Back</A>"
 				if(3.0)
 					dat += "<CENTER><B>Employment Record</B></CENTER><BR>"
-					if ((istype(active1, /datum/record) && dataCore.general.Find(active1)))
-						var/icon/front = new(active1.fields["photo"], dir = SOUTH)
-						var/icon/side = new(active1.fields["photo"], dir = WEST)
+					if ((istype(active1, /datum/record) && dataCore.allRecords.Find(active1)))
+						var/icon/front = new(active1.photo, dir = SOUTH)
+						var/icon/side = new(active1.photo, dir = WEST)
 						user << browse_rsc(front, "front.png")
 						user << browse_rsc(side, "side.png")
 						dat += text("<table><tr><td>	\
-						Name: <A href='?src=\ref[src];choice=Edit Field;field=name'>[active1.fields["name"]]</A><BR> \
-						ID: <A href='?src=\ref[src];choice=Edit Field;field=id'>[active1.fields["id"]]</A><BR>\n	\
-						Sex: <A href='?src=\ref[src];choice=Edit Field;field=sex'>[active1.fields["sex"]]</A><BR>\n	\
-						Age: <A href='?src=\ref[src];choice=Edit Field;field=age'>[active1.fields["age"]]</A><BR>\n	\
-						Rank: <A href='?src=\ref[src];choice=Edit Field;field=rank'>[active1.fields["rank"]]</A><BR>\n	\
-						Fingerprint: <A href='?src=\ref[src];choice=Edit Field;field=fingerprint'>[active1.fields["fingerprint"]]</A><BR>\n	\
-						Physical Status: [active1.fields["p_stat"]]<BR>\n	\
-						Mental Status: [active1.fields["m_stat"]]<BR><BR>\n	\
-						Employment/skills summary:<BR> [active1.fields["notes"]]<BR></td>	\
-						<td align = center valign = top>Photo:<br><img src=front.png height=80 width=80 border=4>	\
-						<img src=side.png height=80 width=80 border=4></td></tr></table>")
+							Name: <A href='?src=\ref[src];choice=Edit Field;field=name'>[active1.name]</A><BR> \
+							ID: <A href='?src=\ref[src];choice=Edit Field;field=id'>[active1.id]</A><BR>\n	\
+							Sex: <A href='?src=\ref[src];choice=Edit Field;field=sex'>[active1.gender]</A><BR>\n	\
+							Age: <A href='?src=\ref[src];choice=Edit Field;field=age'>[active1.age]</A><BR>\n	\
+							Rank: <A href='?src=\ref[src];choice=Edit Field;field=rank'>[active1.rank]</A><BR>\n	\
+							Fingerprint: <A href='?src=\ref[src];choice=Edit Field;field=fingerprint'>[active1.fingerprint]</A><BR>\n	\
+							Physical Status: [active1.pStat]<BR>\n	\
+							Mental Status: [active1.mStat]<BR><BR>\n	\
+							Employment/skills summary:<BR> [active1.generalNotes]<BR></td>	\
+							<td align = center valign = top>Photo:<br><img src=front.png height=80 width=80 border=4>	\
+							<img src=side.png height=80 width=80 border=4></td></tr></table>")
 					else
 						dat += "<B>General Record Lost!</B><BR>"
-					dat += text("\n<A href='?src=\ref[];choice=Delete Record (ALL)'>Delete Record (ALL)</A><BR><BR>\n<A href='?src=\ref[];choice=Print Record'>Print Record</A><BR>\n<A href='?src=\ref[];choice=Return'>Back</A><BR>", src, src, src)
+					dat += "\n<A href='?src=\ref[src];choice=Delete Record (ALL)'>Delete Record (ALL)</A><BR><BR>\n \
+					<A href='?src=\ref[src];choice=Print Record'>Print Record</A><BR>\n \
+					<A href='?src=\ref[src];choice=Return'>Back</A><BR>"
 				if(4.0)
 					if(!Perp.len)
-						dat += text("ERROR.  String could not be located.<br><br><A href='?src=\ref[];choice=Return'>Back</A>", src)
+						dat += "ERROR.  String could not be located.<br><br><A href='?src=\ref[src];choice=Return'>Back</A>"
 					else
 						dat += {"
-<table style="text-align:center;" cellspacing="0" width="100%">
-<tr>					"}
-						dat += text("<th>Search Results for '[]':</th>", tempname)
+							<table style="text-align:center;" cellspacing="0" width="100%">
+							<tr>"}
+						dat += "<th>Search Results for '[tempname]':</th>"
 						dat += {"
-</tr>
-</table>
-<table style="text-align:center;" border="1" cellspacing="0" width="100%">
-<tr>
-<th>Name</th>
-<th>ID</th>
-<th>Rank</th>
-<th>Fingerprints</th>
-</tr>					"}
+							</tr>
+							</table>
+							<table style="text-align:center;" border="1" cellspacing="0" width="100%">
+							<tr>
+							<th>Name</th>
+							<th>ID</th>
+							<th>Rank</th>
+							<th>Fingerprints</th>
+							</tr>					"}
 						for(var/i=1, i<=Perp.len, i += 2)
-							var/crimstat = ""
+							var/crimStat = ""
 							var/datum/record/R = Perp[i]
 							if(istype(Perp[i+1],/datum/record/))
 								var/datum/record/E = Perp[i+1]
-								crimstat = E.fields["criminal"]
-							var/background
-							background = "'background-color:#00FF7F;'"
-							dat += text("<tr style=[]><td><A href='?src=\ref[];choice=Browse Record;d_rec=\ref[]'>[]</a></td>", background, src, R, R.fields["name"])
-							dat += text("<td>[]</td>", R.fields["id"])
-							dat += text("<td>[]</td>", R.fields["rank"])
-							dat += text("<td>[]</td>", R.fields["fingerprint"])
-							dat += text("<td>[]</td></tr>", crimstat)
+								crimStat = E.criminal
+							var/background = "'background-color:#00FF7F;'"
+							dat += "<tr style=[background]><td><A href='?src=\ref[src];choice=Browse Record;d_rec=\ref[R]'>[R.name]</a></td>"
+							dat += "<td>[R.id]</td>"
+							dat += "<td>[R.rank]</td>"
+							dat += "<td>[R.fingerprint]</td>"
+							dat += "<td>[crimStat]</td></tr>"
 						dat += "</table><hr width='75%' />"
-						dat += text("<br><A href='?src=\ref[];choice=Return'>Return to index.</A>", src)
-				else
+						dat += "<br><A href='?src=\ref[src];choice=Return'>Return to index.</A>"
 		else
-			dat += text("<A href='?src=\ref[];choice=Log In'>{Log In}</A>", src)
-	user << browse(text("<HEAD><TITLE>Employment Records</TITLE></HEAD><TT>[]</TT>", dat), "window=secure_rec;size=600x400")
+			dat += "<A href='?src=\ref[src];choice=Log In'>{Log In}</A>"
+	user << browse("<HEAD><TITLE>Employment Records</TITLE></HEAD><TT>[dat]</TT>", "window=secure_rec;size=600x400")
 	onclose(user, "secure_rec")
 	return
 
@@ -152,7 +151,7 @@ What a mess.*/
 /obj/machinery/computer/skills/Topic(href, href_list)
 	if(..())
 		return
-	if (!( dataCore.general.Find(active1) ))
+	if (!( dataCore.allRecords.Find(active1) ))
 		active1 = null
 	if ((usr.contents.Find(src) || (in_range(src, usr) && istype(loc, /turf))) || (istype(usr, /mob/living/silicon)))
 		usr.set_machine(src)
@@ -224,17 +223,17 @@ What a mess.*/
 				var/list/components = text2list(t1, " ")
 				if(components.len > 5)
 					return //Lets not let them search too greedily.
-				for(var/datum/record/R in dataCore.general)
-					var/temptext = R.fields["name"] + " " + R.fields["id"] + " " + R.fields["fingerprint"] + " " + R.fields["rank"]
+				for(var/datum/record/R in dataCore.allRecords)
+					var/temptext = R.name + " " + R.id + " " + R.fingerprint + " " + R.rank
 					for(var/i = 1, i<=components.len, i++)
 						if(findtext(temptext,components[i]))
 							var/prelist = new/list(2)
 							prelist[1] = R
 							Perp += prelist
 				for(var/i = 1, i<=Perp.len, i+=2)
-					for(var/datum/record/E in dataCore.security)
+					for(var/datum/record/E in dataCore.allRecords)
 						var/datum/record/R = Perp[i]
-						if ((E.fields["name"] == R.fields["name"] && E.fields["id"] == R.fields["id"]))
+						if ((E.name == R.name && E.id == R.id))
 							Perp[i+1] = E
 				tempname = t1
 				screen = 4
@@ -245,10 +244,10 @@ What a mess.*/
 
 			if ("Browse Record")
 				var/datum/record/R = locate(href_list["d_rec"])
-				if (!( dataCore.general.Find(R) ))
+				if (!( dataCore.allRecords.Find(R) ))
 					temp = "Record Not Found!"
 				else
-					for(var/datum/record/E in dataCore.security)
+					for(var/datum/record/E in dataCore.allRecords)
 					active1 = R
 					screen = 3
 
@@ -274,8 +273,14 @@ What a mess.*/
 					sleep(50)
 					var/obj/item/weapon/paper/P = new /obj/item/weapon/paper( loc )
 					P.info = "<CENTER><B>Employment Record</B></CENTER><BR>"
-					if ((istype(active1, /datum/record) && dataCore.general.Find(active1)))
-						P.info += text("Name: [] ID: []<BR>\nSex: []<BR>\nAge: []<BR>\nFingerprint: []<BR>\nPhysical Status: []<BR>\nMental Status: []<BR>\nEmployment/Skills Summary:[]<BR>", active1.fields["name"], active1.fields["id"], active1.fields["sex"], active1.fields["age"], active1.fields["fingerprint"], active1.fields["p_stat"], active1.fields["m_stat"], active1.fields["notes"])
+					if ((istype(active1, /datum/record) && dataCore.allRecords.Find(active1)))
+						P.info += "Name: [active1.name] ID: [active1.id]<BR>\n \
+							Sex: [active1.gender]<BR>\n \
+							Age: [active1.age]<BR>\n \
+							Fingerprint: [active1.fingerprint]<BR>\n \
+							Physical Status: [active1.pStat]<BR>\n \
+							Mental Status: [active1.mStat]<BR>\n \
+							Employment/Skills Summary: [active1.generalNotes]<BR>"
 					else
 						P.info += "<B>General Record Lost!</B><BR>"
 					P.info += "</TT>"
@@ -289,7 +294,7 @@ What a mess.*/
 				temp += "<a href='?src=\ref[src];choice=Clear Screen'>No</a>"
 
 			if ("Purge All Records")
-				for(var/datum/record/R in dataCore.security)
+				for(var/datum/record/R in dataCore.allRecords)
 					del(R)
 				temp = "All Employment records deleted."
 
@@ -301,17 +306,18 @@ What a mess.*/
 //RECORD CREATE
 			if ("New Record (General)")
 				var/datum/record/G = new /datum/record()
-				G.fields["name"] = "New Record"
-				G.fields["id"] = text("[]", add_zero(num2hex(rand(1, 1.6777215E7)), 6))
-				G.fields["rank"] = "Unassigned"
-				G.fields["real_rank"] = "Unassigned"
-				G.fields["sex"] = "Male"
-				G.fields["age"] = "Unknown"
-				G.fields["fingerprint"] = "Unknown"
-				G.fields["p_stat"] = "Active"
-				G.fields["m_stat"] = "Stable"
-				G.fields["species"] = "Human"
-				dataCore.general += G
+				G.name = "New Record"
+				G.id = text("[]", add_zero(num2hex(rand(1, 1.6777215E7)), 6))
+				G.rank = "Unassigned"
+				G.realRank = "Unassigned"
+				G.gender = "Male"
+				G.age = "Unknown"
+				G.fingerprint = "Unknown"
+				G.pStat = "Active"
+				G.mStat = "Stable"
+				G.species = "Human"
+
+				dataCore.allRecords += G
 				active1 = G
 
 //FIELD FUNCTIONS
@@ -320,34 +326,34 @@ What a mess.*/
 				switch(href_list["field"])
 					if("name")
 						if (istype(active1, /datum/record))
-							var/t1 = input("Please input name:", "Secure. records", active1.fields["name"], null)  as text
+							var/t1 = input("Please input name:", "Secure. records", active1.name, null)  as text
 							if ((!( t1 ) || !length(trim(t1)) || !( authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon)))) || active1 != a1)
 								return
-							active1.fields["name"] = t1
+							active1.name = t1
 					if("id")
 						if (istype(active1, /datum/record))
-							var/t1 = copytext(sanitize(input("Please input id:", "Secure. records", active1.fields["id"], null)  as text),1,MAX_MESSAGE_LEN)
+							var/t1 = copytext(sanitize(input("Please input id:", "Secure. records", active1.id, null)  as text),1,MAX_MESSAGE_LEN)
 							if ((!( t1 ) || !( authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))) || active1 != a1))
 								return
-							active1.fields["id"] = t1
+							active1.id = t1
 					if("fingerprint")
 						if (istype(active1, /datum/record))
-							var/t1 = copytext(sanitize(input("Please input fingerprint hash:", "Secure. records", active1.fields["fingerprint"], null)  as text),1,MAX_MESSAGE_LEN)
+							var/t1 = copytext(sanitize(input("Please input fingerprint hash:", "Secure. records", active1.fingerprint, null)  as text),1,MAX_MESSAGE_LEN)
 							if ((!( t1 ) || !( authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))) || active1 != a1))
 								return
-							active1.fields["fingerprint"] = t1
+							active1.fingerprint = t1
 					if("sex")
 						if (istype(active1, /datum/record))
-							if (active1.fields["sex"] == "Male")
-								active1.fields["sex"] = "Female"
+							if (active1.gender == "Male")
+								active1.gender = "Female"
 							else
-								active1.fields["sex"] = "Male"
+								active1.gender = "Male"
 					if("age")
 						if (istype(active1, /datum/record))
-							var/t1 = input("Please input age:", "Secure. records", active1.fields["age"], null)  as num
+							var/t1 = input("Please input age:", "Secure. records", active1.age, null)  as num
 							if ((!( t1 ) || !( authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))) || active1 != a1))
 								return
-							active1.fields["age"] = t1
+							active1.age = t1
 					if("rank")
 						var/list/L = list( "Head of Personnel", "Captain", "AI" )
 						//This was so silly before the change. Now it actually works without beating your head against the keyboard. /N
@@ -361,10 +367,10 @@ What a mess.*/
 							alert(usr, "You do not have the required rank to do this!")
 					if("species")
 						if (istype(active1, /datum/record))
-							var/t1 = copytext(sanitize(input("Please enter race:", "General records", active1.fields["species"], null)  as message),1,MAX_MESSAGE_LEN)
+							var/t1 = copytext(sanitize(input("Please enter race:", "General records", active1.species, null)  as message),1,MAX_MESSAGE_LEN)
 							if ((!( t1 ) || !( authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))) || active1 != a1))
 								return
-							active1.fields["species"] = t1
+							active1.species = t1
 
 //TEMPORARY MENU FUNCTIONS
 			else//To properly clear as per clear screen.
@@ -372,14 +378,14 @@ What a mess.*/
 				switch(href_list["choice"])
 					if ("Change Rank")
 						if (active1)
-							active1.fields["rank"] = href_list["rank"]
+							active1.rank = href_list["rank"]
 							if(href_list["rank"] in get_all_jobs())
-								active1.fields["real_rank"] = href_list["real_rank"]
+								active1.realRank = href_list["real_rank"]
 
 					if ("Delete Record (ALL) Execute")
 						if (active1)
-							for(var/datum/record/R in dataCore.medical)
-								if ((R.fields["name"] == active1.fields["name"] || R.fields["id"] == active1.fields["id"]))
+							for(var/datum/record/R in dataCore.allRecords)
+								if ((R.name == active1.name || R.id == active1.id))
 									del(R)
 								else
 							del(active1)
@@ -395,21 +401,21 @@ What a mess.*/
 		..(severity)
 		return
 
-	for(var/datum/record/R in dataCore.security)
+	for(var/datum/record/R in dataCore.allRecords)
 		if(prob(10/severity))
 			switch(rand(1,6))
 				if(1)
-					R.fields["name"] = "[pick(pick(first_names_male), pick(first_names_female))] [pick(last_names)]"
+					R.name = "[pick(pick(first_names_male), pick(first_names_female))] [pick(last_names)]"
 				if(2)
-					R.fields["sex"]	= pick("Male", "Female")
+					R.gender = pick("Male", "Female")
 				if(3)
-					R.fields["age"] = rand(5, 85)
+					R.age = rand(5, 85)
 				if(4)
-					R.fields["criminal"] = pick("None", "*Arrest*", "Incarcerated", "Parolled", "Released")
+					R.criminal = pick("None", "*Arrest*", "Incarcerated", "Parolled", "Released")
 				if(5)
-					R.fields["p_stat"] = pick("*Unconcious*", "Active", "Physically Unfit")
+					R.pStat = pick("*Unconcious*", "Active", "Physically Unfit")
 				if(6)
-					R.fields["m_stat"] = pick("*Insane*", "*Unstable*", "*Watch*", "Stable")
+					R.mStat = pick("*Insane*", "*Unstable*", "*Watch*", "Stable")
 			continue
 
 		else if(prob(1))

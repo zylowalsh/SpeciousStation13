@@ -42,9 +42,6 @@
 		//Disabilities
 		handle_disabilities()
 
-		//Virus updates, duh
-		handle_virus_updates()
-
 	//Apparently, the person who wrote this code designed it so that
 	//blinded get reset each cycle and then get activated later in the
 	//code. Very ugly. I dont care. Moving this stuff here so its easy
@@ -149,41 +146,6 @@
 						domutcheck(src,null)
 						emote("gasp")
 					updatehealth()
-
-	proc/handle_virus_updates()
-		if(status_flags & GODMODE)	return 0	//godmode
-		if(bodytemperature > 406)
-			for(var/datum/disease/D in viruses)
-				D.cure()
-			for (var/ID in virus2)
-				var/datum/disease2/disease/V = virus2[ID]
-				V.cure(src)
-
-		for(var/obj/effect/decal/cleanable/blood/B in view(1,src))
-			if(B.virus2.len && get_infection_chance(src))
-				for (var/ID in B.virus2)
-					var/datum/disease2/disease/V = virus2[ID]
-					infect_virus2(src,V)
-		for(var/obj/effect/decal/cleanable/mucus/M in view(1,src))
-			if(M.virus2.len && get_infection_chance(src))
-				for (var/ID in M.virus2)
-					var/datum/disease2/disease/V = virus2[ID]
-					infect_virus2(src,V)
-
-		for (var/ID in virus2)
-			var/datum/disease2/disease/V = virus2[ID]
-			if(isnull(V)) // Trying to figure out a runtime error that keeps repeating
-				CRASH("virus2 nulled before calling activate()")
-			else
-				V.activate(src)
-			// activate may have deleted the virus
-			if(!V) continue
-
-			// check if we're immune
-			if(V.antigen & src.antibodies)
-				V.dead = 1
-
-		return
 
 	proc/breathe()
 		if(reagents)

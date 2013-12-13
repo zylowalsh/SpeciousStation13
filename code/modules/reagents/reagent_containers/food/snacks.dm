@@ -99,12 +99,6 @@
 /obj/item/weapon/reagent_containers/food/snacks/afterattack(obj/target, mob/user , flag)
 	return
 
-
-
-
-
-
-
 /obj/item/weapon/reagent_containers/food/snacks/examine()
 	set src in view()
 	..()

@@ -14,12 +14,12 @@ var/const/CLONE_BIOMASS = 150
 	icon_state = "pod_0"
 	req_access = list(access_genetics) //For premature unlocking.
 	var/mob/living/occupant
-	var/heal_level = 90 //The clone is released once its health reaches this level.
-	var/locked = 0
+	var/healLevel = 90 //The clone is released once its health reaches this level.
+	var/locked = FALSE
 	var/obj/machinery/computer/cloning/connected = null //So we remember the connected clone machine.
 	var/mess = 0 //Need to clean out it if it's full of exploded clone.
-	var/attempting = 0 //One clone attempt at a time thanks
-	var/eject_wait = 0 //Don't eject them as soon as they are created fuckkk
+	var/attempting = FALSE //One clone attempt at a time thanks
+	var/ejectWait = FALSE //Don't eject them as soon as they are created fuckkk
 	var/biomass = CLONE_BIOMASS
 
 //The return of data disks?? Just for transferring between genetics machine/cloning machine.
@@ -50,8 +50,8 @@ var/const/CLONE_BIOMASS = 150
 	read_only = 1
 
 //Find a dead mob with a brain and client.
-/proc/find_dead_player(var/find_key)
-	if (isnull(find_key))
+/proc/findDeadPlayer(var/findKey)
+	if (isnull(findKey))
 		return
 
 	var/mob/selected = null
@@ -63,7 +63,7 @@ var/const/CLONE_BIOMASS = 150
 		if ((istype(M, /mob/living/carbon/human)) && (M:brain_op_stage >= 4.0))
 			continue
 
-		if (M.ckey == find_key)
+		if (M.ckey == findKey)
 			selected = M
 			break
 	return selected
@@ -90,7 +90,7 @@ var/const/CLONE_BIOMASS = 150
 	name = "health implant"
 	var/healthstring = ""
 
-/obj/item/weapon/implant/health/proc/sensehealth()
+/obj/item/weapon/implant/health/proc/senseHealth()
 	if (!src.implanted)
 		return "ERROR"
 	else
@@ -103,64 +103,64 @@ var/const/CLONE_BIOMASS = 150
 
 /obj/machinery/clonepod/attack_ai(mob/user as mob)
 	return attack_hand(user)
+
 /obj/machinery/clonepod/attack_paw(mob/user as mob)
 	return attack_hand(user)
+
 /obj/machinery/clonepod/attack_hand(mob/user as mob)
 	if ((isnull(src.occupant)) || (stat & NOPOWER))
 		return
 	if ((!isnull(src.occupant)) && (src.occupant.stat != 2))
-		var/completion = (100 * ((src.occupant.health + 100) / (src.heal_level + 100)))
+		var/completion = (100 * ((src.occupant.health + 100) / (src.healLevel + 100)))
 		user << "Current clone cycle is [round(completion)]% complete."
-	return
 
 //Clonepod
 
 //Start growing a human clone in the pod!
-/obj/machinery/clonepod/proc/growclone(var/ckey, var/clonename, var/ui, var/se, var/mindref, var/datum/species/mrace)
+/obj/machinery/clonepod/proc/growClone(var/ckey, var/cloneName, var/ui, var/se, var/mindRef, var/datum/species/mRace)
 	if(mess || attempting)
-		return 0
-	var/datum/mind/clonemind = locate(mindref)
-	if(!istype(clonemind,/datum/mind))	//not a mind
-		return 0
-	if( clonemind.current && clonemind.current.stat != DEAD )	//mind is associated with a non-dead body
-		return 0
-	if(clonemind.active)	//somebody is using that mind
-		if( ckey(clonemind.key)!=ckey )
-			return 0
+		return FALSE
+	var/datum/mind/cloneMind = locate(mindRef)
+	if(!istype(cloneMind, /datum/mind))	//not a mind
+		return FALSE
+	if( cloneMind.current && cloneMind.current.stat != DEAD )	//mind is associated with a non-dead body
+		return FALSE
+	if(cloneMind.active)	//somebody is using that mind
+		if(ckey(cloneMind.key) != ckey )
+			return FALSE
 	else
 		for(var/mob/dead/observer/G in player_list)
 			if(G.ckey == ckey)
 				if(G.can_reenter_corpse)
 					break
 				else
-					return 0
+					return FALSE
 
+	src.healLevel = rand(65,90) //Randomizes what health the clone is when ejected
+	src.attempting = TRUE //One at a time!!
+	src.locked = TRUE
 
-	src.heal_level = rand(10,40) //Randomizes what health the clone is when ejected
-	src.attempting = 1 //One at a time!!
-	src.locked = 1
-
-	src.eject_wait = 1
+	src.ejectWait = TRUE
 	spawn(30)
-		src.eject_wait = 0
+		src.ejectWait = FALSE
 
 	var/mob/living/carbon/human/H = new /mob/living/carbon/human(src)
 	occupant = H
 
-	if(!clonename)	//to prevent null names
-		clonename = "clone ([rand(0,999)])"
-	H.real_name = clonename
+	if(!cloneName)	//to prevent null names
+		cloneName = "clone ([rand(0,999)])"
+	H.real_name = cloneName
 
 	src.icon_state = "pod_1"
 	//Get the clone body ready
-	H.adjustCloneLoss(150) //new damage var so you can't eject a clone early then stab them to abuse the current damage system --NeoFite
-	H.adjustBrainLoss(src.heal_level + 50 + rand(10, 30)) // The rand(10, 30) will come out as extra brain damage
+	H.adjustCloneLoss(100 + rand(50, 90)) //new damage var so you can't eject a clone early then stab them to abuse the current damage system --NeoFite
+	H.adjustBrainLoss(rand(50, 90)) // The rand(10, 30) will come out as extra brain damage
 	H.Paralyse(4)
 
 	//Here let's calculate their health so the pod doesn't immediately eject them!!!
 	H.updatehealth()
 
-	clonemind.transfer_to(H)
+	cloneMind.transfer_to(H)
 	H.ckey = ckey
 	H << "<span class='notice'><b>Consciousness slowly creeps over you as your body regenerates.</b><br><i>So this is what cloning feels like?</i></span>"
 
@@ -191,10 +191,10 @@ var/const/CLONE_BIOMASS = 150
 		randmutb(H) //Sometimes the clones come out wrong.
 
 	H.f_style = "Shaved"
-	if(mrace.name == "Human") //no more xenos losing ears/tentacles
+	if(mRace.name == "Human") //no more xenos losing ears/tentacles
 		H.h_style = pick("Bedhead", "Bedhead 2", "Bedhead 3")
 
-	H.species = mrace
+	H.species = mRace
 	H.update_mutantrace()
 	H.suiciding = 0
 	src.attempting = 0
@@ -216,7 +216,7 @@ var/const/CLONE_BIOMASS = 150
 			src.connected_message("Clone Rejected: Deceased.")
 			return
 
-		else if(src.occupant.health < src.heal_level)
+		else if(src.occupant.health < src.healLevel)
 			src.occupant.Paralyse(4)
 
 			 //Slowly get that clone healed and finished.
@@ -235,7 +235,7 @@ var/const/CLONE_BIOMASS = 150
 			use_power(7500) //This might need tweaking.
 			return
 
-		else if((src.occupant.health >= src.heal_level) && (!src.eject_wait))
+		else if((src.occupant.health >= src.healLevel) && (!src.ejectWait))
 			src.connected_message("Cloning Process Complete.")
 			src.locked = 0
 			src.go_out()
@@ -249,8 +249,6 @@ var/const/CLONE_BIOMASS = 150
 			icon_state = "pod_0"
 		use_power(200)
 		return
-
-	return
 
 //Let's unlock this early I guess.  Might be too early, needs tweaking.
 /obj/machinery/clonepod/attackby(obj/item/weapon/W as obj, mob/user as mob)
@@ -332,7 +330,7 @@ var/const/CLONE_BIOMASS = 150
 		src.occupant.client.perspective = MOB_PERSPECTIVE
 	src.occupant.loc = src.loc
 	src.icon_state = "pod_0"
-	src.eject_wait = 0 //If it's still set somehow.
+	src.ejectWait = 0 //If it's still set somehow.
 	domutcheck(src.occupant) //Waiting until they're out before possible monkeyizing.
 	src.occupant.add_side_effect("Bad Stomach") // Give them an extra side-effect for free.
 	src.occupant = null

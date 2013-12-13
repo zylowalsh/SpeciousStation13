@@ -40,7 +40,6 @@
 				return "health-100"
 		return "0"
 
-
 	process_hud(var/mob/M)
 		if(!M)	return
 		if(!M.client)	return
@@ -52,11 +51,7 @@
 			var/foundVirus = 0
 			for(var/datum/disease/D in patient.viruses)
 				if(!D.hidden[SCANNER])
-					foundVirus++
-			for (var/ID in patient.virus2)
-				if (ID in virusDB)
-					foundVirus = 1
-					break
+					foundVirus = TRUE
 			if(!C) continue
 
 			holder = patient.hud_list[HEALTH_HUD]
@@ -117,26 +112,25 @@
 			holder.icon_state = "hudunknown"
 			C.images += holder
 
-		for(var/datum/record/E in dataCore.general)
-			if(E.fields["name"] == perpname)
+		for(var/datum/record/R in dataCore.allRecords)
+			if(R.name == perpname)
 				holder = perp.hud_list[WANTED_HUD]
-				for (var/datum/record/R in dataCore.security)
-					if((R.fields["id"] == E.fields["id"]) && (R.fields["criminal"] == "*Arrest*"))
-						holder.icon_state = "hudwanted"
-						C.images += holder
-						break
-					else if((R.fields["id"] == E.fields["id"]) && (R.fields["criminal"] == "Incarcerated"))
-						holder.icon_state = "hudprisoner"
-						C.images += holder
-						break
-					else if((R.fields["id"] == E.fields["id"]) && (R.fields["criminal"] == "Parolled"))
-						holder.icon_state = "hudparolled"
-						C.images += holder
-						break
-					else if((R.fields["id"] == E.fields["id"]) && (R.fields["criminal"] == "Released"))
-						holder.icon_state = "hudreleased"
-						C.images += holder
-						break
+				if(R.criminal == "*Arrest*")
+					holder.icon_state = "hudwanted"
+					C.images += holder
+					break
+				else if(R.criminal == "Incarcerated")
+					holder.icon_state = "hudprisoner"
+					C.images += holder
+					break
+				else if(R.criminal == "Parolled")
+					holder.icon_state = "hudparolled"
+					C.images += holder
+					break
+				else if(R.criminal == "Released")
+					holder.icon_state = "hudreleased"
+					C.images += holder
+					break
 		for(var/obj/item/weapon/implant/I in perp)
 			if(I.implanted)
 				if(istype(I,/obj/item/weapon/implant/tracking))

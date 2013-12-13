@@ -4,7 +4,7 @@ var/const/GET_RANDOM_JOB = 0
 var/const/BE_ASSISTANT = 1
 var/const/RETURN_TO_LOBBY = 2
 
-var/list/allPreferences = list()
+var/datum/preferences/allPreferences[0]
 
 var/list/special_roles = list( //keep synced with the defines BE_* in setup.dm --rastaf
 //some autodetection here.
@@ -24,7 +24,7 @@ var/list/special_roles = list( //keep synced with the defines BE_* in setup.dm -
 )
 
 datum/preferences
-	var/const/MAX_SAVE_SLOTS = 10
+	var/const/MAX_SAVE_SLOTS = 3
 
 	//doohickeys for savefiles
 	var/path
@@ -107,9 +107,7 @@ datum/preferences
 
 	var/list/player_alt_titles = new()		// the default name of a job like "Medical Doctor"
 
-	var/datum/record/medRecord
-	var/datum/record/secRecord
-	var/datum/record/genRecord
+	var/datum/record/record
 	var/disabilities = 0
 
 	var/nanotrasen_relation = "Neutral"
@@ -125,7 +123,7 @@ datum/preferences
 			if(load_preferences())
 				loadJoinData()
 				if(load_character())
-					loadRecords()
+					loadRecord()
 					return
 	gender = pick(MALE, FEMALE)
 	real_name = random_name(gender)
@@ -220,7 +218,8 @@ datum/preferences
 		return
 
 	proc/ShowChoices(mob/user)
-		if(!user || !user.client)	return
+		if(!user || !user.client)
+			return
 		update_preview_icon()
 		user << browse_rsc(preview_icon_front, "previewicon.png")
 		user << browse_rsc(preview_icon_side, "previewicon2.png")
@@ -235,7 +234,7 @@ datum/preferences
 			dat += "</center>"
 
 		else
-			dat += "Please create an account to save your preferences."
+			dat += "<Please create an account to save your preferences."
 
 		dat += "</center><hr><table><tr><td width='340px' height='320px'>"
 
@@ -1079,7 +1078,7 @@ datum/preferences
 						load_preferences()
 						loadJoinData()
 						load_character()
-						loadRecords()
+						loadRecord()
 
 					if("open_load_dialog")
 						if(!IsGuestKey(user.key))
@@ -1090,7 +1089,7 @@ datum/preferences
 
 					if("changeslot")
 						load_character(text2num(href_list["num"]))
-						loadRecords(text2num(href_list["num"]))
+						loadRecord(text2num(href_list["num"]))
 						close_load_dialog(user)
 
 		ShowChoices(user)
@@ -1112,10 +1111,6 @@ datum/preferences
 		character.name = character.real_name
 		if(character.dna)
 			character.dna.real_name = character.real_name
-
-		character.med_record = medRecord
-		character.sec_record = secRecord
-		character.gen_record = genRecord
 
 		character.gender = gender
 		character.age = age

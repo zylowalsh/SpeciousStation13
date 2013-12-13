@@ -30,12 +30,10 @@
 		/obj/machinery/computer/pandemic,
 		/obj/item/weapon/storage/secure/safe,
 		/obj/machinery/iv_drip,
-		/obj/machinery/disease2/incubator,
 		/obj/machinery/disposal,
 		/obj/machinery/apiary,
 		/mob/living/simple_animal/cow,
-		/mob/living/simple_animal/hostile/retaliate/goat,
-		/obj/machinery/computer/centrifuge	)
+		/mob/living/simple_animal/hostile/retaliate/goat)
 
 	New()
 		..()
