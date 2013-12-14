@@ -177,11 +177,11 @@
 			// Modules
 			dat += "<h4>Modules</h4>"
 			//dat += "<a href='byond://?src=\ref[src];relmodules=1'>Reload Modules</a>"
-			if (isnull(src.scanner))
+			if (isnull(scanner))
 				dat += " <font color=red>Scanner-ERROR</font><br>"
 			else
 				dat += " <font color=green>Scanner-Found!</font><br>"
-			if (isnull(src.cloningPod))
+			if (isnull(cloningPod))
 				dat += " <font color=red>Pod-ERROR</font><br>"
 			else
 				dat += " <font color=green>Pod-Found!</font><br>"
@@ -194,10 +194,10 @@
 			else
 				dat += "<b>[tempScan]</b><br>"
 
-			if (isnull(src.scanner))
+			if (isnull(scanner))
 				dat += "No scanner connected!<br>"
 			else
-				if (src.scanner.occupant)
+				if (scanner.occupant)
 					if(tempScan == "Scanner unoccupied")
 						tempScan = "" // Stupid check to remove the text
 
@@ -216,24 +216,23 @@
 			if (src.diskette)
 				dat += "<a href='byond://?src=\ref[src];disk=eject'>Eject Disk</a>"
 
-
 		if(RECORD_LIST_MENU)
 			dat += "<h4>Current records</h4>"
 			dat += "<a href='byond://?src=\ref[src];menu=1'>Back</a><br><br>"
-			for(var/datum/cloning_record/r in src.records)
+			for(var/datum/cloning_record/r in records)
 				dat += "<a href='byond://?src=\ref[src];view_rec=\ref[r]'>[r.id]-[r.name]</a><br>"
 
 		if(SELECTED_RECORD_MENU)
 			dat += "<h4>Selected Record</h4>"
 			dat += "<a href='byond://?src=\ref[src];menu=2'>Back</a><br>"
 
-			if (!src.activeRecord)
+			if (!activeRecord)
 				dat += "<font color=red>ERROR: Record not found.</font>"
 			else
 				dat += "<br><font size=1><a href='byond://?src=\ref[src];del_rec=1'>Delete Record</a></font><br>"
-				dat += "<b>Name:</b> [src.activeRecord.name]<br>"
+				dat += "<b>Name:</b> [activeRecord.name]<br>"
 
-				var/obj/item/weapon/implant/health/H = locate(src.activeRecord.implant)
+				var/obj/item/weapon/implant/health/H = locate(activeRecord.implant)
 
 				if ((H) && (istype(H)))
 					dat += "<b>Health:</b> [H.senseHealth()] | OXY-BURN-TOX-BRUTE<br>"
@@ -250,8 +249,8 @@
 				else
 					dat += "<br>" //Keeping a line empty for appearances I guess.
 
-				dat += {"<b>UI:</b> [src.activeRecord.identity]<br>
-					<b>SE:</b> [src.activeRecord.enzymes]<br><br>"}
+				dat += {"<b>UI:</b> [activeRecord.identity]<br>
+					<b>SE:</b> [activeRecord.enzymes]<br><br>"}
 
 				if(cloningPod && cloningPod.biomass >= CLONE_BIOMASS)
 					dat += {"<a href='byond://?src=\ref[src];clone=\ref[src.activeRecord]'>Clone</a><br>"}
@@ -301,15 +300,15 @@
 
 	else if (href_list["view_rec"])
 		src.activeRecord = locate(href_list["view_rec"])
-		if(istype(src.activeRecord, /datum/record))
-			if ((isnull(src.activeRecord.ckey)) || (src.activeRecord.ckey == ""))
-				del(src.activeRecord)
+		if(istype(activeRecord, /datum/cloning_record))
+			if ((isnull(activeRecord.ckey)) || (activeRecord.ckey == ""))
+				del(activeRecord)
 				src.temp = "ERROR: Record Corrupt"
 			else
 				src.menu = SELECTED_RECORD_MENU
 		else
-			src.activeRecord = null
-			src.temp = "Record missing."
+			activeRecord = null
+			temp = "Record missing."
 
 	else if (href_list["del_rec"])
 		if ((!src.activeRecord) || (src.menu < SELECTED_RECORD_MENU))
@@ -321,42 +320,42 @@
 		else if (src.menu == CONFIRM_MENU)
 			var/obj/item/weapon/card/id/C = usr.get_active_hand()
 			if (istype(C)||istype(C, /obj/item/device/pda))
-				if(src.check_access(C))
-					src.records.Remove(src.activeRecord)
-					del(src.activeRecord)
-					src.temp = "Record deleted."
-					src.menu = RECORD_LIST_MENU
+				if(check_access(C))
+					src.records.Remove(activeRecord)
+					del(activeRecord)
+					temp = "Record deleted."
+					menu = RECORD_LIST_MENU
 				else
-					src.temp = "Access Denied."
+					temp = "Access Denied."
 
 	else if (href_list["disk"]) //Load or eject.
 		switch(href_list["disk"])
 			if("load")
-				if ((isnull(src.diskette)) || (src.diskette.data == ""))
-					src.temp = "Load error."
+				if ((isnull(diskette)) || (diskette.data == ""))
+					temp = "Load error."
 					src.updateUsrDialog()
 					return
 				if (isnull(src.activeRecord))
-					src.temp = "Record error."
-					src.menu = 1
+					temp = "Record error."
+					menu = MAIN_MENU
 					src.updateUsrDialog()
 					return
 
-				if (src.diskette.data_type == "ui")
-					src.activeRecord.identity = src.diskette.data
-					if (src.diskette.ue)
-						src.activeRecord.name = src.diskette.owner
-				else if (src.diskette.data_type == "se")
-					src.activeRecord.enzymes = src.diskette.data
+				if (diskette.data_type == "ui")
+					activeRecord.identity = diskette.data
+					if (diskette.ue)
+						activeRecord.name = src.diskette.owner
+				else if (diskette.data_type == "se")
+					activeRecord.enzymes = src.diskette.data
 
-				src.temp = "Load successful."
+				temp = "Load successful."
 			if("eject")
-				if (!isnull(src.diskette))
-					src.diskette.loc = src.loc
-					src.diskette = null
+				if (!isnull(diskette))
+					diskette.loc = src.loc
+					diskette = null
 
 	else if (href_list["save_disk"]) //Save to disk!
-		if ((isnull(src.diskette)) || (src.diskette.read_only) || (isnull(src.activeRecord)))
+		if ((isnull(diskette)) || (diskette.read_only) || (isnull(activeRecord)))
 			src.temp = "Save error."
 			src.updateUsrDialog()
 			return
@@ -474,7 +473,7 @@
 //Find a specific record by key.
 /obj/machinery/computer/cloning/proc/findRecord(var/findKey)
 	var/selectedRecord = null
-	for(var/datum/cloning_record/r in src.records)
+	for(var/datum/cloning_record/r in records)
 		if (r.ckey == findKey)
 			selectedRecord = r
 			break

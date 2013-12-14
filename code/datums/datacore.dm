@@ -178,8 +178,8 @@
 /datum/datacore/proc/manifestInject(var/mob/living/carbon/human/H)
 	world << "manifestInject() has been called."
 	if(H.mind && (H.mind.assigned_role != "MODE"))
-		H.dataCoreName = H.real_name
-		H.prefsSaveSlot = H.client.prefs.default_slot
+		H.startingName = H.real_name
+		H.startingCKey = H.ckey
 
 		var/assignment
 		if(H.mind.role_alt_title)

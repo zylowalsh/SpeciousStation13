@@ -14,12 +14,11 @@
 	circuit = "/obj/item/weapon/circuitboard/med_data"
 	var/obj/item/weapon/card/id/scan = null
 	var/authenticated = null
-	var/rank = null
 	var/screen = null
 	var/datum/record/activeRecord = null
-	var/a_id = null
 	var/temp = null
 	var/printing = null
+
 	var/sortBy = "name"
 	var/order = 1 // -1 = Descending - 1 = Ascending
 
@@ -211,14 +210,11 @@
 			if (istype(usr, /mob/living/silicon/ai))
 				activeRecord = null
 				authenticated = usr.name
-				rank = "AI"
 				screen = MAIN_MENU
 
 			else if (istype(usr, /mob/living/silicon/robot))
 				activeRecord = null
 				authenticated = usr.name
-				var/mob/living/silicon/robot/R = usr
-				rank = R.braintype
 				screen = MAIN_MENU
 
 			else if (istype(src.scan, /obj/item/weapon/card/id))
@@ -226,7 +222,6 @@
 
 				if (src.check_access(scan))
 					authenticated = scan.registered_name
-					rank = scan.assignment
 					screen = MAIN_MENU
 
 		if (authenticated)

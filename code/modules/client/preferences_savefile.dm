@@ -143,7 +143,6 @@ var/const/SAVEFILE_VERSION_MAX = 10
 	//Character
 	S["OOC_Notes"]			>> metadata
 	S["real_name"]			>> real_name
-	S["name_is_always_random"] >> be_random_name
 	S["gender"]				>> gender
 	S["age"]				>> age
 	S["species"]			>> species
@@ -197,7 +196,6 @@ var/const/SAVEFILE_VERSION_MAX = 10
 	if(isnull(language)) language = "None"
 	if(isnull(nanotrasen_relation)) nanotrasen_relation = initial(nanotrasen_relation)
 	if(!real_name) real_name = random_name(gender)
-	be_random_name	= sanitize_integer(be_random_name, 0, 1, initial(be_random_name))
 	gender			= sanitize_gender(gender)
 	age				= sanitize_integer(age, AGE_MIN, AGE_MAX, initial(age))
 	r_hair			= sanitize_integer(r_hair, 0, 255, initial(r_hair))
@@ -249,7 +247,6 @@ var/const/SAVEFILE_VERSION_MAX = 10
 	//Character
 	S["OOC_Notes"]			<< metadata
 	S["real_name"]			<< real_name
-	S["name_is_always_random"] << be_random_name
 	S["gender"]				<< gender
 	S["age"]				<< age
 	S["species"]			<< species
@@ -314,6 +311,7 @@ var/const/SAVEFILE_VERSION_MAX = 10
 	S.cd = "/character[slot]"
 
 	S["record"] >> record
+	S["survivedOneRound"] >> survivedOneRound
 	if(!isnull(record))
 		world << record.name + " is loading in."
 
@@ -322,17 +320,23 @@ var/const/SAVEFILE_VERSION_MAX = 10
 
 /datum/preferences/proc/saveRecord(slot, dataCoreIndex)
 	var/savefile/S
+	world << "saveRecord is checking if path is null"
 	if(!path)
 		return 0
 	S = new /savefile(path)
 
+	world << "saveRecord is checking if savefile S is null"
 	if(!S)
 		return 0
 	S.cd = "/character[slot]"
 
-	var/datum/record/test = dataCore.allRecords[dataCoreIndex]
-	world << test.name + " is saving."
+	world << "saveRecord is starting to save it slot [slot] with the record [dataCoreIndex]."
+	if(!survivedOneRound)
+		survivedOneRound = TRUE
+	world << "saveRecord() is attempting to save the record."
 	S["record"] << dataCore.allRecords[dataCoreIndex]
+	world << "saveRecord() is attempting to save the flag survivedOneRound."
+	S["survivedOneRound"] << survivedOneRound
 
 	world << "saveRecords() is returning"
 	return 1

@@ -12,16 +12,14 @@
 	circuit = "/obj/item/weapon/circuitboard/secure_data"
 	var/obj/item/weapon/card/id/scan = null
 	var/authenticated = null
-	var/rank = null
 	var/screen = null
 	var/datum/record/activeRecord = null
-	var/a_id = null
 	var/temp = null
 	var/printing = null
 	var/can_change_id = 0
 	var/list/perp
-	var/tempname = null
-	//Sorting Variables
+	var/tempName = null
+
 	var/sortBy = "name"
 	var/order = 1 // -1 = Descending - 1 = Ascending
 
@@ -64,14 +62,14 @@
 						<th>Records</th>
 						</tr>
 						</table>
-						<table style="text-align:center;" border="1" cellspacing="0" width="100%">
-						<tr>
-						<th><A href='?src=\ref[src];choice=Sorting;sort=name'>Name</A></th>
-						<th><A href='?src=\ref[src];choice=Sorting;sort=id'>ID</A></th>
-						<th><A href='?src=\ref[src];choice=Sorting;sort=rank'>Rank</A></th>
-						<th><A href='?src=\ref[src];choice=Sorting;sort=fingerprint'>Fingerprints</A></th>
-						<th>Criminal Status</th>
-						</tr>"}
+						<TABLE style="text-align:center;" border="1" cellspacing="0" width="100%">
+						<TR>
+							<TH><A href='?src=\ref[src];choice=Sorting;sort=name'>Name</A></TH>
+							<TH><A href='?src=\ref[src];choice=Sorting;sort=id'>ID</A></TH>
+							<TH><A href='?src=\ref[src];choice=Sorting;sort=rank'>Rank</A></TH>
+							<TH><A href='?src=\ref[src];choice=Sorting;sort=fingerprint'>Fingerprints</A></TH>
+							<TH>Criminal Status</th>
+						</TR>"}
 					if(!isnull(dataCore.allRecords))
 						for(var/datum/record/R in sortRecord(dataCore.allRecords, sortBy, order))
 							var/crimStat = ""
@@ -88,12 +86,15 @@
 									background = "'background-color:#3BB9FF;'"
 								if("None")
 									background = "'background-color:#00FF7F;'"
-							dat += "<tr style=[background]><td><A href='?src=\ref[src];choice=Browse Record;d_rec=\ref[R]'>[R.name]</a></td>"
-							dat += "<td>[R.id]</td>"
-							dat += "<td>[R.rank]</td>"
-							dat += "<td>[R.fingerprint]</td>"
-							dat += "<td>[crimStat]</td></tr>"
-						dat += "</table><hr width='75%' />"
+							dat += {"
+								<TR style=[background]>
+									<TD><A href='?src=\ref[src];choice=Browse Record;d_rec=\ref[R]'>[R.name]</A></TD>
+									<TD>[R.id]</TD>
+									<TD>[R.rank]</TD>
+									<TD>[R.fingerprint]</TD>
+									<TD>[crimStat]</TD>
+								</TR>"}
+						dat += "</TABLE><BR>"
 					dat += "<A href='?src=\ref[src];choice=Log Out'>{Log Out}</A>"
 				if(SELECTED_RECORD_MENU)
 					dat += "<CENTER><B>Security Record</B></CENTER><BR>"
@@ -147,7 +148,7 @@
 						dat += {"
 							<table style="text-align:center;" cellspacing="0" width="100%">
 							<tr>"}
-						dat += "<th>Search Results for '[tempname]':</th>"
+						dat += "<th>Search Results for '[tempName]':</th>"
 						dat += {"
 							</tr>
 							</table>
@@ -243,19 +244,15 @@
 				if (istype(usr, /mob/living/silicon/ai))
 					src.activeRecord = null
 					src.authenticated = usr.name
-					src.rank = "AI"
 					src.screen = MAIN_MENU
 				else if (istype(usr, /mob/living/silicon/robot))
 					src.activeRecord = null
 					src.authenticated = usr.name
-					var/mob/living/silicon/robot/R = usr
-					src.rank = R.braintype
 					src.screen = MAIN_MENU
 				else if (istype(scan, /obj/item/weapon/card/id))
 					activeRecord = null
 					if(check_access(scan))
 						authenticated = scan.registered_name
-						rank = scan.assignment
 						screen = MAIN_MENU
 //RECORD FUNCTIONS
 			if("Search Records")
@@ -279,7 +276,7 @@
 						var/datum/record/R = perp[i]
 						if ((E.name == R.name && E.id == R.id))
 							perp[i+1] = E
-				tempname = t1
+				tempName = t1
 				screen = SEARCH_RESULTS_MENU
 
 			if ("Browse Record")

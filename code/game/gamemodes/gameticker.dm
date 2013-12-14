@@ -318,15 +318,18 @@ var/const/GAME_STATE_FINISHED = 4
 /datum/controller/gameticker/proc/declare_completion()
 
 	// Saves all the records to the prefs savefile if the character still exists.
-	for(var/mob/living/carbon/human/h in mob_list)
-		if(!isnull(h.dataCoreName))
-			world << "[h.dataCoreName] is saving with [h.ckey]."
+	for(var/mob/living/carbon/human/H in mob_list)
+		if(!isnull(H.startingCKey))
+			world << "declare_completion() is inside [H.real_name]."
 			var/datum/locked_record/tmpRecord
-			var/datum/preferences/p = allPreferences[h.ckey]
-			for(var/i = 1, i < dataCore.lockedRecords.len, i++)
+			var/datum/preferences/P = allPreferences[H.startingCKey]
+			world << "declare_completion() is about the loop through each record to see what needs saved."
+			for(var/i = 1, i <= dataCore.lockedRecords.len, i++)
 				tmpRecord = dataCore.lockedRecords[i]
-				if(h.dataCoreName == tmpRecord.name)
-					p.saveRecord(h.prefsSaveSlot, i)
+				world << "declare_completion() is checking [tmpRecord.name]"
+				if(H.startingName == tmpRecord.name)
+					world << "[H.startingName] is saving with [H.startingCKey]."
+					P.saveRecord(P.default_slot, i)
 
 	for (var/mob/living/silicon/ai/aiPlayer in mob_list)
 		if (aiPlayer.stat != 2)
