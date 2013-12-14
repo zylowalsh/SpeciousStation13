@@ -88,9 +88,6 @@
 									background = "'background-color:#3BB9FF;'"
 								if("None")
 									background = "'background-color:#00FF7F;'"
-								if("")
-									background = "'background-color:#FFFFFF;'"
-									crimStat = "No Record."
 							dat += "<tr style=[background]><td><A href='?src=\ref[src];choice=Browse Record;d_rec=\ref[R]'>[R.name]</a></td>"
 							dat += "<td>[R.id]</td>"
 							dat += "<td>[R.rank]</td>"
@@ -104,19 +101,36 @@
 					var/icon/side = new(activeRecord.photo, dir = WEST)
 					user << browse_rsc(front, "front.png")
 					user << browse_rsc(side, "side.png")
-					dat += {"<table border="1"><tr><td>
-						Name: <A href='?src=\ref[src];choice=Edit Field;field=name'>[activeRecord.name]</A><BR>
-						ID: <A href='?src=\ref[src];choice=Edit Field;field=id'>[activeRecord.id]</A><BR>
-						Sex: <A href='?src=\ref[src];choice=Edit Field;field=sex'>[activeRecord.gender]</A><BR>
-						Age: <A href='?src=\ref[src];choice=Edit Field;field=age'>[activeRecord.age]</A><BR>
-						Rank: <A href='?src=\ref[src];choice=Edit Field;field=rank'>[activeRecord.rank]</A><BR>
-						Fingerprint: <A href='?src=\ref[src];choice=Edit Field;field=fingerprint'>[activeRecord.fingerprint]</A><BR>
-						Physical Status: [activeRecord.pStat]<BR>
-						Mental Status: [activeRecord.mStat]<BR></td>
-						<td align = center valign = top>Photo:<br><img src=front.png height=80 width=80 border=4>
-						<img src=side.png height=80 width=80 border=4></td></tr></table>"}
+					dat += {"
+						<TABLE WIDTH=100% BORDER=1 CELLPADDING=4 CELLSPACING=3 STYLE="page-break-before: always">
+							<COL WIDTH=128*>
+							<COL WIDTH=128*>
+							<TR VALIGN=TOP>
+								<TD ROWSPAN=4 WIDTH=40%><img src=front.png height=64 width=64 border=5><img src=side.png height=64 width=64 border=5></TD>
+								<TD WIDTH=60%>Name: <A href='?src=\ref[src];choice=Edit Field;field=name'>[activeRecord.name]</A></TD>
+							</TR>
+							<TR VALIGN=TOP>
+								<TD WIDTH=60%>ID: [activeRecord.id]</TD>
+							</TR>
+							<TR VALIGN=TOP>
+								<TD WIDTH=60%>Sex: <A href='?src=\ref[src];choice=Edit Field;field=sex'>[activeRecord.gender]</A></TD>
+							</TR>
+							<TR VALIGN=TOP>
+								<TD WIDTH=60%>Age: <A href='?src=\ref[src];choice=Edit Field;field=age'>[activeRecord.age]</A></TD>
+							</TR>
+							<TR>
+								<TD COLSPAN=2 WIDTH=100% VALIGN=TOP>Fingerprint: <A href='?src=\ref[src];choice=Edit Field;field=fingerprint'>[activeRecord.fingerprint]</A></TD>
+							</TR>
+							<TR>
+								<TD COLSPAN=2 WIDTH=100% VALIGN=TOP>Physical Status: [activeRecord.pStat]</TD>
+							</TR>
+							<TR>
+								<TD COLSPAN=2 WIDTH=100% VALIGN=TOP>Mental Status: [activeRecord.mStat]</TD>
+							</TR>
+						</TABLE>"}
 
-					dat += {"<BR><CENTER><B>Security Data</B></CENTER><BR>
+					dat += {"
+						<BR><CENTER><B>Security Data</B></CENTER><BR>
 						Criminal Status: <A href='?src=\ref[src];choice=Edit Field;field=criminal'>[activeRecord.criminal]</A><BR><BR>
 						Minor Crimes: <A href='?src=\ref[src];choice=Edit Field;field=mi_crim'>[activeRecord.minorCrimes]</A><BR>
 						Details: <A href='?src=\ref[src];choice=Edit Field;field=mi_crim_d'>[activeRecord.minorCrimesDesc]</A><BR><BR>

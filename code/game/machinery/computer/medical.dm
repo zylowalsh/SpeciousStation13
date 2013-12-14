@@ -2,8 +2,7 @@
 
 /obj/machinery/computer/med_data
 	var/const/MAIN_MENU = 1
-	var/const/RECORD_LIST_MENU = 2
-	var/const/RECORD_MAINT_MENU = 3
+	var/const/SEARCH_RESULTS_MENU = 3
 	var/const/SELECTED_RECORD_MENU = 4
 	var/const/VIRUS_DB_MENU = 5
 	var/const/MEDICAL_ROBOT_MENU = 6
@@ -21,6 +20,8 @@
 	var/a_id = null
 	var/temp = null
 	var/printing = null
+	var/sortBy = "name"
+	var/order = 1 // -1 = Descending - 1 = Ascending
 
 /obj/machinery/computer/med_data/attack_ai(user as mob)
 	return src.attack_hand(user)
@@ -32,31 +33,56 @@
 	if(..())
 		return
 	var/dat
-	if (src.temp)
+	if (temp)
 		dat = "<TT>[temp]</TT><BR><BR><A href='?src=\ref[src];temp=1'>Clear Screen</A>"
 	else
 		dat = text("Confirm Identity: <A href='?src=\ref[];scan=1'>[]</A><HR>", src, (src.scan ? text("[]", src.scan.name) : "----------"))
-		if (src.authenticated)
+
+		if (authenticated)
 			switch(screen)
 				if(MAIN_MENU)
+					dat += "<CENTER><A href='?src=\ref[src];search=1'>Search Records</A></CENTER><BR>"
+
 					dat += {"
-						<A href='?src=\ref[src];search=1'>Search Records</A><BR>
-						<A href='?src=\ref[src];screen=2'>List Records</A><BR>
-						<BR>
+						<TABLE style="text-align:center;" border="1" cellspacing="0" width="100%">
+							<TR>
+								<TH><A href='?src=\ref[src];sort=name'>Name</A></TH>
+								<TH><A href='?src=\ref[src];sort=id'>ID</A></TH>
+								<TH><A href='?src=\ref[src];sort=rank'>Rank</A></TH>
+								<TH>Physical Status</TH>
+								<TH>Mental Status</TH>
+							</TR>"}
+					if(!isnull(dataCore.allRecords))
+						for(var/datum/record/R in sortRecord(dataCore.allRecords, sortBy, order))
+							var/pStat = ""
+							pStat = R.pStat
+							var/background
+							switch(pStat)
+								if("Active")
+									background = "'background-color:#00FF7F;'"
+								if("*SSD*")
+									background = "'background-color:#3BB9FF;'"
+								if("*Deceased*")
+									background = "'background-color:#666666;'"
+								if("Physically Unfit")
+									background = "'background-color:#CD853F;'"
+								if("Disabled")
+									background = "'background-color:#CD853F;'"
+							dat += {"
+								<TR style=[background]>
+									<TD><A href='?src=\ref[src];choice=Browse Record;d_rec=\ref[R]'>[R.name]</A></TD>
+									<TD>[R.id]</TD>
+									<TD>[R.rank]</TD>
+									<TD>[pStat]</TD>
+									<TD>[R.mStat]</TD>
+								</TR>"}
+						dat += "</TABLE><BR>"
+					dat += {"
 						<A href='?src=\ref[src];screen=5'>Virus Database</A><BR>
 						<A href='?src=\ref[src];screen=6'>Medbot Tracking</A><BR>
 						<BR>
-						<A href='?src=\ref[src];logout=1'>{Log Out}</A><BR>
-						"}
-				if(RECORD_LIST_MENU)
-					dat += "<B>Record List</B>:<HR>"
-					if(!isnull(dataCore.allRecords))
-						for(var/datum/record/r in sortRecord(dataCore.allRecords))
-							dat += text("<A href='?src=\ref[];d_rec=\ref[]'>[]: []<BR>", src, r, r.id, r.name)
-							//Foreach goto(132)
-					dat += text("<HR><A href='?src=\ref[];screen=1'>Back</A>", src)
-				if(RECORD_MAINT_MENU)
-					dat += text("<B>Records Maintenance</B><HR>\n<A href='?src=\ref[];back=1'>Backup To Disk</A><BR>\n<A href='?src=\ref[];u_load=1'>Upload From disk</A><BR>\n<A href='?src=\ref[];del_all=1'>Delete All Records</A><BR>\n<BR>\n<A href='?src=\ref[];screen=1'>Back</A>", src, src, src, src)
+						<A href='?src=\ref[src];logout=1'>{Log Out}</A><BR>"}
+
 				if(SELECTED_RECORD_MENU)
 					var/icon/front = new(activeRecord.photo, dir = SOUTH)
 					var/icon/side = new(activeRecord.photo, dir = WEST)
@@ -68,45 +94,28 @@
 							<COL WIDTH=128*>
 							<COL WIDTH=128*>
 							<TR VALIGN=TOP>
-								<TD ROWSPAN=4 WIDTH=40%>
-									<P><img src=front.png height=64 width=64 border=5><img src=side.png height=64 width=64 border=5></P>
-								</TD>
-								<TD WIDTH=60%>
-									<P>Name: [activeRecord.name]</P>
-								</TD>
+								<TD ROWSPAN=4 WIDTH=40%><img src=front.png height=64 width=64 border=5><img src=side.png height=64 width=64 border=5></TD>
+								<TD WIDTH=60%>Name: [activeRecord.name]</TD>
 							</TR>
 							<TR VALIGN=TOP>
-								<TD WIDTH=60%>
-									<P>ID: [activeRecord.id]</P>
-								</TD>
+								<TD WIDTH=60%>ID: [activeRecord.id]</TD>
 							</TR>
 							<TR VALIGN=TOP>
-								<TD WIDTH=60%>
-									<P>Sex: <A href='?src=\ref[src];field=sex'>[activeRecord.gender]</A></P>
-								</TD>
+								<TD WIDTH=60%>Sex: <A href='?src=\ref[src];field=sex'>[activeRecord.gender]</A></TD>
 							</TR>
 							<TR VALIGN=TOP>
-								<TD WIDTH=60%>
-									<P>Age: <A href='?src=\ref[src];field=age'>[activeRecord.age]</A></P>
-								</TD>
+								<TD WIDTH=60%>Age: <A href='?src=\ref[src];field=age'>[activeRecord.age]</A></TD>
 							</TR>
 							<TR>
-								<TD COLSPAN=2 WIDTH=100% VALIGN=TOP>
-									<P>Fingerprint: <A href='?src=\ref[src];field=fingerprint'>[activeRecord.fingerprint]</A></P>
-								</TD>
+								<TD COLSPAN=2 WIDTH=100% VALIGN=TOP>Fingerprint: <A href='?src=\ref[src];field=fingerprint'>[activeRecord.fingerprint]</A></TD>
 							</TR>
 							<TR>
-								<TD COLSPAN=2 WIDTH=100% VALIGN=TOP>
-									<P>Physical Status: <A href='?src=\ref[src];field=p_stat'>[activeRecord.pStat]</A></P>
-								</TD>
+								<TD COLSPAN=2 WIDTH=100% VALIGN=TOP>Physical Status: <A href='?src=\ref[src];field=p_stat'>[activeRecord.pStat]</A></TD>
 							</TR>
 							<TR>
-								<TD COLSPAN=2 WIDTH=100% VALIGN=TOP>
-									<P>Mental Status: <A href='?src=\ref[src];field=m_stat'>[activeRecord.mStat]</A></P>
-								</TD>
+								<TD COLSPAN=2 WIDTH=100% VALIGN=TOP>Mental Status: <A href='?src=\ref[src];field=m_stat'>[activeRecord.mStat]</A></TD>
 							</TR>
-						</TABLE>
-					"}
+						</TABLE>"}
 					dat += {"
 						<BR><CENTER><B>Medical Data</B></CENTER><BR>
 						Blood Type: <A href='?src=\ref[src];field=b_type'>[activeRecord.bType]</A><BR>
@@ -119,15 +128,14 @@
 						Details: <A href='?src=\ref[src];field=alg_d'>[activeRecord.allergiesDesc]</A><BR><BR>
 						Current Diseases: <A href='?src=\ref[src];field=cdi'>[activeRecord.cdi]</A> (per disease info placed in log/comment section)<BR>
 						Details: <A href='?src=\ref[src];field=cdi_d'>[activeRecord.cdiDesc]</A><BR><BR>
-						Important Notes:<BR>\n\t<A href='?src=\ref[src];field=notes'>[activeRecord.medNotes]</A><BR><BR>
-					"}
-					dat += "<A href='?src=\ref[src];print_p=1'>Print Record</A><BR>\n<A href='?src=\ref[src];screen=2'>Back</A><BR>"
+						Important Notes:<BR>\n\t<A href='?src=\ref[src];field=notes'>[activeRecord.medNotes]</A><BR><BR>"}
+					dat += "<A href='?src=\ref[src];print_p=1'>Print Record</A><BR><A href='?src=\ref[src];return=1'>Back</A><BR>"
 				if(VIRUS_DB_MENU)
 					dat += "<CENTER><B>Virus Database</B></CENTER>"
 					for(var/Dt in typesof(/datum/disease/))
 						var/datum/disease/Dis = new Dt(0)
 						if(istype(Dis, /datum/disease/advance))
-							continue // TODO (tm): Add advance diseases to the virus database which no one uses.
+							continue
 						if(!Dis.desc)
 							continue
 						dat += "<br><a href='?src=\ref[src];vir=[Dt]'>[Dis.name]</a>"
@@ -140,7 +148,8 @@
 					var/bdat = null
 					for(var/obj/machinery/bot/medbot/M in world)
 
-						if(M.z != src.z)	continue	//only find medibots on the same z-level as the computer
+						if(M.z != src.z)
+							continue	//only find medibots on the same z-level as the computer
 						var/turf/bl = get_turf(M)
 						if(bl)	//if it can't find a turf for the medibot, then it probably shouldn't be showing up
 							bdat += "[M.name] - <b>\[[bl.x],[bl.y]\]</b> - [M.on ? "Online" : "Offline"]<br>"
@@ -152,22 +161,16 @@
 						dat += "<br><center>None detected</center>"
 					else
 						dat += "<br>[bdat]"
-
-				else
 		else
-			dat += text("<A href='?src=\ref[];login=1'>{Log In}</A>", src)
-	user << browse(text("<HEAD><TITLE>Medical Records</TITLE></HEAD><TT>[]</TT>", dat), "window=med_rec")
+			dat += "<A href='?src=\ref[src];login=1'>{Log In}</A>"
+	user << browse("<HEAD><TITLE>Medical Records</TITLE></HEAD><TT>[dat]</TT>", "window=med_rec")
 	onclose(user, "med_rec")
-	return
 
 /obj/machinery/computer/med_data/Topic(href, href_list)
 	if(..())
 		return
 
-	if (!( dataCore.allRecords.Find(activeRecord) ))
-		activeRecord = null
-
-	if (!( dataCore.allRecords.Find(activeRecord) ))
+	if (!dataCore.allRecords.Find(activeRecord))
 		activeRecord = null
 
 	if ((usr.contents.Find(src) || (in_range(src, usr) && istype(src.loc, /turf))) || (istype(usr, /mob/living/silicon)))
@@ -209,7 +212,7 @@
 				activeRecord = null
 				authenticated = usr.name
 				rank = "AI"
-				screen = 1
+				screen = MAIN_MENU
 
 			else if (istype(usr, /mob/living/silicon/robot))
 				activeRecord = null
@@ -235,21 +238,34 @@
 
 				activeRecord= null
 
+			if(href_list["return"])
+				screen = MAIN_MENU
+				activeRecord = null
+
+			if(href_list["sort"])
+				if(sortBy == href_list["sort"])
+					if(order == 1)
+						order = -1
+					else
+						order = 1
+				else
+					sortBy = href_list["sort"]
+					order = initial(order)
+
 			if(href_list["vir"])
 				var/type = href_list["vir"]
 				var/datum/disease/Dis = new type(0)
 				var/AfS = ""
 				for(var/Str in Dis.affected_species)
 					AfS += " [Str];"
-				src.temp = {"<b>Name:</b> [Dis.name]
-					<BR><b>Number of stages:</b> [Dis.max_stages]
-					<BR><b>Spread:</b> [Dis.spread] Transmission
-					<BR><b>Possible Cure:</b> [(Dis.cure||"none")]
-					<BR><b>Affected Species:</b>[AfS]
-					<BR>
-					<BR><b>Notes:</b> [Dis.desc]
-					<BR>
-					<BR><b>Severity:</b> [Dis.severity]"}
+				src.temp = {"
+					<b>Name:</b> [Dis.name]<BR>
+					<b>Number of stages:</b> [Dis.max_stages]<BR>
+					<b>Spread:</b> [Dis.spread] Transmission<BR>
+					<b>Possible Cure:</b> [(Dis.cure||"none")]<BR>
+					<b>Affected Species:</b>[AfS]<BR><BR>
+					<b>Notes:</b> [Dis.desc]<BR><BR>
+					<b>Severity:</b> [Dis.severity]"}
 
 			if (href_list["field"])
 				var/a1 = activeRecord
@@ -315,11 +331,27 @@
 							return
 						activeRecord.medNotes = t1
 					if("p_stat")
-						temp = text("<B>Physical Condition:</B><BR>\n\t<A href='?src=\ref[];temp=1;p_stat=deceased'>*Deceased*</A><BR>\n\t<A href='?src=\ref[];temp=1;p_stat=ssd'>*SSD*</A><BR>\n\t<A href='?src=\ref[];temp=1;p_stat=active'>Active</A><BR>\n\t<A href='?src=\ref[];temp=1;p_stat=unfit'>Physically Unfit</A><BR>\n\t<A href='?src=\ref[];temp=1;p_stat=disabled'>Disabled</A><BR>", src, src, src, src, src)
+						temp = {"
+							<B>Physical Condition:</B><BR>
+							<A href='?src=\ref[src];temp=1;p_stat=deceased'>*Deceased*</A><BR>
+							<A href='?src=\ref[src];temp=1;p_stat=ssd'>*SSD*</A><BR>
+							<A href='?src=\ref[src];temp=1;p_stat=active'>Active</A><BR>
+							<A href='?src=\ref[src];temp=1;p_stat=unfit'>Physically Unfit</A><BR>
+							<A href='?src=\ref[src];temp=1;p_stat=disabled'>Disabled</A><BR>"}
 					if("m_stat")
-						temp = text("<B>Mental Condition:</B><BR>\n\t<A href='?src=\ref[];temp=1;m_stat=insane'>*Insane*</A><BR>\n\t<A href='?src=\ref[];temp=1;m_stat=unstable'>*Unstable*</A><BR>\n\t<A href='?src=\ref[];temp=1;m_stat=watch'>*Watch*</A><BR>\n\t<A href='?src=\ref[];temp=1;m_stat=stable'>Stable</A><BR>", src, src, src, src)
+						temp = {"
+							<B>Mental Condition:</B><BR>
+							<A href='?src=\ref[src];temp=1;m_stat=insane'>*Insane*</A><BR>
+							<A href='?src=\ref[src];temp=1;m_stat=unstable'>*Unstable*</A><BR>
+							<A href='?src=\ref[src];temp=1;m_stat=watch'>*Watch*</A><BR>
+							<A href='?src=\ref[src];temp=1;m_stat=stable'>Stable</A><BR>"}
 					if("b_type")
-						temp = text("<B>Blood Type:</B><BR>\n\t<A href='?src=\ref[];temp=1;b_type=an'>A-</A> <A href='?src=\ref[];temp=1;b_type=ap'>A+</A><BR>\n\t<A href='?src=\ref[];temp=1;b_type=bn'>B-</A> <A href='?src=\ref[];temp=1;b_type=bp'>B+</A><BR>\n\t<A href='?src=\ref[];temp=1;b_type=abn'>AB-</A> <A href='?src=\ref[];temp=1;b_type=abp'>AB+</A><BR>\n\t<A href='?src=\ref[];temp=1;b_type=on'>O-</A> <A href='?src=\ref[];temp=1;b_type=op'>O+</A><BR>", src, src, src, src, src, src, src, src)
+						temp = {"
+							<B>Blood Type:</B><BR>
+							<A href='?src=\ref[src];temp=1;b_type=an'>A-</A> <A href='?src=\ref[src];temp=1;b_type=ap'>A+</A><BR>
+							<A href='?src=\ref[src];temp=1;b_type=bn'>B-</A> <A href='?src=\ref[src];temp=1;b_type=bp'>B+</A><BR>
+							<A href='?src=\ref[src];temp=1;b_type=abn'>AB-</A> <A href='?src=\ref[src];temp=1;b_type=abp'>AB+</A><BR>
+							<A href='?src=\ref[src];temp=1;b_type=on'>O-</A> <A href='?src=\ref[src];temp=1;b_type=op'>O+</A><BR>"}
 					if("b_dna")
 						var/t1 = copytext(sanitize(input("Please input DNA hash:", "Med. records", activeRecord.bDNA, null)  as text),1,MAX_MESSAGE_LEN)
 						if ((!( t1 ) || !( src.authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))) || activeRecord != a1))
@@ -389,17 +421,13 @@
 				for(var/datum/record/r in dataCore.allRecords)
 					if ((lowertext(r.name) == t1 || t1 == lowertext(r.id) || t1 == lowertext(r.bDNA)))
 						activeRecord = r
-					else
-						//Foreach continue //goto(3229)
 				if (!activeRecord)
 					src.temp = text("Could not locate record [].", t1)
 				else
 					for(var/datum/record/e in dataCore.allRecords)
 						if ((e.name == activeRecord.name || e.id == activeRecord.id))
 							activeRecord = e
-						else
-							//Foreach continue //goto(3334)
-					src.screen = 4
+					screen = SELECTED_RECORD_MENU
 
 			if (href_list["print_p"])
 				if (!( src.printing ))
