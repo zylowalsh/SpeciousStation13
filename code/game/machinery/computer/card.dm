@@ -327,24 +327,22 @@
 	return
 
 /obj/machinery/computer/card/proc/get_all_valid_jobs()
-	var/list/valid_jobs = list()
-	var/list/all_datums = typesof(/datum/job)
-	all_datums.Remove(list(/datum/job,/datum/job/ai,/datum/job/cyborg))
-	var/list/scan_access = scan.access
-	var/datum/job/jobdatum
-	var/cannot_find_match = 0
-	for(var/jobtype in all_datums)
-		jobdatum = new jobtype
-		cannot_find_match = 0
-		var/list/job_access = jobdatum.get_access()
-		for(var/i = 1, i <= job_access.len, i++)
-			if(!scan_access.Find(job_access[i]))
-				cannot_find_match = 1
-				break
-		if(cannot_find_match)
+	var/returnedList[0]
+	var/list/scanAccess = scan.access
+	var/cannotFindMatch = FALSE
+	for(var/datum/job/job in job_master.occupations)
+		if(job.countsAsPlayedInDept == T_SILICON)
 			continue
-		valid_jobs.Add(jobdatum.title)
-	return valid_jobs
+		cannotFindMatch = FALSE
+		var/list/jobAccess = job.get_access()
+		for(var/i = 1, i <= jobAccess.len, i++)
+			if(!scanAccess.Find(jobAccess[i]))
+				cannotFindMatch = TRUE
+				break
+		if(cannotFindMatch)
+			continue
+		returnedList.Add(job.title)
+	return returnedList
 
 /obj/machinery/computer/card/centcom
 	name = "CentCom Identification Computer"
