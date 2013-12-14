@@ -51,13 +51,6 @@
 	var/identity
 	var/image
 
-/datum/virus_record
-	var/id
-	var/name
-	var/desc
-	var/antigen
-	var/spreadType
-
 /datum/cloning_record
 	var/id
 	var/name

@@ -5,16 +5,16 @@
 	name = "reactor"
 	icon = 'icons/obj/power.dmi'
 	icon_state = "potato_cell"
-	density = 1
-	anchored = 0
+	density = TRUE
+	anchored = FALSE
 	use_power = 0
 
-	var/on = 0
+	var/on = FALSE
 	var/sheets = 0
-	var/sheet_name = ""
-	var/sheet_path = /obj/item/stack/sheet/mineral/uranium
-	var/sheet_left = 0 // How much is left of the sheet
-	var/time_per_sheet = 100
+	var/sheetName = ""
+	var/sheetPath = /obj/item/stack/sheet/mineral/uranium
+	var/sheetLeft = 0 // How much is left of the sheet
+	var/timePerSheet = 100
 	var/heat = 0
 
 	var/current_temperature = T20C
@@ -66,10 +66,10 @@
 /obj/machinery/atmospherics/unary/reactor/Topic()
 
 /obj/machinery/atmospherics/unary/reactor/attack_ai(mob/user as mob)
-	return src.attack_hand(user)
+	return attack_hand(user)
 
 /obj/machinery/atmospherics/unary/reactor/attack_paw(mob/user as mob)
-	return src.attack_hand(user)
+	return attack_hand(user)
 
 /obj/machinery/atmospherics/unary/reactor/attack_hand(mob/user as mob)
 

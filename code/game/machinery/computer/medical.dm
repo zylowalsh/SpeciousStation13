@@ -236,12 +236,20 @@
 				activeRecord= null
 
 			if(href_list["vir"])
-				var/datum/virus_record/v = locate(href_list["vir"])
-				src.temp = "<center>GNAv2 based virus lifeform V-[v.id]</center>"
-				src.temp += "<br><b>Name:</b> <A href='?src=\ref[src];field=vir_name;edit_vir=\ref[v]'>[v.name]</A>"
-				src.temp += "<br><b>Antigen:</b> [v.antigen]"
-				src.temp += "<br><b>Spread:</b> [v.spreadType] "
-				src.temp += "<br><b>Details:</b><br> <A href='?src=\ref[src];field=vir_desc;edit_vir=\ref[v]'>[v.desc]</A>"
+				var/type = href_list["vir"]
+				var/datum/disease/Dis = new type(0)
+				var/AfS = ""
+				for(var/Str in Dis.affected_species)
+					AfS += " [Str];"
+				src.temp = {"<b>Name:</b> [Dis.name]
+					<BR><b>Number of stages:</b> [Dis.max_stages]
+					<BR><b>Spread:</b> [Dis.spread] Transmission
+					<BR><b>Possible Cure:</b> [(Dis.cure||"none")]
+					<BR><b>Affected Species:</b>[AfS]
+					<BR>
+					<BR><b>Notes:</b> [Dis.desc]
+					<BR>
+					<BR><b>Severity:</b> [Dis.severity]"}
 
 			if (href_list["field"])
 				var/a1 = activeRecord
@@ -317,20 +325,6 @@
 						if ((!( t1 ) || !( src.authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))) || activeRecord != a1))
 							return
 						activeRecord.bDNA = t1
-					if("vir_name")
-						var/datum/virus_record/v = locate(href_list["edit_vir"])
-						if (v)
-							var/t1 = copytext(sanitize(input("Please input pathogen name:", "VirusDB", v.name, null)  as text),1,MAX_MESSAGE_LEN)
-							if ((!( t1 ) || !( src.authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))) || activeRecord != a1))
-								return
-							v.name = t1
-					if("vir_desc")
-						var/datum/virus_record/v = locate(href_list["edit_vir"])
-						if (v)
-							var/t1 = copytext(sanitize(input("Please input information about pathogen:", "VirusDB", v.desc, null)  as message),1,MAX_MESSAGE_LEN)
-							if ((!( t1 ) || !( src.authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))) || activeRecord != a1))
-								return
-							v.desc = t1
 
 			if (href_list["p_stat"])
 				if (activeRecord)
