@@ -82,7 +82,7 @@
 			if(!job.hasMinimumJobExperience(player.client))
 				Debug("FOC player not old enough, Player: [player]")
 				continue
-			if(flag && (!player.client.prefs.be_special & flag))
+			if(flag && (!player.client.prefs.beSpecial & flag))
 				Debug("FOC flag failed, Player: [player], Flag: [flag], ")
 				continue
 			if(player.client.prefs.GetJobDepartment(job, level) & job.flag)
@@ -307,7 +307,7 @@
 		// Hand out random jobs to the people who didn't get any in the last check
 		// Also makes sure that they got their preference correct
 		for(var/mob/new_player/player in unassigned)
-			if(player.client.prefs.alternate_option == GET_RANDOM_JOB)
+			if(player.client.prefs.alternateOption == GET_RANDOM_JOB)
 				GiveRandomJob(player)
 		/*
 		Old job system
@@ -333,13 +333,13 @@
 
 		// For those who wanted to be assistant if their preferences were filled, here you go.
 		for(var/mob/new_player/player in unassigned)
-			if(player.client.prefs.alternate_option == BE_ASSISTANT)
+			if(player.client.prefs.alternateOption == BE_ASSISTANT)
 				Debug("AC2 Assistant located, Player: [player]")
 				AssignRole(player, "Assistant")
 
 		//For ones returning to lobby
 		for(var/mob/new_player/player in unassigned)
-			if(player.client.prefs.alternate_option == RETURN_TO_LOBBY)
+			if(player.client.prefs.alternateOption == RETURN_TO_LOBBY)
 				player.ready = 0
 				unassigned -= player
 		return 1

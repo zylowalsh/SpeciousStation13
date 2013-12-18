@@ -329,7 +329,7 @@ var/const/GAME_STATE_FINISHED = 4
 				world << "declare_completion() is checking [tmpRecord.name]"
 				if(H.startingName == tmpRecord.name)
 					world << "[H.startingName] is saving with [H.startingCKey]."
-					P.saveRecord(P.default_slot, i)
+					P.saveRecord(P.defaultSlot, i)
 
 	for (var/mob/living/silicon/ai/aiPlayer in mob_list)
 		if (aiPlayer.stat != 2)

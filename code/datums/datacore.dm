@@ -180,6 +180,8 @@
 	if(H.mind && (H.mind.assigned_role != "MODE"))
 		H.startingName = H.real_name
 		H.startingCKey = H.ckey
+		var/datum/preferences/P = allPreferences[H.ckey]
+		P.saveCharacter()
 
 		var/assignment
 		if(H.mind.role_alt_title)

@@ -30,7 +30,7 @@
 			if(jobban_isbanned(O, "pAI"))
 				continue
 			if(O.client)
-				if(O.client.prefs.be_special & BE_PAI)
+				if(O.client.prefs.beSpecial & BE_PAI)
 					question(O.client)
 
 	proc/question(var/client/C)
@@ -41,9 +41,7 @@
 			if(response == "Yes")
 				transfer_personality(C.mob)
 			else if (response == "Never for this round")
-				C.prefs.be_special ^= BE_PAI
-
-
+				C.prefs.beSpecial ^= BE_PAI
 
 	proc/transfer_personality(var/mob/candidate)
 

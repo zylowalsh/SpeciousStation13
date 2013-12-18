@@ -93,7 +93,7 @@ Growing it to term with nothing injected will grab a ghost from the observers. *
 /obj/item/seeds/replicapod/proc/request_player()
 	for(var/mob/dead/observer/O in player_list)
 		if(O.client)
-			if(O.client.prefs.be_special & BE_PLANT)
+			if(O.client.prefs.beSpecial & BE_PLANT)
 				question(O.client)
 
 /obj/item/seeds/replicapod/proc/question(var/client/C)
@@ -105,7 +105,7 @@ Growing it to term with nothing injected will grab a ghost from the observers. *
 		if(response == "Yes")
 			transfer_personality(C)
 		else if (response == "Never for this round")
-			C.prefs.be_special ^= BE_PLANT
+			C.prefs.beSpecial ^= BE_PLANT
 
 /obj/item/seeds/replicapod/proc/transfer_personality(var/client/player)
 

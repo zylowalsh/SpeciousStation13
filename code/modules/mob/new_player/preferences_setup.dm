@@ -6,24 +6,24 @@ datum/preferences
 				gender = MALE
 			else
 				gender = FEMALE
-		s_tone = random_skin_tone()
-		h_style = random_hair_style(gender, species)
-		f_style = random_facial_hair_style(gender, species)
+		sTone = random_skin_tone()
+		hStyle = random_hair_style(gender, species)
+		fStyle = random_facial_hair_style(gender, species)
 		randomize_hair_color("hair")
 		randomize_hair_color("facial")
 		randomize_eyes_color()
 		underwear = rand(1,underwear_m.len)
 		backbag = 2
-		age = rand(AGE_MIN,AGE_MAX)
+		age = rand(AGE_MIN, AGE_MAX)
 		if(H)
 			copy_to(H,1)
 
 
 	proc/randomize_hair_color(var/target = "hair")
 		if(prob (75) && target == "facial") // Chance to inherit hair color
-			r_facial = r_hair
-			g_facial = g_hair
-			b_facial = b_hair
+			rFacial = rHair
+			gFacial = gHair
+			bFacial = bHair
 			return
 
 		var/red
@@ -71,13 +71,13 @@ datum/preferences
 
 		switch(target)
 			if("hair")
-				r_hair = red
-				g_hair = green
-				b_hair = blue
+				rHair = red
+				gHair = green
+				bHair = blue
 			if("facial")
-				r_facial = red
-				g_facial = green
-				b_facial = blue
+				rFacial = red
+				gFacial = green
+				bFacial = blue
 
 	proc/randomize_eyes_color()
 		var/red
@@ -123,14 +123,14 @@ datum/preferences
 		green = max(min(green + rand (-25, 25), 255), 0)
 		blue = max(min(blue + rand (-25, 25), 255), 0)
 
-		r_eyes = red
-		g_eyes = green
-		b_eyes = blue
+		rEyes = red
+		gEyes = green
+		bEyes = blue
 
 
 	proc/update_preview_icon()		//seriously. This is horrendous.
-		del(preview_icon_front)
-		del(preview_icon_side)
+		del(previewIconFront)
+		del(previewIconSide)
 		var/icon/preview_icon = null
 
 		var/g = "m"
@@ -150,42 +150,43 @@ datum/preferences
 
 		for(var/name in list("l_arm","r_arm","l_leg","r_leg","l_foot","r_foot","l_hand","r_hand"))
 			// make sure the organ is added to the list so it's drawn
-			if(organ_data[name] == null)
-				organ_data[name] = null
+			if(organData[name] == null)
+				organData[name] = null
 
-		for(var/name in organ_data)
-			if(organ_data[name] == "amputated") continue
+		for(var/name in organData)
+			if(organData[name] == "amputated")
+				continue
 
 			var/icon/temp = new /icon(icobase, "[name]")
-			if(organ_data[name] == "cyborg")
+			if(organData[name] == "cyborg")
 				temp.MapColors(rgb(77,77,77), rgb(150,150,150), rgb(28,28,28), rgb(0,0,0))
 
 			preview_icon.Blend(temp, ICON_OVERLAY)
 
 		// Skin tone
 		if(current_species && (current_species.flags & HAS_SKIN_TONE))
-			if (s_tone >= 0)
-				preview_icon.Blend(rgb(s_tone, s_tone, s_tone), ICON_ADD)
+			if (sTone >= 0)
+				preview_icon.Blend(rgb(sTone, sTone, sTone), ICON_ADD)
 			else
-				preview_icon.Blend(rgb(-s_tone,  -s_tone,  -s_tone), ICON_SUBTRACT)
+				preview_icon.Blend(rgb(-sTone,  -sTone,  -sTone), ICON_SUBTRACT)
 
 		var/icon/eyes_s = new/icon("icon" = 'icons/mob/human_face.dmi', "icon_state" = current_species ? current_species.eyes : "eyes_s")
-		eyes_s.Blend(rgb(r_eyes, g_eyes, b_eyes), ICON_ADD)
+		eyes_s.Blend(rgb(rEyes, gEyes, bEyes), ICON_ADD)
 
-		var/datum/sprite_accessory/hair_style = hair_styles_list[h_style]
+		var/datum/sprite_accessory/hair_style = hair_styles_list[hStyle]
 		if(hair_style)
 			var/icon/hair_s = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
-			hair_s.Blend(rgb(r_hair, g_hair, b_hair), ICON_ADD)
+			hair_s.Blend(rgb(rHair, gHair, bHair), ICON_ADD)
 			eyes_s.Blend(hair_s, ICON_OVERLAY)
 
-		var/datum/sprite_accessory/facial_hair_style = facial_hair_styles_list[f_style]
+		var/datum/sprite_accessory/facial_hair_style = facial_hair_styles_list[fStyle]
 		if(facial_hair_style)
 			var/icon/facial_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_s")
-			facial_s.Blend(rgb(r_facial, g_facial, b_facial), ICON_ADD)
+			facial_s.Blend(rgb(rFacial, gFacial, bFacial), ICON_ADD)
 			eyes_s.Blend(facial_s, ICON_OVERLAY)
 
 		var/icon/clothes_s = null
-		if(job_civilian_low & ASSISTANT)//This gives the preview icon clothes depending on which job(if any) is set to 'high'
+		if(jobCivilianLow & ASSISTANT)//This gives the preview icon clothes depending on which job(if any) is set to 'high'
 			clothes_s = new /icon('icons/mob/uniform.dmi', "grey_s")
 			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "black"), ICON_UNDERLAY)
 			if(backbag == 2)
@@ -193,8 +194,8 @@ datum/preferences
 			else if(backbag == 3 || backbag == 4)
 				clothes_s.Blend(new /icon('icons/mob/back.dmi', "satchel"), ICON_OVERLAY)
 
-		else if(job_civilian_high)//I hate how this looks, but there's no reason to go through this switch if it's empty
-			switch(job_civilian_high)
+		else if(jobCivilianHigh)//I hate how this looks, but there's no reason to go through this switch if it's empty
+			switch(jobCivilianHigh)
 				if(HOP)
 					clothes_s = new /icon('icons/mob/uniform.dmi', "hop_s")
 					clothes_s.Blend(new /icon('icons/mob/feet.dmi', "brown"), ICON_UNDERLAY)
@@ -338,8 +339,8 @@ datum/preferences
 						if(4)
 							clothes_s.Blend(new /icon('icons/mob/back.dmi', "satchel"), ICON_OVERLAY)
 
-		else if(job_medsci_high)
-			switch(job_medsci_high)
+		else if(jobMedSciHigh)
+			switch(jobMedSciHigh)
 				if(RD)
 					clothes_s = new /icon('icons/mob/uniform.dmi', "director_s")
 					clothes_s.Blend(new /icon('icons/mob/feet.dmi', "brown"), ICON_UNDERLAY)
@@ -435,8 +436,8 @@ datum/preferences
 						if(4)
 							clothes_s.Blend(new /icon('icons/mob/back.dmi', "satchel"), ICON_OVERLAY)
 
-		else if(job_engsec_high)
-			switch(job_engsec_high)
+		else if(jobEngSecHigh)
+			switch(jobEngSecHigh)
 				if(CAPTAIN)
 					clothes_s = new /icon('icons/mob/uniform.dmi', "captain_s")
 					clothes_s.Blend(new /icon('icons/mob/feet.dmi', "brown"), ICON_UNDERLAY)
@@ -563,8 +564,8 @@ datum/preferences
 		preview_icon.Blend(eyes_s, ICON_OVERLAY)
 		if(clothes_s)
 			preview_icon.Blend(clothes_s, ICON_OVERLAY)
-		preview_icon_front = new(preview_icon, dir = SOUTH)
-		preview_icon_side = new(preview_icon, dir = WEST)
+		previewIconFront = new(preview_icon, dir = SOUTH)
+		previewIconSide = new(preview_icon, dir = WEST)
 
 		del(preview_icon)
 		del(eyes_s)

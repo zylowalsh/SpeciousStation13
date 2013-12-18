@@ -128,8 +128,8 @@ var/const/MIN_CLIENT_VERSION = 0		//Just an ambiguously low version for now, I d
 	prefs.lastJoinDate = world.realtime
 	if(prefs.firstJoinDate == 0)
 		prefs.firstJoinDate = world.realtime
-	prefs.last_ip = address				//these are gonna be used for banning
-	prefs.last_id = computer_id			//these are gonna be used for banning
+	prefs.lastIP = address				//these are gonna be used for banning
+	prefs.lastID = computer_id			//these are gonna be used for banning
 
 	. = ..()	//calls mob.Login()
 
@@ -149,7 +149,7 @@ var/const/MIN_CLIENT_VERSION = 0		//Just an ambiguously low version for now, I d
 
 	send_resources()
 
-	if(prefs.lastchangelog != changelog_hash) //bolds the changelog button on the interface so we know there are updates.
+	if(prefs.lastChangeLog != changelog_hash) //bolds the changelog button on the interface so we know there are updates.
 		winset(src, "rpane.changelog", "background-color=#eaeaea;font-style=bold")
 
 

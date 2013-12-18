@@ -249,7 +249,7 @@ datum/hud/New(mob/owner)
 /datum/hud/proc/instantiate()
 	if(!ismob(mymob)) return 0
 	if(!mymob.client) return 0
-	var/ui_style = ui_style2icon(mymob.client.prefs.UI_style)
+	var/ui_style = ui_style2icon(mymob.client.prefs.uiStyle)
 
 	if(ishuman(mymob))
 		human_hud(ui_style) // Pass the player the UI style chosen in preferences

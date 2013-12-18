@@ -262,7 +262,8 @@ turf/proc/shift_to_subarea()
 					if("contents","lighting_overlay","overlays")
 						continue
 					else
-						if(issaved(Area.vars[V])) A.vars[V] = Area.vars[V]
+						if(issaved(Area.vars[V]))
+							A.vars[V] = Area.vars[V]
 
 			A.tag = new_tag
 			A.lighting_subarea = 1

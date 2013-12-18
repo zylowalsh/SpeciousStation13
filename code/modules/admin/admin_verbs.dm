@@ -394,19 +394,20 @@ var/list/admin_verbs_mod = list(
 /client/proc/secrets()
 	set name = "Secrets"
 	set category = "Admin"
+
 	if (holder)
 		holder.Secrets()
-	return
 
 /client/proc/colorooc()
 	set category = "Fun"
 	set name = "OOC Text Color"
-	if(!holder)	return
+
+	if(!holder)
+		return
 	var/new_ooccolor = input(src, "Please select your OOC colour.", "OOC colour") as color|null
 	if(new_ooccolor)
-		prefs.ooccolor = new_ooccolor
-		prefs.save_preferences()
-	return
+		prefs.oocColor = new_ooccolor
+		prefs.savePreferences()
 
 /client/proc/stealth()
 	set category = "Admin"
@@ -452,7 +453,7 @@ var/list/admin_verbs_mod = list(
 			del(C)
 		else
 			message_admins("[key_name_admin(src)] has warned [warned_ckey] resulting in a [AUTOBANTIME] minute ban.")
-		AddBan(warned_ckey, D.last_id, "Autobanning due to too many formal warnings", ckey, 1, AUTOBANTIME)
+		AddBan(warned_ckey, D.lastID, "Autobanning due to too many formal warnings", ckey, 1, AUTOBANTIME)
 	else
 		if(C)
 			C << "<font color='red'><BIG><B>You have been formally warned by an administrator.</B></BIG><br>Further warnings will result in an autoban.</font>"

@@ -98,7 +98,7 @@
 			var/obj/O = locate("landmark*Observer-Start")
 			src << "\blue Now teleporting."
 			observer.loc = O.loc
-			observer.real_name = client.prefs.real_name
+			observer.real_name = client.prefs.realName
 			observer.name = observer.real_name
 			observer.key = key
 
@@ -246,7 +246,7 @@ proc/announceArrival(var/mob/living/carbon/human/character, var/rank)
 
 	if(ticker.random_players)
 		new_character.gender = pick(MALE, FEMALE)
-		client.prefs.real_name = random_name(new_character.gender)
+		client.prefs.realName = random_name(new_character.gender)
 		client.prefs.randomize_appearance_for(new_character)
 	else
 		client.prefs.copy_to(new_character)
@@ -263,7 +263,7 @@ proc/announceArrival(var/mob/living/carbon/human/character, var/rank)
 
 	new_character.name = real_name
 	new_character.dna.ready_dna(new_character)
-	new_character.dna.b_type = client.prefs.b_type
+	new_character.dna.b_type = client.prefs.bType
 
 	if(client.prefs.disabilities)
 		new_character.dna.struc_enzymes = setblock(new_character.dna.struc_enzymes,GLASSESBLOCK,toggledblock(getblock(new_character.dna.struc_enzymes,GLASSESBLOCK,3)),3)
