@@ -149,7 +149,7 @@ datum/preferences
 			Slot <B>[defaultSlot]</B> -
 			<A href=\"byond://?src=\ref[user];preference=open_load_dialog\">Load slot</A> -
 			<A href=\"byond://?src=\ref[user];preference=save\">Save slot</A> -
-			<A href=\"byond://?src=\ref[user];preference=reload\">Reload slot</A>
+			<A href=\"byond://?src=\ref[user];preference=reload\">Reload slot</A> -
 			<A href=\"byond://?src=\ref[user];preference=delete\">Delete Character</A>"}
 
 	else

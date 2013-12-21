@@ -180,7 +180,6 @@
 
 		if (href_list["scan"])
 			if (scan)
-
 				if(ishuman(usr))
 					scan.loc = usr.loc
 
@@ -321,7 +320,7 @@
 							return
 						activeRecord.cdiDesc = t1
 					if("notes")
-						var/t1 = copytext(sanitize(input("Please summarize notes:", "Med. records", activeRecord.medNotes, null)  as message),1,MAX_MESSAGE_LEN)
+						var/t1 = copytext(sanitize(input("Please summarize notes:", "Med. records", activeRecord.medNotes, null)  as message),1, MAX_MESSAGE_LEN)
 						if ((!( t1 ) || !( src.authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))) || activeRecord != a1))
 							return
 						activeRecord.medNotes = t1

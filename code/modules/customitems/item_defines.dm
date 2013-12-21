@@ -1022,4 +1022,19 @@
     item_state = "tactishirt"
     item_color = "tactishirt"
 
+/obj/item/clothing/suit/fluff/tokis_coat
+	name = "Toki's coat"
+	desc = "..."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "conspiracy"
+	item_state = "conspiracy"
+	item_color = "conspiracy"
+
+/obj/item/clothing/head/fluff/tokis_hat
+	name = "Toki's hat"
+	desc = "..."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "conspiracyHat"
+	item_state = "conspiracyHat"
+	item_color = "conspiracyHat"
 

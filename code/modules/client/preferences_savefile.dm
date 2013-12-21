@@ -306,33 +306,25 @@ var/const/SAVEFILE_VERSION_MAX = 10
 
 	S["record"] >> record
 	S["survivedOneRound"] >> survivedOneRound
-	if(!isnull(record))
-		world << record.name + " is loading in."
 
-	world << "loadRecords() is returning"
 	return 1
 
 /datum/preferences/proc/saveRecord(slot, dataCoreIndex)
 	var/savefile/S
-	world << "saveRecord is checking if path is null"
+
 	if(!path)
 		return 0
 	S = new /savefile(path)
 
-	world << "saveRecord is checking if savefile S is null"
 	if(!S)
 		return 0
 	S.cd = "/character[slot]"
 
-	world << "saveRecord is starting to save it slot [slot] with the record [dataCoreIndex]."
 	if(!survivedOneRound)
 		survivedOneRound = TRUE
-	world << "saveRecord() is attempting to save the record."
 	S["record"] << dataCore.allRecords[dataCoreIndex]
-	world << "saveRecord() is attempting to save the flag survivedOneRound."
 	S["survivedOneRound"] << survivedOneRound
 
-	world << "saveRecords() is returning"
 	return 1
 
 /datum/preferences/proc/deleteCharacter()

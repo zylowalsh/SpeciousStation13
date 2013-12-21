@@ -11,7 +11,7 @@ var/const/SHUTTLE_CANCELED = 6
 var/const/EMERGENCY = 0
 var/const/CREW_CYCLE = 1
 
-var/const/SHUTTLE_TESTING = TRUE
+var/const/SHUTTLE_TESTING = FALSE
 
 var/datum/shuttle_controller/emergencyShuttle
 
