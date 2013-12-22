@@ -255,7 +255,7 @@ datum/preferences
 
 	dat += "</td><td width='300px' height='300px'>"
 
-	dat += "<b><a href=\"byond://?src=\ref[user];preference=records;record=1\">Employment History</a></b><br>"
+	//dat += "<b><a href=\"byond://?src=\ref[user];preference=records;record=1\">Employment History</a></b><br>"
 
 	dat += "<br><b>Hair</b><br>"
 	dat += "<a href='?_src_=prefs;preference=hair;task=input'>Change Color</a> <font face='fixedsys' size='3' color='#[num2hex(rHair, 2)][num2hex(gHair, 2)][num2hex(bHair, 2)]'><table style='display:inline;' bgcolor='#[num2hex(rHair, 2)][num2hex(gHair, 2)][num2hex(bHair)]'><tr><td>__</td></tr></table></font> "

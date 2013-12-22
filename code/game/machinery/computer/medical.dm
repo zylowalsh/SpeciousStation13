@@ -262,68 +262,68 @@
 					<b>Severity:</b> [Dis.severity]"}
 
 			if (href_list["field"])
-				var/a1 = activeRecord
+				var/datum/record/tmpRecord = activeRecord
 				switch(href_list["field"])
 					if("fingerprint")
-						var/t1 = copytext(sanitize(input("Please input fingerprint hash:", "Med. records", activeRecord.fingerprint, null)  as text),1,MAX_MESSAGE_LEN)
-						if ((!( t1 ) || !( src.authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))) || activeRecord != a1))
+						var/userInput = copytext(sanitize(input("Please input fingerprint hash:", "Med. records", tmpRecord.fingerprint, null)  as text), 1, MAX_MESSAGE_LEN)
+						if (!userInput || !authenticated || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))))
 							return
-						activeRecord.fingerprint = t1
+						tmpRecord.fingerprint = userInput
 					if("sex")
-						if (activeRecord.gender == "Male")
-							activeRecord.gender = "Female"
+						if (tmpRecord.gender == "Male")
+							tmpRecord.gender = "Female"
 						else
-							activeRecord.gender = "Male"
+							tmpRecord.gender = "Male"
 					if("age")
-						var/t1 = input("Please input age:", "Med. records", activeRecord.age, null)  as num
-						if ((!( t1 ) || !( src.authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))) || activeRecord != a1))
+						var/userInput = input("Please input age:", "Med. records", tmpRecord.age, null)  as num
+						if (!userInput || !authenticated || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))))
 							return
-						activeRecord.age = t1
+						tmpRecord.age = userInput
 					if("mi_dis")
-						var/t1 = copytext(sanitize(input("Please input minor disabilities list:", "Med. records", activeRecord.minorDisability, null)  as text),1,MAX_MESSAGE_LEN)
-						if ((!( t1 ) || !( src.authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))) || activeRecord != a1))
+						var/userInput = copytext(sanitize(input("Please input minor disabilities list:", "Med. records", tmpRecord.minorDisability, null)  as text), 1, MAX_MESSAGE_LEN)
+						if (!userInput || !authenticated || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))))
 							return
-						activeRecord.minorDisability = t1
+						tmpRecord.minorDisability = userInput
 					if("mi_dis_d")
-						var/t1 = copytext(sanitize(input("Please summarize minor dis.:", "Med. records", activeRecord.minorDisabilityDesc, null)  as message),1,MAX_MESSAGE_LEN)
-						if ((!( t1 ) || !( src.authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))) || activeRecord != a1))
+						var/userInput = copytext(sanitize(input("Please summarize minor dis.:", "Med. records", tmpRecord.minorDisabilityDesc, null)  as message), 1, MAX_MESSAGE_LEN)
+						if (!userInput || !authenticated || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))))
 							return
-						activeRecord.minorDisabilityDesc = t1
+						tmpRecord.minorDisabilityDesc = userInput
 					if("ma_dis")
-						var/t1 = copytext(sanitize(input("Please input major diabilities list:", "Med. records", activeRecord.majorDisability, null)  as text),1,MAX_MESSAGE_LEN)
-						if ((!( t1 ) || !( src.authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))) || activeRecord != a1))
+						var/userInput = copytext(sanitize(input("Please input major diabilities list:", "Med. records", tmpRecord.majorDisability, null)  as text), 1, MAX_MESSAGE_LEN)
+						if (!userInput || !authenticated || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))))
 							return
-						activeRecord.majorDisability = t1
+						tmpRecord.majorDisability = userInput
 					if("ma_dis_d")
-						var/t1 = copytext(sanitize(input("Please summarize major dis.:", "Med. records", activeRecord.majorDisabilityDesc, null)  as message),1,MAX_MESSAGE_LEN)
-						if ((!( t1 ) || !( src.authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))) || activeRecord != a1))
+						var/userInput = copytext(sanitize(input("Please summarize major dis.:", "Med. records", tmpRecord.majorDisabilityDesc, null)  as message), 1, MAX_MESSAGE_LEN)
+						if (!userInput || !authenticated || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))))
 							return
-						activeRecord.majorDisabilityDesc = t1
+						tmpRecord.majorDisabilityDesc = userInput
 					if("alg")
-						var/t1 = copytext(sanitize(input("Please state allergies:", "Med. records", activeRecord.allergies, null)  as text),1,MAX_MESSAGE_LEN)
-						if ((!( t1 ) || !( src.authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))) || activeRecord != a1))
+						var/userInput = copytext(sanitize(input("Please state allergies:", "Med. records", tmpRecord.allergies, null)  as text), 1, MAX_MESSAGE_LEN)
+						if (!userInput || !authenticated || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))))
 							return
-						activeRecord.allergies = t1
+						tmpRecord.allergies = userInput
 					if("alg_d")
-						var/t1 = copytext(sanitize(input("Please summarize allergies:", "Med. records", activeRecord.allergiesDesc, null)  as message),1,MAX_MESSAGE_LEN)
-						if ((!( t1 ) || !( src.authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))) || activeRecord != a1))
+						var/userInput = copytext(sanitize(input("Please summarize allergies:", "Med. records", tmpRecord.allergiesDesc, null)  as message), 1, MAX_MESSAGE_LEN)
+						if (!userInput || !authenticated || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))))
 							return
-						activeRecord.allergiesDesc = t1
+						tmpRecord.allergiesDesc = userInput
 					if("cdi")
-						var/t1 = copytext(sanitize(input("Please state diseases:", "Med. records", activeRecord.cdi, null)  as text),1,MAX_MESSAGE_LEN)
-						if ((!( t1 ) || !( src.authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))) || activeRecord != a1))
+						var/userInput = copytext(sanitize(input("Please state diseases:", "Med. records", tmpRecord.cdi, null)  as text), 1, MAX_MESSAGE_LEN)
+						if (!userInput || !authenticated || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))))
 							return
-						activeRecord.cdi = t1
+						tmpRecord.cdi = userInput
 					if("cdi_d")
-						var/t1 = copytext(sanitize(input("Please summarize diseases:", "Med. records", activeRecord.cdiDesc, null)  as message),1,MAX_MESSAGE_LEN)
-						if ((!( t1 ) || !( src.authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))) || activeRecord != a1))
+						var/userInput = copytext(sanitize(input("Please summarize diseases:", "Med. records", tmpRecord.cdiDesc, null)  as message), 1, MAX_MESSAGE_LEN)
+						if (!userInput || !authenticated || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))))
 							return
-						activeRecord.cdiDesc = t1
+						tmpRecord.cdiDesc = userInput
 					if("notes")
-						var/t1 = copytext(sanitize(input("Please summarize notes:", "Med. records", activeRecord.medNotes, null)  as message),1, MAX_MESSAGE_LEN)
-						if ((!( t1 ) || !( src.authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))) || activeRecord != a1))
+						var/userInput = copytext(sanitize(input("Please summarize notes:", "Med. records", tmpRecord.medNotes, null)  as message), 1, MAX_MESSAGE_LEN)
+						if (!userInput || !authenticated || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))))
 							return
-						activeRecord.medNotes = t1
+						tmpRecord.medNotes = userInput
 					if("p_stat")
 						temp = {"
 							<B>Physical Condition:</B><BR>
@@ -347,10 +347,10 @@
 							<A href='?src=\ref[src];temp=1;b_type=abn'>AB-</A> <A href='?src=\ref[src];temp=1;b_type=abp'>AB+</A><BR>
 							<A href='?src=\ref[src];temp=1;b_type=on'>O-</A> <A href='?src=\ref[src];temp=1;b_type=op'>O+</A><BR>"}
 					if("b_dna")
-						var/t1 = copytext(sanitize(input("Please input DNA hash:", "Med. records", activeRecord.bDNA, null)  as text),1,MAX_MESSAGE_LEN)
-						if ((!( t1 ) || !( src.authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))) || activeRecord != a1))
+						var/userInput = copytext(sanitize(input("Please input DNA hash:", "Med. records", tmpRecord.bDNA, null)  as text),1,MAX_MESSAGE_LEN)
+						if (!userInput || !authenticated || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))))
 							return
-						activeRecord.bDNA = t1
+						tmpRecord.bDNA = userInput
 
 			if (href_list["p_stat"])
 				if (activeRecord)

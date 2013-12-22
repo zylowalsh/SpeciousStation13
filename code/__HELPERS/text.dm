@@ -1,23 +1,12 @@
 /*
  * Holds procs designed to help with filtering text
  * Contains groups:
- *			SQL sanitization
  *			Text sanitization
  *			Text searches
  *			Text modification
  *			Misc
  */
 
-
-/*
- * SQL sanitization
- */
-
-// Run all strings to be used in an SQL query through this proc first to properly escape out injection attempts.
-/proc/sanitizeSQL(var/t as text)
-	var/sanitized_text = replacetext(t, "'", "\\'")
-	sanitized_text = replacetext(sanitized_text, "\"", "\\\"")
-	return sanitized_text
 
 /*
  * Text sanitization
@@ -45,7 +34,7 @@
 
 //Runs byond's sanitization proc along-side sanitize_simple
 /proc/sanitize(var/t,var/list/repl_chars = null)
-	return html_encode(sanitize_simple(t,repl_chars))
+	return html_encode(sanitize_simple(t, repl_chars))
 
 //Runs sanitize and strip_html_simple
 //I believe strip_html_simple() is required to run first to prevent '<' from displaying as '&lt;' after sanitize() calls byond's html_encode()

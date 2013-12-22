@@ -313,58 +313,58 @@
 
 //FIELD FUNCTIONS
 			if ("Edit Field")
-				var/tempRecord = activeRecord
+				var/datum/record/tmpRecord = activeRecord
 				switch(href_list["field"])
 					if("name")
-						var/t1 = input("Please input name:", "Secure. records", activeRecord.name, null)  as text
-						if ((!( t1 ) || !length(trim(t1)) || !( authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon)))) || activeRecord != tempRecord)
+						var/userInput = input("Please input name:", "Secure. records", tmpRecord.name, null)  as text
+						if (!userInput || !length(trim(userInput)) || !authenticated || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))))
 							return
-						activeRecord.name = t1
+						tmpRecord.name = userInput
 					if("id")
-						var/t1 = copytext(sanitize(input("Please input id:", "Secure. records", activeRecord.id, null)  as text), 1, MAX_MESSAGE_LEN)
-						if ((!( t1 ) || !( authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))) || activeRecord != tempRecord))
+						var/userInput = copytext(sanitize(input("Please input id:", "Secure. records", tmpRecord.id, null)  as text), 1, MAX_MESSAGE_LEN)
+						if (!userInput || !authenticated || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))))
 							return
-						activeRecord.id = t1
+						tmpRecord.id = userInput
 					if("fingerprint")
-						var/t1 = copytext(sanitize(input("Please input fingerprint hash:", "Secure. records", activeRecord.fingerprint, null)  as text),1,MAX_MESSAGE_LEN)
-						if ((!( t1 ) || !( authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))) || activeRecord != tempRecord))
+						var/userInput = copytext(sanitize(input("Please input fingerprint hash:", "Secure. records", tmpRecord.fingerprint, null)  as text), 1, MAX_MESSAGE_LEN)
+						if (!userInput || !authenticated || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))))
 							return
-						activeRecord.fingerprint = t1
+						tmpRecord.fingerprint = userInput
 					if("sex")
-						if (activeRecord.gender == "Male")
-							activeRecord.gender = "Female"
+						if (tmpRecord.gender == "Male")
+							tmpRecord.gender = "Female"
 						else
-							activeRecord.gender = "Male"
+							tmpRecord.gender = "Male"
 					if("age")
-						var/t1 = input("Please input age:", "Secure. records", activeRecord.age, null)  as num
-						if ((!( t1 ) || !( authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))) || activeRecord != tempRecord))
+						var/userInput = input("Please input age:", "Secure. records", tmpRecord.age, null)  as num
+						if (!userInput || !authenticated || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))))
 							return
-						activeRecord.age = t1
+						tmpRecord.age = userInput
 					if("mi_crim")
-						var/t1 = copytext(sanitize(input("Please input minor disabilities list:", "Secure. records", activeRecord.minorCrimes, null)  as text),1,MAX_MESSAGE_LEN)
-						if ((!( t1 ) || !( authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))) || activeRecord != tempRecord))
+						var/userInput = copytext(sanitize(input("Please input minor disabilities list:", "Secure. records", tmpRecord.minorCrimes, null)  as text), 1, MAX_MESSAGE_LEN)
+						if (!userInput || !authenticated || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))))
 							return
-						activeRecord.minorCrimes = t1
+						tmpRecord.minorCrimes = userInput
 					if("mi_crim_d")
-						var/t1 = copytext(sanitize(input("Please summarize minor dis.:", "Secure. records", activeRecord.minorCrimesDesc, null)  as message),1,MAX_MESSAGE_LEN)
-						if ((!( t1 ) || !( authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))) || activeRecord != tempRecord))
+						var/userInput = copytext(sanitize(input("Please summarize minor dis.:", "Secure. records", tmpRecord.minorCrimesDesc, null)  as message), 1, MAX_MESSAGE_LEN)
+						if (!userInput || !authenticated || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))))
 							return
-						activeRecord.minorCrimesDesc = t1
+						tmpRecord.minorCrimesDesc = userInput
 					if("ma_crim")
-						var/t1 = copytext(sanitize(input("Please input major diabilities list:", "Secure. records", activeRecord.majorCrimes, null)  as text),1,MAX_MESSAGE_LEN)
-						if ((!( t1 ) || !( authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))) || activeRecord != tempRecord))
+						var/userInput = copytext(sanitize(input("Please input major diabilities list:", "Secure. records", tmpRecord.majorCrimes, null)  as text), 1, MAX_MESSAGE_LEN)
+						if (!userInput || !authenticated || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))))
 							return
-						activeRecord.majorCrimes = t1
+						tmpRecord.majorCrimes = userInput
 					if("ma_crim_d")
-						var/t1 = copytext(sanitize(input("Please summarize major dis.:", "Secure. records", activeRecord.majorCrimesDesc, null)  as message),1,MAX_MESSAGE_LEN)
-						if ((!( t1 ) || !( authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))) || activeRecord != tempRecord))
+						var/userInput = copytext(sanitize(input("Please summarize major dis.:", "Secure. records", tmpRecord.majorCrimesDesc, null)  as message), 1, MAX_MESSAGE_LEN)
+						if (!userInput || !authenticated || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))))
 							return
-						activeRecord.majorCrimesDesc = t1
+						tmpRecord.majorCrimesDesc = userInput
 					if("notes")
-						var/t1 = copytext(sanitize(input("Please summarize notes:", "Secure. records", activeRecord.secNotes, null)  as message),1,MAX_MESSAGE_LEN)
-						if ((!( t1 ) || !( authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))) || activeRecord != tempRecord))
+						var/userInput = copytext(sanitize(input("Please summarize notes:", "Secure. records", tmpRecord.secNotes, null)  as message), 1, MAX_MESSAGE_LEN)
+						if (!userInput || !authenticated || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))))
 							return
-						activeRecord.secNotes = t1
+						tmpRecord.secNotes = userInput
 					if("criminal")
 						temp = "<h5>Criminal Status:</h5>"
 						temp += "<ul>"
@@ -375,10 +375,10 @@
 						temp += "<li><a href='?src=\ref[src];choice=Change Criminal Status;criminal2=released'>Released</a></li>"
 						temp += "</ul>"
 					if("species")
-						var/t1 = copytext(sanitize(input("Please enter race:", "General records", activeRecord.species, null)  as message),1,MAX_MESSAGE_LEN)
-						if ((!( t1 ) || !( authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))) || activeRecord != tempRecord))
+						var/userInput = copytext(sanitize(input("Please enter race:", "General records", tmpRecord.species, null)  as message), 1, MAX_MESSAGE_LEN)
+						if (!userInput || !authenticated || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))))
 							return
-						activeRecord.species = t1
+						tmpRecord.species = userInput
 
 //TEMPORARY MENU FUNCTIONS
 			else//To properly clear as per clear screen.

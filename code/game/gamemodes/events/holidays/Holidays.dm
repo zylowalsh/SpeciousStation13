@@ -61,9 +61,8 @@ var/global/Holiday = null
 
 		if(5)	//May
 			switch(DD)
-				if(1)							Holiday = "Labour Day"
+				if(1)							Holiday = "Labor Day"
 				if(4)							Holiday = "FireFighter's Day"
-				if(12)							Holiday = "Owl and Pussycat Day"	//what a dumb day of observence...but we -do- have costumes already :3
 
 		if(6)	//Jun
 
@@ -102,7 +101,6 @@ var/global/Holiday = null
 				if(10)							Holiday = "Human-Rights Day"
 				if(14)							Holiday = "Monkey Day"
 				if(21)							if(YY==12)	Holiday = "End of the World"
-				if(22)							Holiday = "Orgasming Day"		//lol. These all actually exist
 				if(24)							Holiday = "Christmas Eve"
 				if(25)							Holiday = "Christmas"
 				if(26)							Holiday = "Boxing Day"
