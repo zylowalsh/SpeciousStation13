@@ -211,7 +211,7 @@ var/dateAtStartString
 	s += ")"
 
 	s += " ("
-	s += "<a href=\https://github.com/zylowalsh/SpeciousStation13/issues">" //Change this to wherever you want the hub to link to.
+	s += "<a href=\"https://github.com/zylowalsh/SpeciousStation13/issues\">"
 	s += "Report Bug"
 	s += "</a>"
 	s += ")"
