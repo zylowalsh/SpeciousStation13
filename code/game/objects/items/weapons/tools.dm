@@ -315,7 +315,7 @@
 		src.icon_state = "welder"
 		src.welding = 0
 
-//Turns off the welder if there is no more fuel (does this really need to be its own proc?)
+//Turns off the welder if there is no more fuel.
 /obj/item/weapon/weldingtool/proc/check_fuel()
 	if((get_fuel() <= 0) && welding)
 		toggle(1)
@@ -410,7 +410,7 @@
 
 
 
-/obj/item/weapon/weldingtool/experimental/proc/fuel_gen()//Proc to make the experimental welder generate fuel, optimized as fuck -Sieve
+/obj/item/weapon/weldingtool/experimental/proc/fuel_gen()//Proc to make the experimental welder generate fuel, optimized -Sieve
 	var/gen_amount = ((world.time-last_gen)/25)
 	reagents += (gen_amount)
 	if(reagents > max_fuel)
