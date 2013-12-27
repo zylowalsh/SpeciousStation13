@@ -121,10 +121,10 @@ datum/shuttle_controller/proc/process()
 			timeStateChanged = world.timeofday
 
 			if(evacType == EMERGENCY)
-				captain_announce("The emergency shuttle has been called. It is preparing to leave [HEADQUARTERS_NAME] in [round(emergencyShuttle.getTimeLeft() / 60)] minutes.")
+				captain_announce("The emergency shuttle has been called. It is preparing to leave [HEADQUARTERS_NAME] in [round(SHUTTLE_BASE_PREP_TIME / 60, 1)] minutes.")
 				world << sound('sound/AI/shuttlecalled.ogg')
 			else if(evacType == CREW_CYCLE)
-				captain_announce("A crew transfer has been initiated. The shuttle has been called. It will arrive in [round(emergencyShuttle.getTimeLeft()/60)] minutes.")
+				captain_announce("A crew transfer has been initiated. The shuttle has been called. It will arrive in [round(SHUTTLE_BASE_PREP_TIME / 60, 1)] minutes.")
 
 			return 1
 
@@ -137,13 +137,15 @@ datum/shuttle_controller/proc/process()
 				shuttleState = GOING_TO_STATION
 				timeStateChanged = world.timeofday
 
-				captain_announce("The emergency shuttle has left [HEADQUARTERS_NAME]. Estimate [round(timeLeft / 60, 1)] minutes until the shuttle docks at station.")
+				captain_announce("The emergency shuttle has left [HEADQUARTERS_NAME]. Estimate [round(SHUTTLE_BASE_TRANSIT_TIME / 60, 1)] minutes until the shuttle docks at station.")
 				return 1
 
 		if(GOING_TO_STATION)
 			if(timeLeft <= 0)
 				shuttleState = AT_STATION
 				timeStateChanged = world.timeofday
+				captain_announce("The emergency shuttle has docked with the station. You have [round(SHUTTLE_BASE_DOCKED_TIME / 60, 1)] minutes to board.")
+				world << sound('sound/AI/shuttledock.ogg')
 
 				var/area/startLocation = locate(/area/shuttle/escape/centcom)
 				var/area/endLocation = locate(/area/shuttle/escape/station)
@@ -174,8 +176,6 @@ datum/shuttle_controller/proc/process()
 					pest.gib()
 
 				startLocation.move_contents_to(endLocation)
-				captain_announce("The emergency shuttle has docked with the station. You have [round(timeLeft / 60, 1)] minutes to board.")
-				world << sound('sound/AI/shuttledock.ogg')
 				return 1
 
 		if(AT_STATION)
@@ -222,6 +222,7 @@ datum/shuttle_controller/proc/process()
 				else
 					shuttleState = RETURNING_FROM_STATION
 					timeStateChanged = world.timeofday
+					captain_announce("The emergency shuttle has left the station. Estimate [round(SHUTTLE_BASE_TRANSIT_TIME / 60, 1)] minutes until the shuttle docks at [HEADQUARTERS_NAME].")
 
 					var/area/tmpLocation
 					for(var/i = 1, i <= startLocation.len, i++)
@@ -239,7 +240,6 @@ datum/shuttle_controller/proc/process()
 							if(istype(M, /mob/living/carbon))
 								if(!M.buckled)
 									M.Weaken(5)
-				captain_announce("The emergency shuttle has left the station. Estimate [round(timeLeft / 60, 1)] minutes until the shuttle docks at [HEADQUARTERS_NAME].")
 				return 1
 
 		if(RETURNING_FROM_STATION)
