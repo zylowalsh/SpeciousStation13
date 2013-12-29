@@ -102,6 +102,8 @@ var/const/SAVEFILE_VERSION_MAX = 10
 	S["firstJoinDate"]		>> firstJoinDate
 	S["lastJoinDate"]		>> lastJoinDate
 	S["numOfJobsPlayed"]     >> numOfJobsPlayed
+	if(isnull(numOfJobsPlayed))
+		numOfJobsPlayed = new /list(50)
 
 	if(isnull(firstJoinDate))
 		firstJoinDate = 0

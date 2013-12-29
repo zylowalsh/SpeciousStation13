@@ -54,7 +54,7 @@
 	spawn_positions = 5
 	supervisors = "the chief engineer"
 	selection_color = "#fff5cc"
-	access = list(access_eva, access_engine, access_engine_equip, access_tech_storage, access_maint_tunnels, access_external_airlocks, access_construction, access_atmospherics, access_tcomsat)
+	access = list(access_eva, access_engine, access_engine_equip, access_tech_storage, access_maint_tunnels, access_external_airlocks, access_construction)
 	minimal_access = list(access_engine, access_engine_equip, access_tech_storage, access_maint_tunnels, access_external_airlocks, access_construction, access_tcomsat)
 	alt_titles = list("Maintenance Technician","Engine Technician","Electrician")
 
@@ -82,6 +82,7 @@
 	title = "Atmospheric Technician"
 	titleFlag = T_ATMOS_TECH
 	countsAsPlayedInDept = T_ENGINEERING
+	minimumTimesAsEngineering = 1
 	flag = ATMOSTECH
 	department_flag = ENGSEC
 	faction = "Station"
