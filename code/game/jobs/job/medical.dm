@@ -48,13 +48,13 @@
 	flag = DOCTOR
 	department_flag = MEDSCI
 	faction = "Station"
-	total_positions = 5
-	spawn_positions = 3
+	total_positions = 4
+	spawn_positions = 4
 	supervisors = "the chief medical officer"
 	selection_color = "#ffeef0"
 	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_psychiatrist)
 	minimal_access = list(access_medical, access_morgue, access_surgery, access_virology, access_chemistry)
-	alt_titles = list("Surgeon", "Nurse", "Virologist", "Pharmacist")
+	alt_titles = list("Surgeon", "Nurse", "Virologist")
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)
@@ -138,8 +138,8 @@
 	flag = GENETICIST
 	department_flag = MEDSCI
 	faction = "Station"
-	total_positions = 2
-	spawn_positions = 2
+	total_positions = 1
+	spawn_positions = 1
 	supervisors = "the chief medical officer and research director"
 	selection_color = "#ffeef0"
 	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_research, access_psychiatrist)

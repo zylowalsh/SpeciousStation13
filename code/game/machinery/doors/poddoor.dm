@@ -1,5 +1,5 @@
 /obj/machinery/door/poddoor
-	name = "Podlock"
+	name = "Blastdoor"
 	desc = "Why it no open!!!"
 	icon = 'icons/obj/doors/rapid_pdoor.dmi'
 	icon_state = "pdoor1"
@@ -374,3 +374,8 @@
 /obj/machinery/door/poddoor/filler_object
 	name = ""
 	icon_state = ""
+
+/obj/machinery/door/poddoor/podDoorOpen
+	icon_state = "pdoor0"
+	density = 0
+	opacity = 0

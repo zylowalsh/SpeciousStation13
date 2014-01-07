@@ -12,6 +12,24 @@
 	name = "Mine"
 	icon_state = "unexplored"
 
+/area/mine/blue/station
+	name = "Blue Mining Station"
+
+/area/mine/blue/telecomms
+	name = "Blue Mining Station Telecomms"
+
+/area/mine/blue/exterior
+	name = "Blue Mining Station Exterior"
+
+/area/mine/purple/station
+	name = "Purple Mining Station"
+
+/area/mine/purple/telecomms
+	name = "Purple Mining Station Telecomms"
+
+/area/mine/purple/exterior
+	name = "Purple Mining Station Exterior"
+
 /area/mine/lobby
 	name = "Mining station"
 

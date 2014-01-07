@@ -617,6 +617,9 @@ proc/process_ghost_teleport_locs()
 	name = "\improper Atmospherics Office"
 	icon_state = "eng_atmo_office"
 
+/area/eng/atmoStorage
+	name = "\improper Atmospheric Storage"
+
 /area/eng/comms
 	name = "\improper Communications"
 	icon_state = "tcomsatcham"
@@ -636,6 +639,9 @@ proc/process_ghost_teleport_locs()
 /area/eng/equipment_storage
 	name = "\improper Engineering Storage"
 	icon_state = "engine"
+
+/area/eng/materialStorage
+	name = "\improper Material Storage"
 
 /area/eng/tech_storage
 	name = "Technical Storage"

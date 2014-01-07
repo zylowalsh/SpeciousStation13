@@ -1,5 +1,5 @@
 /obj/machinery/door_control
-	name = "remote door-control"
+	name = "Door Control"
 	desc = "It controls doors, remotely."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "doorctrl0"
