@@ -846,6 +846,27 @@ area/solar/research
 	name = "\improper Dormitories"
 	icon_state = "Sleep"
 
+/area/dorms/
+	icon_state = "Sleep"
+
+/area/dorms/northwestDorms
+	name = "\improper Northwest Dorms"
+
+/area/dorms/westDorms
+	name = "\improper West Dorms"
+
+/area/dorms/southwestDorms
+	name = "\improper Southwest Dorms"
+
+/area/dorms/northeastDorms
+	name = "\improper Northeast Dorms"
+
+/area/dorms/eastDorms
+	name = "\improper East Dorms"
+
+/area/dorms/southeastDorms
+	name = "\improper Southeast Dorms"
+
 /area/misc/lockers
 	name = "\improper Locker Room"
 	icon_state = "locker"
@@ -949,10 +970,6 @@ area/solar/research
 /area/research/misc_lab
 	name = "\improper Miscellaneous Research"
 	icon_state = "rd_misc"
-
-/area/research/rdoffice
-	name = "\improper Research Director's Office"
-	icon_state = "rd_head_office"
 
 /area/research/server
 	name = "\improper Server Room"
