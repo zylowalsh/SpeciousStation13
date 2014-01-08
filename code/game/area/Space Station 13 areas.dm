@@ -762,6 +762,10 @@ area/solar/research
 
 // HALLWAYS
 
+/area/hallway/
+	name = "\improper Hallway"
+	icon_state = "green"
+
 /area/hallway/primary/north
 	name = "\improper North Primary Hallway"
 	icon_state = "hallF"
@@ -782,6 +786,18 @@ area/solar/research
 	name = "\improper Central Primary Hallway"
 	icon_state = "hallC"
 
+/area/hallway/primary/northwest
+	name = "\improper Northwest Hallway"
+
+/area/hallway/primary/northeast
+	name = "\improper Northeast Hallway"
+
+/area/hallway/primary/southwest
+	name = "\improper Southwest Hallway"
+
+/area/hallway/primary/southeast
+	name = "\improper Southeast Hallway"
+
 /area/hallway/secondary/exit
 	name = "\improper Escape Shuttle Hallway"
 	icon_state = "escape"
@@ -792,7 +808,12 @@ area/solar/research
 
 /area/hallway/secondary/shuttle
 	name = "\improper Shuttle Dock"
-	icon_state = "green"
+
+/area/hallway/secondary/dormWest
+	name = "\improper West Dorm Hall"
+
+/area/hallway/secondary/dormEast
+	name = "\improper East Dorm Hall"
 
 // CIVILIAN AREAS
 
@@ -950,6 +971,10 @@ area/solar/research
 
 /area/research
 	name = "\improper Research Dept."
+	icon_state = "rd_base"
+
+/area/research/xenoarchGear
+	name = "\improper Xenoarch. Gear"
 
 /area/research/mech_bay
 	name = "\improper Mech Bay"
@@ -995,6 +1020,12 @@ area/solar/research
 	name = "\improper Research Exterior"
 	icon_state = "misc_base"
 
+/area/research/chemistry
+	name = "\improper Chemistry"
+
+/area/research/breakroom
+	name = "\improper Research Breakroom"
+
 //TELEPORTER
 
 /area/teleporter
@@ -1026,8 +1057,8 @@ area/solar/research
 	name = "\improper Morgue"
 	icon_state = "med_morgue"
 
-/area/medical/chemistry
-	name = "\improper Chemistry"
+/area/medical/pharmacy
+	name = "\improper Pharmacy"
 	icon_state = "med_chem"
 
 /area/medical/genetics
@@ -1082,6 +1113,9 @@ area/solar/research
 	name = "\improper Exam Room"
 	icon_state = "med_exam_room"
 
+/area/medical/emergencyMedical
+	name = "\improper Emergency Medical"
+
 //SECURITY
 
 /area/security/main
@@ -1103,6 +1137,18 @@ area/solar/research
 /area/security/brig
 	name = "\improper Brig"
 	icon_state = "brig"
+
+/area/security/medicalStation
+	name = "\improper Brig Medical Station"
+	icon_state = "brig"
+
+/area/security/evidence
+	name = "\improper Evidence"
+	icon_state = "security"
+
+/area/security/interview
+	name = "\improper Interview Room"
+	icon_state = "security"
 
 /area/security/prison
 	name = "\improper Prison Wing"
@@ -1165,6 +1211,15 @@ area/solar/research
 /area/cargo // ABSTRACT
 	name = "Cargo"
 	icon_state = "cargo_base"
+
+/area/cargo/warehouse
+	name = "\improper Warehouse"
+
+/area/cargo/smelter
+	name = "\improper Smelter"
+
+/area/cargo/mailroom
+	name = "\improper Mailroom"
 
 /area/cargo/incinerator
 	name = "\improper Incinerator"
@@ -1238,6 +1293,10 @@ area/solar/research
 
 /area/ai_monitored/cyborg
 	name = "\improper Cyborg Station"
+	icon_state = "green"
+
+/area/ai_monitored/cyborg2
+	name = "\improper Cybord Station 2"
 	icon_state = "green"
 
 /area/ai_monitored/eng/secure_storage
