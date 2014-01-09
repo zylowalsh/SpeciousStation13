@@ -893,19 +893,19 @@ area/solar/research
 	icon_state = "locker"
 
 /area/misc/restroom1
-	name = "\improper Dormitory Toilets"
+	name = "\improper Northwest Toilets"
 	icon_state = "toilet"
 
 /area/misc/restroom2
-	name = "\improper Locker Toilets"
+	name = "\improper Northeast Toilets"
 	icon_state = "toilet"
 
 /area/misc/restroom3
-	name = "\improper Toilets"
+	name = "\improper Southwest Toilets"
 	icon_state = "toilet"
 
 /area/misc/restroom4
-	name = "\improper Toilets"
+	name = "\improper Southeast Toilets"
 	icon_state = "toilet"
 
 /area/misc/fitness
