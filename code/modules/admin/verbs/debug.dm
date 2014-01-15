@@ -431,7 +431,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	var/list/areas_with_camera = list()
 
 	for(var/area/A in world)
-		if( (!(A.type in areas_all)) && A.requires_power == 0)
+		if( (!(A.type in areas_all)) && A.requires_power == 1)
 			areas_all.Add(A.type)
 
 	for(var/obj/machinery/power/apc/APC in world)
