@@ -471,11 +471,12 @@ var/const/PROCESS_KILL = 26	//Used to trigger removal from a processing list
 // the index of the sort department that you want. For example, sortType set to 2 will reroute all packages
 // tagged for the Cargo Bay.
 var/list/TAGGERLOCATIONS = list(
-	"Disposals", "Cargo Bay", "QM Office", "Engineering", "CE Office",
-	"Atmospherics", "Security", "HoS Office", "Medbay", "CMO Office",
-	"Chemistry","Robotics", "HoP Office", "Library", "Chapel",
-	"Clown Office","Bar", "Kitchen", "Hydroponics", "Janitor Closet",
-	"Genetics", "Captain Office", "IA's Office")
+	"Disposals", "Clown Office", "Internal Affairs", "Psych. Office", "Chaplain's Office",
+	"Library", "Hydroponics", "Kitchen", "Bar", "Custodial Closet",
+	"CE's Office", "Engineering Breakroom", "Atmo. Office", "Warden's Office", "Security",
+	"HoS's Office", "Detective's Office", "HoP's Office", "Captain's Office", "Medical Breakroom",
+	"CMO's Office", "Genetics", "Research Breakroom", "RD's Office", "Robotics",
+	"Quartermaster's Office")
 
 var/const/HOSTILE_STANCE_IDLE = 1
 var/const/HOSTILE_STANCE_ALERT = 2
