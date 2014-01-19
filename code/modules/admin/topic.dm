@@ -1685,6 +1685,10 @@
 				move_alien_ship()
 				message_admins("\blue [key_name_admin(usr)] moved the alien dinghy", 1)
 				log_admin("[key_name(usr)] moved the alien dinghy")
+			if("movebreacherpod")
+				moveBreacherPod()
+				message_admins("\blue [key_name_admin(usr)] moved the breacher pod.", 1)
+				log_admin("[key_name(usr)] moved the breacher pod.")
 
 			if("flicklights")
 				while(!usr.stat)

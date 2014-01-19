@@ -3,7 +3,6 @@
 	desc = "It controls doors, remotely."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "doorctrl0"
-	desc = "A remote control-switch for a door."
 	power_channel = ENVIRON
 	var/id = null
 	var/range = 10
@@ -93,8 +92,15 @@
 					if(specialfunctions & IDSCAN)
 						D.aiDisabledIdScanner = 1
 					if(specialfunctions & BOLTS)
-						D.locked = 1
-						D.update_icon()
+						if(!D.density)
+							spawn(0)
+								D.close()
+								D.locked = 1
+								D.update_icon()
+						else
+							spawn(0)
+								D.locked = 1
+								D.update_icon()
 					if(specialfunctions & SHOCK)
 						D.secondsElectrified = -1
 					if(specialfunctions & SAFE)

@@ -125,6 +125,24 @@ proc/process_ghost_teleport_locs()
 	luminosity = 1
 	lighting_use_dynamic = 0
 
+// CUSTOM EVENT SHUTTLES
+
+/area/shuttle/breacher // ABSTRACT
+	name = "\improper Breacher Pod"
+	icon_state = "shuttle2"
+
+/area/shuttle/breacher/space
+
+/area/shuttle/breacher/station
+
+/area/shuttle/visitingShuttle
+	name = "\improper Visiting Shuttle"
+	icon_state = "shuttle2"
+
+/area/shuttle/visitingShuttle/space
+
+/area/shuttle/visitingShuttle/station
+
 // ARRIVAL SHUTTLE
 
 /area/shuttle/arrival // ABSTRACT
@@ -442,6 +460,9 @@ proc/process_ghost_teleport_locs()
 	name = "\improper CentCom"
 	icon_state = "centcom"
 	requires_power = 0
+
+/area/centcom/hallway
+	name = "\improper CentCom Hallway"
 
 /area/centcom/control
 	name = "\improper CentCom Control"
@@ -856,6 +877,10 @@ area/solar/research
 /area/civ/chapel/office
 	name = "\improper Chapel Office"
 	icon_state = "chapeloffice"
+
+/area/civ/chapel/launcher
+	name = "\improper Chapel Launcher"
+	icon_state = "chapel"
 
 // MISC STATION AREAS
 

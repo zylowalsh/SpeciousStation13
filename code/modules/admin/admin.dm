@@ -624,6 +624,7 @@ var/floorIsLava = 0
 			<A href='?src=\ref[src];secretsfun=eagles'>Egalitarian Station Mode</A><BR>
 			<A href='?src=\ref[src];secretsfun=moveferry'>Move Ferry</A><BR>
 			<A href='?src=\ref[src];secretsfun=movealienship'>Move Alien Dinghy</A><BR>
+			<A href='?src=\ref[src];secretsfun=movebreacherpod'>Move Breacher Pod</A><BR>
 			<A href='?src=\ref[src];secretsfun=moveminingshuttle'>Move Mining Shuttle</A><BR>
 			<A href='?src=\ref[src];secretsfun=blackout'>Break all lights</A><BR>
 			<A href='?src=\ref[src];secretsfun=whiteout'>Fix all lights</A><BR>
@@ -1082,3 +1083,22 @@ proc/move_alien_ship()
 	else
 		alien_ship_location = 1
 	return
+
+// BREACHER POD
+
+var/breacherPodLocation = 0 // 0 = space, 1 = station
+
+proc/moveBreacherPod()
+	var/area/fromArea
+	var/area/toArea
+	if (breacherPodLocation == 1)
+		fromArea = locate(/area/shuttle/breacher/station)
+		toArea = locate(/area/shuttle/breacher/space)
+	else
+		fromArea = locate(/area/shuttle/breacher/space)
+		toArea = locate(/area/shuttle/breacher/station)
+	fromArea.move_contents_to(toArea)
+	if (breacherPodLocation)
+		breacherPodLocation = 0
+	else
+		breacherPodLocation = 1

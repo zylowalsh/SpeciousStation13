@@ -56,8 +56,10 @@
 			del(src)*/
 
 /obj/structure/closet/emcloset/legacy/New()
-	new /obj/item/weapon/tank/oxygen(src)
-	new /obj/item/clothing/mask/gas(src)
+	new /obj/item/weapon/tank/emergency_oxygen(src)
+	new /obj/item/weapon/tank/emergency_oxygen(src)
+	new /obj/item/clothing/mask/breath(src)
+	new /obj/item/clothing/mask/breath(src)
 
 /*
  * Fire Closet

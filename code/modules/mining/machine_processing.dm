@@ -7,7 +7,7 @@
 	density = 1
 	anchored = 1
 	var/obj/machinery/mineral/processing_unit/machine = null
-	var/machinedir = EAST
+	var/machinedir = NORTH
 
 /obj/machinery/mineral/processing_unit_console/New()
 	..()
