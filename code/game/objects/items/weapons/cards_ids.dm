@@ -123,7 +123,6 @@
 	usr << "The fingerprint hash on the card is [fingerprint_hash]."
 	return
 
-
 /obj/item/weapon/card/id/silver
 	name = "identification card"
 	desc = "A silver card which shows honour and dedication."
@@ -197,4 +196,82 @@
 	assignment = "General"
 	New()
 		access = get_all_centcom_access()
+		..()
+
+/obj/item/weapon/card/id/captainSpare
+	name = "captain's spare ID"
+	desc = "A special ID that should never leave the captain's office."
+	icon_state = "command"
+	item_state = "egg2"
+	registered_name = "Spare Captain's ID"
+	assignment = "Captain"
+
+	New()
+		var/datum/job/captain/job = new/datum/job/captain
+		access = job.get_access()
+		..()
+
+/obj/item/weapon/card/id/hopSpare
+	name = "head of personnel's spare ID"
+	desc = "A special ID that should never leave the HoP's office."
+	icon_state = "civ"
+	item_state = "egg3"
+	registered_name = "Spare Head of Personnel's ID"
+	assignment = "Head of Personnel"
+
+	New()
+		var/datum/job/hop/job = new/datum/job/hop
+		access = job.get_access()
+		..()
+
+/obj/item/weapon/card/id/hosSpare
+	name = "head of security's spare ID"
+	desc = "A special ID that should never leave the HoS's office."
+	icon_state = "sec"
+	item_state = "egg4"
+	registered_name = "Spare Head of Security's ID"
+	assignment = "Head of Security"
+
+	New()
+		var/datum/job/hos/job = new/datum/job/hos
+		access = job.get_access()
+		..()
+
+/obj/item/weapon/card/id/cmoSpare
+	name = "chief medical officer's spare ID"
+	desc = "A special ID that should never leave the CMO's office."
+	icon_state = "med"
+	item_state = "egg"
+	registered_name = "Spare Chief Medical Officer's ID"
+	assignment = "Chief Medical Officer"
+
+	New()
+		var/datum/job/cmo/job = new/datum/job/cmo
+		access = job.get_access()
+		..()
+
+/obj/item/weapon/card/id/ceSpare
+	name = "chief engineer's spare ID"
+	desc = "A special ID that should never leave the CE's office."
+	icon_state = "eng"
+	item_state = "egg5"
+	registered_name = "Spare Chief Engineer's ID"
+	assignment = "Chief Engineer"
+
+	New()
+		var/datum/job/chief_engineer/job = new/datum/job/chief_engineer
+		access = job.get_access()
+		..()
+
+/obj/item/weapon/card/id/rdSpare
+	name = "research director's spare ID"
+	desc = "A special ID that should never leave the RD's office."
+	icon_state = "research"
+	item_state = "egg1"
+	registered_name = "Spare Research Director's ID"
+	assignment = "Research Director"
+
+	New()
+		var/datum/job/rd/job = new/datum/job/rd
+		access = job.get_access()
 		..()

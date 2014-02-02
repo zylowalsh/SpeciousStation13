@@ -98,7 +98,7 @@
 /obj/effect/landmark/costume/New() //costume spawner, selects a random subclass and disappears
 
 	var/list/options = typesof(/obj/effect/landmark/costume)
-	var/PICK= options[rand(1,options.len)]
+	var/PICK = options[rand(1, options.len)]
 	new PICK(src.loc)
 	del(src)
 

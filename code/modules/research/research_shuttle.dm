@@ -73,7 +73,7 @@ proc/move_research_shuttle()
 	return
 
 /obj/machinery/computer/research_shuttle
-	name = "Research Shuttle Console"
+	name = "purple shuttle console"
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "shuttle"
 	req_access = list(access_research)
@@ -83,7 +83,7 @@ proc/move_research_shuttle()
 
 /obj/machinery/computer/research_shuttle/attack_hand(user as mob)
 	src.add_fingerprint(usr)
-	var/dat = "<center>Research shuttle: <b><A href='?src=\ref[src];move=1'>Send</A></b></center><br>"
+	var/dat = "<center>purple shuttle: <b><A href='?src=\ref[src];move=1'>Send</A></b></center><br>"
 
 	user << browse("[dat]", "window=researchshuttle;size=200x100")
 

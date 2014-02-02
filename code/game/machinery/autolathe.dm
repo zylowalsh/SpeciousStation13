@@ -153,7 +153,6 @@ var/global/list/autolathe_recipes_hidden = list( \
 			user << "\red You press the button, but nothing happens."
 			return
 		regular_win(user)
-		return
 
 	attackby(var/obj/item/O as obj, var/mob/user as mob)
 		if (stat)
@@ -318,8 +317,6 @@ var/global/list/autolathe_recipes_hidden = list( \
 		else
 			usr << "\red The autolathe is busy. Please wait for completion of previous operation."
 		src.updateUsrDialog()
-		return
-
 
 	RefreshParts()
 		..()

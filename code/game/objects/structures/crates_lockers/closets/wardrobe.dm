@@ -31,8 +31,6 @@
 	new /obj/item/clothing/shoes/jackboots(src)
 	new /obj/item/clothing/head/soft/sec(src)
 	new /obj/item/clothing/head/soft/sec(src)
-	new /obj/item/clothing/head/soft/sec(src)
-	new /obj/item/clothing/head/beret/sec(src)
 	new /obj/item/clothing/head/beret/sec(src)
 	new /obj/item/clothing/head/beret/sec(src)
 	return
@@ -68,6 +66,25 @@
 	new /obj/item/clothing/head/that(src)
 	new /obj/item/clothing/head/that(src)
 	return
+
+/obj/structure/closet/wardrobe/scrubs
+	name = "scrubs"
+	icon_state = "white"
+	icon_closed = "white"
+
+	New()
+		new /obj/item/clothing/head/surgery/blue(src)
+		new /obj/item/clothing/head/surgery/blue(src)
+		new /obj/item/clothing/head/surgery/green(src)
+		new /obj/item/clothing/head/surgery/green(src)
+		new /obj/item/clothing/head/surgery/purple(src)
+		new /obj/item/clothing/head/surgery/purple(src)
+		new /obj/item/clothing/under/rank/medical/blue(src)
+		new /obj/item/clothing/under/rank/medical/blue(src)
+		new /obj/item/clothing/under/rank/medical/green(src)
+		new /obj/item/clothing/under/rank/medical/green(src)
+		new /obj/item/clothing/under/rank/medical/purple(src)
+		new /obj/item/clothing/under/rank/medical/purple(src)
 
 
 /obj/structure/closet/wardrobe/chaplain_black

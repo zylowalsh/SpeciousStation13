@@ -43,7 +43,7 @@
 	New()
 		..()
 		sleep(2)
-		for(var/i = 0, i < 4, i++)
+		for(var/i = 0, i < 6, i++)
 			new /obj/item/weapon/reagent_containers/food/snacks/meat/monkey(src)
 		return
 

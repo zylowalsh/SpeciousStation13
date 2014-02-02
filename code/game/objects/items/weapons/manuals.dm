@@ -1,11 +1,60 @@
 /*********************MANUALS (BOOKS)***********************/
 
-//Oh god what the fuck I am not good at computer
 /obj/item/weapon/book/manual
 	icon = 'icons/obj/library.dmi'
 	due_date = 0 // Game time in 1/10th seconds
 	unique = 1   // 0 - Normal book, 1 - Should not be treated as normal book, unable to be copied, unable to be modified
 
+/obj/item/weapon/book/manual/basicLeadership
+	name = "Basic Leadership"
+	icon_state = "book4"
+	author = "NT Training Division"
+	title = "Basic Leadership"
+	dat = {"
+		This guide is intended mainly for new department heads that do not have much experience
+		leading.  It may also be an useful reminder to experienced officers.  Let us be first tell
+		you that you an important person.  You serve all crew-mates on your station esp. the ones
+		directly under you.  Your success at serving your fellow crew-mates will determine the success
+		of any mission given to you.  If you fail, your crew-mates may ignore you, they may fall
+		asleep in the halls or they may even die.  The following tips will help you serve your crew-mates:<BR>
+		<BR>
+		1. Do Not Die - The first tip sounds easy but is an important one.  You cannot serve your crew-mates
+		if you are dead.  Understand that making decisions that keep yourself alive does not mean you are a coward.<BR>
+		2. Trust In Your Crew-mates - You should trust your crew-mates until they give you evidence not to trust
+		them.  Keep in mind that you may serve several shifts together and they may become your boss.  Don't
+		destroy your relationship with them.<BR>
+		3. Know How To Give Orders - Keep your orders short, simple and directed to a specific person
+		or group.  This is to avoid confusion.<BR>
+		4. Understand What Your Department Does - In order to work as one station you need to know how
+		your department fits into the bigger picture.  You should know what each job under you does.
+		In addition, you should know job of the crew-mates above you.<BR>
+		"}
+
+/obj/item/weapon/book/manual/whenTheBossDies
+	name = "When The Boss Dies"
+	icon_state = "book5"
+	author = "NT Training Division"
+	title = "When The Boss Dies"
+	dat = {"Losing a department head or the captain can and will be very jarring.  It is important
+		that everyone understands who is next in line.  Generally, it follows rank.  If there is a
+		tie, canidates should be evaluated based on prior job experience, if they were tardy for the
+		current shift, williness to step up, and if they have be promoted before in the shift.  If a
+		job requires prior experience, that job is considered a higher rank.  When a department head
+		is the casualty, someone from the department should take command.  When the captain is the
+		casualty, normally the head of personnel takes over but it may be any head.  The acting
+		captain should look for a replacement for their previous job.
+		"}
+
+/obj/item/weapon/book/manual/abandoningTheStation
+	name = "Abandoning The Station"
+	icon_state = "book3"
+	author = "NT Training Division"
+	title = "Abandoning The Station"
+	dat = {"It can be difficult determining when to abandon the station.  In most cases, station
+		should be abandoned when there is no hope of the station returning to normal operations.
+		This is usually happens when there are signigicant damage to the station, lost of leadership
+		or massive casualties amoung the crew.
+		"}
 
 /obj/item/weapon/book/manual/engineering_construction
 	name = "Station Repairs and Construction"

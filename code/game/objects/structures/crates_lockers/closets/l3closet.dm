@@ -11,6 +11,19 @@
 	new /obj/item/clothing/suit/bio_suit/general( src )
 	new /obj/item/clothing/head/bio_hood/general( src )
 
+/obj/structure/closet/l3closet/cmo
+	icon_state = "bio_general"
+	icon_closed = "bio_general"
+	icon_opened = "bio_generalopen"
+
+/obj/structure/closet/l3closet/cmo/New()
+	..()
+	sleep(2)
+	contents = list()
+	new /obj/item/clothing/suit/bio_suit/cmo(src)
+	new /obj/item/clothing/head/bio_hood/cmo(src)
+	new /obj/item/clothing/mask/breath(src)
+	new /obj/item/weapon/tank/oxygen(src)
 
 /obj/structure/closet/l3closet/general
 	icon_state = "bio_general"
@@ -21,8 +34,10 @@
 	..()
 	sleep(2)
 	contents = list()
-	new /obj/item/clothing/suit/bio_suit/general( src )
-	new /obj/item/clothing/head/bio_hood/general( src )
+	new /obj/item/clothing/suit/bio_suit/general(src)
+	new /obj/item/clothing/head/bio_hood/general(src)
+	new /obj/item/clothing/mask/breath(src)
+	new /obj/item/weapon/tank/oxygen(src)
 
 
 /obj/structure/closet/l3closet/virology

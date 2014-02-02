@@ -212,3 +212,73 @@ obj/machinery/embedded_controller/radio/access_controller
 <B>Interior Door: </B> [interior_status]<BR>"}
 
 		return output
+
+obj/machinery/embedded_controller/radio/access_controller/virology
+	name = "virology access controller"
+	req_access = list(access_virology)
+	id_tag = "virologyAirlock"
+	exterior_door_tag = "virologyOuter"
+	interior_door_tag = "virologyInner"
+
+obj/machinery/embedded_controller/radio/access_controller/bridge1
+	name = "bridge bccess controller"
+	req_access = list(access_heads)
+	id_tag = "bridge1Airlock"
+	exterior_door_tag = "bridge1Outer"
+	interior_door_tag = "bridge1Inner"
+
+obj/machinery/embedded_controller/radio/access_controller/bridge2
+	name = "bridge access controller"
+	req_access = list(access_heads)
+	id_tag = "bridge2Airlock"
+	exterior_door_tag = "bridge2Outer"
+	interior_door_tag = "bridge2Inner"
+
+obj/machinery/embedded_controller/radio/access_controller/toxins
+	name = "toxins access controller"
+	req_access = list(access_tox_storage)
+	id_tag = "toxinsAirlock"
+	exterior_door_tag = "toxinsOuter"
+	interior_door_tag = "toxinsInner"
+
+obj/machinery/embedded_controller/radio/access_controller/xenobio
+	name = "xenobiology access controller"
+	req_access = list(access_xenobiology)
+	id_tag = "xenobioAirlock"
+	exterior_door_tag = "xenobioOuter"
+	interior_door_tag = "xenobioInner"
+
+obj/machinery/embedded_controller/radio/access_controller/reactor
+	name = "reactor access controller"
+	req_access = list(access_engine_equip)
+	id_tag = "reactorAirlock"
+	exterior_door_tag = "reactorOuter"
+	interior_door_tag = "reactorInner"
+
+obj/machinery/embedded_controller/radio/access_controller/atmos
+	name = "atmospherics access controller"
+	req_access = list(access_atmospherics)
+	id_tag = "atmosAirlock"
+	exterior_door_tag = "atmosOuter"
+	interior_door_tag = "atmosInner"
+
+obj/machinery/embedded_controller/radio/access_controller/telecomms
+	name = "telecommunications access controller"
+	req_access = list(access_tcomsat)
+	id_tag = "telecommsAirlock"
+	exterior_door_tag = "telecommsOuter"
+	interior_door_tag = "telecommsInner"
+
+obj/machinery/embedded_controller/radio/access_controller/researchServer
+	name = "research server access controller"
+	req_access = list(access_rd)
+	id_tag = "researchServerAirlock"
+	exterior_door_tag = "researchServerOuter"
+	interior_door_tag = "researchServerInner"
+
+obj/machinery/embedded_controller/radio/access_controller/brig
+	name = "brig access controller"
+	req_access = list(access_sec_doors)
+	id_tag = "brigAirlock"
+	exterior_door_tag = "brigOuter"
+	interior_door_tag = "brigInner"

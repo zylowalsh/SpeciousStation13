@@ -99,6 +99,28 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 	icon = 'icons/obj/doors/Doorcom.dmi'
 	assembly_type = /obj/structure/door_assembly/door_assembly_com
 
+/obj/machinery/door/airlock/command/bridge1
+	name = "Bridge"
+	req_access = list(access_heads)
+	frequency = 1449
+	icon_state = "door_locked"
+	locked = TRUE
+	exterior
+		id_tag = "bridge1Outer"
+	interior
+		id_tag = "bridge1Inner"
+
+/obj/machinery/door/airlock/command/bridge2
+	name = "Bridge"
+	req_access = list(access_heads)
+	frequency = 1449
+	icon_state = "door_locked"
+	locked = TRUE
+	exterior
+		id_tag = "bridge2Outer"
+	interior
+		id_tag = "bridge2Inner"
+
 /obj/machinery/door/airlock/security
 	name = "Airlock"
 	icon = 'icons/obj/doors/Doorsec.dmi'
@@ -109,10 +131,32 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 	icon = 'icons/obj/doors/Dooreng.dmi'
 	assembly_type = /obj/structure/door_assembly/door_assembly_eng
 
+/obj/machinery/door/airlock/engineering/reactor
+	name = "Reactor"
+	req_access = list(access_engine_equip)
+	frequency = 1449
+	icon_state = "door_locked"
+	locked = TRUE
+	exterior
+		id_tag = "reactorOuter"
+	interior
+		id_tag = "reactorInner"
+
 /obj/machinery/door/airlock/medical
 	name = "Airlock"
 	icon = 'icons/obj/doors/Doormed.dmi'
 	assembly_type = /obj/structure/door_assembly/door_assembly_med
+
+/obj/machinery/door/airlock/medical/virology
+	name = "Virology"
+	req_access = list(access_virology)
+	frequency = 1449
+	icon_state = "door_locked"
+	locked = TRUE
+	exterior
+		id_tag = "virologyOuter"
+	interior
+		id_tag = "virologyInner"
 
 /obj/machinery/door/airlock/maintenance
 	name = "Maintenance Access"
@@ -124,9 +168,181 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 	icon = 'icons/obj/doors/Doorext.dmi'
 	assembly_type = /obj/structure/door_assembly/door_assembly_ext
 
-/obj/machinery/door/airlock/external/locked
+/obj/machinery/door/airlock/external/solar1
+	name = "External Airlock"
+	req_access = list(access_engine_equip, access_external_airlocks)
+	frequency = 1449
 	icon_state = "door_locked"
-	locked = 1
+	locked = TRUE
+	exterior
+		id_tag = "solar1Outer"
+	interior
+		id_tag = "solar1Inner"
+
+/obj/machinery/door/airlock/external/solar2
+	name = "External Airlock"
+	req_access = list(access_engine_equip, access_external_airlocks)
+	frequency = 1449
+	icon_state = "door_locked"
+	locked = TRUE
+	exterior
+		id_tag = "solar2Outer"
+	interior
+		id_tag = "solar2Inner"
+
+/obj/machinery/door/airlock/external/solar3
+	name = "External Airlock"
+	req_access = list(access_engine_equip, access_external_airlocks)
+	frequency = 1449
+	icon_state = "door_locked"
+	locked = TRUE
+	exterior
+		id_tag = "solar3Outer"
+	interior
+		id_tag = "solar3Inner"
+
+/obj/machinery/door/airlock/external/solar4
+	name = "External Airlock"
+	req_access = list(access_engine_equip, access_external_airlocks)
+	frequency = 1449
+	icon_state = "door_locked"
+	locked = TRUE
+	exterior
+		id_tag = "solar4Outer"
+	interior
+		id_tag = "solar4Inner"
+
+/obj/machinery/door/airlock/external/reactorExterior1
+	name = "External Airlock"
+	req_access = list(access_engine_equip, access_external_airlocks)
+	frequency = 1449
+	icon_state = "door_locked"
+	locked = TRUE
+	exterior
+		id_tag = "reactorExterior1Outer"
+	interior
+		id_tag = "reactorExterior1Inner"
+
+/obj/machinery/door/airlock/external/reactorExterior2
+	name = "External Airlock"
+	req_access = list(access_engine_equip, access_external_airlocks)
+	frequency = 1449
+	icon_state = "door_locked"
+	locked = TRUE
+	exterior
+		id_tag = "reactorExterior2Outer"
+	interior
+		id_tag = "reactorExterior2Inner"
+
+/obj/machinery/door/airlock/external/toxinsExterior
+	name = "External Airlock"
+	req_access = list(access_tox_storage, access_external_airlocks)
+	frequency = 1449
+	icon_state = "door_locked"
+	locked = TRUE
+	exterior
+		id_tag = "toxinsExteriorOuter"
+	interior
+		id_tag = "toxinsExteriorInner"
+
+/obj/machinery/door/airlock/external/eva
+	name = "External Airlock"
+	req_access = list(access_eva, access_external_airlocks)
+	frequency = 1449
+	icon_state = "door_locked"
+	locked = TRUE
+	exterior
+		id_tag = "evaOuter"
+	interior
+		id_tag = "evaInner"
+
+/obj/machinery/door/airlock/external/maintenance1
+	name = "External Airlock"
+	req_access = list(access_maint_tunnels, access_external_airlocks)
+	frequency = 1449
+	icon_state = "door_locked"
+	locked = TRUE
+	exterior
+		id_tag = "maintenance1Outer"
+	interior
+		id_tag = "maintenance1Inner"
+
+/obj/machinery/door/airlock/external/maintenance2
+	name = "External Airlock"
+	req_access = list(access_maint_tunnels, access_external_airlocks)
+	frequency = 1449
+	icon_state = "door_locked"
+	locked = TRUE
+	exterior
+		id_tag = "maintenance2Outer"
+	interior
+		id_tag = "maintenance2Inner"
+
+/obj/machinery/door/airlock/external/maintenance3
+	name = "External Airlock"
+	req_access = list(access_maint_tunnels, access_external_airlocks)
+	frequency = 1449
+	icon_state = "door_locked"
+	locked = TRUE
+	exterior
+		id_tag = "maintenance3Outer"
+	interior
+		id_tag = "maintenance3Inner"
+
+/obj/machinery/door/airlock/external/maintenance4
+	name = "External Airlock"
+	req_access = list(access_maint_tunnels, access_external_airlocks)
+	frequency = 1449
+	icon_state = "door_locked"
+	locked = TRUE
+	exterior
+		id_tag = "maintenance4Outer"
+	interior
+		id_tag = "maintenance4Inner"
+
+/obj/machinery/door/airlock/external/maintenance5
+	name = "External Airlock"
+	req_access = list(access_maint_tunnels, access_external_airlocks)
+	frequency = 1449
+	icon_state = "door_locked"
+	locked = TRUE
+	exterior
+		id_tag = "maintenance5Outer"
+	interior
+		id_tag = "maintenance5Inner"
+
+/obj/machinery/door/airlock/external/maintenance6
+	name = "External Airlock"
+	req_access = list(access_maint_tunnels, access_external_airlocks)
+	frequency = 1449
+	icon_state = "door_locked"
+	locked = TRUE
+	exterior
+		id_tag = "maintenance6Outer"
+	interior
+		id_tag = "maintenance6Inner"
+
+/obj/machinery/door/airlock/external/blueStation
+	name = "External Airlock"
+	req_access = list(ACCESS_SHUTTLE, access_external_airlocks)
+	frequency = 1449
+	icon_state = "door_locked"
+	locked = TRUE
+	exterior
+		id_tag = "blueStationOuter"
+	interior
+		id_tag = "blueStationInner"
+
+/obj/machinery/door/airlock/external/purpleStation
+	name = "External Airlock"
+	req_access = list(ACCESS_SHUTTLE, access_external_airlocks)
+	frequency = 1449
+	icon_state = "door_locked"
+	locked = TRUE
+	exterior
+		id_tag = "purpleStationOuter"
+	interior
+		id_tag = "purpleStationInner"
 
 /obj/machinery/door/airlock/glass
 	name = "Glass Airlock"
@@ -157,6 +373,28 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 	opacity = 1
 	assembly_type = /obj/structure/door_assembly/door_assembly_hatch
 
+/obj/machinery/door/airlock/hatch/telecomms
+	name = "Telecommunication Server Room"
+	req_access = list(access_tcomsat)
+	frequency = 1449
+	icon_state = "door_locked"
+	locked = TRUE
+	exterior
+		id_tag = "telecommsOuter"
+	interior
+		id_tag = "telecommsInner"
+
+/obj/machinery/door/airlock/hatch/researchServer
+	name = "Research Server Room"
+	req_access = list(access_rd)
+	frequency = 1449
+	icon_state = "door_locked"
+	locked = TRUE
+	exterior
+		id_tag = "researchServerOuter"
+	interior
+		id_tag = "researchServerInner"
+
 /obj/machinery/door/airlock/maintenance_hatch
 	name = "Maintenance Hatch"
 	icon = 'icons/obj/doors/Doorhatchmaint2.dmi'
@@ -169,6 +407,28 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 	opacity = 0
 	assembly_type = /obj/structure/door_assembly/door_assembly_com
 	glass = 1
+
+/obj/machinery/door/airlock/glass_command/bridge1
+	name = "Bridge"
+	req_access = list(access_heads)
+	frequency = 1449
+	icon_state = "door_locked"
+	locked = TRUE
+	exterior
+		id_tag = "bridge1Outer"
+	interior
+		id_tag = "bridge1Inner"
+
+/obj/machinery/door/airlock/glass_command/bridge2
+	name = "Bridge"
+	req_access = list(access_heads)
+	frequency = 1449
+	icon_state = "door_locked"
+	locked = TRUE
+	exterior
+		id_tag = "bridge2Outer"
+	interior
+		id_tag = "bridge2Inner"
 
 /obj/machinery/door/airlock/glass_engineering
 	name = "Maintenance Hatch"
@@ -183,6 +443,17 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 	opacity = 0
 	assembly_type = /obj/structure/door_assembly/door_assembly_sec
 	glass = 1
+
+/obj/machinery/door/airlock/glass_security/brig
+	name = "Brig"
+	req_access = list(access_sec_doors)
+	frequency = 1449
+	icon_state = "door_locked"
+	locked = TRUE
+	exterior
+		id_tag = "brigOuter"
+	interior
+		id_tag = "brigInner"
 
 /obj/machinery/door/airlock/glass_medical
 	name = "Maintenance Hatch"
@@ -201,10 +472,43 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 	icon = 'icons/obj/doors/Dooratmo.dmi'
 	assembly_type = /obj/structure/door_assembly/door_assembly_atmo
 
+/obj/machinery/door/airlock/atmos/atmos
+	name = "Atmospherics"
+	req_access = list(access_atmospherics)
+	frequency = 1449
+	icon_state = "door_locked"
+	locked = TRUE
+	exterior
+		id_tag = "atmosOuter"
+	interior
+		id_tag = "atmosInner"
+
 /obj/machinery/door/airlock/research
 	name = "Airlock"
 	icon = 'icons/obj/doors/Doorresearch.dmi'
 	assembly_type = /obj/structure/door_assembly/door_assembly_research
+
+/obj/machinery/door/airlock/research/toxins
+	name = "Toxins"
+	req_access = list(access_tox_storage)
+	frequency = 1449
+	icon_state = "door_locked"
+	locked = TRUE
+	exterior
+		id_tag = "toxinsOuter"
+	interior
+		id_tag = "toxinsInner"
+
+/obj/machinery/door/airlock/research/xenobio
+	name = "Xenobiology"
+	req_access = list(access_xenobiology)
+	frequency = 1449
+	icon_state = "door_locked"
+	locked = TRUE
+	exterior
+		id_tag = "xenobioOuter"
+	interior
+		id_tag = "xenobioInner"
 
 /obj/machinery/door/airlock/glass_research
 	name = "Maintenance Hatch"
@@ -337,8 +641,6 @@ About the new airlock wires panel:
 *		one wire for controling door safetys.  When active, door does not close on someone.  When cut, door will ruin someone's shit.  When pulsed, door will immedately ruin someone's shit.
 *		one wire for controlling door speed.  When active, dor closes at normal rate.  When cut, door does not close manually.  When pulsed, door attempts to close every tick.
 */
-
-
 
 /obj/machinery/door/airlock/bumpopen(mob/living/user as mob) //Airlocks now zap you when you 'bump' them open when they're electrified. --NeoFite
 	if(!issilicon(usr))

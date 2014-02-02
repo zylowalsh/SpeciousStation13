@@ -20,6 +20,8 @@
 	var/heat_proof = 0 // For glass airlocks/opacity firedoors
 	var/air_properties_vary_with_direction = 0
 
+	var/registeredCKey = null
+
 	//Multi-tile doors
 	dir = EAST
 	var/width = 1
@@ -92,7 +94,8 @@
 
 
 /obj/machinery/door/proc/bumpopen(mob/user as mob)
-	if(operating)	return
+	if(operating)
+		return
 	if(user.last_airflow > world.time - vsc.airflow_delay) //Fakkit
 		return
 	src.add_fingerprint(user)
@@ -100,9 +103,12 @@
 		user = null
 
 	if(density)
-		if(allowed(user))	open()
-		else				flick("door_deny", src)
-	return
+		if(!isnull(registeredCKey) && registeredCKey == user.ckey)
+			open()
+		else if(allowed(user))
+			open()
+		else
+			flick("door_deny", src)
 
 /obj/machinery/door/meteorhit(obj/M as obj)
 	src.open()
@@ -134,7 +140,7 @@
 		open()
 		operating = -1
 		return 1
-	if(src.allowed(user))
+	if(src.allowed(user) || (!isnull(registeredCKey) && registeredCKey == user.ckey))
 		if(src.density)
 			open()
 		else
@@ -142,8 +148,6 @@
 		return
 	if(src.density)
 		flick("door_deny", src)
-	return
-
 
 /obj/machinery/door/blob_act()
 	if(prob(40))
@@ -203,55 +207,60 @@
 
 
 /obj/machinery/door/proc/open()
-	if(!density)		return 1
-	if(operating > 0)	return
-	if(!ticker)			return 0
-	if(!operating)		operating = 1
+	if(!density)
+		return 1
+	if(operating > 0)
+		return
+	if(!ticker)
+		return 0
+	if(!operating)
+		operating = 1
 
 	animate_door("opening")
 	icon_state = "door0"
 	src.SetOpacity(0)
-	sleep(10)
-	src.layer = 2.7
-	src.density = 0
-	explosion_resistance = 0
-	update_icon()
-	SetOpacity(0)
-	update_nearby_tiles()
+	spawn(10)
+		src.layer = 2.7
+		src.density = 0
+		explosion_resistance = 0
+		update_icon()
+		SetOpacity(0)
+		update_nearby_tiles()
 
-	if(operating)	operating = 0
+		if(operating)
+			operating = 0
 
-	if(autoclose  && normalspeed)
-		spawn(150)
-			autoclose()
-	if(autoclose && !normalspeed)
-		spawn(5)
-			autoclose()
-
-	return 1
+		if(autoclose  && normalspeed)
+			spawn(150)
+				autoclose()
+		if(autoclose && !normalspeed)
+			spawn(5)
+				autoclose()
+		return 1
 
 
 /obj/machinery/door/proc/close()
-	if(density)	return 1
-	if(operating > 0)	return
+	if(density)
+		return 1
+	if(operating > 0)
+		return
 	operating = 1
 
 	animate_door("closing")
 	src.density = 1
 	explosion_resistance = initial(explosion_resistance)
 	src.layer = 3.1
-	sleep(10)
-	update_icon()
-	if(visible && !glass)
-		SetOpacity(1)	//caaaaarn!
-	operating = 0
-	update_nearby_tiles()
+	spawn(10)
+		update_icon()
+		if(visible && !glass)
+			SetOpacity(1)	//caaaaarn!
+		operating = 0
+		update_nearby_tiles()
 
-	//I shall not add a check every x ticks if a door has closed over some fire.
-	var/obj/fire/fire = locate() in loc
-	if(fire)
-		del fire
-	return
+		//I shall not add a check every x ticks if a door has closed over some fire.
+		var/obj/fire/fire = locate() in loc
+		if(fire)
+			del fire
 
 /obj/machinery/door/proc/requiresID()
 	return 1

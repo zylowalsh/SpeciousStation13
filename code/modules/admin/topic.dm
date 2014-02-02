@@ -1507,27 +1507,6 @@
 
 		var/ok = 0
 		switch(href_list["secretsfun"])
-			if("sec_clothes")
-				for(var/obj/item/clothing/under/O in world)
-					del(O)
-				ok = 1
-			if("sec_all_clothes")
-				for(var/obj/item/clothing/O in world)
-					del(O)
-				ok = 1
-			if("sec_classic1")
-				for(var/obj/item/clothing/suit/fire/O in world)
-					del(O)
-				for(var/obj/structure/grille/O in world)
-					del(O)
-/*					for(var/obj/machinery/vehicle/pod/O in world)
-					for(var/mob/M in src)
-						M.loc = src.loc
-						if (M.client)
-							M.client.perspective = MOB_PERSPECTIVE
-							M.client.eye = M
-					del(O)
-				ok = 1*/
 			if("monkey")
 				for(var/mob/living/carbon/human/H in mob_list)
 					spawn(0)
@@ -1881,9 +1860,6 @@
 				if(show_log == "Yes")
 					command_alert("Ion storm detected near the station. Please check all AI-controlled equipment for errors.", "Anomaly Alert")
 					world << sound('sound/AI/ionstorm.ogg')
-			if("spacevines")
-				//new /datum/event/spacevine
-				message_admins("[key_name_admin(usr)] has spawned spacevines", 1)
 			if("onlyone")
 				usr.client.only_one()
 //				message_admins("[key_name_admin(usr)] has triggered a battle to the death (only one)")
@@ -1897,8 +1873,6 @@
 
 		var/ok = 0
 		switch(href_list["secretsadmin"])
-			if("clear_bombs")
-				//I do nothing
 			if("list_bombers")
 				var/dat = "<B>Bombing List<HR>"
 				for(var/l in bombers)

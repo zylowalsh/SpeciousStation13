@@ -43,6 +43,15 @@ var/intercom_range_display_status = 0
 
 	..()
 
+/client/proc/cmdAdminListNoAccessAirlocks()
+	set category = "Mapping"
+	set name = "List Airlocks"
+	set desc = "List all airlocks that do not have any access restrictions on them."
+
+	for(var/obj/machinery/door/airlock/a in world)
+		if(a.req_access_txt == "0" && a.req_one_access_txt == "0")
+			usr << "The airlock, [a.name], at [a.x], [a.y], [a.z] has no accesses on it."
+
 /client/proc/camera_view()
 	set category = "Mapping"
 	set name = "Camera Range Display"
@@ -142,6 +151,7 @@ var/intercom_range_display_status = 0
 	src.verbs += /client/proc/kaboom
 	src.verbs += /client/proc/splash
 	src.verbs += /client/proc/cmd_admin_areatest
+	src.verbs += /client/proc/cmdAdminListNoAccessAirlocks
 	src.verbs += /client/proc/cmd_admin_rejuvenate
 	src.verbs += /datum/admins/proc/show_traitor_panel
 	src.verbs += /client/proc/print_jobban_old

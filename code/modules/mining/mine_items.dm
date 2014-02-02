@@ -7,37 +7,6 @@
 	unacidable = 1
 	luminosity = 8
 
-/**********************Miner Lockers**************************/
-
-/obj/structure/closet/secure_closet/miner
-	name = "miner's equipment"
-	icon_state = "miningsec1"
-	icon_closed = "miningsec"
-	icon_locked = "miningsec1"
-	icon_opened = "miningsecopen"
-	icon_broken = "miningsecbroken"
-	icon_off = "miningsecoff"
-	req_access = list(access_mining)
-
-/obj/structure/closet/secure_closet/miner/New()
-	..()
-	sleep(2)
-	if(prob(50))
-		new /obj/item/weapon/storage/backpack/industrial(src)
-	else
-		new /obj/item/weapon/storage/backpack/satchel_eng(src)
-	new /obj/item/device/radio/headset/headset_cargo(src)
-	new /obj/item/clothing/under/rank/miner(src)
-	new /obj/item/clothing/gloves/black(src)
-	new /obj/item/clothing/shoes/black(src)
-	new /obj/item/device/analyzer(src)
-	new /obj/item/weapon/storage/bag/ore(src)
-	new /obj/item/device/flashlight/lantern(src)
-	new /obj/item/weapon/shovel(src)
-	new /obj/item/weapon/pickaxe(src)
-	new /obj/item/clothing/glasses/meson(src)
-
-
 /**********************Shuttle Computer**************************/
 
 var/mining_shuttle_tickstomove = 10
@@ -110,7 +79,7 @@ proc/move_mining_shuttle()
 	return
 
 /obj/machinery/computer/mining_shuttle
-	name = "mining shuttle console"
+	name = "blue shuttle console"
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "shuttle"
 	req_access = list(access_mining)
@@ -123,7 +92,7 @@ proc/move_mining_shuttle()
 		return
 	src.add_fingerprint(usr)
 	var/dat
-	dat = text("<center>Mining shuttle:<br> <b><A href='?src=\ref[src];move=[1]'>Send</A></b></center>")
+	dat = text("<center>blue shuttle:<br> <b><A href='?src=\ref[src];move=[1]'>Send</A></b></center>")
 	user << browse("[dat]", "window=miningshuttle;size=200x100")
 
 /obj/machinery/computer/mining_shuttle/Topic(href, href_list)

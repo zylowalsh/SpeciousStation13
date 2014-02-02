@@ -179,9 +179,6 @@ obj/machinery/airlock_sensor/New()
 	if(radio_controller)
 		set_frequency(frequency)
 
-
-
-
 obj/machinery/access_button
 	icon = 'icons/obj/airlock_machines.dmi'
 	icon_state = "access_button_standby"
@@ -236,3 +233,263 @@ obj/machinery/access_button/New()
 
 	if(radio_controller)
 		set_frequency(frequency)
+
+// PRESETS
+
+// Simple Airlocks
+obj/machinery/access_button/virology
+	master_tag = "virologyAirlock"
+	req_access = list(access_virology)
+	exterior
+		command = "cycle_exterior"
+	inner
+		command = "cycle_interior"
+
+obj/machinery/access_button/bridge1
+	master_tag = "bridge1Airlock"
+	req_access = list(access_heads)
+	exterior
+		command = "cycle_exterior"
+	inner
+		command = "cycle_interior"
+
+obj/machinery/access_button/bridge2
+	master_tag = "bridge2Airlock"
+	req_access = list(access_heads)
+	exterior
+		command = "cycle_exterior"
+	inner
+		command = "cycle_interior"
+
+obj/machinery/access_button/toxins
+	master_tag = "toxinsAirlock"
+	req_access = list(access_tox_storage)
+	exterior
+		command = "cycle_exterior"
+	inner
+		command = "cycle_interior"
+
+obj/machinery/access_button/xenobio
+	master_tag = "xenobioAirlock"
+	req_access = list(access_xenobiology)
+	exterior
+		command = "cycle_exterior"
+	inner
+		command = "cycle_interior"
+
+obj/machinery/access_button/reactor
+	master_tag = "reactorAirlock"
+	req_access = list(access_engine_equip)
+	exterior
+		command = "cycle_exterior"
+	inner
+		command = "cycle_interior"
+
+obj/machinery/access_button/atmos
+	master_tag = "atmosAirlock"
+	req_access = list(access_atmospherics)
+	exterior
+		command = "cycle_exterior"
+	inner
+		command = "cycle_interior"
+
+obj/machinery/access_button/telecomms
+	master_tag = "telecommsAirlock"
+	req_access = list(access_tcomsat)
+	exterior
+		command = "cycle_exterior"
+	inner
+		command = "cycle_interior"
+
+obj/machinery/access_button/researchServer
+	master_tag = "researchServerAirlock"
+	req_access = list(access_rd)
+	exterior
+		command = "cycle_exterior"
+	inner
+		command = "cycle_interior"
+
+obj/machinery/access_button/brig
+	master_tag = "brigAirlock"
+	req_access = list(access_sec_doors)
+	exterior
+		command = "cycle_exterior"
+	inner
+		command = "cycle_interior"
+
+// Exterior Airlocks
+obj/machinery/access_button/solar1
+	master_tag = "solar1Airlock"
+	req_access = list(access_engine_equip, access_external_airlocks)
+	exterior
+		command = "cycle_exterior"
+	inner
+		command = "cycle_interior"
+
+obj/machinery/access_button/solar2
+	master_tag = "solar2Airlock"
+	req_access = list(access_engine_equip, access_external_airlocks)
+	exterior
+		command = "cycle_exterior"
+	inner
+		command = "cycle_interior"
+
+obj/machinery/access_button/solar3
+	master_tag = "solar3Airlock"
+	req_access = list(access_engine_equip, access_external_airlocks)
+	exterior
+		command = "cycle_exterior"
+	inner
+		command = "cycle_interior"
+
+obj/machinery/access_button/solar4
+	master_tag = "solar4Airlock"
+	req_access = list(access_engine_equip, access_external_airlocks)
+	exterior
+		command = "cycle_exterior"
+	inner
+		command = "cycle_interior"
+
+obj/machinery/access_button/reactorExterior1
+	master_tag = "reactorExterior1Airlock"
+	req_access = list(access_engine_equip, access_external_airlocks)
+	exterior
+		command = "cycle_exterior"
+	inner
+		command = "cycle_interior"
+
+obj/machinery/access_button/reactorExterior2
+	master_tag = "reactorExterior2Airlock"
+	req_access = list(access_engine_equip, access_external_airlocks)
+	exterior
+		command = "cycle_exterior"
+	inner
+		command = "cycle_interior"
+
+obj/machinery/access_button/toxinsExterior
+	master_tag = "toxinsExteriorAirlock"
+	req_access = list(access_tox_storage, access_external_airlocks)
+	exterior
+		command = "cycle_exterior"
+	inner
+		command = "cycle_interior"
+
+obj/machinery/access_button/eva
+	master_tag = "evaAirlock"
+	req_access = list(access_eva, access_external_airlocks)
+	exterior
+		command = "cycle_exterior"
+	inner
+		command = "cycle_interior"
+
+obj/machinery/access_button/maintenance1
+	master_tag = "maintenance1Airlock"
+	req_access = list(access_maint_tunnels, access_external_airlocks)
+	exterior
+		command = "cycle_exterior"
+	inner
+		command = "cycle_interior"
+
+obj/machinery/access_button/maintenance2
+	master_tag = "maintenance2Airlock"
+	req_access = list(access_maint_tunnels, access_external_airlocks)
+	exterior
+		command = "cycle_exterior"
+	inner
+		command = "cycle_interior"
+
+obj/machinery/access_button/maintenance3
+	master_tag = "maintenance3Airlock"
+	req_access = list(access_maint_tunnels, access_external_airlocks)
+	exterior
+		command = "cycle_exterior"
+	inner
+		command = "cycle_interior"
+
+obj/machinery/access_button/maintenance4
+	master_tag = "maintenance4Airlock"
+	req_access = list(access_maint_tunnels, access_external_airlocks)
+	exterior
+		command = "cycle_exterior"
+	inner
+		command = "cycle_interior"
+
+obj/machinery/access_button/maintenance5
+	master_tag = "maintenance5Airlock"
+	req_access = list(access_maint_tunnels, access_external_airlocks)
+	exterior
+		command = "cycle_exterior"
+	inner
+		command = "cycle_interior"
+
+obj/machinery/access_button/maintenance6
+	master_tag = "maintenance6Airlock"
+	req_access = list(access_maint_tunnels, access_external_airlocks)
+	exterior
+		command = "cycle_exterior"
+	inner
+		command = "cycle_interior"
+
+obj/machinery/access_button/blueStation
+	master_tag = "blueStationAirlock"
+	req_access = list(ACCESS_SHUTTLE, access_external_airlocks)
+	exterior
+		command = "cycle_exterior"
+	inner
+		command = "cycle_interior"
+
+obj/machinery/access_button/purpleStation
+	master_tag = "purpleStationAirlock"
+	req_access = list(ACCESS_SHUTTLE, access_external_airlocks)
+	exterior
+		command = "cycle_exterior"
+	inner
+		command = "cycle_interior"
+
+obj/machinery/airlock_sensor/solar1
+	id_tag = "solar1Sensor"
+
+obj/machinery/airlock_sensor/solar2
+	id_tag = "solar2Sensor"
+
+obj/machinery/airlock_sensor/solar3
+	id_tag = "solar3Sensor"
+
+obj/machinery/airlock_sensor/solar4
+	id_tag = "solar4Sensor"
+
+obj/machinery/airlock_sensor/reactorExterior1
+	id_tag = "reactorExterior1Sensor"
+
+obj/machinery/airlock_sensor/reactorExterior2
+	id_tag = "reactorExterior2Sensor"
+
+obj/machinery/airlock_sensor/toxinsExterior
+	id_tag = "toxinsExteriorSensor"
+
+obj/machinery/airlock_sensor/eva
+	id_tag = "evaSensor"
+
+obj/machinery/airlock_sensor/maintenance1
+	id_tag = "maintenance1Sensor"
+
+obj/machinery/airlock_sensor/maintenance2
+	id_tag = "maintenance2Sensor"
+
+obj/machinery/airlock_sensor/maintenance3
+	id_tag = "maintenance3Sensor"
+
+obj/machinery/airlock_sensor/maintenance4
+	id_tag = "maintenance4Sensor"
+
+obj/machinery/airlock_sensor/maintenance5
+	id_tag = "maintenance5Sensor"
+
+obj/machinery/airlock_sensor/maintenance6
+	id_tag = "maintenance6Sensor"
+
+obj/machinery/airlock_sensor/blueStation
+	id_tag = "blueStationSensor"
+
+obj/machinery/airlock_sensor/purpleStation
+	id_tag = "purpleStationSensor"

@@ -22,6 +22,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	var/party = null
 	level = null
 	name = "Space"
+	var/cameraTagPrefix = "Unknown" // Short department indicators for the camera computers.
 	icon = 'icons/turf/areas.dmi'
 	icon_state = "unknown"
 	layer = 10
@@ -538,6 +539,7 @@ proc/process_ghost_teleport_locs()
 
 /area/command/ // ABSTRACT
 	name = "Command"
+	cameraTagPrefix = "COM"
 	icon_state = "command_base"
 
 /area/command/bridge
@@ -620,6 +622,7 @@ proc/process_ghost_teleport_locs()
 
 /area/eng //ABSRACT
 	name = "\improper Engineering"
+	cameraTagPrefix = "ENG"
 	icon_state = "eng_base"
 
 /area/eng/hallway
@@ -717,74 +720,79 @@ area/solar/research
 
 //MAINTENANCE TUNNELS
 
+/area/maintenance //ABSTRACT
+	name = "Maintenance"
+	cameraTagPrefix = "MAINT"
+
 /area/maintenance/tunnel1
-	name = "1st Maintencace Tunnel"
+	name = "1st Maintenance Tunnel"
 	icon_state = "fpmaint"
 
 /area/maintenance/tunnel2
-	name = "2nd Maintencace Tunnel"
+	name = "2nd Maintenance Tunnel"
 	icon_state = "fpmaint"
 
 /area/maintenance/tunnel3
-	name = "3rd Maintencace Tunnel"
+	name = "3rd Maintenance Tunnel"
 	icon_state = "fsmaint"
 
 /area/maintenance/tunnel4
-	name = "4th Maintencace Tunnel"
+	name = "4th Maintenance Tunnel"
 	icon_state = "fsmaint"
 
 /area/maintenance/tunnel5
-	name = "5th Maintencace Tunnel"
+	name = "5th Maintenance Tunnel"
 	icon_state = "asmaint"
 
 /area/maintenance/tunnel6
-	name = "6th Maintencace Tunnel"
+	name = "6th Maintenance Tunnel"
 	icon_state = "asmaint"
 
 /area/maintenance/tunnel7
-	name = "7th Maintencace Tunnel"
+	name = "7th Maintenance Tunnel"
 	icon_state = "apmaint"
 
 /area/maintenance/tunnel8
-	name = "8th Maintencace Tunnel"
+	name = "8th Maintenance Tunnel"
 	icon_state = "maintcentral"
 
 /area/maintenance/tunnel9
-	name = "9th Maintencace Tunnel"
+	name = "9th Maintenance Tunnel"
 	icon_state = "fmaint"
 
 /area/maintenance/tunnel10
-	name = "10th Maintencace Tunnel"
+	name = "10th Maintenance Tunnel"
 	icon_state = "smaint"
 
 /area/maintenance/tunnel11
-	name = "11th Maintencace Tunnel"
+	name = "11th Maintenance Tunnel"
 	icon_state = "pmaint"
 
 /area/maintenance/tunnel12
-	name = "12th Maintencace Tunnel"
+	name = "12th Maintenance Tunnel"
 	icon_state = "amaint"
 
 /area/maintenance/tunnel13
-	name = "13th Maintencace Tunnel"
+	name = "13th Maintenance Tunnel"
 	icon_state = "green"
 
 /area/maintenance/tunnel14
-	name = "14th Maintencace Tunnel"
+	name = "14th Maintenance Tunnel"
 	icon_state = "green"
 
 /area/maintenance/tunnel15
-	name = "15th Maintencace Tunnel"
+	name = "15th Maintenance Tunnel"
 	icon_state = "green"
 
 /area/maintenance/tunnel16
-	name = "16th Maintencace Tunnel"
+	name = "16th Maintenance Tunnel"
 	icon_state = "green"
 
 // HALLWAYS
 
 /area/hallway/
 	name = "\improper Hallway"
+	cameraTagPrefix = "HALL"
 	icon_state = "green"
 
 /area/hallway/primary/north
@@ -840,6 +848,7 @@ area/solar/research
 
 /area/civ
 	name = "Civilian Areas"
+	cameraTagPrefix = "CIV"
 	icon_state = "civ_base"
 
 /area/civ/cafeteria
@@ -886,10 +895,12 @@ area/solar/research
 
 /area/misc
 	name = "Misc. Areas"
+	cameraTagPrefix = "MISC"
 	icon_state = "misc_base"
 
 /area/misc/dorms
 	name = "\improper Dormitories"
+	cameraTagPrefix = "DORM"
 	icon_state = "Sleep"
 
 /area/dorms/
@@ -996,6 +1007,7 @@ area/solar/research
 
 /area/research
 	name = "\improper Research Dept."
+	cameraTagPrefix = "RES"
 	icon_state = "rd_base"
 
 /area/research/xenoarchGear
@@ -1055,11 +1067,13 @@ area/solar/research
 
 /area/teleporter
 	name = "\improper Teleporter"
+	cameraTagPrefix = "COM"
 	icon_state = "teleporter"
 	music = "signal"
 
 /area/teleporter_storage
 	name = "\improper Teleporter"
+	cameraTagPrefix = "COM"
 	icon_state = "green"
 
 /area/gateway
@@ -1071,6 +1085,7 @@ area/solar/research
 
 /area/medical // ABSTRACT
 	name = "Medical Department"
+	cameraTagPrefix = "MED"
 	icon_state = "med_base"
 
 /area/medical/hallway
@@ -1142,6 +1157,10 @@ area/solar/research
 	name = "\improper Emergency Medical"
 
 //SECURITY
+
+/area/security
+	name = "\improper Security Department"
+	cameraTagPrefix = "SEC"
 
 /area/security/main
 	name = "\improper Security Office"
@@ -1235,6 +1254,7 @@ area/solar/research
 
 /area/cargo // ABSTRACT
 	name = "Cargo"
+	cameraTagPrefix = "CARGO"
 	icon_state = "cargo_base"
 
 /area/cargo/warehouse
@@ -1272,6 +1292,10 @@ area/solar/research
 
 //STORAGE
 
+/area/storage
+	name = "Storage"
+	cameraTagPrefix = "STORE"
+
 /area/storage/aux_tool
 	name = "Auxiliary Tool Storage"
 	icon_state = "storage"
@@ -1294,6 +1318,10 @@ area/solar/research
 
 //CONSTRUCTION AREAS
 
+/area/construction
+	name = "\improper Construction Area"
+	cameraTagPrefix = "CONST"
+
 /area/construction/constr1
 	name = "\improper Construction Area"
 	icon_state = "yellow"
@@ -1314,14 +1342,17 @@ area/solar/research
 
 /area/ai_monitored/command/eva
 	name = "EVA Storage"
+	cameraTagPrefix = "COM"
 	icon_state = "eva"
 
 /area/ai_monitored/cyborg
 	name = "\improper Cyborg Station"
+	cameraTagPrefix = "COM"
 	icon_state = "green"
 
 /area/ai_monitored/cyborg2
-	name = "\improper Cybord Station 2"
+	name = "\improper Cyborg Station 2"
+	cameraTagPrefix = "COM"
 	icon_state = "green"
 
 /area/ai_monitored/eng/secure_storage
@@ -1330,14 +1361,17 @@ area/solar/research
 
 /area/turret_protected/ai_upload
 	name = "\improper AI Upload Chamber"
+	cameraTagPrefix = "COM"
 	icon_state = "ai_upload"
 
 /area/turret_protected/ai_upload_foyer
 	name = "AI Upload Access"
+	cameraTagPrefix = "COM"
 	icon_state = "ai_foyer"
 
 /area/turret_protected/ai
 	name = "\improper AI Chamber"
+	cameraTagPrefix = "COM"
 	icon_state = "ai_chamber"
 
 // ASTEROID

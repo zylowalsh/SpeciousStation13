@@ -144,7 +144,7 @@
 	if(isalien(user)) // -- TLE
 		var/mob/living/carbon/alien/A = user
 
-		if(!A.has_fine_manipulation || w_class >= 4)
+		if(A.has_fine_manipulation || w_class <= 3)
 			if(src in A.contents) // To stop Aliens having items stuck in their pockets
 				A.drop_from_inventory(src)
 			user << "Your claws aren't capable of such fine manipulation."

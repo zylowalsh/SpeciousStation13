@@ -336,3 +336,67 @@
 		initial_loc.air_vent_names -= id_tag
 	..()
 	return
+
+/obj/machinery/atmospherics/unary/vent_pump/high_volume/solar1
+	frequency = 1449
+	id_tag = "solar1Pump"
+
+/obj/machinery/atmospherics/unary/vent_pump/high_volume/solar2
+	frequency = 1449
+	id_tag = "solar2Pump"
+
+/obj/machinery/atmospherics/unary/vent_pump/high_volume/solar3
+	frequency = 1449
+	id_tag = "solar3Pump"
+
+/obj/machinery/atmospherics/unary/vent_pump/high_volume/solar4
+	frequency = 1449
+	id_tag = "solar4Pump"
+
+/obj/machinery/atmospherics/unary/vent_pump/high_volume/reactorExterior1
+	frequency = 1449
+	id_tag = "reactorExterior1Pump"
+
+/obj/machinery/atmospherics/unary/vent_pump/high_volume/reactorExterior2
+	frequency = 1449
+	id_tag = "reactorExterior2Pump"
+
+/obj/machinery/atmospherics/unary/vent_pump/high_volume/toxinsExterior
+	frequency = 1449
+	id_tag = "toxinsExteriorPump"
+
+/obj/machinery/atmospherics/unary/vent_pump/high_volume/eva
+	frequency = 1449
+	id_tag = "evaPump"
+
+/obj/machinery/atmospherics/unary/vent_pump/high_volume/maintenance1
+	frequency = 1449
+	id_tag = "maintenance1Pump"
+
+/obj/machinery/atmospherics/unary/vent_pump/high_volume/maintenance2
+	frequency = 1449
+	id_tag = "maintenance2Pump"
+
+/obj/machinery/atmospherics/unary/vent_pump/high_volume/maintenance3
+	frequency = 1449
+	id_tag = "maintenance3Pump"
+
+/obj/machinery/atmospherics/unary/vent_pump/high_volume/maintenance4
+	frequency = 1449
+	id_tag = "maintenance4Pump"
+
+/obj/machinery/atmospherics/unary/vent_pump/high_volume/maintenance5
+	frequency = 1449
+	id_tag = "maintenance5Pump"
+
+/obj/machinery/atmospherics/unary/vent_pump/high_volume/maintenance6
+	frequency = 1449
+	id_tag = "maintenance6Pump"
+
+/obj/machinery/atmospherics/unary/vent_pump/high_volume/blueStation
+	frequency = 1449
+	id_tag = "blueStationPump"
+
+/obj/machinery/atmospherics/unary/vent_pump/high_volume/purpleStation
+	frequency = 1449
+	id_tag = "purpleStationPump"

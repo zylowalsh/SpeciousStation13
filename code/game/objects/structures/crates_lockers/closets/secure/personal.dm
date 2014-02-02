@@ -12,8 +12,6 @@
 		else
 			new /obj/item/weapon/storage/backpack/satchel_norm(src)
 		new /obj/item/device/radio/headset( src )
-	return
-
 
 /obj/structure/closet/secure_closet/personal/patient
 	name = "patient's closet"

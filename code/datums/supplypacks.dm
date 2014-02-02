@@ -221,7 +221,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	cost = 10
 	containertype = /obj/structure/closet/crate/secure
 	containername = "Standard Costumes"
-	access = access_theatre
+	access = access_clown
 	group = "Operations"
 
 /datum/supply_packs/wizard

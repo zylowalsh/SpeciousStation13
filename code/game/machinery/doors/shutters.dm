@@ -6,7 +6,6 @@
 
 /obj/machinery/door/poddoor/shutters/New()
 	..()
-	layer = 3.1
 
 /obj/machinery/door/poddoor/shutters/attackby(obj/item/weapon/C as obj, mob/user as mob)
 	add_fingerprint(user)

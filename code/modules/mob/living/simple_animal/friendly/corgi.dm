@@ -27,7 +27,6 @@
 	regenerate_icons()
 
 /mob/living/simple_animal/corgi/show_inv(mob/user as mob)
-	/* If you're turning this back on, scroll down and uncomment target_updated
 	user.set_machine(src)
 	if(user.stat) return
 
@@ -41,10 +40,9 @@
 	else
 		dat +=	"<br><b>Back:</b> <a href='?src=\ref[src];add_inv=back'>Nothing</a>"
 
-	user << browse(dat, text("window=mob[];size=325x500", name))
+	user << browse(dat, text("window=mob[];size=325x500", real_name))
 	onclose(user, "mob[real_name]")
-	*/
-	return
+
 
 /mob/living/simple_animal/corgi/attackby(var/obj/item/O as obj, var/mob/user as mob)
 	if(inventory_head && inventory_back)
@@ -95,7 +93,7 @@
 					usr << "\red There is nothing to remove from its [remove_from]."
 					return
 
-		//show_inv(usr) //Commented out because changing Ian's  name and then calling up his inventory opens a new inventory...which is annoying.
+		show_inv(usr) //Commented out because changing Ian's  name and then calling up his inventory opens a new inventory...which is annoying.
 
 	//Adding things to inventory
 	else if(href_list["add_inv"])
@@ -188,7 +186,7 @@
 					src.inventory_back = item_to_add
 					regenerate_icons()
 
-		//show_inv(usr) //Commented out because changing Ian's  name and then calling up his inventory opens a new inventory...which is annoying.
+		show_inv(usr) //Commented out because changing Ian's  name and then calling up his inventory opens a new inventory...which is annoying.
 	else
 		..()
 
@@ -357,8 +355,6 @@
 							return
 				step(AM, t)
 			now_pushing = null
-		return
-	return
 //PC stuff-Sieve
 
 /mob/living/simple_animal/corgi/attackby(var/obj/item/O as obj, var/mob/user as mob)  //Marker -Agouri

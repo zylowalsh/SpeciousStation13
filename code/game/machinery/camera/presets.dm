@@ -32,23 +32,25 @@
 // AUTONAME
 
 /obj/machinery/camera/autoname
-	var/number = 0 //camera number in area
+	var/global/number = 0
 
 //This camera type automatically sets it's name to whatever the area that it's in is called.
 /obj/machinery/camera/autoname/New()
 	..()
-	spawn(10)
-		number = 1
+	spawn(2)
 		var/area/A = get_area(src)
 		if(A)
-			for(var/obj/machinery/camera/autoname/C in world)
-				if(C == src) continue
-				var/area/CA = get_area(C)
-				if(CA.type == A.type)
-					if(C.number)
-						number = max(number, C.number+1)
-			c_tag = "[A.name] #[number]"
+			number++
+			c_tag = "[A.cameraTagPrefix]: [A.name] - #[number]"
 
+/obj/machinery/camera/autoname/interrogation
+	network = list("SS13", "interrogation")
+
+/obj/machinery/camera/autoname/blueStation
+	network = list("SS13", "blueStation")
+
+/obj/machinery/camera/autoname/purpleStation
+	network = list("SS13", "purpleStation")
 
 // CHECKS
 

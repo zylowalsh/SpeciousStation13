@@ -65,7 +65,6 @@ var/list/admin_verbs_admin = list(
 	/client/proc/cmd_admin_rejuvenate,
 	/client/proc/toggleattacklogs,
 	/client/proc/toggledebuglogs,
-	/datum/admins/proc/show_skills,
 	/client/proc/check_customitem_activity,
 	/client/proc/man_up,
 	/client/proc/global_man_up,
@@ -228,8 +227,7 @@ var/list/admin_verbs_mod = list(
 	/client/proc/admin_ghost,			/*allows us to ghost/reenter body at will*/
 	/client/proc/cmd_mod_say,
 	/datum/admins/proc/show_player_info,
-	/client/proc/player_panel_new,
-	/datum/admins/proc/show_skills
+	/client/proc/player_panel_new
 )
 /client/proc/add_admin_verbs()
 	if(holder)
@@ -375,7 +373,6 @@ var/list/admin_verbs_mod = list(
 	set category = "Admin"
 	if(holder)
 		holder.Jobbans()
-	return
 
 /client/proc/unban_panel()
 	set name = "Unban Panel"
@@ -584,9 +581,6 @@ var/list/admin_verbs_mod = list(
 	set category = "Admin"
 	if(holder)
 		src.holder.output_ai_laws()
-
-
-//---- bs12 verbs ----
 
 /client/proc/mod_panel()
 	set name = "Moderator Panel"

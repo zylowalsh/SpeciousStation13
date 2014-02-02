@@ -154,6 +154,24 @@
 	item_state = "medical_hardsuit"
 	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/weapon/storage/firstaid,/obj/item/device/healthanalyzer,/obj/item/stack/medical)
 
+//Command Rig
+/obj/item/clothing/head/helmet/space/rig/command
+	name = "command hardsuit helmet"
+	desc = "A special helmet designed for work in a hazardous, low pressure environment. Has an additional layer of armor."
+	icon_state = "rig0-command"
+	item_state = "command_helm"
+	item_color = "command"
+	armor = list(melee = 60, bullet = 10, laser = 30, energy = 5, bomb = 45, bio = 100, rad = 10)
+	siemens_coefficient = 0.7
+
+/obj/item/clothing/suit/space/rig/command
+	icon_state = "rig-command"
+	name = "command hardsuit"
+	desc = "A special suit that protects against hazardous, low pressure environments. Has an additional layer of armor."
+	item_state = "command_hardsuit"
+	armor = list(melee = 60, bullet = 10, laser = 30, energy = 5, bomb = 45, bio = 100, rad = 10)
+	allowed = list(/obj/item/weapon/gun,/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/weapon/melee/baton)
+	siemens_coefficient = 0.7
 
 	//Security
 /obj/item/clothing/head/helmet/space/rig/security
