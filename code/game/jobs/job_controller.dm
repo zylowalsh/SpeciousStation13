@@ -462,7 +462,10 @@
 		else
 			C = new /obj/item/weapon/card/id(H)
 		if(C)
-			C.registered_name = H.real_name
+			if(job.title == "Clown")
+				C.registered_name = nameClown(H)
+			else
+				C.registered_name = H.real_name
 			C.rank = rank
 			C.assignment = title ? title : rank
 			C.name = "[C.registered_name]'s ID Card ([C.assignment])"
@@ -476,12 +479,28 @@
 		H.equip_to_slot_or_del(new /obj/item/device/pda(H), slot_belt)
 		if(locate(/obj/item/device/pda,H))
 			var/obj/item/device/pda/pda = locate(/obj/item/device/pda,H)
-			pda.owner = H.real_name
+			pda.owner = C.registered_name
 			pda.ownjob = C.assignment
-			pda.name = "PDA-[H.real_name] ([pda.ownjob])"
+			pda.name = "PDA-[C.registered_name] ([pda.ownjob])"
 
 		return 1
 
+	proc/nameClown(var/mob/living/carbon/human/H)
+		var/oldName = pick(clown_names)
+
+		var/timePassed = world.time
+		var/newName
+
+		for(var/i=1,i<=3,i++)
+			newName = input(H, "You are a clown. Would you like to change your name to something else?", "Name Change", oldName) as text
+			if((world.time - timePassed) > 300)
+				if(isnull(newName))
+					return oldName
+				else
+					return newName
+			newName = reject_bad_name(newName, FALSE)
+			if(newName)
+				return newName
 
 	proc/LoadJobs(jobsfile) //ran during round setup, reads info from jobs.txt -- Urist
 		if(!config.load_jobs_from_txt)

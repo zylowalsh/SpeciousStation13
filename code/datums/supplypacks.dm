@@ -208,7 +208,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	name = "Standard Costume crate"
 	contains = list(/obj/item/weapon/storage/backpack/clown,
 					/obj/item/clothing/shoes/clown_shoes,
-					/obj/item/clothing/mask/gas/clown_hat,
+					/obj/item/clothing/mask/gas/voice/clown_hat,
 					/obj/item/clothing/under/rank/clown,
 					/obj/item/weapon/bikehorn,
 					/obj/item/clothing/under/mime,

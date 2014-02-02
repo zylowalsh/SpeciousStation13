@@ -162,7 +162,7 @@ I said no!
 /datum/recipe/clownburger
 	reagents = list("flour" = 5)
 	items = list(
-		/obj/item/clothing/mask/gas/clown_hat,
+		/obj/item/clothing/mask/gas/voice/clown_hat,
 		/* /obj/item/weapon/reagent_containers/food/snacks/grown/banana, */
 	)
 	result = /obj/item/weapon/reagent_containers/food/snacks/clownburger

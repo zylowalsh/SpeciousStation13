@@ -142,7 +142,7 @@
 	New()
 		..()
 		sleep(2)
-		new /obj/item/clothing/mask/gas/clown_hat(src)
+		new /obj/item/clothing/mask/gas/voice/clown_hat(src)
 		new /obj/item/clothing/shoes/clown_shoes(src)
 		new /obj/item/clothing/under/rank/clown(src)
 		new /obj/item/device/radio/headset/(src)

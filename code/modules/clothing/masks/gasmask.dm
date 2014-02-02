@@ -46,11 +46,12 @@
 	vchange = 1
 	siemens_coefficient = 0.2
 
-/obj/item/clothing/mask/gas/clown_hat
+/obj/item/clothing/mask/gas/voice/clown_hat
 	name = "clown wig and mask"
 	desc = "A true prankster's facial attire. A clown is incomplete without his wig and mask."
 	icon_state = "clown"
 	item_state = "clown_hat"
+	origin_tech = null
 
 /obj/item/clothing/mask/gas/sexyclown
 	name = "sexy-clown wig and mask"
