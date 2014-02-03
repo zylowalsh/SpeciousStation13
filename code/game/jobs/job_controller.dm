@@ -6,7 +6,6 @@
 		//Debug info
 	var/list/job_debug = list()
 
-
 	proc/SetupOccupations(var/faction = "Station")
 		occupations = list()
 		var/list/all_jobs = typesof(/datum/job)
@@ -22,12 +21,10 @@
 			occupations += job
 		return 1
 
-
 	proc/Debug(var/text)
 		if(!Debug2)	return 0
 		job_debug.Add(text)
 		return 1
-
 
 	proc/GetJob(var/rank)
 		if(!rank)	return null

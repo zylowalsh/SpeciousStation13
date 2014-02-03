@@ -718,6 +718,16 @@ area/solar/research
 	name = "\improper Research Solar Array"
 	icon_state = "panelsP"
 
+// BOMB RANGE
+
+/area/bombRange
+	name = "\improper Bomb Range"
+	cameraTagPrefix = "BOMB"
+	icon_state = "green"
+	requires_power = 0
+	luminosity = 1
+	lighting_use_dynamic = 0
+
 //MAINTENANCE TUNNELS
 
 /area/maintenance //ABSTRACT
