@@ -40,8 +40,7 @@ datum/controller/game_controller/New()
 
 	if(!job_master)
 		job_master = new /datum/controller/occupations()
-		job_master.SetupOccupations()
-		job_master.LoadJobs("config/jobs.txt")
+		job_master.setupOccupations()
 		world << "\red \b Job setup complete"
 
 	if(!syndicate_code_phrase)

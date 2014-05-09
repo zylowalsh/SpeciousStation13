@@ -73,7 +73,7 @@ var/const/GAME_STATE_FINISHED = 4
 			var/datum/game_mode/M = config.pick_mode(secret_force_mode)
 			if(M.can_start())
 				src.mode = config.pick_mode(secret_force_mode)
-		job_master.ResetOccupations()
+		job_master.resetOccupations()
 		if(!src.mode)
 			src.mode = pickweight(runnable_modes)
 		if(src.mode)
@@ -85,17 +85,17 @@ var/const/GAME_STATE_FINISHED = 4
 		world << "<B>Unable to start [mode.name].</B> Not enough players, [mode.required_players] players needed. Reverting to pre-game lobby."
 		del(mode)
 		current_state = GAME_STATE_PREGAME
-		job_master.ResetOccupations()
+		job_master.resetOccupations()
 		return 0
 
 	//Configure mode and assign player to special mode stuff
-	job_master.DivideOccupations() //Distribute jobs
+	job_master.divideOccupations() //Distribute jobs
 	var/can_continue = src.mode.pre_setup()//Setup special modes
 	if(!can_continue)
 		del(mode)
 		current_state = GAME_STATE_PREGAME
 		world << "<B>Error setting up [master_mode].</B> Reverting to pre-game lobby."
-		job_master.ResetOccupations()
+		job_master.resetOccupations()
 		return 0
 
 	if(hide_mode)
@@ -268,7 +268,7 @@ var/const/GAME_STATE_FINISHED = 4
 			if(player.mind.assigned_role == "Captain")
 				captainless = FALSE
 			if(player.mind.assigned_role != "MODE")
-				job_master.EquipRank(player, player.mind.assigned_role, 0)
+				job_master.equipRank(player, player.mind.assigned_role, 0)
 				EquipCustomItems(player)
 				dataCore.manifestInject(player)
 	if(captainless)

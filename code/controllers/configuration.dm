@@ -52,7 +52,6 @@
 	var/guest_jobban = 1
 	var/usewhitelist = 0
 	var/kick_inactive = 0				//force disconnect for inactive players
-	var/load_jobs_from_txt = 0
 	var/ToRban = 0
 	var/automute_on = 0					//enables automuting/spam prevention
 	var/jobs_have_minimal_access = 0	//determines whether jobs use minimal access or expanded access.
@@ -318,9 +317,6 @@
 
 				if("kick_inactive")
 					config.kick_inactive = 1
-
-				if("load_jobs_from_txt")
-					load_jobs_from_txt = 1
 
 				if("alert_red_upto")
 					config.alert_desc_red_upto = value

@@ -43,7 +43,7 @@ datum/mind
 
 	var/role_alt_title
 
-	var/datum/job/assigned_job
+	//var/datum/job/assigned_job
 
 	var/list/datum/objective/objectives = list()
 	var/list/datum/objective/special_verbs = list()
@@ -1137,7 +1137,8 @@ datum/mind
 //HUMAN
 /mob/living/carbon/human/mind_initialize()
 	..()
-	if(!mind.assigned_role)	mind.assigned_role = "Assistant"	//defualt
+	if(!mind.assigned_role)
+		mind.assigned_role = "Assistant"	//defualt
 
 //MONKEY
 /mob/living/carbon/monkey/mind_initialize()

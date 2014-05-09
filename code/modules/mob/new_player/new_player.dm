@@ -141,7 +141,7 @@
 		new_player_panel()
 
 /mob/new_player/proc/IsJobAvailable(rank)
-	var/datum/job/job = job_master.GetJob(rank)
+	var/datum/job/job = job_master.getJob(rank)
 	if(!job)
 		return 0
 	if((job.current_positions >= job.total_positions) && job.total_positions != -1)
@@ -165,10 +165,10 @@
 		src << alert("[rank] is not available. Please try another.")
 		return 0
 
-	job_master.AssignRole(src, rank, 1)
+	job_master.assignRole(src, rank, 1)
 
 	var/mob/living/carbon/human/character = create_character()	//creates the human and transfers vars and mind
-	job_master.EquipRank(character, rank, 1)					//equips the human
+	job_master.equipRank(character, rank, 1)					//equips the human
 	EquipCustomItems(character)
 	character.loc = pick(latejoin)
 	character.lastarea = get_area(loc)
@@ -253,13 +253,13 @@ proc/announceArrival(var/mob/living/carbon/human/character, var/rank)
 
 	src << sound(null, repeat = 0, wait = 0, volume = 85, channel = 1) // MAD JAMS cant last forever yo
 
-	/*if(mind)
+	if(mind)
 		mind.active = 0					//we wish to transfer the key manually
-		if(mind.assigned_role == "Clown")				//give them a clownname if they are a clown
+		/*if(mind.assigned_role == "Clown")				//give them a clownname if they are a clown
 			new_character.real_name = pick(clown_names)	//I hate this being here of all places but unfortunately dna is based on real_name!
-			new_character.rename_self("clown")
+			new_character.rename_self("clown") */
 		mind.original = new_character
-		mind.transfer_to(new_character)	*/				//won't transfer key since the mind is not active
+		mind.transfer_to(new_character)			//won't transfer key since the mind is not active
 
 	new_character.name = real_name
 	new_character.dna.ready_dna(new_character)
