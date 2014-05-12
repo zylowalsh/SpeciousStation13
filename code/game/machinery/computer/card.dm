@@ -195,8 +195,6 @@
 		dat = "<tt>[header][body]<hr><br></tt>"
 	user << browse(dat, "window=id_com;size=900x520")
 	onclose(user, "id_com")
-	return
-
 
 /obj/machinery/computer/card/Topic(href, href_list)
 	if(..())
@@ -324,7 +322,6 @@
 	if (modify)
 		modify.name = text("[modify.registered_name]'s ID Card ([modify.assignment])")
 	updateUsrDialog()
-	return
 
 /obj/machinery/computer/card/proc/get_all_valid_jobs()
 	var/returnedList[0]

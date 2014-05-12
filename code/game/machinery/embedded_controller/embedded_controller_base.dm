@@ -42,7 +42,8 @@ obj/machinery/embedded_controller
 		return 0
 
 	receive_signal(datum/signal/signal, receive_method, receive_param)
-		if(!signal || signal.encryption) return
+		if(!signal || signal.encryption)
+			return
 
 		if(program)
 			program.receive_signal(signal, receive_method, receive_param)
@@ -54,10 +55,13 @@ obj/machinery/embedded_controller
 
 		if(program)
 			program.receive_user_command(href_list["command"])
-			spawn(5) program.process()
+			spawn(5)
+				program.process()
 
 		usr.set_machine(src)
-		spawn(5) src.updateDialog()
+		spawn(5)
+			src.updateDialog()
+		usr << browse(null, "window=computer")
 
 	process()
 		if(program)

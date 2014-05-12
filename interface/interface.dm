@@ -1,3 +1,6 @@
+var/const/RULES_FILE = "config/rules.html"
+var/const/MAP_FILE = "config/map.png"
+
 //Please use mob or src (not usr) in these procs. This way they can be called in the same fashion as procs.
 /client/verb/wiki()
 	set name = "wiki"
@@ -9,7 +12,6 @@
 		src << link(config.wikiurl)
 	else
 		src << "\red The wiki URL is not set in the server configuration."
-	return
 
 /client/verb/forum()
 	set name = "forum"
@@ -21,14 +23,18 @@
 		src << link(config.forumurl)
 	else
 		src << "\red The forum URL is not set in the server configuration."
-	return
 
-var/const/RULES_FILE = "config/rules.html"
 /client/verb/rules()
 	set name = "Rules"
 	set desc = "Show Server Rules."
 	set hidden = 1
 	src << browse(file(RULES_FILE), "window=rules;size=480x320")
+
+/client/verb/map()
+	set name = "Map"
+	set desc = "Show map"
+	set hidden = 1
+	src << browse(file(MAP_FILE), "window=map;size=1280x720")
 
 /client/verb/hotkeys_help()
 	set name = "hotkeys-help"

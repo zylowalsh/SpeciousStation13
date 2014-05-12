@@ -38,7 +38,7 @@ Usage Conventions:
 - Use the '\' to break up a long statement.  No one wants to scroll right and left to read what is there.  Make sure
 	you indent the following lines.
 - Don't use the text() proc.  Just put your statement in the string with [].  It doesn't make it more readable when you
-	put an important part of the code at the end of the line that is prob. of the right side of the page.  The following
+	put an important part of the code at the end of the line that is prob. off the right side of the page.  The following
 	is a line of code I just fixed from one of the html windows.
 
 	dat += text("<A href='?src=\ref[];choice=Log In'>{Log In}</A>", src)
