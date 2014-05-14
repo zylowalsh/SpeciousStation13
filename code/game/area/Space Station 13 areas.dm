@@ -656,6 +656,10 @@ proc/process_ghost_teleport_locs()
 	name = "\improper Reactor"
 	icon_state = "eng_reactor"
 
+/area/eng/reactorMonitoring
+	name = "\improper Reactor Monitoring"
+	icon_state = "eng_base"
+
 /area/eng/battery_room
 	name = "\improper Battery Room"
 	icon_state = "eng_battery_room"

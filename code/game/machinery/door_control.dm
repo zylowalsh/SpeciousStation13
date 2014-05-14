@@ -169,9 +169,14 @@
 
 	for(var/obj/machinery/door/poddoor/M in world)
 		if (M.id == src.id)
-			spawn( 0 )
-				M.open()
-				return
+			if (M.density)
+				spawn( 0 )
+					M.open()
+					return
+			else
+				spawn( 0 )
+					M.close()
+					return
 
 	sleep(20)
 
@@ -183,9 +188,14 @@
 
 	for(var/obj/machinery/door/poddoor/M in world)
 		if (M.id == src.id)
-			spawn( 0 )
-				M.close()
-				return
+			if (M.density)
+				spawn( 0 )
+					M.open()
+					return
+			else
+				spawn( 0 )
+					M.close()
+					return
 
 	icon_state = "launcherbtt"
 	active = 0

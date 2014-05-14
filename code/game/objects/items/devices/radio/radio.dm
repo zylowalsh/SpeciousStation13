@@ -216,7 +216,6 @@ var/GLOBAL_RADIO_TYPE = 1 // radio type to use
 						message, from, "Automated Announcement", from, "synthesized voice",
 						4, 0, list(1), 1459)
 	del(A)
-	return
 
 /obj/item/device/radio/talk_into(mob/living/M as mob, message, channel)
 	if(!on) return // the device has to be on
