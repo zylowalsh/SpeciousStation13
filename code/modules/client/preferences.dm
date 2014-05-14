@@ -66,11 +66,6 @@ datum/preferences
 
 	// INFO AND PREFS ABOUT CURRENT CHARACTER
 
-	var/survivedOneRound = FALSE
-	var/list/previousHardcoreJobs = list()
-	var/list/previousStatus = list()
-	var/timesCloned = 0
-
 	var/realName					//our character's name
 	var/gender = MALE				//gender of character (well duh)
 	var/age = 30					//age of character
@@ -120,7 +115,6 @@ datum/preferences
 
 	var/list/playerAltTitles = new()		// the default name of a job like "Medical Doctor"
 
-	var/datum/record/record
 	var/disabilities = 0
 
 /datum/preferences/New(client/C)
@@ -130,7 +124,6 @@ datum/preferences
 			if(loadPreferences())
 				loadJoinData()
 				if(loadCharacter())
-					loadRecord()
 					return
 	gender = pick(MALE, FEMALE)
 	realName = random_name(gender)
@@ -157,52 +150,28 @@ datum/preferences
 
 	dat += "</CENTER><HR><TABLE><TR><TD width='340px' height='320px'>"
 
-	if(!survivedOneRound)
-		dat += {"
-			<B>Name: <A href='?_src_=prefs;preference=name;task=input'>[realName]</A></B><BR>
-			(<A href='?_src_=prefs;preference=name;task=random'>Random Name</A>)<BR>
-			Gender: <A href='?_src_=prefs;preference=gender'>[gender == MALE ? "Male" : "Female"]</A><BR>
-			Age: <A href='?_src_=prefs;preference=age;task=input'>[age]</A><BR>
-			UI Style: <A href='?_src_=prefs;preference=ui'>[uiStyle]</A><BR>
-			Play admin midis: <A href='?_src_=prefs;preference=hear_midis'>[(toggles & SOUND_MIDI) ? "Yes" : "No"]</A><BR>
-			Play lobby music: <A href='?_src_=prefs;preference=lobby_music'>[(toggles & SOUND_LOBBY) ? "Yes" : "No"]</A><BR>
-			Ghost ears: <A href='?_src_=prefs;preference=ghost_ears'>[(toggles & CHAT_GHOSTEARS) ? "Nearest Creatures" : "All Speech"]</A><BR>
-			Ghost sight: <A href='?_src_=prefs;preference=ghost_sight'>[(toggles & CHAT_GHOSTSIGHT) ? "Nearest Creatures" : "All Emotes"]</A><BR>"}
+	dat += {"
+		<B>Name: <A href='?_src_=prefs;preference=name;task=input'>[realName]</A></B><BR>
+		(<A href='?_src_=prefs;preference=name;task=random'>Random Name</A>)<BR>
+		Gender: <A href='?_src_=prefs;preference=gender'>[gender == MALE ? "Male" : "Female"]</A><BR>
+		Age: <A href='?_src_=prefs;preference=age;task=input'>[age]</A><BR>
+		UI Style: <A href='?_src_=prefs;preference=ui'>[uiStyle]</A><BR>
+		Play admin midis: <A href='?_src_=prefs;preference=hear_midis'>[(toggles & SOUND_MIDI) ? "Yes" : "No"]</A><BR>
+		Play lobby music: <A href='?_src_=prefs;preference=lobby_music'>[(toggles & SOUND_LOBBY) ? "Yes" : "No"]</A><BR>
+		Ghost ears: <A href='?_src_=prefs;preference=ghost_ears'>[(toggles & CHAT_GHOSTEARS) ? "Nearest Creatures" : "All Speech"]</A><BR>
+		Ghost sight: <A href='?_src_=prefs;preference=ghost_sight'>[(toggles & CHAT_GHOSTSIGHT) ? "Nearest Creatures" : "All Emotes"]</A><BR>"}
 
-		dat += {"
-			<BR>
-			<A href='?_src_=prefs;preference=job;task=menu'><B>Set Job Preferences</B></A><BR>
-			<BR>
-			<TABLE><TR><TD><B>Body</B> (<A href='?_src_=prefs;preference=all;task=random'>&reg;</A>)<BR>
-				Species: <A href='byond://?src=\ref[user];preference=species;task=input'>[species]</A><BR>
-				Secondary Language: <A href='byond://?src=\ref[user];preference=language;task=input'>[language]</A><BR>
-				Blood Type: <A href='byond://?src=\ref[user];preference=b_type;task=input'>[bType]</A><BR>
-				Skin Tone: <A href='?_src_=prefs;preference=s_tone;task=input'>[-sTone + 35]/220</A><BR>
-				Needs Glasses: <A href='?_src_=prefs;preference=disabilities'>[disabilities == 0 ? "No" : "Yes"]</A><BR>
-				Limbs: <A href='byond://?src=\ref[user];preference=limbs;task=input'>Adjust</A><BR>"}
-
-	else
-		dat += {"
-			<B>Name: [realName]<B><BR>
-			Gender: [gender == MALE ? "Male" : "Female"]<BR>
-			Age: [age]<BR>
-			UI Style: <A href='?_src_=prefs;preference=ui'>[uiStyle]</A><BR>
-			Play admin midis: <A href='?_src_=prefs;preference=hear_midis'>[(toggles & SOUND_MIDI) ? "Yes" : "No"]</A><BR>
-			Play lobby music: <A href='?_src_=prefs;preference=lobby_music'>[(toggles & SOUND_LOBBY) ? "Yes" : "No"]</A><BR>
-			Ghost ears: <A href='?_src_=prefs;preference=ghost_ears'>[(toggles & CHAT_GHOSTEARS) ? "Nearest Creatures" : "All Speech"]</A><BR>
-			Ghost sight: <A href='?_src_=prefs;preference=ghost_sight'>[(toggles & CHAT_GHOSTSIGHT) ? "Nearest Creatures" : "All Emotes"]</A><BR>"}
-
-		dat += {"
-			<BR>
-			<A href='?_src_=prefs;preference=job;task=menu'><B>Set Job Preferences</B></A><BR>
-			<BR>
-			<TABLE><TR><TD><B>Body</B><BR>
-				Species: [species]<BR>
-				Secondary Language: [language]<BR>
-				Blood Type: [bType]<BR>
-				Skin Tone: [-sTone + 35]/220<BR>
-				Needs Glasses: [disabilities == 0 ? "No" : "Yes"]<BR>
-				Limbs: <BR>"}
+	dat += {"
+		<BR>
+		<A href='?_src_=prefs;preference=job;task=menu'><B>Set Job Preferences</B></A><BR>
+		<BR>
+		<TABLE><TR><TD><B>Body</B> (<A href='?_src_=prefs;preference=all;task=random'>&reg;</A>)<BR>
+			Species: <A href='byond://?src=\ref[user];preference=species;task=input'>[species]</A><BR>
+			Secondary Language: <A href='byond://?src=\ref[user];preference=language;task=input'>[language]</A><BR>
+			Blood Type: <A href='byond://?src=\ref[user];preference=b_type;task=input'>[bType]</A><BR>
+			Skin Tone: <A href='?_src_=prefs;preference=s_tone;task=input'>[-sTone + 35]/220</A><BR>
+			Needs Glasses: <A href='?_src_=prefs;preference=disabilities'>[disabilities == 0 ? "No" : "Yes"]</A><BR>
+			Limbs: <A href='byond://?src=\ref[user];preference=limbs;task=input'>Adjust</A><BR>"}
 
 	var/ind = 0
 	for(var/name in organData)
@@ -966,7 +935,6 @@ datum/preferences
 					loadPreferences()
 					loadJoinData()
 					loadCharacter()
-					loadRecord()
 
 				if("delete")
 					deleteCharacter()
@@ -974,7 +942,6 @@ datum/preferences
 					loadPreferences()
 					loadJoinData()
 					loadCharacter()
-					loadRecord()
 
 				if("open_load_dialog")
 					if(!IsGuestKey(user.key))
@@ -985,7 +952,6 @@ datum/preferences
 
 				if("changeslot")
 					loadCharacter(text2num(href_list["num"]))
-					loadRecord(text2num(href_list["num"]))
 					close_load_dialog(user)
 
 	ShowChoices(user)

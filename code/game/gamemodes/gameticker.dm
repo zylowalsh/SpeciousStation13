@@ -317,16 +317,6 @@ var/const/GAME_STATE_FINISHED = 4
 
 /datum/controller/gameticker/proc/declare_completion()
 
-	// Saves all the records to the prefs savefile if the character still exists.
-	for(var/mob/living/carbon/human/H in mob_list)
-		if(!isnull(H.startingCKey))
-			var/datum/locked_record/tmpRecord
-			var/datum/preferences/P = allPreferences[H.startingCKey]
-			for(var/i = 1, i <= dataCore.lockedRecords.len, i++)
-				tmpRecord = dataCore.lockedRecords[i]
-				if(H.startingName == tmpRecord.name)
-					P.saveRecord(P.defaultSlot, i)
-
 	for (var/mob/living/silicon/ai/aiPlayer in mob_list)
 		if (aiPlayer.stat != 2)
 			world << "<b>[aiPlayer.name] (Played by: [aiPlayer.key])'s laws at the end of the game were:</b>"

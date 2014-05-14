@@ -192,33 +192,25 @@
 		else
 			assignment = "Unassigned"
 
-		if(isnull(H.client.prefs.record))
-			var/id = add_zero(num2hex(rand(1, 1.6777215E7)), 6)	//this was the best they could come up with? A large random number? *sigh*
+		var/id = add_zero(num2hex(rand(1, 1.6777215E7)), 6)	//this was the best they could come up with? A large random number? *sigh*
 
-			//General
-			var/datum/record/r = new()
-			r.id					= id
-			r.name					= H.real_name
-			r.rank					= assignment
-			r.realRank				= H.mind.assigned_role
-			r.age					= H.age
-			r.fingerprint			= md5(H.dna.uni_identity)
-			r.gender				= H.gender
-			r.species				= H.get_species()
-			r.photo					= getIDPhoto(H)
+		//General
+		var/datum/record/r = new()
+		r.id					= id
+		r.name					= H.real_name
+		r.rank					= assignment
+		r.realRank				= H.mind.assigned_role
+		r.age					= H.age
+		r.fingerprint			= md5(H.dna.uni_identity)
+		r.gender				= H.gender
+		r.species				= H.get_species()
+		r.photo					= getIDPhoto(H)
 
-			//Medical
-			r.bType					= H.b_type
-			r.bDNA					= H.dna.unique_enzymes
+		//Medical
+		r.bType					= H.b_type
+		r.bDNA					= H.dna.unique_enzymes
 
-			allRecords += r
-		else
-			var/datum/record/r = H.client.prefs.record
-			r.rank					= assignment
-			r.realRank				= H.mind.assigned_role
-			r.photo					= getIDPhoto(H)
-
-			allRecords += r
+		allRecords += r
 
 		//Locked Record
 		var/datum/locked_record/l = new()

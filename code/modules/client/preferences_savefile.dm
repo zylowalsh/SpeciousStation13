@@ -289,46 +289,6 @@ var/const/SAVEFILE_VERSION_MAX = 10
 
 	return 1
 
-/datum/preferences/proc/loadRecord(slot)
-	if(!path)
-		return 0
-	if(!fexists(path))
-		return 0
-	var/savefile/S = new /savefile(path)
-	if(!S)
-		return 0
-	S.cd = "/"
-	if(!slot)
-		slot = defaultSlot
-	slot = sanitize_integer(slot, 1, MAX_SAVE_SLOTS, initial(defaultSlot))
-	if(slot != defaultSlot)
-		defaultSlot = slot
-		S["default_slot"] << slot
-	S.cd = "/character[slot]"
-
-	S["record"] >> record
-	S["survivedOneRound"] >> survivedOneRound
-
-	return 1
-
-/datum/preferences/proc/saveRecord(slot, dataCoreIndex)
-	var/savefile/S
-
-	if(!path)
-		return 0
-	S = new /savefile(path)
-
-	if(!S)
-		return 0
-	S.cd = "/character[slot]"
-
-	if(!survivedOneRound)
-		survivedOneRound = TRUE
-	S["record"] << dataCore.allRecords[dataCoreIndex]
-	S["survivedOneRound"] << survivedOneRound
-
-	return 1
-
 /datum/preferences/proc/deleteCharacter()
 	if(!path)
 		return 0
