@@ -128,7 +128,7 @@ var/diary = null
 var/diaryofmeanpeople = null
 var/href_logfile = null
 var/station_name = "NSS Nilith"
-var/game_version = "Specious Station 13"
+var/game_version = "Hyperion Station"
 var/const/HEADQUARTERS_NAME = "CentCom"
 var/changelog_hash = ""
 

@@ -188,7 +188,10 @@ proc/announceArrival(var/mob/living/carbon/human/character, var/rank)
 		var/obj/item/device/radio/intercom/a = new /obj/item/device/radio/intercom(null)// BS12 EDIT Arrivals Announcement Computer, rather than the AI.
 		if(character.mind.role_alt_title)
 			rank = character.mind.role_alt_title
-		a.autosay("[character.real_name],[rank ? " [rank]," : " visitor," ] has arrived on the station.", "Arrivals Announcement Computer")
+		if(rank == "Clown")
+			a.autosay("Behold! A clown has arrived on the station!", "Arrivals Announcement Computer")
+		else
+			a.autosay("[character.real_name],[rank ? " [rank]," : " visitor," ] has arrived on the station.", "Arrivals Announcement Computer")
 		del(a)
 
 /mob/new_player/proc/LateChoices()

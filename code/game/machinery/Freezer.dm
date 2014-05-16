@@ -2,6 +2,7 @@
 	name = "Freezer"
 	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "freezer_0"
+	var/forEngine = FALSE
 	density = 1
 
 	anchored = 1.0
@@ -72,7 +73,10 @@
 				if(amount > 0)
 					src.current_temperature = min(T20C, src.current_temperature+amount)
 				else
-					src.current_temperature = max((T0C - 200), src.current_temperature+amount)
+					if(forEngine)
+						src.current_temperature = max((T0C - 272), src.current_temperature+amount)
+					else
+						src.current_temperature = max((T0C - 200), src.current_temperature+amount)
 		src.updateUsrDialog()
 		src.add_fingerprint(usr)
 		return

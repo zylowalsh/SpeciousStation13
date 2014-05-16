@@ -73,6 +73,12 @@
 	..()
 	icon_state = "snowbush[rand(1, 6)]"
 
+/obj/structure/flora/pottedplant
+	name = "potted plant"
+	icon = 'icons/obj/plants.dmi'
+	icon_state = "plant-26"
+	layer = 4.1
+
 //newbushes
 
 /obj/structure/flora/ausbushes

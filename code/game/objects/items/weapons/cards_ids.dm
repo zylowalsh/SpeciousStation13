@@ -135,6 +135,27 @@
 	icon_state = "gold"
 	item_state = "gold_id"
 
+obj/item/weapon/card/id/clown
+	name = "identification card"
+	desc = "A rainbow card from the clown."
+	icon_state = "clown"
+	item_state = "gold_id"
+	var/hasBeenAssigned = FALSE
+
+/obj/item/weapon/card/id/clown/attack_self(mob/user as mob)
+	if(hasBeenAssigned == FALSE)
+		var t = reject_bad_name(input(user, "What name would you like to put on this card?", "Clown's card name", pick(clown_names)))
+		if(!t) //Same as mob/new_player/prefrences.dm
+			alert("Invalid name.")
+			return
+		src.registered_name = t
+
+		src.name = "[src.registered_name]'s ID Card ([src.assignment])"
+		hasBeenAssigned = TRUE
+		user << "\blue You successfully entered a name on your ID card."
+	else
+		..()
+
 /obj/item/weapon/card/id/syndicate
 	name = "agent card"
 	access = list(access_maint_tunnels, access_syndicate, access_external_airlocks)

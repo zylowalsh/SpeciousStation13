@@ -476,10 +476,7 @@
 		else
 			C = new /obj/item/weapon/card/id(H)
 		if(C)
-			if(job.title == "Clown")
-				C.registered_name = nameClown(H)
-			else
-				C.registered_name = H.real_name
+			C.registered_name = H.real_name
 			C.rank = rank
 			C.assignment = title ? title : rank
 			C.name = "[C.registered_name]'s ID Card ([C.assignment])"
@@ -499,22 +496,6 @@
 
 		return 1
 
-	proc/nameClown(var/mob/living/carbon/human/H)
-		var/oldName = pick(clown_names)
-
-		var/timePassed = world.time
-		var/newName
-
-		for(var/i=1,i<=3,i++)
-			newName = input(H, "You are a clown. Would you like to change your name to something else?", "Name Change", oldName) as text
-			if((world.time - timePassed) > 300)
-				if(isnull(newName))
-					return oldName
-				else
-					return newName
-			newName = reject_bad_name(newName, FALSE)
-			if(newName)
-				return newName
 /*
 	proc/HandleFeedbackGathering()
 		for(var/datum/job/job in occupations)
