@@ -56,6 +56,286 @@
 		or massive casualties amoung the crew.
 		"}
 
+/obj/item/weapon/book/manual/templete
+	name = "test"
+	icon_state = "book3"
+	author = "test"
+	title = "test"
+	dat = {"test test test"}
+
+/obj/item/weapon/book/manual/medicalManualOne
+	name = "A Guide to General Practitioning"
+	icon_state = "medbook"
+	author = "Aaron Perkins"
+	title = "A Guide to General Practitioning"
+	dat = {"<html><BIG> A Guide to General Practitioning. By: Aaron Perkins </BIG>
+		<BIG> Table of Contents </BIG>
+		<BR>
+		<BR>
+
+		1. Welcome to Medbay
+		2. Civilians in Medbay
+		3. So you just got your Doctorate
+		4. General Practitioning
+		5. Advanced Tips and Tricks
+		<BR>
+		<BR>
+		<BR>
+		<BR>
+
+		<B><BIG> 1. Welcome to Medbay </B></BIG>
+		<BR>
+
+		<P> So, you have just walked into Medbay. Welcome to the place where wounds are healed and the dead can be revived. In this place you have at your disposal the ability to cure or cause almost any ailment the human body can withstand and more. You are likely here for one of three reasons. One, you work here; Two, you or someone you know has been injured or is sick; or Three, you want to blow the place up. This guide will help you through the finer details of doing those first two things. <P>
+		<BR>
+
+		<B><BIG> 2. Civilians in Medbay </B></BIG>
+		<BR>
+
+		<P> So if you don’t work here, and you’re in Medbay, you or someone close to you has been afflicted with some form of ailment. Be it bullets or space gibs, someone inside those doors is able to help you. <P>
+		<P>At the bottom of the chain of command are Emergency Medical Technicians, or <ACRONYM>EMT</ACRONYM>s. They will likely be the first responders if you have injured coming into medbay. They usually carry first aid kits on them, and may have access to other medicines that they have been supplied from the higher ranking medical staff.<P>
+		<P> Medical Doctors make up the bulk of the staff in Medbay. They may have a menagerie of different titles, but those usually just denote a specialty, and any of them should be able to help you with most anything you need.</P>
+		<P> Psychologists are to the mind what Medical Doctors are to the body. Their purpose is to help you with whatever ails your mind. Feel free to speak to them about anything that bothers you.</P>
+		<P> Geneticists are mostly there for research purposes, but they have one important purpose in Medbay. With naught but a scrap of flesh they can revive the dead. How they do this is a long and complicated process, and there is little that can stop it.</P>
+		<P> The most powerful man in all of Medbay is the leader of the entire medical staff, the Chief Medical Officer. The <ACRONYM>CMO</ACRONYM> has access to all of Medbay, and is able to perform any of the jobs in Medbay if required. He can usually be found in his office, though he is often seen inside Medbay proper instructing the other staff.</P>
+		<BR>
+
+		<B><BIG> 3. So you just got your Doctorate </B></BIG>
+		<P> If you are fresh out of University and are just stepping into a Medbay for the first time, there is a lot for you to take in all at once. Luckily, you almost always have a good amount of time before the place gets hectic. The <ACRONYM>EMT</ACRONYM>s will act as your first responders, and will start bring you the sick and injured eventually. Once you get ahold of a patient your first responsibility will be to figure out what exactly the issue is. </P>
+		<P>A preliminary examination usually involves asking the patient what the issue is, however be warned <B> YOU ARE THE MEDICAL PROFESSIONAL </B> people can explain away almost anything, do not take what they say as gospel. You have a myriad of diagnostic tools on hand in Medbay. Your first response should be the medical scanner in your PDA. When you scan someone with a either a medical scanner or your PDA you will get a list of numbers that will look something like 0-0-0-0.The first number represents Suffocation damage, then Toxins, then Burns, Brute damage. High numbers are bad, 0’s are good. Normal body temperatures vary, but are usually around 37º C (98º F). Drastically different temperatures can be symptoms of diseases, which is Virology’s problem. </P>
+		<P> After that if you cannot tell exactly tell what the issue is, or you think there may be more to the story, you should toss the patient into the body scanner. The body scanner is the large green sleeper with the red screen. This will give a <B> MUCH </B> more detailed synopsis of what is going on with the patient. Everything you need to know about the person to treat them is on that screen. Treatments are as varied as injuries, you need to know a good variety of fixes to common problems if you expect to be good at this position.</P>
+		<BR>
+
+		<B><BIG> 4. General Practitioning  </B></BIG>
+		<BR>
+
+		<P>Almost any injury can be solved with either the right pharmaceuticals or the right surgery, but those are a matter unto themselves, and require their own guides. The key to being a good Medical Doctor is knowing exactly what treatment is best for the given situation. Surgeries are end all brute force fixes for 90% of injuries, however they are also risky and difficult to do if one is not well trained. Meds on the other hand don’t heal things instantly, some take long times to work, some are more subtle, some heal without stopping the symptoms the patient is actually feeling, and to top that all off meds can’t fix everything. Regardless of that however, medicines are far less invasive and should be your go to way of solving things.</P>
+		<P>If a patient is too far gone and would die on the operating table, and has injuries that meds can’t fix, then what you need is the cryopods . Cryopods, and to a lesser extent sleeper pods, are for people that require healing or meds while seriously injured. <B> If someone is about to die, do not immediately attempt surgery. Allow them time in the cryo pod to heal first. I have seen too many people die from the brute damage suffered on the operating table putting them over the edge.</B> </P>
+		<BR>
+
+		<B><BIG> 5. Advanced Tips and Tricks  </B></BIG>
+		<BR>
+
+		<P> Almost anything you find in the OR, or half of medbay really, can be substituted by things you find around the station. These are definitely lesser, and riskier, alternatives; only to be used in dire situations. Knowing these tricks can save someones life.</P>
+		<BR>
+
+		<P> Keep a syringe full of Cryoaxedone on you at all times. A wrenched showerhead can actually bring a persons body temperature low enough that it will begin working, making a ghetto cryotube out of any bathroom.</P>
+		<BR>
+
+		<P> A shard of glass can be used as a ghetto scalpel in emergencies, and a welding tool can be used as a cautery.</P>
+		</html>"}
+
+/obj/item/weapon/book/manual/medicalManualTwo
+	name = "A Guide to Cutting People Open"
+	icon_state = "medbook"
+	author = "Aaron Perkins"
+	title = "A Guide to Cutting People Open"
+	dat = {"<html><BIG> A Guide to Cutting People Open.</BIG><BR>
+		<BIG> Table of Contents </BIG>
+		<BR>
+		<BR>
+
+		Preface<BR>
+		1. Welcome to the OR<BR>
+		2. Is surgery the correct choice<BR>
+		3. Preparing <S>the Bodybag</S> the Operating room<BR>
+		4. The finer points of human internal anatomy<BR>
+		<BR>
+		<BR>
+		<BR>
+		<BR>
+
+		<B><BIG> Preface </B></BIG>
+		<BR>
+
+		<P> This is a guide to surgery intended for the eyes of advanced medical professionals. Please do not attempt to follow this guide out of order, or in any capacity other than intended by the author. The author of this guide cannot be held legally responsible for any damages or loss of life that may occur by use or misuse of the information contained within.</P>
+		<BR>
+
+		<B><BIG> 1. Welcome to the OR </B></BIG>
+		<BR>
+
+		<P> Welcome to the Operating Room. On the table you see before you nearly any problem of the human body can be solved by a man with skill, determination, knowhow, and balls of steel. To your left you will see a table of sterilized tools, each of these tools has their own unique purpose, and must be chosen carefully and handled adeptly, lest there be a corpse lying on the table. Medicines have side effects and any errors can be fixed by a quick dose of anti-toxin. Surgery is not so simple, it is a dangerous and precise art; but those who master it will be able to save even the most near death of poor unfortunate souls.</P>
+		<P> In the center of the room you will see the operating table itself, the vital tracking computer, and an additional body scanner. This scanner is no different from the one outside, do not be afraid to direct a patient into the OR if the scanner outside is in use. On the right there is a table with your standard Sterile masks and gloves, a sink for keeping things clean and keeping blood off your hands and tools, a wardrobe useful for stowing a patient's items whilst on the table, a freezer good for keeping any surgically removed organic bits from stinking up the place, and the Anesthetic locker.</P>
+		<BR>
+
+		<B><BIG> 2. Is surgery the correct choice </B></BIG>
+		<BR>
+
+		<P> Surgery is dangerous. It is not to be used on the mortally wounded, and not to be performed by the feint of heart. In many cases medicines can be used before surgery is required; and even when surgery will ultimately be needed, sometimes it is best to administer a slew of chemicals to prep the area before the patient hits the table. What chemicals may be needed will be covered in my chemistry guide.</P>
+		<P> Before you commit to completing a surgery, just make sure that the patient has a good chance of living through the procedure, and you know exactly what needs to be done on the table. Know what all the instruments are called, what they all do, and what they look like. If you can recite the tools needed for a given surgery from memory in the correct order, you should be fine in the OR itself. Should you royally fuck up however, all is not lost. Pick up a copy of my Guide to Cloning from your local bookstore or library to learn how to revive the person you just murdered through ineptitude.</P>
+		<BR>
+
+		<B><BIG> 3. Preparing the Operating room </B></BIG>
+		<BR>
+
+		<P> Before beginning surgery you should know that even if everything goes perfect while the patient is on the table, you can still get them killed by an infection if you screw up the prep. Before any of that though, make sure you have some advanced trauma kits on hand, no surgery necessitates the use of one always but there are some circumstances where one is required to make a surgery successful.
+		Make sure you wash your hands before putting anyone on the table.
+		The only clothes that need to be removed from the patient are the back and mask items.
+		Once you have the patient set on the operating table, open the anesthetic closet and get an anesthetic tank and a medical mask.
+		With the tank in one hand and the mask in the other, apply the tank to the back and the mask to the mask. ((Drag and drop the patient onto yourself and click on the corresponding items.))
+		Make sure you open the valve on the tank to actually apply the anesthetic. ((Click the “Set internals” button that should pop up when everything is set up right))
+		Wash your hands one more time and get yourself ready to get the job done. ((MAKE SURE YOU ARE SET TO THE HELP INTENT!))</P>
+		<BR>
+
+		<B><BIG> 4. The finer points of human internal anatomy </B></BIG>
+
+		<P> In this chapter I will break down each and every surgery you are likely to need while you are on the station and when you may need them.</P>
+		<BR>
+
+		<FONT Color = #1EFFBB></FONT>
+
+		<B> <U><FONT Color = Red>Bone Repair Surgery</FONT> </B></U><BR>
+		<BR>
+
+		<P>When to use this surgery is obvious, this should fix nearly any form of break or fracture that occurs. However if the affected area has taken too much brute damage completion of this surgery will be pointless, as the bone will either break again instantly, or grow back in the wrong position. Make sure the affected region has less than <B>15 brute damage</B> on it before starting surgery. Different bones have different limits, but 15 is the safest bet you can make. Use Bicaridine or advanced trauma kits as needed to get the brute damage below this threshold.</P><BR>
+		<BR>
+		0. Do everything mentioned in the previous chapter.<BR>
+		1. Make sure you know exactly where the break is.<BR>
+		2. Make an incision using a <FONT Color = #1EFFBB> Scalpel </FONT> over the affected area.<BR>
+		3. Use a <FONT Color = #1EFFBB>Hemostat</FONT> to stop the bleeding in the area.<BR>
+		4. Use the <FONT Color = #1EFFBB>Retractors</FONT> to peel back the skin so you can see the injured bone.<BR>
+		5. Apply <FONT Color = #1EFFBB>Bone Gel</FONT> to the broken bone to make it malleable enough to heal.<BR>
+		6. Use the <FONT Color = #1EFFBB>Bone Setter</FONT> to get the bone into it’s normal, healthy, position.<BR>
+		7. Finalize the bones position by melding it together with another application of <FONT Color = #1EFFBB>Bone Gel.</FONT> <BR>
+		8. Back your hands away from the area and use the <FONT Color #1EFFBB>Cautery</FONT> to seal the initial incision.<BR>
+		<BR>
+
+		<B> <U><FONT Color = Red>Facial Reconstruction</FONT> </B></U><BR>
+		<BR>
+
+		<P> This surgery is for when someone’s face is pummeled so hard you can’t even tell who they are by voice. Pretty straightforward procedure as far as the actual surgery goes.. </P><BR>
+		<BR>
+
+		0. Do everything mentioned in the previous chapter.<BR>
+		1. Open the patient's <FONT Color = #1EFFBB>Mouth</FONT>, as most of this surgery is done in the throat surprisingly enough.<BR>
+		2. Gain access to the patient’s voice box with the <FONT Color = #1EFFBB>Scalpel</FONT>. <BR>
+		3. Use a <FONT Color = #1EFFBB>Hemostat</FONT> to stop the bleeding in the area.<BR>
+		4. Use the <FONT Color = #1EFFBB>Retractors</FONT> to peel back the skin so you can see the vocal cords.<BR>
+		5. Use a <FONT Color = #1EFFBB>Hemostat</FONT> to reshape the vocal cords.<BR>
+		6. Use the <FONT Color = #1EFFBB>Retractors</FONT> to close up the voice box.<BR>
+		7. Back your hands away from the area and use the <FONT Color #1EFFBB>Cautery</FONT> to seal the initial incision.<BR>
+		<BR>
+
+		<B> <U><FONT Color = Red>Internal Bleeding</FONT> </B></U><BR>
+		<BR>
+
+		<P> Again, fairly straight forward. If someone is bleeding internally do this to stop it.</P><BR>
+		<BR>
+
+		0. Do everything mentioned in the previous chapter.<BR>
+		1. Make sure you know exactly where the bleed is.<BR>
+		2. Make an incision using a <FONT Color = #1EFFBB> Scalpel </FONT> over the affected area.<BR>
+		3. Use a <FONT Color = #1EFFBB>Hemostat</FONT> to stop the bleeding from the initial incision.<BR>
+		4. Use the <FONT Color = #1EFFBB>Retractors</FONT> to peel back the skin so you can see the injured veins.<BR>
+		5. Use the <FONT Color = #1EFFBB>Fix O’ Vein</FONT> to stop the actual internal bleed.
+		6. Back your hands away from the area and use the <FONT Color #1EFFBB>Cautery</FONT> to seal the initial incision.<BR>
+		<BR>
+
+		<B> <U><FONT Color = Red>Appendectomy</FONT> </B></U><BR>
+		<BR>
+
+		<P> If your scanner tells you someone has major issues with their Appendix, you should probably do this so it doesn’t burst and kill them.</P>
+		<BR>
+
+		0. Do everything mentioned in the previous chapter.<BR>
+		1. Get ready to slice open someone's <FONT Color = #1EFFBB>Groin</FONT> .<BR>
+		2. Make an incision using a <FONT Color = #1EFFBB> Scalpel </FONT> over the affected area.<BR>
+		3. Use a <FONT Color = #1EFFBB>Hemostat</FONT> to stop the bleeding from the initial incision.<BR>
+		4. Use the <FONT Color = #1EFFBB>Retractors</FONT> to peel back the skin so you can see the injured veins.<BR>
+		5. Free the injured appendix from it’s oppressive shitlords body using a <FONT Color = #1EFFBB> Scalpel </FONT>.<BR>
+		6. Use a <FONT Color = #1EFFBB>Hemostat</FONT> to liberate the newly detached Appendix.<BR>
+		7. Toss the Appendix into a Biohazard Bag and dispose of it in the incinerator.<BR>
+		8. Back your hands away from the area and use the <FONT Color #1EFFBB>Cautery</FONT> to seal the initial incision.<BR>
+		<BR>
+
+		<B> <U><FONT Color = Red>Robotic Limb Attachment Surgery</FONT> </B></U><BR>
+		<BR>
+
+		<P> This surgery is for when a scumbag tears someones arm off and you need to give them a sick ass augmented one. Make sure you have the artificial limb from robotics before starting this surgery. Medbay does not keep them in stock, so you do need to get one made before you chop a guy’s stump of an arm open.</P><BR>
+		<BR>
+
+		0. Do everything mentioned in the previous chapter.<BR>
+		1. Make sure you know exactly where the new parts are needed.<BR>
+		2. Make an incision using a <FONT Color = #1EFFBB> Scalpel </FONT> over the affected area.<BR>
+		3. Use the <FONT Color = #1EFFBB>Retractors</FONT> to set the area up for the new implant.<BR>
+		4. Back your hands away from the area and use the <FONT Color #1EFFBB>Cautery</FONT> to seal the initial incision and finalize the target area for the implant.<BR>
+		5. Plug in the new robotic arm. <BR>
+		<B>6. Beat the patient to death with the anesthetic tank if the first thing they say when they wake up is “I didn’t ask for this.</B><BR>
+		7. Bill them for it afterwards.<BR>
+		<BR>
+
+		<B> <U><FONT Color = Red>Internal Organ Surgery</FONT> </B></U><BR>
+		<BR>
+
+		<P> This is the most common surgery you will ever do, you will do it at least once a shift. Be prepared to have this surgery down to muscle memory after three or four shifts. This is used for ruptured lungs, chemically mutilated livers and everything inbetween.</P><BR>
+		<BR>
+
+		0. Do everything mentioned in the previous chapter.<BR>
+		1. Be ready to open someone’s <FONT Color = #1EFFBB>Chest</FONT>.<BR>
+		2. Gain access to the patient’s chest cavity with the <FONT Color = #1EFFBB>Scalpel</FONT>. <BR>
+		3. Use a <FONT Color = #1EFFBB>Hemostat</FONT> to stop the bleeding in the area.<BR>
+		4. Use the <FONT Color = #1EFFBB>Retractors</FONT> to peel back the skin so you can see the rib cage.<BR>
+		5. Use the <FONT Color = #1EFFBB>Bone Saw</FONT> on the patient’s sternum to gain access to the actual injured organ. <BR>
+		6. Move the <FONT Color = #1EFFBB>Retractors</FONT> in a little deeper and separate the  rib cage.<BR>
+		7. Cleanly slice over the injured area of the affected organs with the <FONT Color = #1EFFBB>Scalpel</FONT>. It will sew the incision shut as you go, healing the organ. <BR>
+		8. SLOWLY close the rib cage with the <FONT Color = #1EFFBB>Retractors</FONT>.<BR>
+		9. Fuse the sternum back together with the <FONT Color = #1EFFBB>Bone Gel.</FONT> <BR>
+		10. Back your hands away from the area and use the <FONT Color #1EFFBB>Cautery</FONT> to seal the initial incision.<BR>
+		<BR>
+
+		<B> <U><FONT Color = Red>Alien Embryo Removal</FONT> </B></U><BR>
+		<BR>
+
+		<P> If someone has been attacked by a Xeno and possibly infected with alien eggs, this is how you get the little bastards out.</P><BR>
+		<BR>
+
+		0. Do everything mentioned in the previous chapter.<BR>
+		1. Be ready to open someone’s <FONT Color = #1EFFBB>Chest</FONT>.<BR>
+		2. Gain access to the patient’s chest cavity with the <FONT Color = #1EFFBB>Scalpel</FONT>. <BR>
+		3. Use a <FONT Color = #1EFFBB>Hemostat</FONT> to stop the bleeding in the area.<BR>
+		4. Use the <FONT Color = #1EFFBB>Retractors</FONT> to peel back the skin so you can see the rib cage.<BR>
+		5. Use the <FONT Color = #1EFFBB>Bone Saw</FONT> on the patient’s sternum to gain access to the actual injured organ. <BR>
+		6. Move the <FONT Color = #1EFFBB>Retractors</FONT> in a little deeper and separate the  rib cage.<BR>
+		7. Use the <FONT Color = #1EFFBB>Hemostat</FONT> to remove the eggs. <BR>
+		8. SLOWLY close the rib cage with the <FONT Color = #1EFFBB>Retractors</FONT>.<BR>
+		9. Fuse the sternum back together with the <FONT Color = #1EFFBB>Bone Gel.</FONT> <BR>
+		10. Back your hands away from the area and use the <FONT Color #1EFFBB>Cautery</FONT> to seal the initial incision.<BR>
+		<BR>
+
+		<B> <U><FONT Color = Red>Eye Repair Surgery</FONT> </B></U><BR>
+		<BR>
+
+		<P> If someone has had their eyes stabbed out, this is the surgery required to fix them. Note that this surgery <B>DOES NOT</B> fix genetically defective eyes, and that requires medicines covered in my Comprehensive Book of All Chemicals Ever.</P><BR>
+		<BR>
+
+		0. Do everything mentioned in the previous chapter.<BR>
+		1. Be ready to open someone’s <FONT Color = #1EFFBB>Eyes</FONT>.<BR>
+		2. Gain access to the patient’s eye sockets with the <FONT Color = #1EFFBB>Scalpel</FONT>. <BR>
+		3. Use the <FONT Color = #1EFFBB>Retractors</FONT> lift up the actual eyeballs.<BR>
+		4. Use a <FONT Color = #1EFFBB>Hemostat</FONT> to stop the bleeding in the area.<BR>
+		5. Back your hands away from the area and use the <FONT Color #1EFFBB>Cautery</FONT> to seal the initial incision.<BR>
+		<BR>
+
+		<B> <U><FONT Color = Red>Brain Removal/Damage Surgeries</FONT> </B></U><BR>
+		<BR>
+
+		<P> If someone’s brain is damaged, or someone needs to be put into a robotic body. These are the surgeries needed. They are incredibly similar, so I put them into one block.</><BR>
+		<BR>
+
+		0. Do everything mentioned in the previous chapter.<BR>
+		1. Be ready to open someone’s <FONT Color = #1EFFBB>Head</FONT>.<BR>
+		2. Gain access to the patient’s skull with the <FONT Color = #1EFFBB>Scalpel</FONT>. <BR>
+		3. Use the <FONT Color = #1EFFBB>Bone Saw</FONT> on the patient’s skullto gain access to the insides of the cranium. <BR>
+
+		<P> Repeat steps 2 and 3 again to remove the brain, then hand the organ off to the nearest roboticist. If there are no roboticists nearby, put the brain into the freezer <B>IMMEDIATELY</B>. If you are replacing someone’s brain, simply insert the removed brain into it’s new home.</P>
+		<BR>
+		<P> If you are trying to repair physical damage, proceed onward to step 4.</P><BR>
+
+		4. Use a <FONT Color = #1EFFBB>Hemostat</FONT> to remove the bone chips that will inevitably be lodged in the brain.
+		5. Use the <FONT Color = #1EFFBB>Fix O’ Vein</FONT> to repair the Subdural Hematoma.
+		6. Back your hands away from the area and use the <FONT Color #1EFFBB>Cautery</FONT> to seal the initial incision.<BR>
+		</html>"}
+
 /obj/item/weapon/book/manual/engineering_construction
 	name = "Station Repairs and Construction"
 	icon_state ="bookEngineering"
