@@ -1,6 +1,6 @@
 /obj/structure/closet/secure_closet/cmo
 	name = "chief medical officer's locker"
-	req_access = list(access_cmo)
+	req_access = list(ACCESS_CMO)
 	icon_state = "cmosecure1"
 	icon_closed = "cmosecure"
 	icon_locked = "cmosecure1"
@@ -28,7 +28,7 @@
 
 /obj/structure/closet/secure_closet/doctor
 	name = "medical doctor's locker"
-	req_access = list(access_chemistry)
+	req_access = list(ACCESS_CHEMISTRY)
 	icon_state = "securemed1"
 	icon_closed = "securemed"
 	icon_locked = "securemed1"
@@ -57,7 +57,7 @@
 
 /obj/structure/closet/secure_closet/emt
 	name = "emergency medical technician's locker"
-	req_access = list(access_medical)
+	req_access = list(ACCESS_MEDICAL)
 	icon_state = "securemed1"
 	icon_closed = "securemed"
 	icon_locked = "securemed1"
@@ -83,7 +83,7 @@
 
 /obj/structure/closet/secure_closet/geneticist
 	name = "geneticist's locker"
-	req_access = list(access_genetics)
+	req_access = list(ACCESS_GENETICS)
 	icon_state = "securemed1"
 	icon_closed = "securemed"
 	icon_locked = "securemed1"
@@ -111,7 +111,7 @@
 
 /obj/structure/closet/secure_closet/psychiatrist
 	name = "psychiatrist's locker"
-	req_access = list(access_psychiatrist)
+	req_access = list(ACCESS_PSYCHIATRIST)
 	icon_state = "securemed1"
 	icon_closed = "securemed"
 	icon_locked = "securemed1"
@@ -142,7 +142,7 @@
 	icon_opened = "medicalopen"
 	icon_broken = "medicalbroken"
 	icon_off = "medicaloff"
-	req_access = list(access_medical)
+	req_access = list(ACCESS_MEDICAL)
 
 	New()
 		..()
@@ -167,7 +167,7 @@
 	icon_opened = "medicalopen"
 	icon_broken = "medicalbroken"
 	icon_off = "medicaloff"
-	req_access = list(access_surgery)
+	req_access = list(ACCESS_SURGERY)
 
 	New()
 		..()
@@ -181,7 +181,7 @@
 
 /obj/structure/closet/secure_closet/animal
 	name = "Animal Control"
-	req_access = list(access_surgery)
+	req_access = list(ACCESS_SURGERY)
 
 
 	New()
@@ -202,7 +202,7 @@
 	icon_opened = "medicalopen"
 	icon_broken = "medicalbroken"
 	icon_off = "medicaloff"
-	req_access = list(access_chemistry)
+	req_access = list(ACCESS_CHEMISTRY)
 
 	New()
 		..()
@@ -223,7 +223,7 @@
 	anchored = 1
 	density = 0
 	wall_mounted = 1
-	req_access = list(access_medical)
+	req_access = list(ACCESS_MEDICAL)
 
 /obj/structure/closet/secure_closet/medical_wall/update_icon()
 	if(broken)

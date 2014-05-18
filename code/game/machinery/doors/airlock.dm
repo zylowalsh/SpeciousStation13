@@ -101,7 +101,7 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 
 /obj/machinery/door/airlock/command/bridge1
 	name = "Bridge"
-	req_access = list(access_heads)
+	req_access = list(ACCESS_HEADS)
 	frequency = 1449
 	icon_state = "door_locked"
 	locked = TRUE
@@ -112,7 +112,7 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 
 /obj/machinery/door/airlock/command/bridge2
 	name = "Bridge"
-	req_access = list(access_heads)
+	req_access = list(ACCESS_HEADS)
 	frequency = 1449
 	icon_state = "door_locked"
 	locked = TRUE
@@ -133,7 +133,7 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 
 /obj/machinery/door/airlock/engineering/reactor
 	name = "Reactor"
-	req_access = list(access_engine_equip)
+	req_access = list(ACCESS_ENGINE_EQUIP)
 	frequency = 1449
 	icon_state = "door_locked"
 	locked = TRUE
@@ -149,7 +149,7 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 
 /obj/machinery/door/airlock/medical/virology
 	name = "Virology"
-	req_access = list(access_virology)
+	req_access = list(ACCESS_VIROLOGY)
 	frequency = 1449
 	icon_state = "door_locked"
 	locked = TRUE
@@ -170,7 +170,7 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 
 /obj/machinery/door/airlock/external/solar1
 	name = "External Airlock"
-	req_access = list(access_engine_equip, access_external_airlocks)
+	req_access = list(ACCESS_ENGINE_EQUIP, ACCESS_EXTERNAL_AIRLOCKS)
 	frequency = 1449
 	icon_state = "door_locked"
 	locked = TRUE
@@ -181,7 +181,7 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 
 /obj/machinery/door/airlock/external/solar2
 	name = "External Airlock"
-	req_access = list(access_engine_equip, access_external_airlocks)
+	req_access = list(ACCESS_ENGINE_EQUIP, ACCESS_EXTERNAL_AIRLOCKS)
 	frequency = 1449
 	icon_state = "door_locked"
 	locked = TRUE
@@ -192,7 +192,7 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 
 /obj/machinery/door/airlock/external/solar3
 	name = "External Airlock"
-	req_access = list(access_engine_equip, access_external_airlocks)
+	req_access = list(ACCESS_ENGINE_EQUIP, ACCESS_EXTERNAL_AIRLOCKS)
 	frequency = 1449
 	icon_state = "door_locked"
 	locked = TRUE
@@ -203,7 +203,7 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 
 /obj/machinery/door/airlock/external/solar4
 	name = "External Airlock"
-	req_access = list(access_engine_equip, access_external_airlocks)
+	req_access = list(ACCESS_ENGINE_EQUIP, ACCESS_EXTERNAL_AIRLOCKS)
 	frequency = 1449
 	icon_state = "door_locked"
 	locked = TRUE
@@ -214,7 +214,7 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 
 /obj/machinery/door/airlock/external/reactorExterior1
 	name = "External Airlock"
-	req_access = list(access_engine_equip, access_external_airlocks)
+	req_access = list(ACCESS_ENGINE_EQUIP, ACCESS_EXTERNAL_AIRLOCKS)
 	frequency = 1449
 	icon_state = "door_locked"
 	locked = TRUE
@@ -225,7 +225,7 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 
 /obj/machinery/door/airlock/external/reactorExterior2
 	name = "External Airlock"
-	req_access = list(access_engine_equip, access_external_airlocks)
+	req_access = list(ACCESS_ENGINE_EQUIP, ACCESS_EXTERNAL_AIRLOCKS)
 	frequency = 1449
 	icon_state = "door_locked"
 	locked = TRUE
@@ -236,7 +236,7 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 
 /obj/machinery/door/airlock/external/toxinsExterior
 	name = "External Airlock"
-	req_access = list(access_tox_storage, access_external_airlocks)
+	req_access = list(ACCESS_TOXIN_STORAGE, ACCESS_EXTERNAL_AIRLOCKS)
 	frequency = 1449
 	icon_state = "door_locked"
 	locked = TRUE
@@ -247,7 +247,7 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 
 /obj/machinery/door/airlock/external/eva
 	name = "External Airlock"
-	req_access = list(access_eva, access_external_airlocks)
+	req_access = list(ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS)
 	frequency = 1449
 	icon_state = "door_locked"
 	locked = TRUE
@@ -258,7 +258,7 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 
 /obj/machinery/door/airlock/external/maintenance1
 	name = "External Airlock"
-	req_access = list(access_maint_tunnels, access_external_airlocks)
+	req_access = list(ACCESS_MAINTENANCE, ACCESS_EXTERNAL_AIRLOCKS)
 	frequency = 1449
 	icon_state = "door_locked"
 	locked = TRUE
@@ -269,7 +269,7 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 
 /obj/machinery/door/airlock/external/maintenance2
 	name = "External Airlock"
-	req_access = list(access_maint_tunnels, access_external_airlocks)
+	req_access = list(ACCESS_MAINTENANCE, ACCESS_EXTERNAL_AIRLOCKS)
 	frequency = 1449
 	icon_state = "door_locked"
 	locked = TRUE
@@ -280,7 +280,7 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 
 /obj/machinery/door/airlock/external/maintenance3
 	name = "External Airlock"
-	req_access = list(access_maint_tunnels, access_external_airlocks)
+	req_access = list(ACCESS_MAINTENANCE, ACCESS_EXTERNAL_AIRLOCKS)
 	frequency = 1449
 	icon_state = "door_locked"
 	locked = TRUE
@@ -291,7 +291,7 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 
 /obj/machinery/door/airlock/external/maintenance4
 	name = "External Airlock"
-	req_access = list(access_maint_tunnels, access_external_airlocks)
+	req_access = list(ACCESS_MAINTENANCE, ACCESS_EXTERNAL_AIRLOCKS)
 	frequency = 1449
 	icon_state = "door_locked"
 	locked = TRUE
@@ -302,7 +302,7 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 
 /obj/machinery/door/airlock/external/maintenance5
 	name = "External Airlock"
-	req_access = list(access_maint_tunnels, access_external_airlocks)
+	req_access = list(ACCESS_MAINTENANCE, ACCESS_EXTERNAL_AIRLOCKS)
 	frequency = 1449
 	icon_state = "door_locked"
 	locked = TRUE
@@ -313,7 +313,7 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 
 /obj/machinery/door/airlock/external/maintenance6
 	name = "External Airlock"
-	req_access = list(access_maint_tunnels, access_external_airlocks)
+	req_access = list(ACCESS_MAINTENANCE, ACCESS_EXTERNAL_AIRLOCKS)
 	frequency = 1449
 	icon_state = "door_locked"
 	locked = TRUE
@@ -324,7 +324,7 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 
 /obj/machinery/door/airlock/external/blueStation
 	name = "External Airlock"
-	req_access = list(ACCESS_SHUTTLE, access_external_airlocks)
+	req_access = list(ACCESS_SHUTTLE, ACCESS_EXTERNAL_AIRLOCKS)
 	frequency = 1449
 	icon_state = "door_locked"
 	locked = TRUE
@@ -335,7 +335,7 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 
 /obj/machinery/door/airlock/external/purpleStation
 	name = "External Airlock"
-	req_access = list(ACCESS_SHUTTLE, access_external_airlocks)
+	req_access = list(ACCESS_SHUTTLE, ACCESS_EXTERNAL_AIRLOCKS)
 	frequency = 1449
 	icon_state = "door_locked"
 	locked = TRUE
@@ -375,7 +375,7 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 
 /obj/machinery/door/airlock/hatch/telecomms
 	name = "Telecommunication Server Room"
-	req_access = list(access_tcomsat)
+	req_access = list(ACCESS_TCOMSAT)
 	frequency = 1449
 	icon_state = "door_locked"
 	locked = TRUE
@@ -386,7 +386,7 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 
 /obj/machinery/door/airlock/hatch/researchServer
 	name = "Research Server Room"
-	req_access = list(access_rd)
+	req_access = list(ACCESS_RD)
 	frequency = 1449
 	icon_state = "door_locked"
 	locked = TRUE
@@ -410,7 +410,7 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 
 /obj/machinery/door/airlock/glass_command/bridge1
 	name = "Bridge"
-	req_access = list(access_heads)
+	req_access = list(ACCESS_HEADS)
 	frequency = 1449
 	icon_state = "door_locked"
 	locked = TRUE
@@ -421,7 +421,7 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 
 /obj/machinery/door/airlock/glass_command/bridge2
 	name = "Bridge"
-	req_access = list(access_heads)
+	req_access = list(ACCESS_HEADS)
 	frequency = 1449
 	icon_state = "door_locked"
 	locked = TRUE
@@ -446,7 +446,7 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 
 /obj/machinery/door/airlock/glass_security/brig
 	name = "Brig"
-	req_access = list(access_sec_doors)
+	req_access = list(ACCESS_SEC_DOORS)
 	frequency = 1449
 	icon_state = "door_locked"
 	locked = TRUE
@@ -474,7 +474,7 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 
 /obj/machinery/door/airlock/atmos/atmos
 	name = "Atmospherics"
-	req_access = list(access_atmospherics)
+	req_access = list(ACCESS_ATMOSPHERICS)
 	frequency = 1449
 	icon_state = "door_locked"
 	locked = TRUE
@@ -490,7 +490,7 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 
 /obj/machinery/door/airlock/research/toxins
 	name = "Toxins"
-	req_access = list(access_tox_storage)
+	req_access = list(ACCESS_TOXIN_STORAGE)
 	frequency = 1449
 	icon_state = "door_locked"
 	locked = TRUE
@@ -501,7 +501,7 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 
 /obj/machinery/door/airlock/research/xenobio
 	name = "Xenobiology"
-	req_access = list(access_xenobiology)
+	req_access = list(ACCESS_XENOBIOLOGY)
 	frequency = 1449
 	icon_state = "door_locked"
 	locked = TRUE

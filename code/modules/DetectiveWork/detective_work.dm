@@ -76,7 +76,7 @@ obj/machinery/computer/forensic_scanning
 	var/scan_name = ""
 	var/scan_process = 0
 
-	req_access = list(access_forensics_lockers)
+	req_access = list(ACCESS_DETECTIVE)
 
 
 	New()
@@ -416,7 +416,7 @@ obj/machinery/computer/forensic_scanning
 							scan_data += "Fibers/Materials Found:<br>"
 							for(var/data in scanning.suit_fibers)
 								scan_data += "- [data]<br>"
-						if(istype(scanning,/obj/item/device/detective_scanner) || (istype(scanning, /obj/item/device/pda) && scanning:cartridge && scanning:cartridge.access_security))
+						if(istype(scanning,/obj/item/device/detective_scanner) || (istype(scanning, /obj/item/device/pda) && scanning:cartridge && scanning:cartridge.ACCESS_SECURITY))
 							scan_data += "<br><b>Data transfered from \the [scanning] to Database.</b><br>"
 							add_data_scanner(scanning)
 						else if(!scanning.fingerprints)
@@ -465,7 +465,7 @@ obj/machinery/computer/forensic_scanning
 					var/list/data = D.stored[atom]
 					add_data_master(atom,data[1],data[2],data[3],data[4])
 			D.stored = list()
-		else if(istype(W, /obj/item/device/pda) && W:cartridge && W:cartridge.access_security)
+		else if(istype(W, /obj/item/device/pda) && W:cartridge && W:cartridge.ACCESS_SECURITY)
 			if(W:cartridge.stored_data)
 				for(var/atom in W:cartridge.stored_data)
 					var/list/data = W:cartridge.stored_data[atom]

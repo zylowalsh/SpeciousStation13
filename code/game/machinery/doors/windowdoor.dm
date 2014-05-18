@@ -15,7 +15,8 @@
 
 
 /obj/machinery/door/window/update_nearby_tiles(need_rebuild)
-	if(!air_master) return 0
+	if(!air_master)
+		return 0
 
 	var/turf/simulated/source = get_turf(src)
 	var/turf/simulated/target = get_step(source,dir)
@@ -27,11 +28,11 @@
 
 /obj/machinery/door/window/New()
 	..()
-
+	/*
 	if (src.req_access && src.req_access.len)
 		src.icon_state = "[src.icon_state]"
 		src.base_state = src.icon_state
-	return
+	*/
 
 /obj/machinery/door/window/Del()
 	density = 0
@@ -65,7 +66,6 @@
 		else //secure doors close faster
 			sleep(20)
 		close()
-	return
 
 /obj/machinery/door/window/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
 	if(istype(mover) && mover.checkpass(PASSGLASS))
@@ -91,9 +91,9 @@
 		return 0
 	if(!src.operating) //in case of emag
 		src.operating = 1
-	flick(text("[]opening", src.base_state), src)
+	flick("[src.base_state]opening", src)
 	playsound(src.loc, 'sound/machines/windowdoor.ogg', 100, 1)
-	src.icon_state = text("[]open", src.base_state)
+	src.icon_state = "[src.base_state]open"
 	sleep(10)
 
 	explosion_resistance = 0
@@ -269,19 +269,16 @@
 	else if (src.density)
 		flick(text("[]deny", src.base_state), src)
 
-	return
-
-
-
 /obj/machinery/door/window/brigdoor
 	name = "Secure Door"
 	icon = 'icons/obj/doors/windoor.dmi'
-	icon_state = "leftsecure"
+	icon_state = "leftsecureopen"
 	base_state = "leftsecure"
-	req_access = list(access_security)
+	explosion_resistance = 0
+	density = 0
+	req_access = list(ACCESS_SECURITY)
 	var/id = null
 	health = 300.0 //Stronger doors for prison (regular window door health is 200)
-
 
 /obj/machinery/door/window/northleft
 	dir = NORTH
@@ -329,21 +326,21 @@
 
 /obj/machinery/door/window/brigdoor/northright
 	dir = NORTH
-	icon_state = "rightsecure"
+	icon_state = "rightsecureopen"
 	base_state = "rightsecure"
 
 /obj/machinery/door/window/brigdoor/eastright
 	dir = EAST
-	icon_state = "rightsecure"
+	icon_state = "rightsecureopen"
 	base_state = "rightsecure"
 
 /obj/machinery/door/window/brigdoor/westright
 	dir = WEST
-	icon_state = "rightsecure"
+	icon_state = "rightsecureopen"
 	base_state = "rightsecure"
 
 /obj/machinery/door/window/brigdoor/southright
 	dir = SOUTH
-	icon_state = "rightsecure"
+	icon_state = "rightsecureopen"
 	base_state = "rightsecure"
 

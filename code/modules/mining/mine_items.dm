@@ -82,7 +82,7 @@ proc/move_mining_shuttle()
 	name = "blue shuttle console"
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "shuttle"
-	req_access = list(access_mining)
+	req_access = list(ACCESS_MINING)
 	circuit = "/obj/item/weapon/circuitboard/mining_shuttle"
 	var/hacked = 0
 	var/location = 0 //0 = station, 1 = mining base

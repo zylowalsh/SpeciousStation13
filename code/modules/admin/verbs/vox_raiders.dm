@@ -60,7 +60,7 @@ var/global/vox_tick = 1
 	var/obj/item/weapon/card/id/syndicate/W = new(src)
 	W.name = "[real_name]'s Legitimate Human ID Card"
 	W.icon_state = "id"
-	W.access = list(access_cent_general, access_cent_specops, access_cent_living, access_cent_storage, access_syndicate)
+	W.access = list(ACCESS_CEnt_general, ACCESS_CEnt_specops, ACCESS_CEnt_living, ACCESS_CEnt_storage, access_syndicate)
 	W.assignment = "Trader"
 	W.registered_name = real_name
 	equip_to_slot_or_del(W, slot_wear_id)

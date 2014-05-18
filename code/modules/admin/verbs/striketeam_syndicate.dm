@@ -166,7 +166,7 @@ var/sentSyndicateStrikeTeam = FALSE
 	W.name = "[real_name]'s ID Card"
 	W.icon_state = "id"
 	W.access = get_all_accesses()//They get full station access because obviously the syndicate has HAAAX, and can make special IDs for their most elite members.
-	W.access += list(access_cent_general, access_cent_specops, access_cent_living, access_cent_storage, access_syndicate)//Let's add their forged CentCom access and syndicate access.
+	W.access += list(ACCESS_CEnt_general, ACCESS_CEnt_specops, ACCESS_CEnt_living, ACCESS_CEnt_storage, access_syndicate)//Let's add their forged CentCom access and syndicate access.
 	W.assignment = "Syndicate Commando"
 	W.registered_name = real_name
 	equip_to_slot_or_del(W, slot_wear_id)

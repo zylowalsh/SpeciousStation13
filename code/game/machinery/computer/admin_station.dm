@@ -5,7 +5,7 @@
 	name = "Landale's shuttle terminal"
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "escape"
-	req_access = list(access_cent_general)
+	req_access = list(ACCESS_CEnt_general)
 	var/area/curr_location
 	var/moving = 0
 	var/lastMove = 0

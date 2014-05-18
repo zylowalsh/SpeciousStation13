@@ -34,7 +34,7 @@
 		return
 	if(istype(W,/obj/item/weapon/card/id))
 		var/obj/item/weapon/card/id/ID = W
-		if(access_keycard_auth in ID.access)
+		if(ACCESS_KEYCARD_AUTH in ID.access)
 			if(active == 1)
 				//This is not the device that made the initial request. It is the device confirming the request.
 				if(event_source)
@@ -164,6 +164,6 @@ var/global/maint_all_access = 0
 	world << "<font color='red'>The maintenance access requirement has been readded on all maintenance airlocks.</font>"
 
 /obj/machinery/door/airlock/allowed(mob/M)
-	if(maint_all_access && src.check_access_list(list(access_maint_tunnels)))
+	if(maint_all_access && src.check_access_list(list(ACCESS_MAINTENANCE)))
 		return 1
 	return ..(M)

@@ -20,7 +20,7 @@ datum/shuttle_controller
 	var/const/SHUTTLE_BASE_PREP_TIME = 480
 	var/const/SHUTTLE_BASE_DOCKED_TIME = 180
 	var/const/SHUTTLE_BASE_TRANSIT_TIME = 120
-	var/const/SHUTTLE_BASE_CANCEL_COOLDOWN = 900
+	var/const/SHUTTLE_BASE_CANCEL_COOLDOWN = 240
 	var/const/SHUTTLE_TESTING_TIME = 15
 
 	var/evacType = EMERGENCY //0 = emergency, 1 = crew cycle
@@ -33,13 +33,15 @@ datum/shuttle_controller
 	var/timeToFakeRecall = 0 //Used in rounds to prevent "ON NOES, IT MUST [INSERT ROUND] BECAUSE SHUTTLE CAN'T BE CALLED"
 	var/denyShuttle = FALSE //for admins not allowing it to be called.
 
-datum/shuttle_controller/proc/callShuttle(typeOfEvac = EMERGENCY, autoRecall = FALSE, forceCall = FALSE)
-	evacType = typeOfEvac
+datum/shuttle_controller/proc/callShuttle(typeOfEvac = EMERGENCY, forceCall = FALSE)
 
-	if(shuttleState != IDLE_AT_CENTCOM)
+	if(!(shuttleState == IDLE_AT_CENTCOM || shuttleState == SHUTTLE_CANCELED))
 		return
 
 	if(!forceCall)
+
+		if(shuttleState != IDLE_AT_CENTCOM)
+			return
 
 		if(denyShuttle)
 			return
@@ -47,14 +49,15 @@ datum/shuttle_controller/proc/callShuttle(typeOfEvac = EMERGENCY, autoRecall = F
 		if(!ticker.mode.canShuttleBeCalled)
 			return
 
-		if(ticker.mode.shuttleFakedCalled || autoRecall)
+		if(ticker.mode.shuttleFakedCalled)
 			timeToFakeRecall = rand(SHUTTLE_BASE_PREP_TIME / 10, SHUTTLE_BASE_PREP_TIME / 2)
 
+	shuttleState = IDLE_AT_CENTCOM
 	timeStateChanged = world.timeofday
 	online = TRUE
 
 	//Turning the alert lights on in the hallways
-	if(evacType == EMERGENCY)
+	if(typeOfEvac == EMERGENCY)
 		for(var/area/A in world)
 			if(istype(A, /area/hallway))
 				A.readyalert()
@@ -71,7 +74,7 @@ datum/shuttle_controller/proc/recall()
 			for(var/area/A in world)
 				if(istype(A, /area/hallway))
 					A.readyreset()
-		else //Makes it possible for an admin stop the shuttle to be launched.
+		else
 			captain_announce("The request for a crew switch shuttle has been canceled.")
 
 		shuttleState = SHUTTLE_CANCELED

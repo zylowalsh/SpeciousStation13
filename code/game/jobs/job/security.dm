@@ -12,14 +12,14 @@
 	selection_color = "#ffdddd"
 	idtype = /obj/item/weapon/card/id/silver
 	req_admin_notify = 1
-	access = list(access_security, access_sec_doors, access_brig, access_armory, access_court, access_change_ids,
-		    access_forensics_lockers, access_morgue, access_maint_tunnels, access_all_personal_lockers,
-		    access_research, access_engine, access_mining, access_medical, access_construction, access_mailsorting,
-		    access_heads, access_hos, access_RC_announce, access_keycard_auth, access_eva, ACCESS_SHUTTLE)
-	minimal_access = list(access_security, access_sec_doors, access_brig, access_armory, access_court, access_change_ids,
-            access_forensics_lockers, access_morgue, access_maint_tunnels, access_all_personal_lockers,
-            access_research, access_engine, access_mining, access_medical, access_construction, access_mailsorting,
-            access_heads, access_hos, access_RC_announce, access_keycard_auth, access_eva, ACCESS_SHUTTLE)
+	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT, ACCESS_CHANGE_IDS,
+		    ACCESS_DETECTIVE, ACCESS_MORGUE, ACCESS_MAINTENANCE, ACCESS_ALL_PERSONAL_LOCKERS,
+		    ACCESS_RESEARCH, ACCESS_ENGINE, ACCESS_MINING, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAIL_SORTING,
+		    ACCESS_HEADS, ACCESS_HOS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_EVA, ACCESS_SHUTTLE)
+	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT, ACCESS_CHANGE_IDS,
+            ACCESS_DETECTIVE, ACCESS_MORGUE, ACCESS_MAINTENANCE, ACCESS_ALL_PERSONAL_LOCKERS,
+            ACCESS_RESEARCH, ACCESS_ENGINE, ACCESS_MINING, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAIL_SORTING,
+            ACCESS_HEADS, ACCESS_HOS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_EVA, ACCESS_SHUTTLE)
 	minimal_player_age = 2
 
 	equip(var/mob/living/carbon/human/H)
@@ -57,9 +57,9 @@
 	spawn_positions = 1
 	supervisors = "the head of security"
 	selection_color = "#ffeeee"
-	access = list(access_security, access_sec_doors, access_forensics_lockers, access_brig, access_armory, access_court,
-			access_maint_tunnels, access_morgue, access_eva, ACCESS_SHUTTLE)
-	minimal_access = list(access_security, access_sec_doors, access_brig, access_armory, access_court, access_maint_tunnels)
+	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_DETECTIVE, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT,
+			ACCESS_MAINTENANCE, ACCESS_MORGUE, ACCESS_EVA, ACCESS_SHUTTLE)
+	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT, ACCESS_MAINTENANCE)
 	minimal_player_age = 1
 
 	equip(var/mob/living/carbon/human/H)
@@ -95,9 +95,9 @@
 	selection_color = "#ffeeee"
 	alt_titles = list("Forensic Technician")
 
-	access = list(access_security, access_sec_doors, access_brig, access_forensics_lockers, access_morgue, access_maint_tunnels,
-		access_court, access_eva, ACCESS_SHUTTLE)
-	minimal_access = list(access_security, access_sec_doors, access_forensics_lockers, access_morgue, access_maint_tunnels, access_court)
+	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_DETECTIVE, ACCESS_MORGUE, ACCESS_MAINTENANCE,
+		ACCESS_COURT, ACCESS_EVA, ACCESS_SHUTTLE)
+	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_DETECTIVE, ACCESS_MORGUE, ACCESS_MAINTENANCE, ACCESS_COURT)
 	alt_titles = list("Forensic Technician")
 	minimal_player_age = 1
 	equip(var/mob/living/carbon/human/H)
@@ -132,9 +132,9 @@
 	spawn_positions = 5
 	supervisors = "the head of security"
 	selection_color = "#ffeeee"
-	access = list(access_security, access_sec_doors, access_brig, access_court, access_maint_tunnels, access_morgue,
-			access_eva, ACCESS_SHUTTLE)
-	minimal_access = list(access_security, access_sec_doors, access_brig, access_court, access_maint_tunnels)
+	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINTENANCE, ACCESS_MORGUE,
+			ACCESS_EVA, ACCESS_SHUTTLE)
+	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINTENANCE)
 	minimal_player_age = 1
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0

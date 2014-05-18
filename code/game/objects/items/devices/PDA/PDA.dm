@@ -357,23 +357,23 @@ var/global/list/obj/item/device/pda/PDAs = list()
 				//dat += "<li><a href='byond://?src=\red[src];choice=chatroom'><img src=pda_chatroom.png> Nanotrasen Relay Chat</a></li>"
 
 				if (cartridge)
-					if (cartridge.access_clown)
+					if (cartridge.ACCESS_CLOWN)
 						dat += "<li><a href='byond://?src=\ref[src];choice=Honk'><img src=pda_honk.png> Honk Synthesizer</a></li>"
 					if(cartridge.access_status_display)
 						dat += "<li><a href='byond://?src=\ref[src];choice=42'><img src=pda_status.png> Set Status Display</a></li>"
 					dat += "</ul>"
-					if (cartridge.access_engine)
+					if (cartridge.ACCESS_ENGINE)
 						dat += "<h4>Engineering Functions</h4>"
 						dat += "<ul>"
 						dat += "<li><a href='byond://?src=\ref[src];choice=43'><img src=pda_power.png> Power Monitor</a></li>"
 						dat += "</ul>"
-					if (cartridge.access_medical)
+					if (cartridge.ACCESS_MEDICAL)
 						dat += "<h4>Medical Functions</h4>"
 						dat += "<ul>"
 						dat += "<li><a href='byond://?src=\ref[src];choice=44'><img src=pda_medical.png> Medical Records</a></li>"
 						dat += "<li><a href='byond://?src=\ref[src];choice=Medical Scan'><img src=pda_scanner.png> [scanmode == 1 ? "Disable" : "Enable"] Medical Scanner</a></li>"
 						dat += "</ul>"
-					if (cartridge.access_security)
+					if (cartridge.ACCESS_SECURITY)
 						dat += "<h4>Security Functions</h4>"
 						dat += "<ul>"
 						dat += "<li><a href='byond://?src=\ref[src];choice=45'><img src=pda_cuffs.png> Security Records</A></li>"
@@ -392,13 +392,13 @@ var/global/list/obj/item/device/pda/PDAs = list()
 				dat += "<h4>Utilities</h4>"
 				dat += "<ul>"
 				if (cartridge)
-					if (cartridge.access_janitor)
+					if (cartridge.ACCESS_JANITOR)
 						dat += "<li><a href='byond://?src=\ref[src];choice=49'><img src=pda_bucket.png> Custodial Locator</a></li>"
 					if (istype(cartridge.radio, /obj/item/radio/integrated/signal))
 						dat += "<li><a href='byond://?src=\ref[src];choice=40'><img src=pda_signaler.png> Signaler System</a></li>"
 					if (cartridge.access_reagent_scanner)
 						dat += "<li><a href='byond://?src=\ref[src];choice=Reagent Scan'><img src=pda_reagent.png> [scanmode == 3 ? "Disable" : "Enable"] Reagent Scanner</a></li>"
-					if (cartridge.access_engine)
+					if (cartridge.ACCESS_ENGINE)
 						dat += "<li><a href='byond://?src=\ref[src];choice=Halogen Counter'><img src=pda_reagent.png> [scanmode == 4 ? "Disable" : "Enable"] Halogen Counter</a></li>"
 					if (cartridge.access_atmos)
 						dat += "<li><a href='byond://?src=\ref[src];choice=Gas Scan'><img src=pda_reagent.png> [scanmode == 5 ? "Disable" : "Enable"] Gas Scanner</a></li>"
@@ -597,7 +597,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 			if("Medical Scan")
 				if(scanmode == 1)
 					scanmode = 0
-				else if((!isnull(cartridge)) && (cartridge.access_medical))
+				else if((!isnull(cartridge)) && (cartridge.ACCESS_MEDICAL))
 					scanmode = 1
 			if("Reagent Scan")
 				if(scanmode == 3)
@@ -607,7 +607,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 			if("Halogen Counter")
 				if(scanmode == 4)
 					scanmode = 0
-				else if((!isnull(cartridge)) && (cartridge.access_engine))
+				else if((!isnull(cartridge)) && (cartridge.ACCESS_ENGINE))
 					scanmode = 4
 			if("Honk")
 				if ( !(last_honk && world.time < last_honk + 20) )
@@ -704,11 +704,11 @@ var/global/list/obj/item/device/pda/PDAs = list()
 							var/difficulty = 0
 
 							if(P.cartridge)
-								difficulty += P.cartridge.access_medical
-								difficulty += P.cartridge.access_security
-								difficulty += P.cartridge.access_engine
-								difficulty += P.cartridge.access_clown
-								difficulty += P.cartridge.access_janitor
+								difficulty += P.cartridge.ACCESS_MEDICAL
+								difficulty += P.cartridge.ACCESS_SECURITY
+								difficulty += P.cartridge.ACCESS_ENGINE
+								difficulty += P.cartridge.ACCESS_CLOWN
+								difficulty += P.cartridge.ACCESS_JANITOR
 							else
 								difficulty += 2
 

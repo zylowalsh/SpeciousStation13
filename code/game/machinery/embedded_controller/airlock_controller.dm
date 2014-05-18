@@ -354,7 +354,7 @@ obj/machinery/embedded_controller/radio/airlock_controller
 
 obj/machinery/embedded_controller/radio/airlock_controller/solar1
 	name = "solar access controller"
-	req_access = list(access_engine_equip, access_external_airlocks)
+	req_access = list(ACCESS_ENGINE_EQUIP, ACCESS_EXTERNAL_AIRLOCKS)
 	id_tag = "solar1Airlock"
 	exterior_door_tag = "solar1Outer"
 	interior_door_tag = "solar1Inner"
@@ -363,7 +363,7 @@ obj/machinery/embedded_controller/radio/airlock_controller/solar1
 
 obj/machinery/embedded_controller/radio/airlock_controller/solar2
 	name = "solar access controller"
-	req_access = list(access_engine_equip, access_external_airlocks)
+	req_access = list(ACCESS_ENGINE_EQUIP, ACCESS_EXTERNAL_AIRLOCKS)
 	id_tag = "solar2Airlock"
 	exterior_door_tag = "solar2Outer"
 	interior_door_tag = "solar2Inner"
@@ -372,7 +372,7 @@ obj/machinery/embedded_controller/radio/airlock_controller/solar2
 
 obj/machinery/embedded_controller/radio/airlock_controller/solar3
 	name = "solar access controller"
-	req_access = list(access_engine_equip, access_external_airlocks)
+	req_access = list(ACCESS_ENGINE_EQUIP, ACCESS_EXTERNAL_AIRLOCKS)
 	id_tag = "solar3Airlock"
 	exterior_door_tag = "solar3Outer"
 	interior_door_tag = "solar3Inner"
@@ -381,7 +381,7 @@ obj/machinery/embedded_controller/radio/airlock_controller/solar3
 
 obj/machinery/embedded_controller/radio/airlock_controller/solar4
 	name = "solar access controller"
-	req_access = list(access_engine_equip, access_external_airlocks)
+	req_access = list(ACCESS_ENGINE_EQUIP, ACCESS_EXTERNAL_AIRLOCKS)
 	id_tag = "solar4Airlock"
 	exterior_door_tag = "solar4Outer"
 	interior_door_tag = "solar4Inner"
@@ -390,7 +390,7 @@ obj/machinery/embedded_controller/radio/airlock_controller/solar4
 
 obj/machinery/embedded_controller/radio/airlock_controller/reactorExterior1
 	name = "reactor exterior access controller"
-	req_access = list(access_engine_equip, access_external_airlocks)
+	req_access = list(ACCESS_ENGINE_EQUIP, ACCESS_EXTERNAL_AIRLOCKS)
 	id_tag = "reactorExterior1Airlock"
 	exterior_door_tag = "reactorExterior1Outer"
 	interior_door_tag = "reactorExterior1Inner"
@@ -399,7 +399,7 @@ obj/machinery/embedded_controller/radio/airlock_controller/reactorExterior1
 
 obj/machinery/embedded_controller/radio/airlock_controller/reactorExterior2
 	name = "reactor exterior access controller"
-	req_access = list(access_engine_equip, access_external_airlocks)
+	req_access = list(ACCESS_ENGINE_EQUIP, ACCESS_EXTERNAL_AIRLOCKS)
 	id_tag = "reactorExterior2Airlock"
 	exterior_door_tag = "reactorExterior2Outer"
 	interior_door_tag = "reactorExterior2Inner"
@@ -408,7 +408,7 @@ obj/machinery/embedded_controller/radio/airlock_controller/reactorExterior2
 
 obj/machinery/embedded_controller/radio/airlock_controller/toxinsExterior
 	name = "toxins exterior access controller"
-	req_access = list(access_tox_storage, access_external_airlocks)
+	req_access = list(ACCESS_TOXIN_STORAGE, ACCESS_EXTERNAL_AIRLOCKS)
 	id_tag = "toxinsExteriorAirlock"
 	exterior_door_tag = "toxinsExteriorOuter"
 	interior_door_tag = "toxinsExteriorInner"
@@ -417,7 +417,7 @@ obj/machinery/embedded_controller/radio/airlock_controller/toxinsExterior
 
 obj/machinery/embedded_controller/radio/airlock_controller/eva
 	name = "eva access controller"
-	req_access = list(access_eva, access_external_airlocks)
+	req_access = list(ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS)
 	id_tag = "evaAirlock"
 	exterior_door_tag = "evaOuter"
 	interior_door_tag = "evaInner"
@@ -426,7 +426,7 @@ obj/machinery/embedded_controller/radio/airlock_controller/eva
 
 obj/machinery/embedded_controller/radio/airlock_controller/maintenance1
 	name = "maintenance access controller"
-	req_access = list(access_maint_tunnels, access_external_airlocks)
+	req_access = list(ACCESS_MAINTENANCE, ACCESS_EXTERNAL_AIRLOCKS)
 	id_tag = "maintenance1Airlock"
 	exterior_door_tag = "maintenance1Outer"
 	interior_door_tag = "maintenance1Inner"
@@ -435,7 +435,7 @@ obj/machinery/embedded_controller/radio/airlock_controller/maintenance1
 
 obj/machinery/embedded_controller/radio/airlock_controller/maintenance2
 	name = "maintenance access controller"
-	req_access = list(access_maint_tunnels, access_external_airlocks)
+	req_access = list(ACCESS_MAINTENANCE, ACCESS_EXTERNAL_AIRLOCKS)
 	id_tag = "maintenance2Airlock"
 	exterior_door_tag = "maintenance2Outer"
 	interior_door_tag = "maintenance2Inner"
@@ -444,7 +444,7 @@ obj/machinery/embedded_controller/radio/airlock_controller/maintenance2
 
 obj/machinery/embedded_controller/radio/airlock_controller/maintenance3
 	name = "maintenance access controller"
-	req_access = list(access_maint_tunnels, access_external_airlocks)
+	req_access = list(ACCESS_MAINTENANCE, ACCESS_EXTERNAL_AIRLOCKS)
 	id_tag = "maintenance3Airlock"
 	exterior_door_tag = "maintenance3Outer"
 	interior_door_tag = "maintenance3Inner"
@@ -453,7 +453,7 @@ obj/machinery/embedded_controller/radio/airlock_controller/maintenance3
 
 obj/machinery/embedded_controller/radio/airlock_controller/maintenance4
 	name = "maintenance access controller"
-	req_access = list(access_maint_tunnels, access_external_airlocks)
+	req_access = list(ACCESS_MAINTENANCE, ACCESS_EXTERNAL_AIRLOCKS)
 	id_tag = "maintenance4Airlock"
 	exterior_door_tag = "maintenance4Outer"
 	interior_door_tag = "maintenance4Inner"
@@ -462,7 +462,7 @@ obj/machinery/embedded_controller/radio/airlock_controller/maintenance4
 
 obj/machinery/embedded_controller/radio/airlock_controller/maintenance5
 	name = "maintenance access controller"
-	req_access = list(access_maint_tunnels, access_external_airlocks)
+	req_access = list(ACCESS_MAINTENANCE, ACCESS_EXTERNAL_AIRLOCKS)
 	id_tag = "maintenance5Airlock"
 	exterior_door_tag = "maintenance5Outer"
 	interior_door_tag = "maintenance5Inner"
@@ -471,7 +471,7 @@ obj/machinery/embedded_controller/radio/airlock_controller/maintenance5
 
 obj/machinery/embedded_controller/radio/airlock_controller/maintenance6
 	name = "maintenance access controller"
-	req_access = list(access_maint_tunnels, access_external_airlocks)
+	req_access = list(ACCESS_MAINTENANCE, ACCESS_EXTERNAL_AIRLOCKS)
 	id_tag = "maintenance6Airlock"
 	exterior_door_tag = "maintenance6Outer"
 	interior_door_tag = "maintenance6Inner"
@@ -480,7 +480,7 @@ obj/machinery/embedded_controller/radio/airlock_controller/maintenance6
 
 obj/machinery/embedded_controller/radio/airlock_controller/blueStation
 	name = "blue station access controller"
-	req_access = list(ACCESS_SHUTTLE, access_external_airlocks)
+	req_access = list(ACCESS_SHUTTLE, ACCESS_EXTERNAL_AIRLOCKS)
 	id_tag = "blueStationAirlock"
 	exterior_door_tag = "blueStationOuter"
 	interior_door_tag = "blueStationInner"
@@ -489,7 +489,7 @@ obj/machinery/embedded_controller/radio/airlock_controller/blueStation
 
 obj/machinery/embedded_controller/radio/airlock_controller/purpleStation
 	name = "purple station access controller"
-	req_access = list(ACCESS_SHUTTLE, access_external_airlocks)
+	req_access = list(ACCESS_SHUTTLE, ACCESS_EXTERNAL_AIRLOCKS)
 	id_tag = "purpleStationAirlock"
 	exterior_door_tag = "purpleStationOuter"
 	interior_door_tag = "purpleStationInner"

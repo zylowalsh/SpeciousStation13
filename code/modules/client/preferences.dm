@@ -24,7 +24,7 @@ var/list/special_roles = list( //keep synced with the defines BE_* in setup.dm -
 )
 
 datum/preferences
-	var/const/MAX_SAVE_SLOTS = 3
+	var/const/MAX_SAVE_SLOTS = 5
 
 	// Constants for screen
 	var/const/CHARACTER_MENU = 1

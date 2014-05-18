@@ -12,14 +12,14 @@
 	selection_color = "#ffeeaa"
 	idtype = /obj/item/weapon/card/id/silver
 	req_admin_notify = 1
-	access = list(access_engine, access_engine_equip, access_tech_storage, access_maint_tunnels,
-			            access_teleporter, access_external_airlocks, access_atmospherics, access_eva,
-			            access_heads, access_construction, access_sec_doors, access_change_ids,
-			            access_ce, access_RC_announce, access_keycard_auth, access_tcomsat, ACCESS_SHUTTLE)
-	minimal_access = list(access_engine, access_engine_equip, access_tech_storage, access_maint_tunnels,
-			            access_teleporter, access_external_airlocks, access_atmospherics, access_eva,
-			            access_heads, access_construction, access_sec_doors, access_change_ids,
-			            access_ce, access_RC_announce, access_keycard_auth, access_tcomsat, ACCESS_SHUTTLE)
+	access = list(ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINTENANCE,
+			            ACCESS_TELEPORTER, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_ATMOSPHERICS, ACCESS_EVA,
+			            ACCESS_HEADS, ACCESS_CONSTRUCTION, ACCESS_SEC_DOORS, ACCESS_CHANGE_IDS,
+			            ACCESS_CE, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_TCOMSAT, ACCESS_SHUTTLE)
+	minimal_access = list(ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINTENANCE,
+			            ACCESS_TELEPORTER, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_ATMOSPHERICS, ACCESS_EVA,
+			            ACCESS_HEADS, ACCESS_CONSTRUCTION, ACCESS_SEC_DOORS, ACCESS_CHANGE_IDS,
+			            ACCESS_CE, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_TCOMSAT, ACCESS_SHUTTLE)
 	minimal_player_age = 1
 
 
@@ -52,10 +52,10 @@
 	spawn_positions = 5
 	supervisors = "the chief engineer"
 	selection_color = "#fff5cc"
-	access = list(access_eva, access_engine, access_engine_equip, access_tech_storage, access_maint_tunnels,
-			access_external_airlocks, access_construction, access_tcomsat, ACCESS_SHUTTLE)
-	minimal_access = list(access_engine, access_engine_equip, access_tech_storage, access_maint_tunnels,
-			access_external_airlocks, access_construction, access_tcomsat, ACCESS_SHUTTLE)
+	access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINTENANCE,
+			ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_TCOMSAT, ACCESS_SHUTTLE)
+	minimal_access = list(ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINTENANCE,
+			ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_TCOMSAT, ACCESS_SHUTTLE)
 	alt_titles = list("Maintenance Technician","Engine Technician","Electrician")
 
 	equip(var/mob/living/carbon/human/H)
@@ -88,9 +88,9 @@
 	spawn_positions = 3
 	supervisors = "the chief engineer"
 	selection_color = "#fff5cc"
-	access = list(access_eva, access_engine, access_engine_equip, access_tech_storage, access_maint_tunnels,
-			access_external_airlocks, access_construction, access_atmospherics, access_tcomsat, ACCESS_SHUTTLE)
-	minimal_access = list(access_atmospherics, access_engine, access_maint_tunnels, access_construction, ACCESS_SHUTTLE)
+	access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINTENANCE,
+			ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_ATMOSPHERICS, ACCESS_TCOMSAT, ACCESS_SHUTTLE)
+	minimal_access = list(ACCESS_ATMOSPHERICS, ACCESS_ENGINE, ACCESS_MAINTENANCE, ACCESS_CONSTRUCTION, ACCESS_SHUTTLE)
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)

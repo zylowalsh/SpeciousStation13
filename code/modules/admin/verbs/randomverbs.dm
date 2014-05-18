@@ -726,7 +726,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		if(confirm3 != "Yes")
 			return
 
-	emergencyShuttle.callShuttle(EMERGENCY, FALSE, TRUE)
+	emergencyShuttle.callShuttle(EMERGENCY, TRUE)
 	log_admin("[key_name(usr)] admin-called the emergency shuttle.")
 	message_admins("\blue [key_name_admin(usr)] admin-called the emergency shuttle.", 1)
 

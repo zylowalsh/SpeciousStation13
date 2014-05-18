@@ -41,6 +41,7 @@ var/list/admin_verbs_admin = list(
 	/client/proc/jumptoturf,			/*allows us to jump to a specific turf*/
 	/client/proc/adminCallShuttle,	/*allows us to call the emergency shuttle*/
 	/client/proc/adminCancelShuttle,	/*allows us to cancel the emergency shuttle, sending it back to centcomm*/
+	/client/proc/adminDenyShuttle, //Allows admins to prevent the shuttle to get called.
 	/client/proc/cmd_admin_direct_narrate,	/*send text directly to a player with no padding. Useful for narratives and fluff-text*/
 	/client/proc/cmd_admin_world_narrate,	/*sends text to all players with no padding*/
 	/client/proc/cmd_admin_create_centcom_report,
@@ -100,6 +101,7 @@ var/list/admin_verbs_fun = list(
 var/list/admin_verbs_spawn = list(
 	/datum/admins/proc/spawn_atom,		/*allows us to spawn instances*/
 	/client/proc/respawnCharacter)
+
 var/list/admin_verbs_server = list(
 	/client/proc/Set_Holiday,
 	/client/proc/ToRban,

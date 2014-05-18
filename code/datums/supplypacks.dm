@@ -221,7 +221,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	cost = 10
 	containertype = /obj/structure/closet/crate/secure
 	containername = "Standard Costumes"
-	access = access_clown
+	access = ACCESS_CLOWN
 	group = "Operations"
 
 /datum/supply_packs/wizard
@@ -265,7 +265,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	cost = 15
 	containertype = /obj/structure/closet/crate/hydroponics
 	containername = "Hydroponics crate"
-	access = access_hydroponics
+	access = ACCESS_HYDROPONICS
 	group = "Hydroponics"
 
 //farm animals - useless and annoying, but potentially a good source of food
@@ -274,14 +274,14 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	cost = 30
 	containertype = /obj/structure/largecrate/cow
 	containername = "Cow Crate"
-	access = access_hydroponics
+	access = ACCESS_HYDROPONICS
 
 /datum/supply_packs/goat
 	name = "Goat Crate"
 	cost = 25
 	containertype = /obj/structure/largecrate/goat
 	containername = "Goat Crate"
-	access = access_hydroponics
+	access = ACCESS_HYDROPONICS
 	group = "Hydroponics"
 
 /datum/supply_packs/chicken
@@ -289,7 +289,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	cost = 20
 	containertype = /obj/structure/largecrate/chick
 	containername = "Chicken Crate"
-	access = access_hydroponics
+	access = ACCESS_HYDROPONICS
 	group = "Hydroponics"
 
 /datum/supply_packs/lisa
@@ -317,7 +317,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	cost = 10
 	containertype = /obj/structure/closet/crate/hydroponics
 	containername = "Seeds crate"
-	access = access_hydroponics
+	access = ACCESS_HYDROPONICS
 	group = "Hydroponics"
 
 /datum/supply_packs/weedcontrol
@@ -329,7 +329,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	cost = 20
 	containertype = /obj/structure/closet/crate/secure/hydrosec
 	containername = "Weed control crate"
-	access = access_hydroponics
+	access = ACCESS_HYDROPONICS
 	group = "Hydroponics"
 
 /datum/supply_packs/exoticseeds
@@ -347,7 +347,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	cost = 15
 	containertype = /obj/structure/closet/crate/hydroponics
 	containername = "Exotic Seeds crate"
-	access = access_hydroponics
+	access = ACCESS_HYDROPONICS
 	group = "Hydroponics"
 
 /datum/supply_packs/medical
@@ -384,7 +384,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	cost = 25
 	containertype = "/obj/structure/closet/crate/secure"
 	containername = "Virus crate"
-	access = access_cmo
+	access = ACCESS_CMO
 	group = "Medical / Science"
 
 /datum/supply_packs/metal50
@@ -490,7 +490,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "Supermatter crate (CAUTION)"
 	group = "Engineering"
-	access = access_ce
+	access = ACCESS_CE
 
 /datum/supply_packs/engine
 	name = "Emitter crate"
@@ -499,7 +499,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	cost = 10
 	containertype = /obj/structure/closet/crate/secure
 	containername = "Emitter crate"
-	access = access_ce
+	access = ACCESS_CE
 	group = "Engineering"
 
 /datum/supply_packs/engine/field_gen
@@ -508,7 +508,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 					/obj/machinery/field_generator)
 	containertype = /obj/structure/closet/crate/secure
 	containername = "Field Generator crate"
-	access = access_ce
+	access = ACCESS_CE
 	group = "Engineering"
 
 /datum/supply_packs/engine/sing_gen
@@ -516,7 +516,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	contains = list(/obj/machinery/the_singularitygen)
 	containertype = /obj/structure/closet/crate/secure
 	containername = "Singularity Generator crate"
-	access = access_ce
+	access = ACCESS_CE
 	group = "Engineering"
 
 /datum/supply_packs/engine/collector
@@ -539,7 +539,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 					/obj/structure/particle_accelerator/end_cap)
 	containertype = /obj/structure/closet/crate/secure
 	containername = "Particle Accelerator crate"
-	access = access_ce
+	access = ACCESS_CE
 	group = "Engineering"
 
 /datum/supply_packs/mecha_ripley
@@ -550,7 +550,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	cost = 30
 	containertype = /obj/structure/closet/crate/secure
 	containername = "APLU \"Ripley\" Circuit Crate"
-	access = access_robotics
+	access = ACCESS_ROBOTICS
 	group = "Engineering"
 
 /datum/supply_packs/mecha_odysseus
@@ -560,7 +560,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	cost = 25
 	containertype = /obj/structure/closet/crate/secure
 	containername = "\"Odysseus\" Circuit Crate"
-	access = access_robotics
+	access = ACCESS_ROBOTICS
 	group = "Engineering"
 
 /datum/supply_packs/robotics
@@ -578,7 +578,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	cost = 10
 	containertype = /obj/structure/closet/crate/secure/gear
 	containername = "Robotics Assembly"
-	access = access_robotics
+	access = ACCESS_ROBOTICS
 	group = "Engineering"
 
 /datum/supply_packs/plasma
@@ -598,7 +598,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	cost = 10
 	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "Plasma assembly crate"
-	access = access_tox_storage
+	access = ACCESS_TOXIN_STORAGE
 	group = "Medical / Science"
 
 /datum/supply_packs/weapons
@@ -614,7 +614,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	cost = 30
 	containertype = /obj/structure/closet/crate/secure/weapon
 	containername = "Weapons crate"
-	access = access_security
+	access = ACCESS_SECURITY
 	group = "Security"
 
 /datum/supply_packs/eweapons
@@ -629,7 +629,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	cost = 25
 	containertype = /obj/structure/closet/crate/secure/weapon
 	containername = "Experimental weapons crate"
-	access = access_heads
+	access = ACCESS_HEADS
 	group = "Security"
 
 /datum/supply_packs/armor
@@ -641,7 +641,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	cost = 15
 	containertype = /obj/structure/closet/crate/secure
 	containername = "Armor crate"
-	access = access_security
+	access = ACCESS_SECURITY
 	group = "Security"
 
 /datum/supply_packs/riot
@@ -667,7 +667,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	cost = 60
 	containertype = /obj/structure/closet/crate/secure
 	containername = "Riot gear crate"
-	access = access_armory
+	access = ACCESS_ARMORY
 	group = "Security"
 
 /datum/supply_packs/loyalty
@@ -676,7 +676,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	cost = 60
 	containertype = /obj/structure/closet/crate/secure
 	containername = "Loyalty implant crate"
-	access = access_armory
+	access = ACCESS_ARMORY
 	group = "Security"
 
 /datum/supply_packs/ballistic
@@ -688,7 +688,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	cost = 50
 	containertype = /obj/structure/closet/crate/secure
 	containername = "Ballistic gear crate"
-	access = access_armory
+	access = ACCESS_ARMORY
 	group = "Security"
 
 /datum/supply_packs/shotgunammo
@@ -706,7 +706,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	cost = 20
 	containertype = /obj/structure/closet/crate/secure
 	containername = "Shotgun shells"
-	access = access_armory
+	access = ACCESS_ARMORY
 	group = "Security"
 
 /datum/supply_packs/expenergy
@@ -718,7 +718,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	cost = 50
 	containertype = /obj/structure/closet/crate/secure
 	containername = "Experimental energy gear crate"
-	access = access_armory
+	access = ACCESS_ARMORY
 	group = "Security"
 
 /datum/supply_packs/exparmor
@@ -730,7 +730,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	cost = 35
 	containertype = /obj/structure/closet/crate/secure
 	containername = "Experimental armor crate"
-	access = access_armory
+	access = ACCESS_ARMORY
 	group = "Security"
 
 /datum/supply_packs/securitybarriers
@@ -753,7 +753,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	cost = 20
 	containertype = /obj/structure/closet/crate/secure
 	containername = "Shield Generators crate"
-	access = access_teleporter
+	access = ACCESS_TELEPORTER
 	group = "Security"
 
 /datum/supply_packs/randomised
@@ -860,7 +860,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	cost = 25
 	containertype = "/obj/structure/closet/crate/secure"
 	containername = "Surgery crate"
-	access = access_medical
+	access = ACCESS_MEDICAL
 	group = "Medical / Science"
 
 /datum/supply_packs/sterile
@@ -912,7 +912,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	containertype = /obj/structure/closet/crate/secure/large
 	containername = "RUST injector crate"
 	group = "Engineering"
-	access = access_engine
+	access = ACCESS_ENGINE
 
 /datum/supply_packs/rust_compressor
 	contains = list(/obj/item/weapon/module/rust_fuel_compressor)
@@ -921,7 +921,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	containertype = /obj/structure/closet/crate/secure
 	containername = "RUST fuel compressor circuitry"
 	group = "Engineering"
-	access = access_engine
+	access = ACCESS_ENGINE
 
 /datum/supply_packs/rust_assembly_port
 	contains = list(/obj/item/weapon/module/rust_fuel_port)
@@ -930,7 +930,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	containertype = /obj/structure/closet/crate/secure
 	containername = "RUST fuel assembly port circuitry"
 	group = "Engineering"
-	access = access_engine
+	access = ACCESS_ENGINE
 
 /datum/supply_packs/rust_core
 	contains = list(/obj/machinery/power/rust_core)
@@ -939,7 +939,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	containertype = /obj/structure/closet/crate/secure/large
 	containername = "RUST tokamak crate"
 	group = "Engineering"
-	access = access_engine
+	access = ACCESS_ENGINE
 */
 
 /datum/supply_packs/shield_gen
@@ -949,7 +949,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	containertype = /obj/structure/closet/crate/secure
 	containername = "Experimental shield generator"
 	group = "Engineering"
-	access = access_ce
+	access = ACCESS_CE
 
 /datum/supply_packs/shield_cap
 	contains = list(/obj/item/weapon/circuitboard/shield_cap)
@@ -958,7 +958,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	containertype = /obj/structure/closet/crate/secure
 	containername = "Experimental shield capacitor"
 	group = "Engineering"
-	access = access_ce
+	access = ACCESS_CE
 
 /datum/supply_packs/eftpos
 	contains = list(/obj/item/device/eftpos)
@@ -975,7 +975,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	containertype = /obj/structure/closet/crate/secure/large
 	containername = "Mk1 TEG crate"
 	group = "Engineering"
-	access = access_engine
+	access = ACCESS_ENGINE
 
 /datum/supply_packs/circulator
 	contains = list(/obj/machinery/atmospherics/binary/circulator)
@@ -984,7 +984,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	containertype = /obj/structure/closet/crate/secure/large
 	containername = "Atmospheric circulator crate"
 	group = "Engineering"
-	access = access_engine
+	access = ACCESS_ENGINE
 
 /datum/supply_packs/bee_keeper
 	name = "Beekeeping Crate"
@@ -998,5 +998,5 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	cost = 20
 	containertype = /obj/structure/closet/crate/hydroponics
 	containername = "Beekeeping crate"
-	access = access_hydroponics
+	access = ACCESS_HYDROPONICS
 	group = "Hydroponics"

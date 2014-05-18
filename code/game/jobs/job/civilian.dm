@@ -10,8 +10,8 @@
 	spawn_positions = 1
 	supervisors = "the head of personnel"
 	selection_color = "#dddddd"
-	access = list(access_hydroponics, access_bar, access_kitchen, access_morgue)
-	minimal_access = list(access_bar)
+	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE)
+	minimal_access = list(ACCESS_BAR)
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)
@@ -50,8 +50,8 @@
 	spawn_positions = 1
 	supervisors = "the head of personnel"
 	selection_color = "#dddddd"
-	access = list(access_hydroponics, access_bar, access_kitchen, access_morgue)
-	minimal_access = list(access_kitchen)
+	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE)
+	minimal_access = list(ACCESS_KITCHEN)
 	alt_titles = list("Cook")
 
 	equip(var/mob/living/carbon/human/H)
@@ -79,8 +79,8 @@
 	spawn_positions = 3
 	supervisors = "the head of personnel"
 	selection_color = "#dddddd"
-	access = list(access_hydroponics, access_bar, access_kitchen, access_morgue) // Removed tox and chem access because STOP PISSING OFF THE CHEMIST GUYS // //Removed medical access because WHAT THE FUCK YOU AREN'T A DOCTOR YOU GROW WHEAT //Given Morgue access because they have a viable means of cloning.
-	minimal_access = list(access_hydroponics, access_morgue) // Removed tox and chem access because STOP PISSING OFF THE CHEMIST GUYS // //Removed medical access because WHAT THE FUCK YOU AREN'T A DOCTOR YOU GROW WHEAT //Given Morgue access because they have a viable means of cloning.
+	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE) // Removed tox and chem access because STOP PISSING OFF THE CHEMIST GUYS // //Removed medical access because WHAT THE FUCK YOU AREN'T A DOCTOR YOU GROW WHEAT //Given Morgue access because they have a viable means of cloning.
+	minimal_access = list(ACCESS_HYDROPONICS, ACCESS_MORGUE) // Removed tox and chem access because STOP PISSING OFF THE CHEMIST GUYS // //Removed medical access because WHAT THE FUCK YOU AREN'T A DOCTOR YOU GROW WHEAT //Given Morgue access because they have a viable means of cloning.
 	alt_titles = list("Hydroponicist")
 
 	equip(var/mob/living/carbon/human/H)
@@ -110,10 +110,10 @@
 	spawn_positions = 1
 	supervisors = "the head of personnel"
 	selection_color = "#dddddd"
-	access = list(access_maint_tunnels, access_mailsorting, access_cargo, access_qm,
-			access_mining, access_mining_station, access_external_airlocks, ACCESS_SHUTTLE)
-	minimal_access = list(access_maint_tunnels, access_mailsorting, access_cargo, access_qm,
-			access_mining, access_mining_station, access_external_airlocks, ACCESS_SHUTTLE)
+	access = list(ACCESS_MAINTENANCE, ACCESS_MAIL_SORTING, ACCESS_CARGO, ACCESS_QM,
+			ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_SHUTTLE)
+	minimal_access = list(ACCESS_MAINTENANCE, ACCESS_MAIL_SORTING, ACCESS_CARGO, ACCESS_QM,
+			ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_SHUTTLE)
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)
@@ -139,9 +139,9 @@
 	spawn_positions = 2
 	supervisors = "the quartermaster and the head of personnel"
 	selection_color = "#dddddd"
-	access = list(access_maint_tunnels, access_mailsorting, access_cargo, access_mining,
-			access_mining_station, access_external_airlocks, ACCESS_SHUTTLE)
-	minimal_access = list(access_maint_tunnels, access_cargo, access_mailsorting)
+	access = list(ACCESS_MAINTENANCE, ACCESS_MAIL_SORTING, ACCESS_CARGO, ACCESS_MINING,
+			ACCESS_MINING_STATION, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_SHUTTLE)
+	minimal_access = list(ACCESS_MAINTENANCE, ACCESS_CARGO, ACCESS_MAIL_SORTING)
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)
@@ -167,9 +167,9 @@
 	spawn_positions = 3
 	supervisors = "the quartermaster and the head of personnel"
 	selection_color = "#dddddd"
-	access = list(access_maint_tunnels, access_mailsorting, access_cargo, access_mining,
-		access_mining_station, access_external_airlocks, ACCESS_SHUTTLE)
-	minimal_access = list(access_mining, access_mining_station, access_mailsorting, access_external_airlocks,
+	access = list(ACCESS_MAINTENANCE, ACCESS_MAIL_SORTING, ACCESS_CARGO, ACCESS_MINING,
+		ACCESS_MINING_STATION, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_SHUTTLE)
+	minimal_access = list(ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MAIL_SORTING, ACCESS_EXTERNAL_AIRLOCKS,
 		ACCESS_SHUTTLE)
 
 	equip(var/mob/living/carbon/human/H)
@@ -204,8 +204,8 @@
 	supervisors = "the head of personnel"
 	selection_color = "#dddddd"
 	idtype = /obj/item/weapon/card/id/clown
-	access = list(access_clown, access_maint_tunnels)
-	minimal_access = list(access_clown)
+	access = list(ACCESS_CLOWN, ACCESS_MAINTENANCE)
+	minimal_access = list(ACCESS_CLOWN)
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)
@@ -235,7 +235,7 @@
 	spawn_positions = 1
 	supervisors = "the head of personnel"
 	selection_color = "#dddddd"
-	access = list(access_mime, access_theatre, access_maint_tunnels)
+	access = list(access_mime, access_theatre, ACCESS_MAINTENANCE)
 	minimal_access = list(access_mime, access_theatre)
 
 
@@ -277,8 +277,8 @@
 	spawn_positions = 1
 	supervisors = "the head of personnel"
 	selection_color = "#dddddd"
-	access = list(access_janitor, access_maint_tunnels)
-	minimal_access = list(access_janitor, access_maint_tunnels)
+	access = list(ACCESS_JANITOR, ACCESS_MAINTENANCE)
+	minimal_access = list(ACCESS_JANITOR, ACCESS_MAINTENANCE)
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)
@@ -304,8 +304,8 @@
 	spawn_positions = 1
 	supervisors = "the head of personnel"
 	selection_color = "#dddddd"
-	access = list(access_library, access_maint_tunnels)
-	minimal_access = list(access_library)
+	access = list(ACCESS_LIBRARY, ACCESS_MAINTENANCE)
+	minimal_access = list(ACCESS_LIBRARY)
 	alt_titles = list("Journalist")
 
 	equip(var/mob/living/carbon/human/H)
@@ -332,9 +332,9 @@
 	spawn_positions = 2
 	supervisors = "the captain"
 	selection_color = "#dddddd"
-	access = list(access_lawyer, access_court, access_sec_doors, access_maint_tunnels, access_engine, access_medical,
-						access_research, access_heads, access_mining, ACCESS_SHUTTLE)
-	minimal_access = list(access_lawyer, access_court, access_sec_doors)
+	access = list(ACCESS_LAWYER, ACCESS_COURT, ACCESS_SEC_DOORS, ACCESS_MAINTENANCE, ACCESS_ENGINE, ACCESS_MEDICAL,
+						ACCESS_RESEARCH, ACCESS_HEADS, ACCESS_MINING, ACCESS_SHUTTLE)
+	minimal_access = list(ACCESS_LAWYER, ACCESS_COURT, ACCESS_SEC_DOORS)
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0

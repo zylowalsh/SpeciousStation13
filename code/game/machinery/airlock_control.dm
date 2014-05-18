@@ -239,7 +239,7 @@ obj/machinery/access_button/New()
 // Simple Airlocks
 obj/machinery/access_button/virology
 	master_tag = "virologyAirlock"
-	req_access = list(access_virology)
+	req_access = list(ACCESS_VIROLOGY)
 	exterior
 		command = "cycle_exterior"
 	inner
@@ -247,7 +247,7 @@ obj/machinery/access_button/virology
 
 obj/machinery/access_button/bridge1
 	master_tag = "bridge1Airlock"
-	req_access = list(access_heads)
+	req_access = list(ACCESS_HEADS)
 	exterior
 		command = "cycle_exterior"
 	inner
@@ -255,7 +255,7 @@ obj/machinery/access_button/bridge1
 
 obj/machinery/access_button/bridge2
 	master_tag = "bridge2Airlock"
-	req_access = list(access_heads)
+	req_access = list(ACCESS_HEADS)
 	exterior
 		command = "cycle_exterior"
 	inner
@@ -263,7 +263,7 @@ obj/machinery/access_button/bridge2
 
 obj/machinery/access_button/toxins
 	master_tag = "toxinsAirlock"
-	req_access = list(access_tox_storage)
+	req_access = list(ACCESS_TOXIN_STORAGE)
 	exterior
 		command = "cycle_exterior"
 	inner
@@ -271,7 +271,7 @@ obj/machinery/access_button/toxins
 
 obj/machinery/access_button/xenobio
 	master_tag = "xenobioAirlock"
-	req_access = list(access_xenobiology)
+	req_access = list(ACCESS_XENOBIOLOGY)
 	exterior
 		command = "cycle_exterior"
 	inner
@@ -279,7 +279,7 @@ obj/machinery/access_button/xenobio
 
 obj/machinery/access_button/reactor
 	master_tag = "reactorAirlock"
-	req_access = list(access_engine_equip)
+	req_access = list(ACCESS_ENGINE_EQUIP)
 	exterior
 		command = "cycle_exterior"
 	inner
@@ -287,7 +287,7 @@ obj/machinery/access_button/reactor
 
 obj/machinery/access_button/atmos
 	master_tag = "atmosAirlock"
-	req_access = list(access_atmospherics)
+	req_access = list(ACCESS_ATMOSPHERICS)
 	exterior
 		command = "cycle_exterior"
 	inner
@@ -295,7 +295,7 @@ obj/machinery/access_button/atmos
 
 obj/machinery/access_button/telecomms
 	master_tag = "telecommsAirlock"
-	req_access = list(access_tcomsat)
+	req_access = list(ACCESS_TCOMSAT)
 	exterior
 		command = "cycle_exterior"
 	inner
@@ -303,7 +303,7 @@ obj/machinery/access_button/telecomms
 
 obj/machinery/access_button/researchServer
 	master_tag = "researchServerAirlock"
-	req_access = list(access_rd)
+	req_access = list(ACCESS_RD)
 	exterior
 		command = "cycle_exterior"
 	inner
@@ -311,7 +311,7 @@ obj/machinery/access_button/researchServer
 
 obj/machinery/access_button/brig
 	master_tag = "brigAirlock"
-	req_access = list(access_sec_doors)
+	req_access = list(ACCESS_SEC_DOORS)
 	exterior
 		command = "cycle_exterior"
 	inner
@@ -320,7 +320,7 @@ obj/machinery/access_button/brig
 // Exterior Airlocks
 obj/machinery/access_button/solar1
 	master_tag = "solar1Airlock"
-	req_access = list(access_engine_equip, access_external_airlocks)
+	req_access = list(ACCESS_ENGINE_EQUIP, ACCESS_EXTERNAL_AIRLOCKS)
 	exterior
 		command = "cycle_exterior"
 	inner
@@ -328,7 +328,7 @@ obj/machinery/access_button/solar1
 
 obj/machinery/access_button/solar2
 	master_tag = "solar2Airlock"
-	req_access = list(access_engine_equip, access_external_airlocks)
+	req_access = list(ACCESS_ENGINE_EQUIP, ACCESS_EXTERNAL_AIRLOCKS)
 	exterior
 		command = "cycle_exterior"
 	inner
@@ -336,7 +336,7 @@ obj/machinery/access_button/solar2
 
 obj/machinery/access_button/solar3
 	master_tag = "solar3Airlock"
-	req_access = list(access_engine_equip, access_external_airlocks)
+	req_access = list(ACCESS_ENGINE_EQUIP, ACCESS_EXTERNAL_AIRLOCKS)
 	exterior
 		command = "cycle_exterior"
 	inner
@@ -344,7 +344,7 @@ obj/machinery/access_button/solar3
 
 obj/machinery/access_button/solar4
 	master_tag = "solar4Airlock"
-	req_access = list(access_engine_equip, access_external_airlocks)
+	req_access = list(ACCESS_ENGINE_EQUIP, ACCESS_EXTERNAL_AIRLOCKS)
 	exterior
 		command = "cycle_exterior"
 	inner
@@ -352,7 +352,7 @@ obj/machinery/access_button/solar4
 
 obj/machinery/access_button/reactorExterior1
 	master_tag = "reactorExterior1Airlock"
-	req_access = list(access_engine_equip, access_external_airlocks)
+	req_access = list(ACCESS_ENGINE_EQUIP, ACCESS_EXTERNAL_AIRLOCKS)
 	exterior
 		command = "cycle_exterior"
 	inner
@@ -360,7 +360,7 @@ obj/machinery/access_button/reactorExterior1
 
 obj/machinery/access_button/reactorExterior2
 	master_tag = "reactorExterior2Airlock"
-	req_access = list(access_engine_equip, access_external_airlocks)
+	req_access = list(ACCESS_ENGINE_EQUIP, ACCESS_EXTERNAL_AIRLOCKS)
 	exterior
 		command = "cycle_exterior"
 	inner
@@ -368,7 +368,7 @@ obj/machinery/access_button/reactorExterior2
 
 obj/machinery/access_button/toxinsExterior
 	master_tag = "toxinsExteriorAirlock"
-	req_access = list(access_tox_storage, access_external_airlocks)
+	req_access = list(ACCESS_TOXIN_STORAGE, ACCESS_EXTERNAL_AIRLOCKS)
 	exterior
 		command = "cycle_exterior"
 	inner
@@ -376,7 +376,7 @@ obj/machinery/access_button/toxinsExterior
 
 obj/machinery/access_button/eva
 	master_tag = "evaAirlock"
-	req_access = list(access_eva, access_external_airlocks)
+	req_access = list(ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS)
 	exterior
 		command = "cycle_exterior"
 	inner
@@ -384,7 +384,7 @@ obj/machinery/access_button/eva
 
 obj/machinery/access_button/maintenance1
 	master_tag = "maintenance1Airlock"
-	req_access = list(access_maint_tunnels, access_external_airlocks)
+	req_access = list(ACCESS_MAINTENANCE, ACCESS_EXTERNAL_AIRLOCKS)
 	exterior
 		command = "cycle_exterior"
 	inner
@@ -392,7 +392,7 @@ obj/machinery/access_button/maintenance1
 
 obj/machinery/access_button/maintenance2
 	master_tag = "maintenance2Airlock"
-	req_access = list(access_maint_tunnels, access_external_airlocks)
+	req_access = list(ACCESS_MAINTENANCE, ACCESS_EXTERNAL_AIRLOCKS)
 	exterior
 		command = "cycle_exterior"
 	inner
@@ -400,7 +400,7 @@ obj/machinery/access_button/maintenance2
 
 obj/machinery/access_button/maintenance3
 	master_tag = "maintenance3Airlock"
-	req_access = list(access_maint_tunnels, access_external_airlocks)
+	req_access = list(ACCESS_MAINTENANCE, ACCESS_EXTERNAL_AIRLOCKS)
 	exterior
 		command = "cycle_exterior"
 	inner
@@ -408,7 +408,7 @@ obj/machinery/access_button/maintenance3
 
 obj/machinery/access_button/maintenance4
 	master_tag = "maintenance4Airlock"
-	req_access = list(access_maint_tunnels, access_external_airlocks)
+	req_access = list(ACCESS_MAINTENANCE, ACCESS_EXTERNAL_AIRLOCKS)
 	exterior
 		command = "cycle_exterior"
 	inner
@@ -416,7 +416,7 @@ obj/machinery/access_button/maintenance4
 
 obj/machinery/access_button/maintenance5
 	master_tag = "maintenance5Airlock"
-	req_access = list(access_maint_tunnels, access_external_airlocks)
+	req_access = list(ACCESS_MAINTENANCE, ACCESS_EXTERNAL_AIRLOCKS)
 	exterior
 		command = "cycle_exterior"
 	inner
@@ -424,7 +424,7 @@ obj/machinery/access_button/maintenance5
 
 obj/machinery/access_button/maintenance6
 	master_tag = "maintenance6Airlock"
-	req_access = list(access_maint_tunnels, access_external_airlocks)
+	req_access = list(ACCESS_MAINTENANCE, ACCESS_EXTERNAL_AIRLOCKS)
 	exterior
 		command = "cycle_exterior"
 	inner
@@ -432,7 +432,7 @@ obj/machinery/access_button/maintenance6
 
 obj/machinery/access_button/blueStation
 	master_tag = "blueStationAirlock"
-	req_access = list(ACCESS_SHUTTLE, access_external_airlocks)
+	req_access = list(ACCESS_SHUTTLE, ACCESS_EXTERNAL_AIRLOCKS)
 	exterior
 		command = "cycle_exterior"
 	inner
@@ -440,7 +440,7 @@ obj/machinery/access_button/blueStation
 
 obj/machinery/access_button/purpleStation
 	master_tag = "purpleStationAirlock"
-	req_access = list(ACCESS_SHUTTLE, access_external_airlocks)
+	req_access = list(ACCESS_SHUTTLE, ACCESS_EXTERNAL_AIRLOCKS)
 	exterior
 		command = "cycle_exterior"
 	inner

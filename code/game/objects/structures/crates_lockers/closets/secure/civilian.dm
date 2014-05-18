@@ -1,6 +1,6 @@
 /obj/structure/closet/secure_closet/bartender
 	name = "bartender's locker"
-	req_access = list(access_bar)
+	req_access = list(ACCESS_BAR)
 
 	New()
 		..()
@@ -18,7 +18,7 @@
 
 /obj/structure/closet/secure_closet/chef
 	name = "chef's closet"
-	req_access = list(access_kitchen)
+	req_access = list(ACCESS_KITCHEN)
 
 	New()
 		..()
@@ -32,7 +32,7 @@
 
 /obj/structure/closet/secure_closet/hydro
 	name = "botanist's locker"
-	req_access = list(access_hydroponics)
+	req_access = list(ACCESS_HYDROPONICS)
 	icon_state = "hydrosecure1"
 	icon_closed = "hydrosecure"
 	icon_locked = "hydrosecure1"
@@ -64,7 +64,7 @@
 
 /obj/structure/closet/secure_closet/quartermaster
 	name = "quartermaster's locker"
-	req_access = list(access_qm)
+	req_access = list(ACCESS_QM)
 	icon_state = "secureqm1"
 	icon_closed = "secureqm"
 	icon_locked = "secureqm1"
@@ -88,7 +88,7 @@
 
 /obj/structure/closet/secure_closet/cargo_tech
 	name = "cargo technician's locker"
-	req_access = list(access_cargo)
+	req_access = list(ACCESS_CARGO)
 	icon_state = "securecargo1"
 	icon_closed = "securecargo"
 	icon_locked = "securecargo1"
@@ -110,7 +110,7 @@
 
 /obj/structure/closet/secure_closet/mining
 	name = "shaft miner's locker"
-	req_access = list(access_mining)
+	req_access = list(ACCESS_MINING)
 	icon_state = "miningsec1"
 	icon_closed = "miningsec"
 	icon_locked = "miningsec1"
@@ -137,7 +137,7 @@
 
 /obj/structure/closet/secure_closet/clown
 	name = "clown's locker"
-	req_access = list(access_clown)
+	req_access = list(ACCESS_CLOWN)
 
 	New()
 		..()
@@ -156,7 +156,7 @@
 
 /obj/structure/closet/secure_closet/janitor
 	name = "janitor's locker"
-	req_access = list(access_janitor)
+	req_access = list(ACCESS_JANITOR)
 
 	New()
 		..()
@@ -173,7 +173,7 @@
 
 /obj/structure/closet/secure_closet/librarian
 	name = "librarian's locker"
-	req_access = list(access_library)
+	req_access = list(ACCESS_LIBRARY)
 
 	New()
 		..()
@@ -187,7 +187,7 @@
 
 /obj/structure/closet/secure_closet/lawyer
 	name = "interal affairs agent's locker"
-	req_access = list(access_lawyer)
+	req_access = list(ACCESS_LAWYER)
 
 	New()
 		..()
@@ -207,7 +207,7 @@
 
 /obj/structure/closet/secure_closet/chaplain
 	name = "chaplain's locker"
-	req_access = list(access_lawyer)
+	req_access = list(ACCESS_LAWYER)
 
 	New()
 		..()

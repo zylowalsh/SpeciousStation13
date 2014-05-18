@@ -13,16 +13,15 @@
 	icon = 'icons/obj/status_display.dmi'
 	icon_state = "frame"
 	desc = "A remote control for a door."
-	req_access = list(access_brig)
+	req_access = list(ACCESS_BRIG)
 	anchored = 1.0    		// can't pick it up
 	density = 0       		// can walk through it.
 	var/id = null     		// id of door it controls.
 	var/releasetime = 0		// when world.timeofday reaches it - release the prisoner
-	var/timing = 1    		// boolean, true/1 timer is on, false/0 means it's not timing
+	var/timing = 0    		// boolean, true/1 timer is on, false/0 means it's not timing
 	var/picture_state		// icon_state of alert picture, if not displaying text/numbers
 	var/list/obj/machinery/targets = list()
 	var/timetoset = 0		// Used to set releasetime upon starting the timer
-
 
 /obj/machinery/door_timer/New()
 	..()
@@ -46,9 +45,6 @@
 		if(targets.len==0)
 			stat |= BROKEN
 		update_icon()
-		return
-	return
-
 
 //Main door timer loop, if it's timing and time is >0 reduce time by 1.
 // if it's less than 0, open door, reset timer
@@ -72,82 +68,70 @@
 		src.updateUsrDialog()
 		src.update_icon()
 
-	else
-		timer_end()
-
-	return
-
-
 // has the door power situation changed, if so update icon.
 /obj/machinery/door_timer/power_change()
 	..()
 	update_icon()
-	return
 
-
-// open/closedoor checks if door_timer has power, if so it checks if the
-// linked door is open/closed (by density) then opens it/closes it.
-
-// Closes and locks doors, power check
 /obj/machinery/door_timer/proc/timer_start()
-	if(stat & (NOPOWER|BROKEN))	return 0
+	if(stat & (NOPOWER|BROKEN))
+		return 0
 
-	// Set releasetime
 	releasetime = world.timeofday + timetoset
 
 	for(var/obj/machinery/door/window/brigdoor/door in targets)
-		if(door.density)	continue
+		if(door.density)
+			continue
 		spawn(0)
 			door.close()
 
 	for(var/obj/structure/closet/secure_closet/brig/C in targets)
-		if(C.broken)	continue
-		if(C.opened && !C.close())	continue
+		if(C.broken)
+			continue
+		if(C.opened && !C.close())
+			continue
 		C.locked = 1
 		C.icon_state = C.icon_locked
 	return 1
 
-
-// Opens and unlocks doors, power check
 /obj/machinery/door_timer/proc/timer_end()
-	if(stat & (NOPOWER|BROKEN))	return 0
+	if(stat & (NOPOWER|BROKEN))
+		return 0
 
-	// Reset releasetime
 	releasetime = 0
 
 	for(var/obj/machinery/door/window/brigdoor/door in targets)
-		if(!door.density)	continue
+		if(!door.density)
+			continue
 		spawn(0)
 			door.open()
 
 	for(var/obj/structure/closet/secure_closet/brig/C in targets)
-		if(C.broken)	continue
-		if(C.opened)	continue
+		if(C.broken)
+			continue
+		if(C.opened)
+			continue
 		C.locked = 0
 		C.icon_state = C.icon_closed
 
+		var/obj/item/device/radio/headset/headset_sec/a = new /obj/item/device/radio/headset/headset_sec(null)
+		a.autosay("[src.name]'s timer has expired.", name, "department", 1359)
+
 	return 1
 
-
-// Check for releasetime timeleft
 /obj/machinery/door_timer/proc/timeleft()
 	. = (releasetime - world.timeofday)/10
 	if(. < 0)
 		. = 0
 
-// Set timetoset
 /obj/machinery/door_timer/proc/timeset(var/seconds)
 	timetoset = seconds * 10
 
 	if(timetoset <= 0)
 		timetoset = 0
 
-	return
-
-//Allows AIs to use door_timer, see human attack_hand function below
 /obj/machinery/door_timer/attack_ai(var/mob/user as mob)
 	return src.attack_hand(user)
-
 
 //Allows humans to use door_timer
 //Opens dialog window when someone clicks on door timer
@@ -255,9 +239,6 @@
 
 	else
 		src.timer_end() */
-
-	return
-
 
 //icon update function
 // if NOPOWER, display blank

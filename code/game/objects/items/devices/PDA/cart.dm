@@ -7,20 +7,20 @@
 	w_class = 1
 
 	var/obj/item/radio/integrated/radio = null
-	var/access_security = 0
-	var/access_engine = 0
+	var/ACCESS_SECURITY = 0
+	var/ACCESS_ENGINE = 0
 	var/access_atmos = 0
-	var/access_medical = 0
-	var/access_clown = 0
+	var/ACCESS_MEDICAL = 0
+	var/ACCESS_CLOWN = 0
 	var/access_mime = 0
-	var/access_janitor = 0
+	var/ACCESS_JANITOR = 0
 //	var/access_flora = 0
 	var/access_reagent_scanner = 0
 	var/access_remote_door = 0 //Control some blast doors remotely!!
 	var/remote_door_id = ""
 	var/access_status_display = 0
 	var/access_quartermaster = 0
-	var/access_hydroponics = 0
+	var/ACCESS_HYDROPONICS = 0
 	var/mode = null
 	var/menu
 	var/datum/record/active1 = null //General
@@ -35,7 +35,7 @@
 	engineering
 		name = "Power-ON Cartridge"
 		icon_state = "cart-e"
-		access_engine = 1
+		ACCESS_ENGINE = 1
 
 	atmos
 		name = "BreatheDeep Cartridge"
@@ -45,7 +45,7 @@
 	medical
 		name = "Med-U Cartridge"
 		icon_state = "cart-m"
-		access_medical = 1
+		ACCESS_MEDICAL = 1
 
 	chemistry
 		name = "ChemWhiz Cartridge"
@@ -55,7 +55,7 @@
 	security
 		name = "R.O.B.U.S.T. Cartridge"
 		icon_state = "cart-s"
-		access_security = 1
+		ACCESS_SECURITY = 1
 
 		New()
 			..()
@@ -65,25 +65,25 @@
 	detective
 		name = "D.E.T.E.C.T. Cartridge"
 		icon_state = "cart-s"
-		access_security = 1
-		access_medical = 1
+		ACCESS_SECURITY = 1
+		ACCESS_MEDICAL = 1
 
 
 	janitor
 		name = "CustodiPRO Cartridge"
 		desc = "The ultimate in clean-room design."
 		icon_state = "cart-j"
-		access_janitor = 1
+		ACCESS_JANITOR = 1
 
 	lawyer
 		name = "P.R.O.V.E. Cartridge"
 		icon_state = "cart-s"
-		access_security = 1
+		ACCESS_SECURITY = 1
 
 	clown
 		name = "Honkworks 5.0"
 		icon_state = "cart-clown"
-		access_clown = 1
+		ACCESS_CLOWN = 1
 		var/honk_charges = 5
 
 	mime
@@ -137,8 +137,8 @@
 		icon_state = "cart-h"
 		access_status_display = 1
 		access_quartermaster = 1
-		access_janitor = 1
-		access_security = 1
+		ACCESS_JANITOR = 1
+		ACCESS_SECURITY = 1
 
 		New()
 			..()
@@ -149,7 +149,7 @@
 		name = "R.O.B.U.S.T. DELUXE"
 		icon_state = "cart-hos"
 		access_status_display = 1
-		access_security = 1
+		ACCESS_SECURITY = 1
 
 		New()
 			..()
@@ -160,7 +160,7 @@
 		name = "Power-On DELUXE"
 		icon_state = "cart-ce"
 		access_status_display = 1
-		access_engine = 1
+		ACCESS_ENGINE = 1
 		access_atmos = 1
 
 	cmo
@@ -168,7 +168,7 @@
 		icon_state = "cart-cmo"
 		access_status_display = 1
 		access_reagent_scanner = 1
-		access_medical = 1
+		ACCESS_MEDICAL = 1
 
 	rd
 		name = "Signal Ace DELUXE"
@@ -186,9 +186,9 @@
 		name = "Value-PAK Cartridge"
 		desc = "Now with 200% more value!"
 		icon_state = "cart-c"
-		access_engine = 1
-		access_security = 1
-		access_medical = 1
+		ACCESS_ENGINE = 1
+		ACCESS_SECURITY = 1
+		ACCESS_MEDICAL = 1
 		access_reagent_scanner = 1
 		access_status_display = 1
 		access_atmos = 1

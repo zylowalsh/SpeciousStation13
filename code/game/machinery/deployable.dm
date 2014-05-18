@@ -6,49 +6,49 @@ Barricades
 
 for reference:
 
-	access_security = 1
-	access_brig = 2
-	access_armory = 3
-	access_forensics_lockers= 4
-	access_medical = 5
-	access_morgue = 6
-	access_tox = 7
-	access_tox_storage = 8
-	access_genetics = 9
-	access_engine = 10
-	access_engine_equip= 11
-	access_maint_tunnels = 12
-	access_external_airlocks = 13
+	ACCESS_SECURITY = 1
+	ACCESS_BRIG = 2
+	ACCESS_ARMORY = 3
+	ACCESS_DETECTIVE= 4
+	ACCESS_MEDICAL = 5
+	ACCESS_MORGUE = 6
+	ACCESS_TOXIN = 7
+	ACCESS_TOXIN_STORAGE = 8
+	ACCESS_GENETICS = 9
+	ACCESS_ENGINE = 10
+	ACCESS_ENGINE_EQUIP= 11
+	ACCESS_MAINTENANCE = 12
+	ACCESS_EXTERNAL_AIRLOCKS = 13
 	access_emergency_storage = 14
-	access_change_ids = 15
-	access_ai_upload = 16
-	access_teleporter = 17
-	access_eva = 18
-	access_heads = 19
-	access_captain = 20
-	access_all_personal_lockers = 21
-	access_chapel_office = 22
-	access_tech_storage = 23
-	access_atmospherics = 24
-	access_bar = 25
-	access_janitor = 26
-	access_crematorium = 27
-	access_kitchen = 28
-	access_robotics = 29
-	access_rd = 30
-	access_cargo = 31
-	access_construction = 32
-	access_chemistry = 33
-	access_cargo_bot = 34
-	access_hydroponics = 35
+	ACCESS_CHANGE_IDS = 15
+	ACCESS_AI_UPLOAD = 16
+	ACCESS_TELEPORTER = 17
+	ACCESS_EVA = 18
+	ACCESS_HEADS = 19
+	ACCESS_CAPTAIN = 20
+	ACCESS_ALL_PERSONAL_LOCKERS = 21
+	ACCESS_CHAPEL_OFFICE = 22
+	ACCESS_TECH_STORAGE = 23
+	ACCESS_ATMOSPHERICS = 24
+	ACCESS_BAR = 25
+	ACCESS_JANITOR = 26
+	ACCESS_CREMATORIUM = 27
+	ACCESS_KITCHEN = 28
+	ACCESS_ROBOTICS = 29
+	ACCESS_RD = 30
+	ACCESS_CARGO = 31
+	ACCESS_CONSTRUCTION = 32
+	ACCESS_CHEMISTRY = 33
+	ACCESS_CARGO_bot = 34
+	ACCESS_HYDROPONICS = 35
 	access_manufacturing = 36
-	access_library = 37
-	access_lawyer = 38
-	access_virology = 39
-	access_cmo = 40
-	access_qm = 41
-	access_court = 42
-	access_clown = 43
+	ACCESS_LIBRARY = 37
+	ACCESS_LAWYER = 38
+	ACCESS_VIROLOGY = 39
+	ACCESS_CMO = 40
+	ACCESS_QM = 41
+	ACCESS_COURT = 42
+	ACCESS_CLOWN = 43
 	access_mime = 44
 
 */
@@ -138,7 +138,7 @@ for reference:
 	name = "deployable"
 	desc = "deployable"
 	icon = 'icons/obj/objects.dmi'
-	req_access = list(access_security)//I'm changing this until these are properly tested./N
+	req_access = list(ACCESS_SECURITY)//I'm changing this until these are properly tested./N
 
 /obj/machinery/deployable/barrier
 	name = "deployable barrier"
@@ -150,7 +150,7 @@ for reference:
 	var/health = 100.0
 	var/maxhealth = 100.0
 	var/locked = 0.0
-//	req_access = list(access_maint_tunnels)
+//	req_access = list(ACCESS_MAINTENANCE)
 
 	New()
 		..()
@@ -199,12 +199,12 @@ for reference:
 			if (src.health < src.maxhealth)
 				src.health = src.maxhealth
 				src.emagged = 0
-				src.req_access = list(access_security)
+				src.req_access = list(ACCESS_SECURITY)
 				visible_message("\red [user] repairs the [src]!")
 				return
 			else if (src.emagged > 0)
 				src.emagged = 0
-				src.req_access = list(access_security)
+				src.req_access = list(ACCESS_SECURITY)
 				visible_message("\red [user] repairs the [src]!")
 				return
 			return

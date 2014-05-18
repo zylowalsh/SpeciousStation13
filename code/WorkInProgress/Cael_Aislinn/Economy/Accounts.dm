@@ -139,7 +139,7 @@ var/global/list/all_money_accounts = list()
 	icon = 'icons/obj/virology.dmi'
 	icon_state = "analyser"
 	density = 1
-	req_one_access = list(access_hop, access_captain)
+	req_one_access = list(ACCESS_HOP, ACCESS_CAPTAIN)
 	var/receipt_num
 	var/machine_id = ""
 	var/obj/item/weapon/card/id/held_card
@@ -235,9 +235,9 @@ var/global/list/all_money_accounts = list()
 			idcard.loc = src
 			held_card = idcard
 
-			if(access_cent_captain in idcard.access)
+			if(ACCESS_CEnt_captain in idcard.access)
 				access_level = 2
-			else if(access_hop in idcard.access || access_captain in idcard.access)
+			else if(ACCESS_HOP in idcard.access || ACCESS_CAPTAIN in idcard.access)
 				access_level = 1
 	else
 		..()
@@ -287,9 +287,9 @@ var/global/list/all_money_accounts = list()
 						C.loc = src
 						held_card = C
 
-						if(access_cent_captain in C.access)
+						if(ACCESS_CEnt_captain in C.access)
 							access_level = 2
-						else if(access_hop in C.access || access_captain in C.access)
+						else if(ACCESS_HOP in C.access || ACCESS_CAPTAIN in C.access)
 							access_level = 1
 			if("view_account_detail")
 				var/index = text2num(href_list["account_index"])

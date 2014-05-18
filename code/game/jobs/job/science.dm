@@ -12,14 +12,14 @@
 	selection_color = "#ffddff"
 	idtype = /obj/item/weapon/card/id/silver
 	req_admin_notify = 1
-	access = list(access_rd, access_heads, access_tox, access_genetics, access_morgue, access_tech_storage,
-		    access_tox_storage, access_teleporter, access_sec_doors, access_change_ids,access_research,
-		    access_robotics, access_xenobiology, access_ai_upload, access_RC_announce, access_keycard_auth,
-		    access_xenoarch,access_external_airlocks, access_eva, ACCESS_SHUTTLE)
-	minimal_access = list(access_rd, access_heads, access_tox, access_genetics, access_morgue, access_tech_storage,
-            access_tox_storage, access_teleporter, access_sec_doors, access_change_ids, access_research,
-            access_robotics, access_xenobiology, access_ai_upload, access_RC_announce, access_keycard_auth,
-            access_xenoarch, access_external_airlocks, access_eva, ACCESS_SHUTTLE)
+	access = list(ACCESS_RD, ACCESS_HEADS, ACCESS_TOXIN, ACCESS_GENETICS, ACCESS_MORGUE, ACCESS_TECH_STORAGE,
+		    ACCESS_TOXIN_STORAGE, ACCESS_TELEPORTER, ACCESS_SEC_DOORS, ACCESS_CHANGE_IDS,ACCESS_RESEARCH,
+		    ACCESS_ROBOTICS, ACCESS_XENOBIOLOGY, ACCESS_AI_UPLOAD, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH,
+		    ACCESS_XENOARCH,ACCESS_EXTERNAL_AIRLOCKS, ACCESS_EVA, ACCESS_SHUTTLE)
+	minimal_access = list(ACCESS_RD, ACCESS_HEADS, ACCESS_TOXIN, ACCESS_GENETICS, ACCESS_MORGUE, ACCESS_TECH_STORAGE,
+            ACCESS_TOXIN_STORAGE, ACCESS_TELEPORTER, ACCESS_SEC_DOORS, ACCESS_CHANGE_IDS, ACCESS_RESEARCH,
+            ACCESS_ROBOTICS, ACCESS_XENOBIOLOGY, ACCESS_AI_UPLOAD, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH,
+            ACCESS_XENOARCH, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_EVA, ACCESS_SHUTTLE)
 	minimal_player_age = 1
 
 	equip(var/mob/living/carbon/human/H)
@@ -48,11 +48,11 @@
 	spawn_positions = 4
 	supervisors = "the research director"
 	selection_color = "#ffeeff"
-	access = list(access_robotics, access_tox, access_tox_storage, access_tech_storage, access_morgue,
-			access_research, access_xenoarch, access_xenobiology, access_external_airlocks, access_ai_upload,
+	access = list(ACCESS_ROBOTICS, ACCESS_TOXIN, ACCESS_TOXIN_STORAGE, ACCESS_TECH_STORAGE, ACCESS_MORGUE,
+			ACCESS_RESEARCH, ACCESS_XENOARCH, ACCESS_XENOBIOLOGY, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_AI_UPLOAD,
 			ACCESS_SHUTTLE)
-	minimal_access = list(access_tox, access_tox_storage, access_research, access_xenoarch,
-		access_external_airlocks, ACCESS_SHUTTLE)
+	minimal_access = list(ACCESS_TOXIN, ACCESS_TOXIN_STORAGE, ACCESS_RESEARCH, ACCESS_XENOARCH,
+		ACCESS_EXTERNAL_AIRLOCKS, ACCESS_SHUTTLE)
 	alt_titles = list("Xenoarcheologist", "Anomalist", "Plasma Researcher")
 
 	equip(var/mob/living/carbon/human/H)
@@ -80,10 +80,10 @@
 	spawn_positions = 2
 	supervisors = "the research director"
 	selection_color = "#ffeeff"
-	access = list(access_robotics, access_tox, access_tox_storage, access_tech_storage, access_morgue,
-			access_research, access_xenoarch, access_xenobiology, access_external_airlocks, access_ai_upload,
+	access = list(ACCESS_ROBOTICS, ACCESS_TOXIN, ACCESS_TOXIN_STORAGE, ACCESS_TECH_STORAGE, ACCESS_MORGUE,
+			ACCESS_RESEARCH, ACCESS_XENOARCH, ACCESS_XENOBIOLOGY, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_AI_UPLOAD,
 			ACCESS_SHUTTLE)
-	minimal_access = list(access_research, access_xenobiology)
+	minimal_access = list(ACCESS_RESEARCH, ACCESS_XENOBIOLOGY)
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)
@@ -111,10 +111,10 @@
 	spawn_positions = 2
 	supervisors = "research director"
 	selection_color = "#ffeeff"
-	access = list(access_robotics, access_tox, access_tox_storage, access_tech_storage, access_morgue,
-			access_research, access_xenoarch, access_xenobiology, access_external_airlocks, access_ai_upload,
+	access = list(ACCESS_ROBOTICS, ACCESS_TOXIN, ACCESS_TOXIN_STORAGE, ACCESS_TECH_STORAGE, ACCESS_MORGUE,
+			ACCESS_RESEARCH, ACCESS_XENOARCH, ACCESS_XENOBIOLOGY, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_AI_UPLOAD,
 			ACCESS_SHUTTLE) //As a job that handles so many corpses, it makes sense for them to have morgue access.
-	minimal_access = list(access_robotics, access_tech_storage, access_ai_upload, access_morgue, access_research) //As a job that handles so many corpses, it makes sense for them to have morgue access.
+	minimal_access = list(ACCESS_ROBOTICS, ACCESS_TECH_STORAGE, ACCESS_AI_UPLOAD, ACCESS_MORGUE, ACCESS_RESEARCH) //As a job that handles so many corpses, it makes sense for them to have morgue access.
 	alt_titles = list("Biomechanical Engineer","Mechatronic Engineer")
 
 	equip(var/mob/living/carbon/human/H)

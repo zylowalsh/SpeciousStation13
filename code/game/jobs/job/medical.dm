@@ -12,12 +12,12 @@
 	selection_color = "#ffddf0"
 	idtype = /obj/item/weapon/card/id/silver
 	req_admin_notify = 1
-	access = list(access_medical, access_morgue, access_genetics, access_heads, access_change_ids,
-			access_chemistry, access_virology, access_cmo, access_surgery, access_RC_announce,
-			access_keycard_auth, access_sec_doors, access_psychiatrist, access_eva, ACCESS_SHUTTLE)
-	minimal_access = list(access_medical, access_morgue, access_genetics, access_heads, access_change_ids,
-			access_chemistry, access_virology, access_cmo, access_surgery, access_RC_announce,
-			access_keycard_auth, access_sec_doors, access_psychiatrist, access_eva, ACCESS_SHUTTLE)
+	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_GENETICS, ACCESS_HEADS, ACCESS_CHANGE_IDS,
+			ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_CMO, ACCESS_SURGERY, ACCESS_RC_ANNOUNCE,
+			ACCESS_KEYCARD_AUTH, ACCESS_SEC_DOORS, ACCESS_PSYCHIATRIST, ACCESS_EVA, ACCESS_SHUTTLE)
+	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_GENETICS, ACCESS_HEADS, ACCESS_CHANGE_IDS,
+			ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_CMO, ACCESS_SURGERY, ACCESS_RC_ANNOUNCE,
+			ACCESS_KEYCARD_AUTH, ACCESS_SEC_DOORS, ACCESS_PSYCHIATRIST, ACCESS_EVA, ACCESS_SHUTTLE)
 	minimal_player_age = 1
 
 	equip(var/mob/living/carbon/human/H)
@@ -52,9 +52,9 @@
 	spawn_positions = 4
 	supervisors = "the chief medical officer"
 	selection_color = "#ffeef0"
-	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology,
-			access_genetics, access_psychiatrist, access_eva, ACCESS_SHUTTLE)
-	minimal_access = list(access_medical, access_morgue, access_surgery, access_virology, access_chemistry)
+	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY,
+			ACCESS_GENETICS, ACCESS_PSYCHIATRIST, ACCESS_EVA, ACCESS_SHUTTLE)
+	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_VIROLOGY, ACCESS_CHEMISTRY)
 	alt_titles = list("Surgeon", "Nurse", "Virologist", "Pharmacist")
 
 	equip(var/mob/living/carbon/human/H)
@@ -88,8 +88,8 @@
 	spawn_positions = 2
 	supervisors = "the chief medical officer"
 	selection_color = "#ffeef0"
-	access = list(access_medical, access_morgue, access_surgery, access_psychiatrist, access_eva, ACCESS_SHUTTLE)
-	minimal_access = list(access_medical, access_eva, ACCESS_SHUTTLE)
+	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_PSYCHIATRIST, ACCESS_EVA, ACCESS_SHUTTLE)
+	minimal_access = list(ACCESS_MEDICAL, ACCESS_EVA, ACCESS_SHUTTLE)
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)
@@ -117,9 +117,9 @@
 	spawn_positions = 1
 	supervisors = "the chief medical officer and research director"
 	selection_color = "#ffeef0"
-	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology,
-			access_genetics, access_research, access_psychiatrist, access_eva, ACCESS_SHUTTLE)
-	minimal_access = list(access_medical, access_morgue, access_genetics, access_research)
+	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY,
+			ACCESS_GENETICS, ACCESS_RESEARCH, ACCESS_PSYCHIATRIST, ACCESS_EVA, ACCESS_SHUTTLE)
+	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_GENETICS, ACCESS_RESEARCH)
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
@@ -144,8 +144,8 @@
 	spawn_positions = 1
 	supervisors = "the chief medical officer"
 	selection_color = "#ffeef0"
-	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics)
-	minimal_access = list(access_medical, access_virology)
+	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS)
+	minimal_access = list(ACCESS_MEDICAL, ACCESS_VIROLOGY)
 	alt_titles = list("Pathologist","Microbiologist")
 
 	equip(var/mob/living/carbon/human/H)
@@ -178,8 +178,8 @@
 	spawn_positions = 1
 	supervisors = "the chief medical officer"
 	selection_color = "#ffeef0"
-	access = list(access_medical, access_morgue, access_surgery, access_psychiatrist)
-	minimal_access = list(access_medical, access_psychiatrist)
+	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_PSYCHIATRIST)
+	minimal_access = list(ACCESS_MEDICAL, ACCESS_PSYCHIATRIST)
 	alt_titles = list("Psychologist")
 
 	equip(var/mob/living/carbon/human/H)
