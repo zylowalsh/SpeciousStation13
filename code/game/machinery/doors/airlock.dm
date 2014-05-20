@@ -81,10 +81,10 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 	secondsElectrified = 0 //How many seconds remain until the door is no longer electrified. -1 if it is permanently electrified until someone fixes it.
 	var/aiDisabledIdScanner = 0
 	var/aiHacking = 0
-	var/obj/machinery/door/airlock/closeOther = null
-	var/closeOtherId = null
+	//var/obj/machinery/door/airlock/closeOther = null
+	//var/closeOtherId = null
 	var/list/signalers[12]
-	var/lockdownbyai = 0
+	//var/lockdownbyai = 0
 	autoclose = 1
 	var/assembly_type = /obj/structure/door_assembly
 	var/mineral = null
@@ -740,7 +740,6 @@ About the new airlock wires panel:
 			lights = !lights
 			src.updateUsrDialog()
 
-
 /obj/machinery/door/airlock/proc/cut(var/wireColor)
 	var/wireFlag = airlockWireColorToFlag[wireColor]
 	var/wireIndex = airlockWireColorToIndex[wireColor]
@@ -938,8 +937,6 @@ About the new airlock wires panel:
 	else
 		icon_state = "door_open"
 
-	return
-
 /obj/machinery/door/airlock/animate_door(animation)
 	switch(animation)
 		if("opening")
@@ -959,7 +956,6 @@ About the new airlock wires panel:
 			flick("door_spark", src)
 		if("deny")
 			flick("door_deny", src)
-	return
 
 /obj/machinery/door/airlock/attack_ai(mob/user as mob)
 	if(!src.canAIControl())
@@ -1570,8 +1566,10 @@ About the new airlock wires panel:
 		playsound(src.loc, 'sound/items/bikehorn.ogg', 30, 1)
 	else
 		playsound(src.loc, 'sound/machines/airlock.ogg', 30, 1)
+	/*
 	if(src.closeOther != null && istype(src.closeOther, /obj/machinery/door/airlock/) && !src.closeOther.density)
 		src.closeOther.close()
+	*/
 	return ..()
 
 /obj/machinery/door/airlock/close(var/forced=0)
@@ -1623,16 +1621,16 @@ About the new airlock wires panel:
 
 /obj/machinery/door/airlock/New()
 	..()
+	/*
 	if(src.closeOtherId != null)
 		spawn (5)
 			for (var/obj/machinery/door/airlock/A in world)
 				if(A.closeOtherId == src.closeOtherId && A != src)
 					src.closeOther = A
 					break
-
+	*/
 
 /obj/machinery/door/airlock/proc/prison_open()
 	src.locked = 0
 	src.open()
 	src.locked = 1
-	return

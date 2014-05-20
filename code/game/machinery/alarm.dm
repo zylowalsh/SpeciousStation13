@@ -160,7 +160,8 @@ var/const/MIN_TEMPERATURE = -40
 		return
 
 	var/turf/simulated/location = loc
-	if(!istype(location))	return//returns if loc is not simulated
+	if(!istype(location))
+		return//returns if loc is not simulated
 
 	var/datum/gas_mixture/environment = location.return_air()
 
@@ -181,9 +182,9 @@ var/const/MIN_TEMPERATURE = -40
 		if(target_temperature < T0C + MIN_TEMPERATURE)
 			target_temperature = T0C + MIN_TEMPERATURE
 
-		var/datum/gas_mixture/gas = location.remove_air(0.25*environment.total_moles)
+		var/datum/gas_mixture/gas = location.remove_air(0.25 * environment.total_moles)
 		var/heat_capacity = gas.heat_capacity()
-		var/energy_used = max( abs( heat_capacity*(gas.temperature - target_temperature) ), MAX_ENERGY_CHANGE)
+		var/energy_used = max(abs(heat_capacity * (gas.temperature - target_temperature)), MAX_ENERGY_CHANGE)
 
 		//Use power.  Assuming that each power unit represents 1000 watts....
 		use_power(energy_used/1000, ENVIRON)
@@ -208,10 +209,9 @@ var/const/MIN_TEMPERATURE = -40
 		refresh_danger_level()
 		update_icon()
 
-	if (mode==AALARM_MODE_CYCLE && environment.return_pressure()<ONE_ATMOSPHERE*0.05)
-		mode=AALARM_MODE_FILL
+	if (mode == AALARM_MODE_CYCLE && environment.return_pressure() < ONE_ATMOSPHERE * 0.05)
+		mode = AALARM_MODE_FILL
 		apply_mode()
-
 
 	//atmos computer remote controll stuff
 	switch(rcon_setting)
@@ -226,26 +226,26 @@ var/const/MIN_TEMPERATURE = -40
 			remote_control = 1
 
 	updateDialog()
-	return
 
 /obj/machinery/alarm/proc/overall_danger_level()
 	var/turf/simulated/location = loc
-	if(!istype(location))	return//returns if loc is not simulated
+	if(!istype(location))
+		return//returns if loc is not simulated
 
 	var/datum/gas_mixture/environment = location.return_air()
 
-	var/partial_pressure = R_IDEAL_GAS_EQUATION*environment.temperature/environment.volume
+	var/partial_pressure = R_IDEAL_GAS_EQUATION * environment.temperature / environment.volume
 	var/environment_pressure = environment.return_pressure()
 	var/other_moles = 0.0
 	for(var/datum/gas/G in environment.trace_gases)
 		other_moles+=G.moles
 
 	var/pressure_dangerlevel = get_danger_level(environment_pressure, TLV["pressure"])
-	var/oxygen_dangerlevel = get_danger_level(environment.oxygen*partial_pressure, TLV["oxygen"])
-	var/co2_dangerlevel = get_danger_level(environment.carbon_dioxide*partial_pressure, TLV["carbon dioxide"])
-	var/plasma_dangerlevel = get_danger_level(environment.toxins*partial_pressure, TLV["plasma"])
+	var/oxygen_dangerlevel = get_danger_level(environment.oxygen * partial_pressure, TLV["oxygen"])
+	var/co2_dangerlevel = get_danger_level(environment.carbon_dioxide * partial_pressure, TLV["carbon dioxide"])
+	var/plasma_dangerlevel = get_danger_level(environment.toxins * partial_pressure, TLV["plasma"])
 	var/temperature_dangerlevel = get_danger_level(environment.temperature, TLV["temperature"])
-	var/other_dangerlevel = get_danger_level(other_moles*partial_pressure, TLV["other"])
+	var/other_dangerlevel = get_danger_level(other_moles * partial_pressure, TLV["other"])
 
 	return max(
 		pressure_dangerlevel,
@@ -254,7 +254,7 @@ var/const/MIN_TEMPERATURE = -40
 		plasma_dangerlevel,
 		other_dangerlevel,
 		temperature_dangerlevel
-		)
+	)
 
 /obj/machinery/alarm/proc/master_is_operating()
 	return alarm_area.master_air_alarm && !(alarm_area.master_air_alarm.stat & (NOPOWER|BROKEN))

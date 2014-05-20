@@ -65,7 +65,7 @@
 
 /obj/item/weapon/book/manual/medicalManualOne
 	name = "A Guide to General Practitioning"
-	icon_state = "medbook"
+	icon_state = "medBook"
 	author = "Aaron Perkins"
 	title = "A Guide to General Practitioning"
 	dat = {"<html><BIG> A Guide to General Practitioning. By: Aaron Perkins </BIG>
@@ -127,7 +127,7 @@
 
 /obj/item/weapon/book/manual/medicalManualTwo
 	name = "A Guide to Cutting People Open"
-	icon_state = "medbook"
+	icon_state = "medBook"
 	author = "Aaron Perkins"
 	title = "A Guide to Cutting People Open"
 	dat = {"<html><BIG> A Guide to Cutting People Open.</BIG><BR>
@@ -335,6 +335,31 @@
 		5. Use the <FONT Color = #1EFFBB>Fix O’ Vein</FONT> to repair the Subdural Hematoma.
 		6. Back your hands away from the area and use the <FONT Color #1EFFBB>Cautery</FONT> to seal the initial incision.<BR>
 		</html>"}
+
+/obj/item/weapon/book/manual/medicalManualThree
+	name = "A Chemists Quick Reference"
+	icon_state = "medPamphlet"
+	author = "Aaron Perkins"
+	title = "A Chemists Quick Reference"
+	dat = {"<html><BIG>A Chemists Quick Reference. </BIG><BR>
+
+		This is just a reference guide for some of the most common chemicals you’ll need to make as as Medical Doctor.
+
+		<TT>3 Inaprovaline   = 1 Carbon, 1 Oxygen, 1 Sugar (Lesser Brute damage healer)<BR>
+		3 Anti-Toxin       = 1 Nitrogen, 1 Silicon, 1 Potassium <BR>
+		2 Tricordrazine = 1 Inaprovaline, 1 Anti-Toxin (Heals everything)<BR>
+		2 Bicaridine       = 1 Inaprovaline, 1 Carbon (Best Brute damage healer)<BR>
+		2 Dexalin           = 2 Oxygen, 5 Plasma (Catalyst) (Heals Suffocation damage)<BR>
+		3 Dexalin plus   = 1 Dexalin, 1 Carbon, 1 Iron (Heals much more suffocation damage)<BR>
+		2 Kelotane         = 1 Carbon, 1 Silicon (Lesser Burn heal)<BR>
+		3 Dermaline      = 1 Kelotane, 1 Oxygen, 1 Phosphorus (Greater Burn Heal)<BR>
+		3 Cryoaxdone   =  1 Dexalin, 1 Oxygen, 1 Water (Used in cryo)
+		2 Clonexadone = 1 Cryoaxdone, 1 Sodium, 5 Plasma \[Catalyst] (Used in cloning)
+		</TT>
+
+		Please remember that Catalysts are not used up in the reaction, and that you will still have plasma in the container after the reaction has taken place.
+		</html>"}
+
 
 /obj/item/weapon/book/manual/engineering_construction
 	name = "Station Repairs and Construction"

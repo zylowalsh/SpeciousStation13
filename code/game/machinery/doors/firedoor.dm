@@ -147,10 +147,10 @@ var/const/FIREDOOR_CLOSED = 2
 			else
 				users_name = "Unknown"
 
-		if( ishuman(user) &&  !stat && ( istype(C, /obj/item/weapon/card/id) || istype(C, /obj/item/device/pda) ) )
+		if( ishuman(user) &&  !stat && (istype(C, /obj/item/weapon/card/id) || istype(C, /obj/item/device/pda)))
 			var/obj/item/weapon/card/id/ID = C
 
-			if( istype(C, /obj/item/device/pda) )
+			if( istype(C, /obj/item/device/pda))
 				var/obj/item/device/pda/pda = C
 				ID = pda.id
 			if(!istype(ID))
@@ -209,8 +209,6 @@ var/const/FIREDOOR_CLOSED = 2
 				spawn()
 					close()
 		nextstate = null
-		return
-
 
 	animate_door(animation)
 		switch(animation)
@@ -218,8 +216,6 @@ var/const/FIREDOOR_CLOSED = 2
 				flick("door_opening", src)
 			if("closing")
 				flick("door_closing", src)
-		return
-
 
 	update_icon()
 		overlays.Cut()
@@ -231,8 +227,6 @@ var/const/FIREDOOR_CLOSED = 2
 			icon_state = "door_open"
 			if(blocked)
 				overlays += "welded_open"
-		return
-
 
 /*
 /obj/machinery/door/firedoor/border_only

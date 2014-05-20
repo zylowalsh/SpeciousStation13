@@ -453,7 +453,7 @@
 "aiK" = (/obj/machinery/door/airlock/maintenance{req_access_txt = "5"},/turf/simulated/floor/plating,/area/medical/medbreak)
 "aiL" = (/turf/simulated/floor,/area/medical/medbreak)
 "aiM" = (/obj/structure/stool,/turf/simulated/floor,/area/medical/medbreak)
-"aiN" = (/obj/structure/table,/obj/item/weapon/book/manual/medicalManualOne,/obj/item/weapon/book/manual/medicalManualTwo{pixel_x = 3; pixel_y = 3},/turf/simulated/floor,/area/medical/medbreak)
+"aiN" = (/obj/structure/table,/obj/item/weapon/book/manual/medicalManualOne,/obj/item/weapon/book/manual/medicalManualTwo{pixel_x = 3; pixel_y = 3},/obj/item/weapon/book/manual/medicalManualThree{pixel_y = 6},/turf/simulated/floor,/area/medical/medbreak)
 "aiO" = (/obj/structure/table,/turf/simulated/floor,/area/medical/medbreak)
 "aiP" = (/obj/machinery/light{dir = 4},/obj/machinery/computer/arcade,/turf/simulated/floor,/area/medical/medbreak)
 "aiQ" = (/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plating,/area/maintenance/tunnel14)
