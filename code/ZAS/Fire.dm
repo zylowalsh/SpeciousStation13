@@ -10,7 +10,6 @@ Attach to transfer valve and open. BOOM.
 
 */
 
-
 //Some legacy definitions so fires can be started.
 atom/proc/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	return null
@@ -95,7 +94,6 @@ turf/simulated/hotspot_expose(exposed_temperature, exposed_volume, soh)
 	for(var/mob/living/carbon/human/M in loc)
 		M.FireBurn(firelevel, air_contents.temperature, air_contents.return_pressure() ) //Burn the humans!
 
-
 	//spread!
 	for(var/direction in cardinal)
 		if(S.air_check_directions&direction) //Grab all valid bordering tiles
@@ -157,13 +155,10 @@ turf/simulated/hotspot_expose(exposed_temperature, exposed_volume, soh)
 
 	..()
 
-
-
 turf/simulated/var/fire_protection = 0 //Protects newly extinguished tiles from being overrun again.
 turf/proc/apply_fire_protection()
 turf/simulated/apply_fire_protection()
 	fire_protection = world.time
-
 
 datum/gas_mixture/proc/zburn(obj/effect/decal/cleanable/liquid_fuel/liquid,force_burn)
 	var/value = 0
