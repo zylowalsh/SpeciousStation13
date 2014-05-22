@@ -82,6 +82,13 @@
 			user << "\red The udder is dry. Wait a bit longer..."
 	else
 		..()
+
+/mob/living/simple_animal/hostile/retaliate/goat/spiffles
+	name = "Spiffles"
+	icon_state = "goat2"
+	icon_living = "goat2"
+
+
 //cow
 /mob/living/simple_animal/cow
 	name = "cow"
