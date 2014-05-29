@@ -45,12 +45,43 @@ var/intercom_range_display_status = 0
 
 /client/proc/cmdAdminListNoAccessAirlocks()
 	set category = "Mapping"
-	set name = "List Airlocks"
+	set name = "Debug Airlocks"
 	set desc = "List all airlocks that do not have any access restrictions on them."
 
+	var/input = alert(src,"What would you like to test","Debug Airlocks","Access","Firedoors", "Slaved")
+
 	for(var/obj/machinery/door/airlock/a in world)
-		if(a.req_access_txt == "0" && a.req_one_access_txt == "0")
-			usr << "The airlock, [a.name], at [a.x], [a.y], [a.z] has no accesses on it."
+		var/textOutput = ""
+
+		switch(input)
+			if("Access")
+				if(a.req_access_txt == "0" && a.req_one_access_txt == "0")
+					textOutput += "No Access | "
+			if("Firedoors")
+				var/turf/doorTurf = locate(/turf) in range(0, a.loc)
+				var/area/doorArea = locate(/area) in range(0, a.loc)
+				var/hasFireDoor = FALSE
+				var/isAdjacentToDifferentArea = FALSE
+				for(var/object in doorTurf.contents)
+					if(istype(object, /obj/machinery/door/firedoor/))
+						hasFireDoor = TRUE
+						break
+
+				for(var/area/tempArea as area in range(1,a))
+					if(!istype(tempArea, doorArea))
+						isAdjacentToDifferentArea = TRUE
+						break
+
+				if(!hasFireDoor && isAdjacentToDifferentArea && isnull(a.id_tag))
+					textOutput += "No Firedoor & Is Bordering an Area | "
+				else if(!isAdjacentToDifferentArea && hasFireDoor && isnull(a.id_tag))
+					textOutput += "Has Firedoor & Is Not Bordering an Area | "
+			if("Slaved")
+				if(!isnull(a.id_tag))
+					textOutput += "Is Slaved | "
+
+		if(textOutput != "")
+			usr << "Airlock, [a.name], at [a.x], [a.y], [a.z]: [textOutput]"
 
 /client/proc/camera_view()
 	set category = "Mapping"

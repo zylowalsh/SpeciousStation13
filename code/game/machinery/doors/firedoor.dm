@@ -6,6 +6,7 @@ var/const/FIREDOOR_CLOSED = 2
 	desc = "Emergency air-tight shutter, capable of sealing off breached areas."
 	icon = 'icons/obj/doors/DoorHazard.dmi'
 	icon_state = "door_open"
+	layer = 2.6
 	req_one_access = list(ACCESS_ATMOSPHERICS, ACCESS_ENGINE_EQUIP)
 	opacity = 0
 	density = 0
@@ -212,10 +213,12 @@ var/const/FIREDOOR_CLOSED = 2
 /obj/machinery/door/firedoor/update_icon()
 	overlays.Cut()
 	if(density)
+		layer = 3.0
 		icon_state = "door_closed"
 		if(blocked)
 			overlays += "welded"
 	else
+		layer = 2.6
 		icon_state = "door_open"
 		if(blocked)
 			overlays += "welded_open"

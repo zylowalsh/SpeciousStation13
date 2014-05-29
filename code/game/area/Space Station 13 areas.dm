@@ -556,9 +556,24 @@ proc/process_ghost_teleport_locs()
 	icon_state = "bridge"
 	music = null
 
-/area/command/iaoffice
-	name = "\improper Internal Affairs Office"
+/area/command/internalAffairs // ABSTRACT
+	name = "\improper Internal Affairs"
 	icon_state = "law"
+
+/area/command/internalAffairs/lobby
+	name = "\improper Internal Affairs Lobby"
+
+/area/command/internalAffairs/hallway
+	name = "\improper Internal Affairs Hallway"
+
+/area/command/internalAffairs/office1
+	name = "\improper West Internal Affairs Office"
+
+/area/command/internalAffairs/office2
+	name = "\improper East Internal Affairs Office"
+
+/area/command/idAccess
+	name = "\improper ID Access"
 
 // COMMAND'S OFFICES
 
@@ -905,12 +920,19 @@ area/solar/research
 	name = "\improper Chapel Launcher"
 	icon_state = "chapel"
 
+/area/civ/chapel/crem
+	name = "\improper Crematorium"
+	icon_state = "chapel"
+
 // MISC STATION AREAS
 
 /area/misc
 	name = "Misc. Areas"
 	cameraTagPrefix = "MISC"
 	icon_state = "misc_base"
+
+/area/misc/externalAirlocks
+	name = "External Airlocks"
 
 /area/misc/dorms
 	name = "\improper Dormitories"
@@ -1102,6 +1124,9 @@ area/solar/research
 	cameraTagPrefix = "MED"
 	icon_state = "med_base"
 
+/area/medical/lobby
+	name = "\improper Medbay Lobby"
+
 /area/medical/hallway
 	name = "\improper Medbay"
 	icon_state = "med_hallway"
@@ -1175,6 +1200,10 @@ area/solar/research
 /area/security
 	name = "\improper Security Department"
 	cameraTagPrefix = "SEC"
+
+/area/security/lobby
+	name = "\improper Security Lobby"
+	icon_state = "security"
 
 /area/security/main
 	name = "\improper Security Office"
@@ -1270,6 +1299,9 @@ area/solar/research
 	name = "Cargo"
 	cameraTagPrefix = "CARGO"
 	icon_state = "cargo_base"
+
+/area/cargo/lobby
+	name = "Cargo Lobby"
 
 /area/cargo/warehouse
 	name = "\improper Warehouse"

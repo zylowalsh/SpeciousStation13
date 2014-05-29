@@ -183,8 +183,10 @@
 
 /obj/machinery/door/update_icon()
 	if(density)
+		layer = 3.1
 		icon_state = "door1"
 	else
+		layer = 2.7
 		icon_state = "door0"
 	return
 
@@ -219,24 +221,23 @@
 	animate_door("opening")
 	icon_state = "door0"
 	src.SetOpacity(0)
-	spawn(10)
-		src.layer = 2.7
-		src.density = 0
-		explosion_resistance = 0
-		update_icon()
-		SetOpacity(0)
-		update_nearby_tiles()
+	sleep(10)
+	src.density = 0
+	explosion_resistance = 0
+	update_icon()
+	SetOpacity(0)
+	update_nearby_tiles()
 
-		if(operating)
-			operating = 0
+	if(operating)
+		operating = 0
 
-		if(autoclose  && normalspeed)
-			spawn(150)
-				autoclose()
-		if(autoclose && !normalspeed)
-			spawn(5)
-				autoclose()
-		return 1
+	if(autoclose  && normalspeed)
+		spawn(150)
+			autoclose()
+	if(autoclose && !normalspeed)
+		spawn(5)
+			autoclose()
+	return 1
 
 
 /obj/machinery/door/proc/close()
@@ -249,18 +250,17 @@
 	animate_door("closing")
 	src.density = 1
 	explosion_resistance = initial(explosion_resistance)
-	src.layer = 3.1
-	spawn(10)
-		update_icon()
-		if(visible && !glass)
-			SetOpacity(1)	//caaaaarn!
-		operating = 0
-		update_nearby_tiles()
+	sleep(10)
+	update_icon()
+	if(visible && !glass)
+		SetOpacity(1)	//caaaaarn!
+	operating = 0
+	update_nearby_tiles()
 
-		//I shall not add a check every x ticks if a door has closed over some fire.
-		var/obj/fire/fire = locate() in loc
-		if(fire)
-			del fire
+	//I shall not add a check every x ticks if a door has closed over some fire.
+	var/obj/fire/fire = locate() in loc
+	if(fire)
+		del fire
 
 /obj/machinery/door/proc/requiresID()
 	return 1

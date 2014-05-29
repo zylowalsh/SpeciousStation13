@@ -6,6 +6,7 @@
 	desc = "A huge chunk of metal used to seperate rooms."
 	anchored = 1
 	icon = 'icons/turf/walls.dmi'
+	layer = 3.1 //So the firedoors below them won't show when they close.
 	var/mineral = "metal"
 	var/opening = 0
 

@@ -60,7 +60,7 @@
 	icon_state = "emag"
 	item_state = "card-id"
 	origin_tech = "magnets=2;syndicate=2"
-	var/uses = 10
+	//var/uses = 10
 
 /obj/item/weapon/card/id
 	name = "identification card"
