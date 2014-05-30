@@ -905,8 +905,12 @@ area/solar/research
 	icon_state = "Theatre"
 
 /area/civ/library
- 	name = "\improper Library"
- 	icon_state = "library"
+	name = "\improper Library"
+	icon_state = "library"
+
+/area/civ/libraryOffice
+	name = "\improper Library Office"
+	icon_state = "library"
 
 /area/civ/chapel/main
 	name = "\improper Chapel"
