@@ -1,0 +1,15 @@
+ckey: name: /path/to/obj
+countswagula: Mitchell Philips: /obj/item/clothing/suit/storage/fluff/count_coat
+mewnew: August Markov: /obj/item/clothing/mask/balaclava/fluff/mewnew_balaclava
+rockerfish: Tom Gains: /obj/item/weapon/card/id/fluff/lifetimePurple
+zylowalsh: Bunion Bottoms: /obj/item/weapon/card/id/fluff/lifetimeOrange
+zylowalsh: Bunion Bottoms: /obj/item/clothing/head/soft/orange
+jnettie: Dr. Meowzas: /obj/item/clothing/under/fluff/jnettie_suit
+jnettie: Dr. Meowzas: /obj/item/clothing/gloves/combat/fluff/thick_gloves
+jnettie: Dr. Meowzas: /obj/item/weapon/storage/backpack/fluff/jnettie_backpack
+jnettie: Dr. Meowzas: /obj/item/weapon/storage/belt/utility/fluff/jnettie_belt
+jnettie: Dr. Meowzas: /obj/item/clothing/glasses/meson/fluff/jnettie_glasses
+jnettie: Dr. Meowzas: /obj/item/clothing/shoes/sandal/fluff/jnettie_sandal
+gingercultleader: Ezekiel Prechtl: /obj/item/clothing/gloves/combat/fluff/thick_gloves
+tokib: Toki Bolverker: /obj/item/clothing/suit/fluff/tokis_coat
+tokib: Toki Bolverker: /obj/item/clothing/head/fluff/tokis_hat

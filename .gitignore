@@ -6,8 +6,6 @@
 *.lk
 
 #ignore any files in config/, except those in subdirectories.
-/config/*
-!/config/*/*
 /maps/backup/
 data/ban_unban_log.txt
 data/investigate/singulo.html
