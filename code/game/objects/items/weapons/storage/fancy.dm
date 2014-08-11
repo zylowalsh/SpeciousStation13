@@ -88,7 +88,7 @@
 	item_state = "candlebox5"
 	storage_slots = 5
 	throwforce = 2
-	flags = TABLE_PASS
+	flags = TABLEPASS
 	slot_flags = SLOT_BELT
 
 
@@ -152,7 +152,7 @@
 	item_state = "cigpacket"
 	w_class = 1
 	throwforce = 2
-	flags = TABLE_PASS
+	flags = TABLEPASS
 	slot_flags = SLOT_BELT
 	storage_slots = 6
 	can_hold = list("/obj/item/clothing/mask/cigarette")
@@ -160,7 +160,7 @@
 
 /obj/item/weapon/storage/fancy/cigarettes/New()
 	..()
-	flags |= NO_REACT
+	flags |= NOREACT
 	for(var/i = 1 to storage_slots)
 		new /obj/item/clothing/mask/cigarette(src)
 	create_reagents(15 * storage_slots)//so people can inject cigarettes without opening a packet, now with being able to inject the whole one

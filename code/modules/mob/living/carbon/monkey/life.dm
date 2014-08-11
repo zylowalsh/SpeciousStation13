@@ -11,8 +11,8 @@
 
 /mob/living/carbon/monkey/Life()
 	set invisibility = 0
-	set background = BACKGROUND_ENABLED
-	if (notransform)	return
+	set background = 1
+	if (monkeyizing)	return
 	..()
 
 	var/datum/gas_mixture/environment // Added to prevent null location errors-- TLE
@@ -52,9 +52,6 @@
 	if(environment)	// More error checking -- TLE
 		handle_environment(environment)
 
-	//Check if we're on fire
-	handle_fire()
-
 	//Status updates, death etc.
 	handle_regular_status_updates()
 	update_canmove()
@@ -67,7 +64,7 @@
 		G.process()
 
 	if(!client && stat == CONSCIOUS)
-		if(prob(33) && canmove && isturf(loc) && !pulledby && !grabbed_by.len)
+		if(prob(33) && canmove && isturf(loc))
 			step(src, pick(cardinal))
 		if(prob(1))
 			emote(pick("scratch","jump","roll","tail"))
@@ -103,7 +100,7 @@
 	proc/handle_mutations_and_radiation()
 
 		if(getFireLoss())
-			if((COLD_RESISTANCE in mutations) && prob(50))
+			if((COLD_RESISTANCE in mutations) || prob(50))
 				switch(getFireLoss())
 					if(1 to 50)
 						adjustFireLoss(-1)
@@ -150,7 +147,6 @@
 						emote("gasp")
 					updatehealth()
 
-
 	proc/breathe()
 		if(reagents)
 
@@ -160,7 +156,7 @@
 
 		var/datum/gas_mixture/environment = loc.return_air()
 		var/datum/gas_mixture/breath
-		if(health <= config.health_threshold_crit)
+		if(health < 0)
 			losebreath++
 		if(losebreath>0) //Suffocating so do not take a breath
 			losebreath--
@@ -229,7 +225,7 @@
 		if(status_flags & GODMODE)
 			return
 
-		if(!breath || (breath.total_moles() == 0))
+		if(!breath || (breath.total_moles == 0))
 			adjustOxyLoss(7)
 
 			oxygen_alert = max(oxygen_alert, 1)
@@ -330,13 +326,12 @@
 			var/turf/heat_turf = get_turf(src)
 			environment_heat_capacity = heat_turf.heat_capacity
 
-		if(!on_fire)
-			if((environment.temperature > (T0C + 50)) || (environment.temperature < (T0C + 10)))
-				var/transfer_coefficient = 1
+		if((environment.temperature > (T0C + 50)) || (environment.temperature < (T0C + 10)))
+			var/transfer_coefficient = 1
 
-				handle_temperature_damage(HEAD, environment.temperature, environment_heat_capacity*transfer_coefficient)
+			handle_temperature_damage(HEAD, environment.temperature, environment_heat_capacity*transfer_coefficient)
 
-		if(stat != 2)
+		if(stat==2)
 			bodytemperature += 0.1*(environment.temperature - bodytemperature)*environment_heat_capacity/(environment_heat_capacity + 270000)
 
 		//Account for massive pressure differences
@@ -402,7 +397,7 @@
 			blinded = 1
 			silent = 0
 		else				//ALIVE. LIGHTS ARE ON
-			if(health < config.health_threshold_dead || !getorgan(/obj/item/organ/brain))
+			if(health < config.health_threshold_dead || brain_op_stage == 4.0)
 				death()
 				blinded = 1
 				stat = DEAD
@@ -410,31 +405,46 @@
 				return 1
 
 			//UNCONSCIOUS. NO-ONE IS HOME
-			if( (getOxyLoss() > 25) || (config.health_threshold_crit >= health) )
+			if( (getOxyLoss() > 25) || (config.health_threshold_crit > health) )
 				if( health <= 20 && prob(1) )
 					spawn(0)
 						emote("gasp")
 				if(!reagents.has_reagent("inaprovaline"))
 					adjustOxyLoss(1)
 				Paralyse(3)
+			if(halloss > 100)
+				src << "<span class='notice'>You're in too much pain to keep going...</span>"
+				for(var/mob/O in oviewers(src, null))
+					O.show_message("<B>[src]</B> slumps to the ground, too weak to continue fighting.", 1)
+				Paralyse(10)
+				setHalLoss(99)
 
 			if(paralysis)
 				AdjustParalysis(-1)
 				blinded = 1
 				stat = UNCONSCIOUS
+				if(halloss > 0)
+					adjustHalLoss(-3)
 			else if(sleeping)
+				handle_dreams()
+				adjustHalLoss(-3)
 				sleeping = max(sleeping-1, 0)
 				blinded = 1
 				stat = UNCONSCIOUS
-				if( prob(10) && health )
+				if( prob(10) && health && !hal_crit )
 					spawn(0)
 						emote("snore")
+			else if(resting)
+				if(halloss > 0)
+					adjustHalLoss(-3)
 			//CONSCIOUS
 			else
 				stat = CONSCIOUS
+				if(halloss > 0)
+					adjustHalLoss(-1)
 
 			//Eyes
-			if(sdisabilities & BLIND)	//disabled-blind, doesn't get better on its own
+			if(sdisabilities & BOTH_EYES_BLIND)	//disabled-blind, doesn't get better on its own
 				blinded = 1
 			else if(eye_blind)			//blindness, heals slowly over time
 				eye_blind = max(eye_blind-1,0)
@@ -455,7 +465,7 @@
 				AdjustStunned(-1)
 
 			if(weakened)
-				weakened = max(weakened-1,0)
+				weakened = max(weakened-1,0)	//before you get mad Rockdtben: I done this so update_canmove isn't called multiple times
 
 			if(stuttering)
 				stuttering = max(stuttering-1, 0)
@@ -465,8 +475,6 @@
 
 			if(druggy)
 				druggy = max(druggy-1, 0)
-
-			CheckStamina()
 		return 1
 
 
@@ -484,8 +492,6 @@
 			sight &= ~SEE_OBJS
 			see_in_dark = 2
 			see_invisible = SEE_INVISIBLE_LIVING
-			if(see_override)
-				see_invisible = see_override
 
 		if (healths)
 			if (stat != 2)
@@ -511,11 +517,8 @@
 		if(pressure)
 			pressure.icon_state = "pressure[pressure_alert]"
 
-		if(pullin)
-			if(pulling)
-				pullin.icon_state = "pull"
-			else
-				pullin.icon_state = "pull0"
+		if(pullin)	pullin.icon_state = "pull[pulling ? 1 : 0]"
+
 
 		if (toxin)	toxin.icon_state = "tox[toxins_alert ? 1 : 0]"
 		if (oxygen) oxygen.icon_state = "oxy[oxygen_alert ? 1 : 0]"
@@ -566,7 +569,7 @@
 				if (!( machine.check_eye(src) ))
 					reset_view(null)
 			else
-				if(!client.adminobs)
+				if(client && !client.adminobs)
 					reset_view(null)
 
 		return 1
@@ -581,14 +584,3 @@
 	proc/handle_changeling()
 		if(mind && mind.changeling)
 			mind.changeling.regenerate()
-			hud_used.lingchemdisplay.invisibility = 0
-			hud_used.lingchemdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'> <font color='#dd66dd'>[src.mind.changeling.chem_charges]</font></div>"
-
-
-///FIRE CODE
-	handle_fire()
-		if(..())
-			return
-		adjustFireLoss(6)
-		return
-//END FIRE CODE

@@ -3,9 +3,6 @@
 	if(join_motd)
 		src << "<div class=\"motd\">[join_motd]</div>"
 
-	if(admin_notice)
-		src << "\blue <b>Admin Notice:</b>\n \t [admin_notice]"
-
 	if(!mind)
 		mind = new /datum/mind(key)
 		mind.active = 1
@@ -32,5 +29,4 @@
 	new_player_panel()
 	spawn(40)
 		if(client)
-			handle_privacy_poll()
 			client.playtitlemusic()

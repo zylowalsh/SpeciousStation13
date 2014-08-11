@@ -9,7 +9,7 @@
 	throw_speed = 2
 	throw_range = 5
 	w_class = 3.0
-	flags = TABLE_PASS
+	flags = TABLEPASS
 	var/created_name = "Floorbot"
 
 /obj/item/weapon/toolbox_tiles_sensor
@@ -22,7 +22,7 @@
 	throw_speed = 2
 	throw_range = 5
 	w_class = 3.0
-	flags = TABLE_PASS
+	flags = TABLEPASS
 	var/created_name = "Floorbot"
 
 //Floorbot

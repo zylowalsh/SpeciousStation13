@@ -1,8 +1,8 @@
-#define HEAT_DAMAGE_LEVEL_1 2 //Amount of damage applied when your body temperature just passes the 360.15k safety point
-#define HEAT_DAMAGE_LEVEL_2 3 //Amount of damage applied when your body temperature passes the 400K point
-#define HEAT_DAMAGE_LEVEL_3 8 //Amount of damage applied when your body temperature passes the 460K point and you are on fire
-
 /mob/living/carbon/alien
+	var/const/HEAT_DAMAGE_LEVEL_1 = 2 //Amount of damage applied when your body temperature just passes the 360.15k safety point
+	var/const/HEAT_DAMAGE_LEVEL_2 = 4 //Amount of damage applied when your body temperature passes the 400K point
+	var/const/HEAT_DAMAGE_LEVEL_3 = 8 //Amount of damage applied when your body temperature passes the 1000K point
+
 	name = "alien"
 	voice_name = "alien"
 	voice_message = "hisses"
@@ -10,8 +10,6 @@
 	icon = 'icons/mob/alien.dmi'
 	gender = NEUTER
 	dna = null
-	faction = list("alien")
-	ventcrawler = 2
 
 	var/storedPlasma = 250
 	var/max_plasma = 500
@@ -24,7 +22,7 @@
 	var/move_delay_add = 0 // movement delay to add
 
 	status_flags = CANPARALYSE|CANPUSH
-	var/heal_rate = 5
+	var/heal_rate = 1
 	var/plasma_rate = 5
 
 	var/oxygen_alert = 0
@@ -33,17 +31,8 @@
 
 	var/heat_protection = 0.5
 
-
-/mob/living/carbon/alien/New()
-	verbs += /mob/living/proc/mob_sleep
-	verbs += /mob/living/proc/lay_down
-	internal_organs += new /obj/item/organ/brain/alien
-
-	..()
-
 /mob/living/carbon/alien/adjustToxLoss(amount)
 	storedPlasma = min(max(storedPlasma + amount,0),max_plasma) //upper limit of max_plasma, lower limit of 0
-	updatePlasmaDisplay()
 	return
 
 /mob/living/carbon/alien/adjustFireLoss(amount) // Weak to Fire
@@ -63,14 +52,15 @@
 	if(status_flags & GODMODE)
 		health = maxHealth
 		stat = CONSCIOUS
-		return
-	//oxyloss is only used for suicide
-	health = maxHealth - getOxyLoss() - getFireLoss() - getBruteLoss() - getCloneLoss()
+	else
+		//oxyloss is only used for suicide
+		//toxloss isn't used for aliens, its actually used as alien powers!!
+		health = maxHealth - getOxyLoss() - getFireLoss() - getBruteLoss() - getCloneLoss()
 
 /mob/living/carbon/alien/proc/handle_environment(var/datum/gas_mixture/environment)
 
 	//If there are alien weeds on the ground then heal if needed or give some toxins
-	if(locate(/obj/structure/alien/weeds) in loc)
+	if(locate(/obj/effect/alien/weeds) in loc)
 		if(health >= maxHealth - getCloneLoss())
 			adjustToxLoss(plasma_rate)
 		else
@@ -80,23 +70,31 @@
 
 	if(!environment)
 		return
-
-	var/loc_temp = get_temperature(environment)
+	var/loc_temp = T0C
+	if(istype(loc, /obj/mecha))
+		var/obj/mecha/M = loc
+		loc_temp =  M.return_temperature()
+	else if(istype(get_turf(src), /turf/space))
+		var/turf/heat_turf = get_turf(src)
+		loc_temp = heat_turf.temperature
+	else if(istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
+		loc_temp = loc:air_contents.temperature
+	else
+		loc_temp = environment.temperature
 
 	//world << "Loc temp: [loc_temp] - Body temp: [bodytemperature] - Fireloss: [getFireLoss()] - Fire protection: [heat_protection] - Location: [loc] - src: [src]"
 
 	// Aliens are now weak to fire.
 
 	//After then, it reacts to the surrounding atmosphere based on your thermal protection
-	if(!on_fire) // If you're on fire, ignore local air temperature
-		if(loc_temp > bodytemperature)
-			//Place is hotter than we are
-			var/thermal_protection = heat_protection //This returns a 0 - 1 value, which corresponds to the percentage of protection based on what you're wearing and what you're exposed to.
-			if(thermal_protection < 1)
-				bodytemperature += (1-thermal_protection) * ((loc_temp - bodytemperature) / BODYTEMP_HEAT_DIVISOR)
-		else
-			bodytemperature += 1 * ((loc_temp - bodytemperature) / BODYTEMP_HEAT_DIVISOR)
-		//	bodytemperature -= max((loc_temp - bodytemperature / BODYTEMP_AUTORECOVERY_DIVISOR), BODYTEMP_AUTORECOVERY_MINIMUM)
+	if(loc_temp > bodytemperature)
+		//Place is hotter than we are
+		var/thermal_protection = heat_protection //This returns a 0 - 1 value, which corresponds to the percentage of protection based on what you're wearing and what you're exposed to.
+		if(thermal_protection < 1)
+			bodytemperature += (1-thermal_protection) * ((loc_temp - bodytemperature) / BODYTEMP_HEAT_DIVISOR)
+	else
+		bodytemperature += 1 * ((loc_temp - bodytemperature) / BODYTEMP_HEAT_DIVISOR)
+	//	bodytemperature -= max((loc_temp - bodytemperature / BODYTEMP_AUTORECOVERY_DIVISOR), BODYTEMP_AUTORECOVERY_MINIMUM)
 
 	// +/- 50 degrees from 310.15K is the 'safe' zone, where no damage is dealt.
 	if(bodytemperature > 360.15)
@@ -106,16 +104,12 @@
 			if(360 to 400)
 				apply_damage(HEAT_DAMAGE_LEVEL_1, BURN)
 				fire_alert = max(fire_alert, 2)
-			if(400 to 460)
+			if(400 to 1000)
 				apply_damage(HEAT_DAMAGE_LEVEL_2, BURN)
 				fire_alert = max(fire_alert, 2)
-			if(460 to INFINITY)
-				if(on_fire)
-					apply_damage(HEAT_DAMAGE_LEVEL_3, BURN)
-					fire_alert = max(fire_alert, 2)
-				else
-					apply_damage(HEAT_DAMAGE_LEVEL_2, BURN)
-					fire_alert = max(fire_alert, 2)
+			if(1000 to INFINITY)
+				apply_damage(HEAT_DAMAGE_LEVEL_3, BURN)
+				fire_alert = max(fire_alert, 2)
 	return
 
 /mob/living/carbon/alien/proc/handle_mutations_and_radiation()
@@ -148,17 +142,8 @@
 				radiation -= 3
 				adjustToxLoss(3)
 
-/mob/living/carbon/alien/handle_fire()//Aliens on fire code
-	if(..())
-		return
-	bodytemperature += BODYTEMP_HEATING_MAX //If you're on fire, you heat up!
-	return
-
 /mob/living/carbon/alien/IsAdvancedToolUser()
 	return has_fine_manipulation
-
-/mob/living/carbon/alien/SpeciesCanConsume()
-	return 1 // Aliens can eat, and they can be fed food/drink
 
 /mob/living/carbon/alien/Process_Spaceslipping()
 	return 0 // Don't slip in space.
@@ -174,11 +159,11 @@
 	if (client.statpanel == "Status")
 		stat(null, "Plasma Stored: [getPlasma()]/[max_plasma]")
 
-	if(emergency_shuttle)
-		if(emergency_shuttle.online && emergency_shuttle.location < 2)
-			var/timeleft = emergency_shuttle.timeleft()
-			if (timeleft)
-				stat(null, "ETA-[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]")
+	if(emergencyShuttle)
+		if(emergencyShuttle == PREPARING_TO_LAUNCH)
+			var/timeLeft = emergencyShuttle.getTimeLeft()
+			if (timeLeft)
+				stat(null, "ETA-[(timeLeft / 60) % 60]:[add_zero(num2text(timeLeft % 60), 2)]")
 
 /mob/living/carbon/alien/Stun(amount)
 	if(status_flags & CANSTUN)
@@ -188,12 +173,11 @@
 		move_delay_add = min(move_delay_add + round(amount / 2), 10) // a maximum delay of 10
 	return
 
-/mob/living/carbon/alien/getTrail()
-	return "xltrails"
+/mob/living/carbon/alien/getDNA()
+	return null
 
-/mob/living/carbon/alien/cuff_break(obj/item/I, mob/living/carbon/C)
-	playsound(C, 'sound/voice/hiss5.ogg', 40, 1, 1)  //Alien roars when breaking free.
-	..()
+/mob/living/carbon/alien/setDNA()
+	return
 
 /*----------------------------------------
 Proc: AddInfectionImages()
@@ -217,12 +201,6 @@ Des: Removes all infected images from the alien.
 	if (client)
 		for(var/image/I in client.images)
 			if(dd_hasprefix_case(I.icon_state, "infected"))
-				qdel(I)
+				del(I)
 	return
 
-/mob/living/carbon/alien/canBeHandcuffed()
-	return 1
-
-#undef HEAT_DAMAGE_LEVEL_1
-#undef HEAT_DAMAGE_LEVEL_2
-#undef HEAT_DAMAGE_LEVEL_3

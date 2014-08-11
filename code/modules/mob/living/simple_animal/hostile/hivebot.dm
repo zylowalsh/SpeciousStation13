@@ -3,8 +3,8 @@
 	damage_type = BRUTE
 
 /mob/living/simple_animal/hostile/hivebot
-	name = "hivebot"
-	desc = "A small robot."
+	name = "Hivebot"
+	desc = "A small robot"
 	icon = 'icons/mob/hivebot.dmi'
 	icon_state = "basic"
 	icon_living = "basic"
@@ -16,7 +16,7 @@
 	attacktext = "claws"
 	projectilesound = 'sound/weapons/Gunshot.ogg'
 	projectiletype = /obj/item/projectile/hivebotbullet
-	faction = list("hivebot")
+	faction = "hivebot"
 	min_oxy = 0
 	max_oxy = 0
 	min_tox = 0
@@ -26,25 +26,23 @@
 	min_n2 = 0
 	max_n2 = 0
 	minbodytemp = 0
+	speed = 4
 
 /mob/living/simple_animal/hostile/hivebot/range
-	name = "hivebot"
+	name = "Hivebot"
 	desc = "A smallish robot, this one is armed!"
 	ranged = 1
-	retreat_distance = 5
-	minimum_distance = 5
 
 /mob/living/simple_animal/hostile/hivebot/rapid
 	ranged = 1
 	rapid = 1
-	retreat_distance = 5
-	minimum_distance = 5
 
 /mob/living/simple_animal/hostile/hivebot/strong
-	name = "strong hivebot"
+	name = "Strong Hivebot"
 	desc = "A robot, this one is armed and looks tough!"
 	health = 80
 	ranged = 1
+
 
 /mob/living/simple_animal/hostile/hivebot/Die()
 	..()
@@ -53,12 +51,12 @@
 	var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
 	s.set_up(3, 1, src)
 	s.start()
-	qdel(src)
+	del src
 	return
 
 /mob/living/simple_animal/hostile/hivebot/tele//this still needs work
-	name = "beacon"
-	desc = "Some odd beacon thing."
+	name = "Beacon"
+	desc = "Some odd beacon thing"
 	icon = 'icons/mob/hivebot.dmi'
 	icon_state = "def_radar-off"
 	icon_living = "def_radar-off"
@@ -97,7 +95,7 @@
 				if("rapid")
 					new /mob/living/simple_animal/hostile/hivebot/rapid(get_turf(src))
 		spawn(100)
-			qdel(src)
+			del(src)
 		return
 
 

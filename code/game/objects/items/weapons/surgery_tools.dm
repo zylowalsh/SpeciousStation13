@@ -18,7 +18,7 @@
 	icon_state = "retractor"
 	m_amt = 10000
 	g_amt = 5000
-	flags = FPRINT | TABLE_PASS | CONDUCT
+	flags = FPRINT | TABLEPASS | CONDUCT
 	w_class = 2.0
 	origin_tech = "materials=1;biotech=1"
 
@@ -35,7 +35,7 @@ LOOK FOR SURGERY.DM*/
 
 		var/mob/living/carbon/human/H = M
 		if(istype(H) && ( \
-				(H.head && H.head.flags & HEAD_COVERS_EYES) || \
+				(H.head && H.head.flags & HEADCOVERSEYES) || \
 				(H.wear_mask && H.wear_mask.flags & MASKCOVERSEYES) || \
 				(H.glasses && H.glasses.flags & GLASSESCOVERSEYES) \
 			))
@@ -132,7 +132,7 @@ LOOK FOR SURGERY.DM*/
 	icon_state = "hemostat"
 	m_amt = 5000
 	g_amt = 2500
-	flags = FPRINT | TABLE_PASS | CONDUCT
+	flags = FPRINT | TABLEPASS | CONDUCT
 	w_class = 2.0
 	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("attacked", "pinched")
@@ -174,7 +174,7 @@ LOOK FOR SURGERY.DM*/
 
 		var/mob/living/carbon/human/H = M
 		if(istype(H) && ( \
-				(H.head && H.head.flags & HEAD_COVERS_EYES) || \
+				(H.head && H.head.flags & HEADCOVERSEYES) || \
 				(H.wear_mask && H.wear_mask.flags & MASKCOVERSEYES) || \
 				(H.glasses && H.glasses.flags & GLASSESCOVERSEYES) \
 			))
@@ -267,7 +267,7 @@ LOOK FOR SURGERY.DM*/
 	icon_state = "cautery"
 	m_amt = 5000
 	g_amt = 2500
-	flags = FPRINT | TABLE_PASS | CONDUCT
+	flags = FPRINT | TABLEPASS | CONDUCT
 	w_class = 2.0
 	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("burnt")
@@ -298,7 +298,7 @@ LOOK FOR SURGERY.DM*/
 
 		var/mob/living/carbon/human/H = M
 		if(istype(H) && ( \
-				(H.head && H.head.flags & HEAD_COVERS_EYES) || \
+				(H.head && H.head.flags & HEADCOVERSEYES) || \
 				(H.wear_mask && H.wear_mask.flags & MASKCOVERSEYES) || \
 				(H.glasses && H.glasses.flags & GLASSESCOVERSEYES) \
 			))
@@ -358,7 +358,7 @@ LOOK FOR SURGERY.DM*/
 	hitsound = 'sound/weapons/circsawhit.ogg'
 	m_amt = 15000
 	g_amt = 10000
-	flags = FPRINT | TABLE_PASS | CONDUCT
+	flags = FPRINT | TABLEPASS | CONDUCT
 	force = 15.0
 	w_class = 2.0
 	origin_tech = "materials=1;biotech=1"
@@ -377,7 +377,7 @@ LOOK FOR SURGERY.DM*/
 	desc = "Cut, cut, and once more cut."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "scalpel"
-	flags = FPRINT | TABLE_PASS | CONDUCT
+	flags = FPRINT | TABLEPASS | CONDUCT
 	force = 10.0
 	w_class = 2.0
 	throwforce = 5.0
@@ -433,7 +433,7 @@ LOOK FOR SURGERY.DM*/
 
 		var/mob/living/carbon/human/H = M
 		if(istype(H) && ( \
-				(H.head && H.head.flags & HEAD_COVERS_EYES) || \
+				(H.head && H.head.flags & HEADCOVERSEYES) || \
 				(H.wear_mask && H.wear_mask.flags & MASKCOVERSEYES) || \
 				(H.glasses && H.glasses.flags & GLASSESCOVERSEYES) \
 			))
@@ -542,7 +542,7 @@ LOOK FOR SURGERY.DM*/
 
 		var/mob/living/carbon/human/H = M
 		if(istype(H) && ( \
-				(H.head && H.head.flags & HEAD_COVERS_EYES) || \
+				(H.head && H.head.flags & HEADCOVERSEYES) || \
 				(H.wear_mask && H.wear_mask.flags & MASKCOVERSEYES) || \
 				(H.glasses && H.glasses.flags & GLASSESCOVERSEYES) \
 			))
@@ -629,7 +629,7 @@ LOOK FOR SURGERY.DM*/
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "saw3"
 	hitsound = 'sound/weapons/circsawhit.ogg'
-	flags = FPRINT | TABLE_PASS | CONDUCT
+	flags = FPRINT | TABLEPASS | CONDUCT
 	force = 15.0
 	w_class = 2.0
 	throwforce = 9.0
@@ -658,7 +658,7 @@ LOOK FOR SURGERY.DM*/
 
 		var/mob/living/carbon/human/H = M
 		if(istype(H) && ( \
-				(H.head && H.head.flags & HEAD_COVERS_EYES) || \
+				(H.head && H.head.flags & HEADCOVERSEYES) || \
 				(H.wear_mask && H.wear_mask.flags & MASKCOVERSEYES) || \
 				(H.glasses && H.glasses.flags & GLASSESCOVERSEYES) \
 			))

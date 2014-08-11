@@ -12,7 +12,7 @@
 	emote_hear = list("wails","screeches")
 	response_help  = "puts their hand through"
 	response_disarm = "flails at"
-	response_harm   = "punches"
+	response_harm   = "punches the"
 	melee_damage_lower = 5
 	melee_damage_upper = 15
 	attacktext = "drains the life from"
@@ -24,25 +24,37 @@
 	speed = -1
 	stop_automated_movement = 1
 	status_flags = 0
-	faction = list("cult")
+	faction = "cult"
 	status_flags = CANPUSH
 
 
-/mob/living/simple_animal/shade/Life()
-	..()
-	if(stat == 2)
-		new /obj/item/weapon/ectoplasm (src.loc)
-		for(var/mob/M in viewers(src, null))
-			M.visible_message("<span class='warning'>[src] lets out a contented sigh as their form unwinds.</span>")
-		ghostize()
-		qdel(src)
-		return
-
-
-/mob/living/simple_animal/shade/attackby(var/obj/item/O as obj, var/mob/user as mob)  //Marker -Agouri
-	if(istype(O, /obj/item/device/soulstone))
-		var/obj/item/device/soulstone/SS = O
-		SS.transfer_soul("SHADE", src, user)
-	else
+	Life()
 		..()
-	return
+		if(stat == 2)
+			new /obj/item/weapon/ectoplasm (src.loc)
+			for(var/mob/M in viewers(src, null))
+				if((M.client && !( M.blinded )))
+					M.show_message("\red [src] lets out a contented sigh as their form unwinds. ")
+					ghostize()
+			del src
+			return
+
+
+	attackby(var/obj/item/O as obj, var/mob/user as mob)  //Marker -Agouri
+		if(istype(O, /obj/item/device/soulstone))
+			O.transfer_soul("SHADE", src, user)
+		else
+			if(O.force)
+				var/damage = O.force
+				if (O.damtype == HALLOSS)
+					damage = 0
+				health -= damage
+				for(var/mob/M in viewers(src, null))
+					if ((M.client && !( M.blinded )))
+						M.show_message("\red \b [src] has been attacked with the [O] by [user]. ")
+			else
+				usr << "\red This weapon is ineffective, it does no damage."
+				for(var/mob/M in viewers(src, null))
+					if ((M.client && !( M.blinded )))
+						M.show_message("\red [user] gently taps [src] with the [O]. ")
+		return

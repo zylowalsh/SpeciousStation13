@@ -7,9 +7,9 @@
 
 /mob/living/carbon/alien/larva/Life()
 	set invisibility = 0
-	set background = BACKGROUND_ENABLED
+	set background = 1
 
-	if (notransform)
+	if (monkeyizing)
 		return
 
 	..()
@@ -72,7 +72,7 @@
 		var/datum/gas_mixture/environment = loc.return_air()
 		var/datum/gas_mixture/breath
 		// HACK NEED CHANGING LATER
-		if(health <= config.health_threshold_crit)
+		if(health < 0)
 			losebreath++
 
 		if(losebreath>0) //Suffocating so do not take a breath
@@ -142,7 +142,7 @@
 		if(status_flags & GODMODE)
 			return
 
-		if(!breath || (breath.total_moles() == 0))
+		if(!breath || (breath.total_moles == 0))
 			//Aliens breathe in vaccuum
 			return 0
 
@@ -186,12 +186,12 @@
 				if(prob(round((50 - nutrition) / 100)))
 					src << "\blue You feel fit again!"
 					mutations.Add(FAT)
-		else
+/*		else
 			if(nutrition > 500)
 				if(prob(5 + round((nutrition - max_grown) / 2)))
 					src << "\red You suddenly feel blubbery!"
 					mutations.Add(FAT)
-
+FUCK YOU MORE FAT CODE -Hawk*/
 		if (nutrition > 0)
 			nutrition-= HUNGER_FACTOR
 
@@ -222,14 +222,14 @@
 			blinded = 1
 			silent = 0
 		else				//ALIVE. LIGHTS ARE ON
-			if(health < -25 || !getorgan(/obj/item/organ/brain))
+			if(health < -25 || brain_op_stage == 4.0)
 				death()
 				blinded = 1
 				silent = 0
 				return 1
 
 			//UNCONSCIOUS. NO-ONE IS HOME
-			if( (getOxyLoss() > 25) || (config.health_threshold_crit >= health) )
+			if( (getOxyLoss() > 25) || (0 > health) )
 				//if( health <= 20 && prob(1) )
 				//	spawn(0)
 				//		emote("gasp")
@@ -257,7 +257,7 @@
 				move_delay_add = max(0, move_delay_add - rand(1, 2))
 
 			//Eyes
-			if(sdisabilities & BLIND)	//disabled-blind, doesn't get better on its own
+			if(sdisabilities & BOTH_EYES_BLIND)	//disabled-blind, doesn't get better on its own
 				blinded = 1
 			else if(eye_blind)			//blindness, heals slowly over time
 				eye_blind = max(eye_blind-1,0)
@@ -278,7 +278,7 @@
 				AdjustStunned(-1)
 
 			if(weakened)
-				weakened = max(weakened-1,0)
+				weakened = max(weakened-1,0)	//before you get mad Rockdtben: I done this so update_canmove isn't called multiple times
 
 			if(stuttering)
 				stuttering = max(stuttering-1, 0)
@@ -305,8 +305,6 @@
 			sight &= ~SEE_OBJS
 			see_in_dark = 4
 			see_invisible = SEE_INVISIBLE_LEVEL_TWO
-			if(see_override)
-				see_invisible = see_override
 
 		if (healths)
 			if (stat != 2)
@@ -326,20 +324,16 @@
 			else
 				healths.icon_state = "health6"
 
-		if(pullin)
-			if(pulling)
-				pullin.icon_state = "pull"
-			else
-				pullin.icon_state = "pull0"
+		if(pullin)	pullin.icon_state = "pull[pulling ? 1 : 0]"
+
 
 		if (toxin)	toxin.icon_state = "tox[toxins_alert ? 1 : 0]"
 		if (oxygen) oxygen.icon_state = "oxy[oxygen_alert ? 1 : 0]"
 		if (fire) fire.icon_state = "fire[fire_alert ? 1 : 0]"
 		//NOTE: the alerts dont reset when youre out of danger. dont blame me,
 		//blame the person who coded them. Temporary fix added.
-
-
-		client.screen.Remove(global_hud.blurry,global_hud.druggy,global_hud.vimpaired)
+		if (client)
+			client.screen.Remove(global_hud.blurry,global_hud.druggy,global_hud.vimpaired)
 
 		if ((blind && stat != 2))
 			if ((blinded))
@@ -361,7 +355,7 @@
 				if (!( machine.check_eye(src) ))
 					reset_view(null)
 			else
-				if(!client.adminobs)
+				if(client && !client.adminobs)
 					reset_view(null)
 
 		return 1
@@ -380,7 +374,7 @@
 					if(M.stat == 2)
 						M.death(1)
 						stomach_contents.Remove(M)
-						qdel(M)
+						del(M)
 						continue
 					if(air_master.current_cycle%3==1)
 						if(!(M.status_flags & GODMODE))

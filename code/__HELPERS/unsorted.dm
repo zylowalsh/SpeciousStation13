@@ -948,8 +948,7 @@ proc/anim(turf/location as turf,target as mob|obj,a_icon,a_icon_state as text,fl
 						if(!istype(O,/obj)) continue
 						O.loc = X
 					for(var/mob/M in T)
-						if(!M.move_on_shuttle)
-							continue
+						if(!istype(M,/mob) || istype(M, /mob/aiEye)) continue // If we need to check for more mobs, I'll add a variable
 						M.loc = X
 
 //					var/area/AR = X.loc
@@ -1109,8 +1108,8 @@ proc/DuplicateObject(obj/original, var/perfectcopy = 0 , var/sameloc = 0)
 						O.loc = X
 
 					for(var/mob/M in T)
-						if(!M.move_on_shuttle)
-							continue
+
+						if(!istype(M,/mob) || istype(M, /mob/aiEye)) continue // If we need to check for more mobs, I'll add a variable
 						mobs += M
 
 					for(var/mob/M in mobs)

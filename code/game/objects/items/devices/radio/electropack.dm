@@ -4,7 +4,7 @@
 	icon_state = "electropack0"
 	item_state = "electropack"
 	frequency = 1449
-	flags = FPRINT | CONDUCT | TABLE_PASS
+	flags = FPRINT | CONDUCT | TABLEPASS
 	slot_flags = SLOT_BACK
 	w_class = 5.0
 	g_amt = 2500

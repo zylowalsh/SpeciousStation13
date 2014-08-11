@@ -14,7 +14,7 @@ var/const/LIGHTING_POWER_FACTOR = 20
 	desc = "Used for building lights."
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "tube-construct-item"
-	flags = FPRINT | TABLE_PASS| CONDUCT
+	flags = FPRINT | TABLEPASS| CONDUCT
 	var/fixture_type = "tube"
 	var/obj/machinery/light/newlight = null
 	var/sheets_refunded = 2
@@ -61,7 +61,7 @@ var/const/LIGHTING_POWER_FACTOR = 20
 	desc = "Used for building small lights."
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "bulb-construct-item"
-	flags = FPRINT | TABLE_PASS| CONDUCT
+	flags = FPRINT | TABLEPASS| CONDUCT
 	fixture_type = "bulb"
 	sheets_refunded = 1
 
@@ -601,7 +601,7 @@ var/const/LIGHTING_POWER_FACTOR = 20
 
 /obj/item/weapon/light
 	icon = 'icons/obj/lighting.dmi'
-	flags = FPRINT | TABLE_PASS
+	flags = FPRINT | TABLEPASS
 	force = 2
 	throwforce = 5
 	w_class = 1

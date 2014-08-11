@@ -7,10 +7,10 @@
 	icon_gib = "syndicate_gib"
 	speak_chance = 0
 	turns_per_move = 5
-	response_help = "pokes"
-	response_disarm = "shoves"
-	response_harm = "hits"
-	speed = 0
+	response_help = "pokes the"
+	response_disarm = "shoves the"
+	response_harm = "hits the"
+	speed = 4
 	stop_automated_movement_when_pulled = 0
 	maxHealth = 100
 	health = 100
@@ -30,7 +30,7 @@
 	min_n2 = 0
 	max_n2 = 0
 	unsuitable_atoms_damage = 15
-	faction = list("russian")
+	faction = "russian"
 	status_flags = CANPUSH
 
 
@@ -38,10 +38,8 @@
 	icon_state = "russianranged"
 	icon_living = "russianranged"
 	corpse = /obj/effect/landmark/mobcorpse/russian/ranged
-	weapon1 = /obj/item/weapon/gun/projectile/revolver/mateba
+	weapon1 = /obj/item/weapon/gun/projectile/mateba
 	ranged = 1
-	retreat_distance = 5
-	minimum_distance = 5
 	projectiletype = /obj/item/projectile/bullet
 	projectilesound = 'sound/weapons/Gunshot.ogg'
 	casingtype = /obj/item/ammo_casing/a357
@@ -53,5 +51,5 @@
 		new corpse (src.loc)
 	if(weapon1)
 		new weapon1 (src.loc)
-	qdel(src)
+	del src
 	return

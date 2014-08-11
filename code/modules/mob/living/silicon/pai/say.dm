@@ -25,6 +25,6 @@
 
 /mob/living/silicon/pai/say(var/msg)
 	if(silence_time)
-		src << "<span class='warning'>Communication circuits remain unitialized.</span>"
+		src << "<font color=green>Communication circuits remain unitialized.</font>"
 	else
 		..(msg)

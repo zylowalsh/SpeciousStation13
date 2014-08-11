@@ -17,7 +17,7 @@
 	name = "pack of seeds"
 	icon = 'icons/obj/seeds.dmi'
 	icon_state = "seed" // unknown plant seed - these shouldn't exist in-game
-	flags = FPRINT | TABLE_PASS
+	flags = FPRINT | TABLEPASS
 	w_class = 1.0 // Makes them pocketable
 	var/mypath = "/obj/item/seeds"
 	var/plantname = "Plants"
@@ -1121,7 +1121,7 @@
 	icon = 'icons/obj/harvest.dmi'
 	icon_state = "logs"
 	force = 5
-	flags = TABLE_PASS
+	flags = TABLEPASS
 	throwforce = 5
 	w_class = 3.0
 	throw_speed = 3
@@ -1154,7 +1154,7 @@
 	icon_state = "sunflower"
 	damtype = "fire"
 	force = 0
-	flags = TABLE_PASS
+	flags = TABLEPASS
 	throwforce = 1
 	w_class = 1.0
 	throw_speed = 1
@@ -1169,7 +1169,7 @@
 	icon_state = "gibtomato"
 	damtype = "fire"
 	force = 0
-	flags = TABLE_PASS
+	flags = TABLEPASS
 	throwforce = 1
 	w_class = 1.0
 	throw_speed = 1
@@ -1193,7 +1193,7 @@
 	icon_state = "nettle"
 	damtype = "fire"
 	force = 15
-	flags = TABLE_PASS
+	flags = TABLEPASS
 	throwforce = 1
 	w_class = 1.0
 	throw_speed = 1
@@ -1215,7 +1215,7 @@
 	icon_state = "deathnettle"
 	damtype = "fire"
 	force = 30
-	flags = TABLE_PASS
+	flags = TABLEPASS
 	throwforce = 1
 	w_class = 1.0
 	throw_speed = 1
@@ -1243,7 +1243,7 @@
 	name = "bottle of pestkiller"
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle16"
-	flags = FPRINT |  TABLE_PASS
+	flags = FPRINT |  TABLEPASS
 	var/toxicity = 0
 	var/PestKillStr = 0
 	New()
@@ -1254,7 +1254,7 @@
 	name = "bottle of carbaryl"
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle16"
-	flags = FPRINT |  TABLE_PASS
+	flags = FPRINT |  TABLEPASS
 	toxicity = 4
 	PestKillStr = 2
 	New()
@@ -1265,7 +1265,7 @@
 	name = "bottle of lindane"
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle18"
-	flags = FPRINT |  TABLE_PASS
+	flags = FPRINT |  TABLEPASS
 	toxicity = 6
 	PestKillStr = 4
 	New()
@@ -1276,7 +1276,7 @@
 	name = "bottle of phosmet"
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle15"
-	flags = FPRINT |  TABLE_PASS
+	flags = FPRINT |  TABLEPASS
 	toxicity = 8
 	PestKillStr = 7
 	New()
@@ -1293,7 +1293,7 @@
 	name = "weed-spray"
 	icon_state = "weedspray"
 	item_state = "spray"
-	flags = TABLE_PASS | OPEN_CONTAINER | FPRINT | USE_DELAY
+	flags = TABLEPASS | OPENCONTAINER | FPRINT | USEDELAY
 	slot_flags = SLOT_BELT
 	throwforce = 4
 	w_class = 2.0
@@ -1312,7 +1312,7 @@
 	name = "pest-spray"
 	icon_state = "pestspray"
 	item_state = "spray"
-	flags = TABLE_PASS | OPEN_CONTAINER | FPRINT | USE_DELAY
+	flags = TABLEPASS | OPENCONTAINER | FPRINT | USEDELAY
 	slot_flags = SLOT_BELT
 	throwforce = 4
 	w_class = 2.0
@@ -1331,7 +1331,7 @@
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "hoe"
 	item_state = "hoe"
-	flags = FPRINT | TABLE_PASS | CONDUCT | USE_DELAY
+	flags = FPRINT | TABLEPASS | CONDUCT | USEDELAY
 	force = 5.0
 	throwforce = 7.0
 	w_class = 2.0
@@ -1346,7 +1346,7 @@
 	name = "bottle of weedkiller"
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle16"
-	flags = FPRINT |  TABLE_PASS
+	flags = FPRINT |  TABLEPASS
 	var/toxicity = 0
 	var/WeedKillStr = 0
 
@@ -1354,7 +1354,7 @@
 	name = "bottle of glyphosate"
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle16"
-	flags = FPRINT |  TABLE_PASS
+	flags = FPRINT |  TABLEPASS
 	toxicity = 4
 	WeedKillStr = 2
 
@@ -1362,7 +1362,7 @@
 	name = "bottle of triclopyr"
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle18"
-	flags = FPRINT |  TABLE_PASS
+	flags = FPRINT |  TABLEPASS
 	toxicity = 6
 	WeedKillStr = 4
 
@@ -1370,7 +1370,7 @@
 	name = "bottle of 2,4-D"
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle15"
-	flags = FPRINT |  TABLE_PASS
+	flags = FPRINT |  TABLEPASS
 	toxicity = 8
 	WeedKillStr = 7
 
@@ -1382,7 +1382,7 @@
 	name = "bottle of nutrient"
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle16"
-	flags = FPRINT |  TABLE_PASS
+	flags = FPRINT |  TABLEPASS
 	w_class = 1.0
 	var/mutmod = 0
 	var/yieldmod = 0
@@ -1394,7 +1394,7 @@
 	name = "bottle of E-Z-Nutrient"
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle16"
-	flags = FPRINT |  TABLE_PASS
+	flags = FPRINT |  TABLEPASS
 	mutmod = 1
 	yieldmod = 1
 	New()
@@ -1405,7 +1405,7 @@
 	name = "bottle of Left 4 Zed"
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle18"
-	flags = FPRINT |  TABLE_PASS
+	flags = FPRINT |  TABLEPASS
 	mutmod = 2
 	yieldmod = 0
 	New()
@@ -1416,7 +1416,7 @@
 	name = "bottle of Robust Harvest"
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle15"
-	flags = FPRINT |  TABLE_PASS
+	flags = FPRINT |  TABLEPASS
 	mutmod = 0
 	yieldmod = 2
 	New()

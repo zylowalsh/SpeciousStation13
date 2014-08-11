@@ -15,7 +15,7 @@
 	name = "welding helmet"
 	desc = "A head-mounted face cover designed to protect the wearer completely from space-arc eye."
 	icon_state = "welding"
-	flags = (FPRINT | TABLE_PASS | HEAD_COVERS_EYES | HEADCOVERSMOUTH)
+	flags = (FPRINT | TABLEPASS | HEADCOVERSEYES | HEADCOVERSMOUTH)
 	item_state = "welding"
 	m_amt = 3000
 	g_amt = 1000
@@ -37,13 +37,13 @@
 	if(usr.canmove && !usr.stat && !usr.restrained())
 		if(src.up)
 			src.up = !src.up
-			src.flags |= (HEAD_COVERS_EYES | HEADCOVERSMOUTH)
+			src.flags |= (HEADCOVERSEYES | HEADCOVERSMOUTH)
 			flags_inv |= (HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE)
 			icon_state = initial(icon_state)
 			usr << "You flip the [src] down to protect your eyes."
 		else
 			src.up = !src.up
-			src.flags &= ~(HEAD_COVERS_EYES | HEADCOVERSMOUTH)
+			src.flags &= ~(HEADCOVERSEYES | HEADCOVERSMOUTH)
 			flags_inv &= ~(HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE)
 			icon_state = "[initial(icon_state)]up"
 			usr << "You push the [src] up out of your face."
@@ -57,7 +57,7 @@
 	name = "cake-hat"
 	desc = "It's tasty looking!"
 	icon_state = "cake0"
-	flags = FPRINT|TABLE_PASS|HEAD_COVERS_EYES
+	flags = FPRINT|TABLEPASS|HEADCOVERSEYES
 	var/onfire = 0.0
 	var/status = 0
 	var/fire_resist = T0C+1300	//this is the max temp it can stand before you start to cook. although it might not burn away, you take damage
@@ -121,7 +121,7 @@
 	icon_state = "hardhat0_pumpkin"//Could stand to be renamed
 	item_state = "hardhat0_pumpkin"
 	item_color = "pumpkin"
-	flags = FPRINT | TABLE_PASS | HEAD_COVERS_EYES | HEADCOVERSMOUTH | BLOCKHAIR
+	flags = FPRINT | TABLEPASS | HEADCOVERSEYES | HEADCOVERSMOUTH | BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	var/brightness_on = 2 //luminosity when on
 	var/on = 0
@@ -156,7 +156,7 @@
 	name = "kitty ears"
 	desc = "A pair of kitty ears. Meow!"
 	icon_state = "kitty"
-	flags = FPRINT | TABLE_PASS
+	flags = FPRINT | TABLEPASS
 	var/icon/mob
 	var/icon/mob2
 	siemens_coefficient = 1.5

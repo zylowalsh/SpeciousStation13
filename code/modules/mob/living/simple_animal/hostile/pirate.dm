@@ -6,10 +6,10 @@
 	icon_dead = "piratemelee_dead"
 	speak_chance = 0
 	turns_per_move = 5
-	response_help = "pushes"
+	response_help = "pushes the"
 	response_disarm = "shoves"
-	response_harm = "hits"
-	speed = 0
+	response_harm = "hits the"
+	speed = 4
 	stop_automated_movement_when_pulled = 0
 	maxHealth = 100
 	health = 100
@@ -32,7 +32,7 @@
 	var/corpse = /obj/effect/landmark/mobcorpse/pirate
 	var/weapon1 = /obj/item/weapon/melee/energy/sword/pirate
 
-	faction = list("pirate")
+	faction = "pirate"
 
 /mob/living/simple_animal/hostile/pirate/ranged
 	name = "Pirate Gunner"
@@ -42,8 +42,6 @@
 	projectilesound = 'sound/weapons/laser.ogg'
 	ranged = 1
 	rapid = 1
-	retreat_distance = 5
-	minimum_distance = 5
 	projectiletype = /obj/item/projectile/beam
 	corpse = /obj/effect/landmark/mobcorpse/pirate/ranged
 	weapon1 = /obj/item/weapon/gun/energy/laser
@@ -55,5 +53,5 @@
 		new corpse (src.loc)
 	if(weapon1)
 		new weapon1 (src.loc)
-	qdel(src)
+	del src
 	return

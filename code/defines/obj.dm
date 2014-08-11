@@ -130,7 +130,7 @@
 	throwforce = 0.0
 	throw_speed = 1
 	throw_range = 20
-	flags = FPRINT | USE_DELAY | TABLE_PASS | CONDUCT
+	flags = FPRINT | USEDELAY | TABLEPASS | CONDUCT
 	afterattack(atom/target as mob|obj|turf|area, mob/user as mob)
 		user.drop_item()
 		src.throw_at(target, throw_range, throw_speed)

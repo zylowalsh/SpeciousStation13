@@ -3,7 +3,7 @@
 	desc = "To stop that awful noise."
 	icon_state = "muzzle"
 	item_state = "muzzle"
-	flags = FPRINT|TABLE_PASS|MASKCOVERSMOUTH
+	flags = FPRINT|TABLEPASS|MASKCOVERSMOUTH
 	w_class = 2
 	gas_transfer_coefficient = 0.90
 
@@ -22,7 +22,7 @@
 	icon_state = "sterile"
 	item_state = "sterile"
 	w_class = 1
-	flags = FPRINT|TABLE_PASS|MASKCOVERSMOUTH
+	flags = FPRINT|TABLEPASS|MASKCOVERSMOUTH
 	gas_transfer_coefficient = 0.90
 	permeability_coefficient = 0.01
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 25, rad = 0)
@@ -31,7 +31,7 @@
 	name = "fake moustache"
 	desc = "Warning: moustache is fake."
 	icon_state = "fake-moustache"
-	flags = FPRINT|TABLE_PASS
+	flags = FPRINT|TABLEPASS
 	flags_inv = HIDEFACE
 
 //scarves (fit in in mask slot)
@@ -41,7 +41,7 @@
 	desc = "A blue neck scarf."
 	icon_state = "blueneckscarf"
 	item_state = "blueneckscarf"
-	flags = FPRINT|TABLE_PASS|MASKCOVERSMOUTH
+	flags = FPRINT|TABLEPASS|MASKCOVERSMOUTH
 	w_class = 2
 	gas_transfer_coefficient = 0.90
 
@@ -50,7 +50,7 @@
 	desc = "A red and white checkered neck scarf."
 	icon_state = "redwhite_scarf"
 	item_state = "redwhite_scarf"
-	flags = FPRINT|TABLE_PASS|MASKCOVERSMOUTH
+	flags = FPRINT|TABLEPASS|MASKCOVERSMOUTH
 	w_class = 2
 	gas_transfer_coefficient = 0.90
 
@@ -59,7 +59,7 @@
 	desc = "A green neck scarf."
 	icon_state = "green_scarf"
 	item_state = "green_scarf"
-	flags = FPRINT|TABLE_PASS|MASKCOVERSMOUTH
+	flags = FPRINT|TABLEPASS|MASKCOVERSMOUTH
 	w_class = 2
 	gas_transfer_coefficient = 0.90
 
@@ -68,7 +68,7 @@
 	desc = "A stealthy, dark scarf."
 	icon_state = "ninja_scarf"
 	item_state = "ninja_scarf"
-	flags = FPRINT|TABLE_PASS|MASKCOVERSMOUTH
+	flags = FPRINT|TABLEPASS|MASKCOVERSMOUTH
 	w_class = 2
 	gas_transfer_coefficient = 0.90
 	siemens_coefficient = 0
@@ -78,7 +78,7 @@
 	desc = "A rubber pig mask."
 	icon_state = "pig"
 	item_state = "pig"
-	flags = FPRINT|TABLE_PASS|BLOCKHAIR
+	flags = FPRINT|TABLEPASS|BLOCKHAIR
 	flags_inv = HIDEFACE
 	w_class = 2
 	siemens_coefficient = 0.9
@@ -88,7 +88,7 @@
 	desc = "A mask made of soft vinyl and latex, representing the head of a horse."
 	icon_state = "horsehead"
 	item_state = "horsehead"
-	flags = FPRINT|TABLE_PASS|BLOCKHAIR
+	flags = FPRINT|TABLEPASS|BLOCKHAIR
 	flags_inv = HIDEFACE
 	w_class = 2
 	var/voicechange = 0

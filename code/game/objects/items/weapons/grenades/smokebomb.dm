@@ -5,7 +5,7 @@
 	icon_state = "flashbang"
 	det_time = 20
 	item_state = "flashbang"
-	flags = FPRINT | TABLE_PASS | USE_DELAY
+	flags = FPRINT | TABLEPASS | USEDELAY
 	slot_flags = SLOT_BELT
 	var/datum/effect/effect/system/harmless_smoke_spread/smoke
 

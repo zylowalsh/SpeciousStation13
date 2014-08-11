@@ -70,7 +70,7 @@
 // returns true if open
 // false if closed
 /atom/proc/is_open_container()
-	return flags & OPEN_CONTAINER
+	return flags & OPENCONTAINER
 
 /*//Convenience proc to see whether a container can be accessed in a certain way.
 
@@ -557,21 +557,21 @@ var/using_new_click_proc = 0 //TODO ERRORAGE (This is temporary, while the DblCl
 		W.attack_self(usr)
 		return
 
-	//Attackby, attack_hand, afterattack, etc. can only be done once every 1 second, unless an object has the NO_DELAY or USE_DELAY flags set
+	//Attackby, attack_hand, afterattack, etc. can only be done once every 1 second, unless an object has the NODELAY or USEDELAY flags set
 	//This segment of code determins this.
 	if(W)
 		if( !( (src.loc && src.loc == usr) || (src.loc.loc && src.loc.loc == usr) ) )
 			//The check above checks that you are not targeting an item which you are holding.
 			//If you are, (example clicking a backpack), the delays are ignored.
-			if(W.flags & USE_DELAY)
-				//Objects that use the USE_DELAY flag can only attack once every 2 seconds
+			if(W.flags & USEDELAY)
+				//Objects that use the USEDELAY flag can only attack once every 2 seconds
 				if (usr.next_move < world.time)
 					usr.prev_move = usr.next_move
 					usr.next_move = world.time + 20
 				else
 					return	//A click has recently been handled already, you need to wait until the anti-spam delay between clicks passes
-			else if(!(W.flags & NO_DELAY))
-				//Objects with NO_DELAY don't have a delay between uses, while most objects have the standard 1 second delay.
+			else if(!(W.flags & NODELAY))
+				//Objects with NODELAY don't have a delay between uses, while most objects have the standard 1 second delay.
 				if (usr.next_move < world.time)
 					usr.prev_move = usr.next_move
 					usr.next_move = world.time + 10
@@ -937,7 +937,7 @@ var/using_new_click_proc = 0 //TODO ERRORAGE (This is temporary, while the DblCl
 //	world << "according to dblclick(), t5 is [t5]"
 
 	// ------- ACTUALLY DETERMINING STUFF -------
-	if (((t5 || (W && (W.flags & USE_DELAY))) && !( istype(src, /obj/screen) )))
+	if (((t5 || (W && (W.flags & USEDELAY))) && !( istype(src, /obj/screen) )))
 
 		// ------- ( CAN USE ITEM OR HAS 1 SECOND USE DELAY ) AND NOT CLICKING ON SCREEN -------
 

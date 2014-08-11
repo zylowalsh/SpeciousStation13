@@ -1,4 +1,4 @@
-#define BORG_CAMERA_BUFFER 30
+var/const/BORG_CAMERA_BUFFER = 30
 
 //UPDATE TRIGGERS, when the chunk (and the surrounding chunks) should update.
 
@@ -23,7 +23,7 @@
 
 // STRUCTURES
 
-/obj/structure/Destroy()
+/obj/structure/Del()
 	if(ticker)
 		cameranet.updateVisibility(src)
 	..()
@@ -35,7 +35,7 @@
 
 // EFFECTS
 
-/obj/effect/Destroy()
+/obj/effect/Del()
 	if(ticker)
 		cameranet.updateVisibility(src)
 	..()
@@ -49,7 +49,8 @@
 // DOORS
 
 // Simply updates the visibility of the area when it opens/closes/destroyed.
-/obj/machinery/door/proc/update_freelook_sight()
+/obj/machinery/door/update_nearby_tiles(need_rebuild)
+	. = ..(need_rebuild)
 	// Glass door glass = 1
 	// don't check then?
 	if(!glass && cameranet)
@@ -66,7 +67,7 @@
 	var/oldLoc = src.loc
 	. = ..()
 	if(.)
-		if(src.camera)
+		if(src.camera && src.camera.network.len)
 			if(!updating)
 				updating = 1
 				spawn(BORG_CAMERA_BUFFER)
@@ -88,12 +89,14 @@
 
 /obj/machinery/camera/New()
 	..()
-	cameranet.cameras += src
-	cameranet.addCamera(src)
+	cameranet.cameras += src //Camera must be added to global list of all cameras no matter what...
+	var/list/open_networks = difflist(network,RESTRICTED_CAMERA_NETWORKS) //...but if all of camera's networks are restricted, it only works for specific camera consoles.
+	if(open_networks.len) //If there is at least one open network, chunk is available for AI usage.
+		cameranet.addCamera(src)
 
-/obj/machinery/camera/Destroy()
+/obj/machinery/camera/Del()
 	cameranet.cameras -= src
-	cameranet.removeCamera(src)
+	var/list/open_networks = difflist(network,RESTRICTED_CAMERA_NETWORKS)
+	if(open_networks.len)
+		cameranet.removeCamera(src)
 	..()
-
-#undef BORG_CAMERA_BUFFER

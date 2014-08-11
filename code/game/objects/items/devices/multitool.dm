@@ -8,7 +8,7 @@
 	name = "multitool"
 	desc = "Used for pulsing wires to test which to cut. Not recommended by doctors."
 	icon_state = "multitool"
-	flags = FPRINT | TABLE_PASS| CONDUCT
+	flags = FPRINT | TABLEPASS| CONDUCT
 	force = 5.0
 	w_class = 2.0
 	throwforce = 5.0

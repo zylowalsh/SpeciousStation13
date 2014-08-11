@@ -6,23 +6,19 @@
 	icon_state = "aliend_s"
 	plasma_rate = 15
 
-
 /mob/living/carbon/alien/humanoid/drone/New()
-	create_reagents(100)
+	var/datum/reagents/R = new/datum/reagents(100)
+	reagents = R
+	R.my_atom = src
 	if(src.name == "alien drone")
 		src.name = text("alien drone ([rand(1, 1000)])")
 	src.real_name = src.name
 	verbs.Add(/mob/living/carbon/alien/humanoid/proc/resin,/mob/living/carbon/alien/humanoid/proc/corrosive_acid)
 	..()
 //Drones use the same base as generic humanoids.
-
-/mob/living/carbon/alien/humanoid/drone/movement_delay()
-	. = ..()
-	. += 1
-
-
 //Drone verbs
-/mob/living/carbon/alien/humanoid/drone/verb/evolve()
+
+/mob/living/carbon/alien/humanoid/drone/verb/evolve() // -- TLE
 	set name = "Evolve (500)"
 	set desc = "Produce an interal egg sac capable of spawning children. Only one queen can exist at a time."
 	set category = "Alien"
@@ -31,7 +27,7 @@
 		// Queen check
 		var/no_queen = 1
 		for(var/mob/living/carbon/alien/humanoid/queen/Q in living_mob_list)
-			if(!Q.key || !Q.getorgan(/obj/item/organ/brain))
+			if(!Q.key && Q.brain_op_stage != 4)
 				continue
 			no_queen = 0
 
@@ -42,7 +38,7 @@
 				O.show_message(text("\green <B>[src] begins to twist and contort!</B>"), 1)
 			var/mob/living/carbon/alien/humanoid/queen/new_xeno = new (loc)
 			mind.transfer_to(new_xeno)
-			qdel(src)
+			del(src)
 		else
 			src << "<span class='notice'>We already have an alive queen.</span>"
 	return

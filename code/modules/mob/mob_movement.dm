@@ -11,6 +11,22 @@
 	return
 
 
+/client/North()
+	..()
+
+
+/client/South()
+	..()
+
+
+/client/West()
+	..()
+
+
+/client/East()
+	..()
+
+
 /client/Northeast()
 	swap_hand()
 	return
@@ -54,9 +70,73 @@
 	set hidden = 1
 	if(istype(mob, /mob/living/carbon))
 		mob:swap_hand()
-	if(istype(mob,/mob/living/silicon/robot))
+	if(istype(mob,/mob/living/silicon/robot))//Oh nested logic loops, is there anything you can't do? -Sieve
 		var/mob/living/silicon/robot/R = mob
-		R.cycle_modules()
+		if(!R.module_active)
+			if(!R.module_state_1)
+				if(!R.module_state_2)
+					if(!R.module_state_3)
+						return
+					else
+						R:inv1.icon_state = "inv1"
+						R:inv2.icon_state = "inv2"
+						R:inv3.icon_state = "inv3 +a"
+						R:module_active = R:module_state_3
+				else
+					R:inv1.icon_state = "inv1"
+					R:inv2.icon_state = "inv2 +a"
+					R:inv3.icon_state = "inv3"
+					R:module_active = R:module_state_2
+			else
+				R:inv1.icon_state = "inv1 +a"
+				R:inv2.icon_state = "inv2"
+				R:inv3.icon_state = "inv3"
+				R:module_active = R:module_state_1
+		else
+			if(R.module_active == R.module_state_1)
+				if(!R.module_state_2)
+					if(!R.module_state_3)
+						return
+					else
+						R:inv1.icon_state = "inv1"
+						R:inv2.icon_state = "inv2"
+						R:inv3.icon_state = "inv3 +a"
+						R:module_active = R:module_state_3
+				else
+					R:inv1.icon_state = "inv1"
+					R:inv2.icon_state = "inv2 +a"
+					R:inv3.icon_state = "inv3"
+					R:module_active = R:module_state_2
+			else if(R.module_active == R.module_state_2)
+				if(!R.module_state_3)
+					if(!R.module_state_1)
+						return
+					else
+						R:inv1.icon_state = "inv1 +a"
+						R:inv2.icon_state = "inv2"
+						R:inv3.icon_state = "inv3"
+						R:module_active = R:module_state_1
+				else
+					R:inv1.icon_state = "inv1"
+					R:inv2.icon_state = "inv2"
+					R:inv3.icon_state = "inv3 +a"
+					R:module_active = R:module_state_3
+			else if(R.module_active == R.module_state_3)
+				if(!R.module_state_1)
+					if(!R.module_state_2)
+						return
+					else
+						R:inv1.icon_state = "inv1"
+						R:inv2.icon_state = "inv2 +a"
+						R:inv3.icon_state = "inv3"
+						R:module_active = R:module_state_2
+				else
+					R:inv1.icon_state = "inv1 +a"
+					R:inv2.icon_state = "inv2"
+					R:inv3.icon_state = "inv3"
+					R:module_active = R:module_state_1
+			else
+				return
 	return
 
 
@@ -86,15 +166,17 @@
 
 
 /client/Center()
+	/* No 3D movement in 2D spessman game. dir 16 is Z Up
 	if (isobj(mob.loc))
 		var/obj/O = mob.loc
 		if (mob.canmove)
 			return O.relaymove(mob, 16)
+	*/
 	return
 
 
 /atom/movable/Move(NewLoc, direct)
-	if (direct & (direct - 1))
+	if (direct & direct - 1)
 		if (direct & 1)
 			if (direct & 4)
 				if (step(src, NORTH))
@@ -141,73 +223,85 @@
 
 
 /client/Move(n, direct)
-	if(!mob)
-		return 0
-	if(mob.notransform)
-		return 0	//This is sota the goto stop mobs from moving var
-	if(mob.control_object)
-		return Move_object(direct)
-	if(world.time < move_delay)
-		return 0
-	if(isAI(mob))
-		return AIMove(n,direct,mob)
-	if(!isliving(mob))
-		return mob.Move(n,direct)
-	if(moving)
-		return 0
-	if(mob.stat == DEAD)
-		return 0
+
+	if(mob.control_object)	Move_object(direct)
+
+	if(isobserver(mob))	return mob.Move(n,direct)
+
+	if(moving)	return 0
+
+	if(world.time < move_delay)	return
+
+	if(!mob)	return
+
+	if(locate(/obj/effect/stop/, mob.loc))
+		for(var/obj/effect/stop/S in mob.loc)
+			if(S.victim == mob)
+				return
+
+	if(mob.stat==2)	return
+
+	if(isAI(mob))	return AIMove(n,direct,mob)
+
+	if(mob.monkeyizing)	return//This is sota the goto stop mobs from moving var
+
 	if(isliving(mob))
 		var/mob/living/L = mob
-		if(L.incorporeal_move)	//Move though walls
+		if(L.incorporeal_move)//Move though walls
 			Process_Incorpmove(direct)
-			return 0
+			return
 
 	if(Process_Grab())	return
 
 	if(mob.buckled)							//if we're buckled to something, tell it we moved.
 		return mob.buckled.relaymove(mob, direct)
 
-	if(!mob.canmove)
-		return 0
+	if(!mob.canmove)	return
+
+	//if(istype(mob.loc, /turf/space) || (mob.flags & NOGRAV))
+	//	if(!mob.Process_Spacemove(0))	return 0
 
 	if(!mob.lastarea)
 		mob.lastarea = get_area(mob.loc)
 
-	if(!has_gravity(mob))
-		if(!mob.Process_Spacemove(0))
-			return 0
+	if((istype(mob.loc, /turf/space)) || (mob.lastarea.has_gravity == 0))
+		if(!mob.Process_Spacemove(0))	return 0
 
-	if(isobj(mob.loc) || ismob(mob.loc))	//Inside an object, tell it we moved
+
+	if(isobj(mob.loc) || ismob(mob.loc))//Inside an object, tell it we moved
 		var/atom/O = mob.loc
 		return O.relaymove(mob, direct)
 
 	if(isturf(mob.loc))
 
-		if(mob.restrained())	//Why being pulled while cuffed prevents you from moving
+		if(mob.restrained())//Why being pulled while cuffed prevents you from moving
 			for(var/mob/M in range(mob, 1))
-				if(M.pulling == mob)
-					if(!M.restrained() && M.stat == 0 && M.canmove && mob.Adjacent(M))
-						src << "\blue You're restrained! You can't move!"
-						return 0
-					else
-						M.stop_pulling()
+				if(M.pulling == mob && !M.restrained() && M.stat == 0 && M.canmove)
+					src << "\blue You're restrained! You can't move!"
+					return 0
+
+		if(mob.pinned.len)
+			src << "\blue You're pinned to a wall by [mob.pinned[1]]!"
+			return 0
 
 		move_delay = world.time//set move delay
-
+		mob.last_move_intent = world.time + 10
 		switch(mob.m_intent)
 			if("run")
 				if(mob.drowsyness > 0)
 					move_delay += 6
-				move_delay += config.run_speed
+				move_delay += 1+config.run_speed
 			if("walk")
-				move_delay += config.walk_speed
+				move_delay += 7+config.walk_speed
 		move_delay += mob.movement_delay()
 
 		if(config.Tickcomp)
 			move_delay -= 1.3
-			var/tickcomp = (1 / (world.tick_lag)) * 1.3
+			var/tickcomp = ((1/(world.tick_lag))*1.3)
 			move_delay = move_delay + tickcomp
+
+
+
 
 		//We are now going to move
 		moving = 1
@@ -244,7 +338,7 @@
 							M.animate_movement = 2
 							return
 
-		if(mob.confused && IsEven(world.time))
+		else if(mob.confused)
 			step(mob, pick(cardinal))
 		else
 			. = ..()
@@ -253,6 +347,8 @@
 
 		return .
 
+	return
+
 
 ///Process_Grab()
 ///Called by client/Move()
@@ -260,32 +356,24 @@
 /client/proc/Process_Grab()
 	if(locate(/obj/item/weapon/grab, locate(/obj/item/weapon/grab, mob.grabbed_by.len)))
 		var/list/grabbing = list()
-
 		if(istype(mob.l_hand, /obj/item/weapon/grab))
 			var/obj/item/weapon/grab/G = mob.l_hand
 			grabbing += G.affecting
-
 		if(istype(mob.r_hand, /obj/item/weapon/grab))
 			var/obj/item/weapon/grab/G = mob.r_hand
 			grabbing += G.affecting
-
 		for(var/obj/item/weapon/grab/G in mob.grabbed_by)
-			if(G.state == GRAB_PASSIVE && !grabbing.Find(G.assailant))
-				qdel(G)
-
-			if(G.state == GRAB_AGGRESSIVE)
+			if((G.state == 1)&&(!grabbing.Find(G.assailant)))	del(G)
+			if(G.state == 2)
 				move_delay = world.time + 10
-				if(!prob(25))
-					return 1
-				mob.visible_message("<span class='warning'>[mob] has broken free of [G.assailant]'s grip!</span>")
-				qdel(G)
-
-			if(G.state == GRAB_NECK)
+				if(!prob(25))	return 1
+				mob.visible_message("\red [mob] has broken free of [G.assailant]'s grip!")
+				del(G)
+			if(G.state == 3)
 				move_delay = world.time + 10
-				if(!prob(5))
-					return 1
-				mob.visible_message("<span class='warning'>[mob] has broken free of [G.assailant]'s headlock!</span>")
-				qdel(G)
+				if(!prob(5))	return 1
+				mob.visible_message("\red [mob] has broken free of [G.assailant]'s headlock!")
+				del(G)
 	return 0
 
 
@@ -350,19 +438,36 @@
 ///Return 1 for movement 0 for none
 /mob/proc/Process_Spacemove(var/check_drift = 0)
 	//First check to see if we can do things
-	if(!canmove)
+	if(restrained())
 		return 0
 
-	if(!isturf(loc))	//if they're in a disposal unit, for example
-		return 1
+	/*
+	if(istype(src,/mob/living/carbon))
+		if(src.l_hand && src.r_hand)
+			return 0
+	*/
 
 	var/dense_object = 0
 	for(var/turf/turf in oview(1,src))
 		if(istype(turf,/turf/space))
 			continue
 
-		if(!turf.density && !mob_negates_gravity())
+		if(istype(src,/mob/living/carbon/human/))  // Only humans can wear magboots, so we give them a chance to.
+			if((istype(turf,/turf/simulated/floor)) && (src.lastarea.has_gravity == 0) && !(istype(src:shoes, /obj/item/clothing/shoes/magboots) && (src:shoes:flags & NOSLIP)))
+				continue
+
+
+		else
+			if((istype(turf,/turf/simulated/floor)) && (src.lastarea.has_gravity == 0)) // No one else gets a chance.
+				continue
+
+
+
+		/*
+		if(istype(turf,/turf/simulated/floor) && (src.flags & NOGRAV))
 			continue
+		*/
+
 
 		dense_object++
 		break
@@ -383,22 +488,18 @@
 	if(!dense_object)
 		return 0
 
+
+
 	//Check to see if we slipped
 	if(prob(Process_Spaceslipping(5)))
 		src << "\blue <B>You slipped!</B>"
 		src.inertia_dir = src.last_move
 		step(src, src.inertia_dir)
 		return 0
-
 	//If not then we can reset inertia and move
 	inertia_dir = 0
 	return 1
 
-/mob/proc/mob_has_gravity(turf/T)
-	return has_gravity(src, T)
-
-/mob/proc/mob_negates_gravity()
-	return 0
 
 /mob/proc/Process_Spaceslipping(var/prob_slip = 5)
 	//Setup slipage
@@ -408,27 +509,3 @@
 
 	prob_slip = round(prob_slip)
 	return(prob_slip)
-
-/mob/proc/Move_Pulled(var/atom/A)
-	if (!canmove || restrained() || !pulling)
-		return
-	if (pulling.anchored)
-		return
-	if (!pulling.Adjacent(src))
-		return
-	if (ismob(pulling))
-		var/mob/M = pulling
-		var/atom/movable/t = M.pulling
-		M.stop_pulling()
-		step(pulling, get_dir(pulling.loc, A))
-		if(M)
-			M.start_pulling(t)
-	else
-		step(pulling, get_dir(pulling.loc, A))
-	return
-
-/mob/proc/slip(var/s_amount, var/w_amount, var/obj/O, var/lube)
-	return
-
-/mob/proc/update_gravity()
-	return

@@ -3,7 +3,7 @@
 	desc = "Should anything ever go wrong..."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "red_phone"
-	flags = FPRINT | TABLE_PASS | CONDUCT
+	flags = FPRINT | TABLEPASS | CONDUCT
 	force = 3.0
 	throwforce = 2.0
 	throw_speed = 1
@@ -22,7 +22,7 @@
 	anchored = 0.0
 	var/matter = 0
 	var/mode = 1
-	flags = TABLE_PASS
+	flags = TABLEPASS
 	w_class = 3.0
 
 
@@ -170,7 +170,7 @@
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "cane"
 	item_state = "stick"
-	flags = FPRINT | TABLE_PASS| CONDUCT
+	flags = FPRINT | TABLEPASS| CONDUCT
 	force = 5.0
 	throwforce = 7.0
 	w_class = 2.0
@@ -193,7 +193,7 @@
 	name = "dummy"
 	invisibility = 101.0
 	anchored = 1.0
-	flags = TABLE_PASS
+	flags = TABLEPASS
 
 /obj/item/weapon/dummy/ex_act()
 	return
@@ -231,7 +231,7 @@
 	gender = PLURAL
 	icon = 'icons/obj/items.dmi'
 	icon_state = "handcuff"
-	flags = FPRINT | TABLE_PASS | CONDUCT
+	flags = FPRINT | TABLEPASS | CONDUCT
 	throwforce = 0
 	w_class = 3.0
 	origin_tech = "materials=1"
@@ -289,7 +289,7 @@
 	throw_speed = 1
 	throw_range = 5
 	w_class = 2.0
-	flags = FPRINT | TABLE_PASS
+	flags = FPRINT | TABLEPASS
 	attack_verb = list("warned", "cautioned", "smashed")
 
 /obj/item/weapon/caution/cone
@@ -302,7 +302,7 @@
 	desc = "Parts of a rack."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "rack_parts"
-	flags = FPRINT | TABLE_PASS| CONDUCT
+	flags = FPRINT | TABLEPASS| CONDUCT
 	m_amt = 3750
 
 /obj/item/weapon/shard
@@ -338,7 +338,7 @@
 	var/traitor_frequency = 0.0
 	var/mob/currentUser = null
 	var/obj/item/device/radio/origradio = null
-	flags = FPRINT | TABLE_PASS | CONDUCT | ONBELT
+	flags = FPRINT | TABLEPASS | CONDUCT | ONBELT
 	w_class = 2.0
 	item_state = "radio"
 	throw_speed = 4
@@ -378,7 +378,7 @@
 	var/selfdestruct = 0.0
 	var/traitor_frequency = 0.0
 	var/obj/item/device/radio/origradio = null
-	flags = FPRINT | TABLE_PASS| CONDUCT
+	flags = FPRINT | TABLEPASS| CONDUCT
 	slot_flags = SLOT_BELT
 	item_state = "radio"
 	throwforce = 5
@@ -398,7 +398,7 @@
 	throw_speed = 1
 	throw_range = 5
 	w_class = 2.0
-	flags = FPRINT | TABLE_PASS | NO_SHIELD
+	flags = FPRINT | TABLEPASS | NOSHIELD
 	attack_verb = list("bludgeoned", "whacked", "disciplined")
 
 /obj/item/weapon/staff/broom
@@ -418,7 +418,7 @@
 	throw_speed = 1
 	throw_range = 5
 	w_class = 2.0
-	flags = FPRINT | TABLE_PASS | NO_SHIELD
+	flags = FPRINT | TABLEPASS | NOSHIELD
 
 /obj/item/weapon/table_parts
 	name = "table parts"
@@ -427,7 +427,7 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "table_parts"
 	m_amt = 3750
-	flags = FPRINT | TABLE_PASS| CONDUCT
+	flags = FPRINT | TABLEPASS| CONDUCT
 	attack_verb = list("slammed", "bashed", "battered", "bludgeoned", "thrashed", "whacked")
 
 /obj/item/weapon/table_parts/reinforced
@@ -436,7 +436,7 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "reinf_tableparts"
 	m_amt = 7500
-	flags = FPRINT | TABLE_PASS| CONDUCT
+	flags = FPRINT | TABLEPASS| CONDUCT
 
 /obj/item/weapon/table_parts/wood
 	name = "wooden table parts"
@@ -464,7 +464,7 @@
 	icon_state = "std_module"
 	w_class = 2.0
 	item_state = "electronic"
-	flags = FPRINT|TABLE_PASS|CONDUCT
+	flags = FPRINT|TABLEPASS|CONDUCT
 	var/mtype = 1						// 1=electronic 2=hardware
 
 /obj/item/weapon/module/card_reader
@@ -533,7 +533,7 @@
 	desc = "Meat that appears...strange..."
 	icon = 'icons/obj/food.dmi'
 	icon_state = "meat"
-	flags = FPRINT | TABLE_PASS | CONDUCT
+	flags = FPRINT | TABLEPASS | CONDUCT
 	w_class = 1.0
 	origin_tech = "biotech=2"
 
@@ -542,7 +542,7 @@
 	desc = "A very sharp axe blade upon a short fibremetal handle. It has a long history of chopping things, but now it is used for chopping wood."
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "hatchet"
-	flags = FPRINT | TABLE_PASS | CONDUCT
+	flags = FPRINT | TABLEPASS | CONDUCT
 	force = 12.0
 	w_class = 2.0
 	throwforce = 15.0
@@ -572,7 +572,7 @@
 	throw_speed = 1
 	throw_range = 3
 	w_class = 4.0
-	flags = FPRINT | TABLE_PASS | NO_SHIELD
+	flags = FPRINT | TABLEPASS | NOSHIELD
 	slot_flags = SLOT_BACK
 	origin_tech = "materials=2;combat=2"
 	attack_verb = list("chopped", "sliced", "cut", "reaped")
@@ -594,7 +594,7 @@
 	w_class = 1
 	throwforce = 2
 	var/cigarcount = 6
-	flags = ONBELT | TABLE_PASS */
+	flags = ONBELT | TABLEPASS */
 
 /obj/item/weapon/pai_cable
 	desc = "A flexible coated cable with a universal jack on one end."
@@ -611,7 +611,7 @@
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "plastic-explosive0"
 	item_state = "plasticx"
-	flags = FPRINT | TABLE_PASS | USE_DELAY
+	flags = FPRINT | TABLEPASS | USEDELAY
 	w_class = 2.0
 	origin_tech = "syndicate=2"
 	var/timer = 10

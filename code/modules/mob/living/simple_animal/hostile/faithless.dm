@@ -1,15 +1,15 @@
 /mob/living/simple_animal/hostile/faithless
-	name = "The Faithless"
+	name = "Faithless"
 	desc = "The Wish Granter's faith in humanity, incarnate"
 	icon_state = "faithless"
 	icon_living = "faithless"
 	icon_dead = "faithless_dead"
 	speak_chance = 0
 	turns_per_move = 5
-	response_help = "passes through"
+	response_help = "passes through the"
 	response_disarm = "shoves"
-	response_harm = "hits"
-	speed = 0
+	response_harm = "hits the"
+	speed = -1
 	maxHealth = 80
 	health = 80
 
@@ -28,8 +28,9 @@
 	min_n2 = 0
 	max_n2 = 0
 	minbodytemp = 0
+	speed = 4
 
-	faction = list("faithless")
+	faction = "faithless"
 
 /mob/living/simple_animal/hostile/faithless/Process_Spacemove(var/check_drift = 0)
 	return 1

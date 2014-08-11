@@ -1,7 +1,7 @@
 /obj/item/device/chameleon
 	name = "chameleon-projector"
 	icon_state = "shield0"
-	flags = FPRINT | TABLE_PASS| CONDUCT | USE_DELAY
+	flags = FPRINT | TABLEPASS| CONDUCT | USEDELAY
 	slot_flags = SLOT_BELT
 	item_state = "electronic"
 	throwforce = 5.0

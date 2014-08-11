@@ -3,28 +3,86 @@
 	voice_name = "monkey"
 	voice_message = "chimpers"
 	say_message = "chimpers"
-	icon = 'icons/mob/monkey.dmi'
 	icon_state = "monkey1"
+	icon = 'icons/mob/monkey.dmi'
 	gender = NEUTER
 	pass_flags = PASSTABLE
 	update_icon = 0		///no need to call regenerate_icon
-	ventcrawler = 1
+
+	var/obj/item/weapon/card/id/wear_id = null // Fix for station bounced radios -- Skie
+	var/greaterform = "Human"                  // Used when humanizing a monkey.
+	var/ico = "monkey"                         // Used when updating icons.
+	var/uni_append = "12C4E2"                  // Small appearance modifier for different species.
+
+/mob/living/carbon/monkey/tajara
+	name = "farwa"
+	voice_name = "farwa"
+	voice_message = "mews"
+	say_message = "mews"
+	ico = "tajkey"
+	uni_append = "0A0E00"
+
+/mob/living/carbon/monkey/skrell
+	name = "neaera"
+	voice_name = "neaera"
+	voice_message = "squicks"
+	say_message = "squicks"
+	ico = "skrellkey"
+	uni_append = "01CC92"
+
+/mob/living/carbon/monkey/unathi
+	name = "stok"
+	voice_name = "stok"
+	voice_message = "hisses"
+	say_message = "hisses"
+	ico = "stokkey"
+	uni_append = "044C5D"
 
 /mob/living/carbon/monkey/New()
-	create_reagents(1000)
-	verbs += /mob/living/proc/mob_sleep
-	verbs += /mob/living/proc/lay_down
+	var/datum/reagents/R = new/datum/reagents(1000)
+	reagents = R
+	R.my_atom = src
 
-	internal_organs += new /obj/item/organ/appendix
-	internal_organs += new /obj/item/organ/heart
-	internal_organs += new /obj/item/organ/brain
+	if(name == "monkey" || name == "farwa" || name == "stok" || name == "neara") //Hideous but necessary to stop Pun-Pun becoming generic.
+		name = "[name] ([rand(1, 1000)])"
+		real_name = name
 
-	if(name == "monkey")
-		name = text("monkey ([rand(1, 1000)])")
-	real_name = name
-	gender = pick(MALE, FEMALE)
+	if (!(dna))
+		if(gender == NEUTER)
+			gender = pick(MALE, FEMALE)
+		dna = new /datum/dna( null )
+		dna.real_name = real_name
+		dna.uni_identity = "00600200A00E0110148FC01300B009"
+		dna.struc_enzymes = "43359156756131E13763334D1C369012032164D4FE4CD61544B6C03F251B6C60A42821D26BA3B0FD6"
+		dna.unique_enzymes = md5(name)
+				//////////blah
+		var/gendervar
+		if (gender == MALE)
+			gendervar = add_zero2(num2hex((rand(1,2049)),1), 3)
+		else
+			gendervar = add_zero2(num2hex((rand(2051,4094)),1), 3)
+		dna.uni_identity += "[gendervar][uni_append]"
+	..()
+	update_icons()
+	return
+
+/mob/living/carbon/monkey/unathi/New()
 
 	..()
+	dna.mutantrace = "lizard"
+	greaterform = "Unathi"
+
+/mob/living/carbon/monkey/skrell/New()
+
+	..()
+	dna.mutantrace = "skrell"
+	greaterform = "Skrell"
+
+/mob/living/carbon/monkey/tajara/New()
+
+	..()
+	dna.mutantrace = "tajaran"
+	greaterform = "Tajaran"
 
 /mob/living/carbon/monkey/movement_delay()
 	var/tally = 0
@@ -41,32 +99,92 @@
 	return tally+config.monkey_delay
 
 /mob/living/carbon/monkey/Bump(atom/movable/AM as mob|obj, yes)
-	if ((!( yes ) || now_pushing))
-		return
-	now_pushing = 1
-	if(ismob(AM))
-		var/mob/tmob = AM
-		if(!(tmob.status_flags & CANPUSH))
-			now_pushing = 0
+
+	spawn( 0 )
+		if ((!( yes ) || now_pushing))
 			return
-
-		tmob.LAssailant = src
-	now_pushing = 0
-	..()
-	if (!istype(AM, /atom/movable))
-		return
-	if (!( now_pushing ))
 		now_pushing = 1
-		if (!( AM.anchored ))
-			var/t = get_dir(src, AM)
-			if (istype(AM, /obj/structure/window))
-				if(AM:ini_dir == NORTHWEST || AM:ini_dir == NORTHEAST || AM:ini_dir == SOUTHWEST || AM:ini_dir == SOUTHEAST)
-					for(var/obj/structure/window/win in get_step(AM,t))
-						now_pushing = 0
-						return
-			step(AM, t)
-		now_pushing = null
+		if(ismob(AM))
+			var/mob/tmob = AM
+			if(istype(tmob, /mob/living/carbon/human) && (HULK in tmob.mutations))
+				if(prob(70))
+					usr << "\red <B>You fail to push [tmob]'s fat ass out of the way.</B>"
+					now_pushing = 0
+					return
+			if(!(tmob.status_flags & CANPUSH))
+				now_pushing = 0
+				return
 
+			tmob.LAssailant = src
+		now_pushing = 0
+		..()
+		if (!( istype(AM, /atom/movable) ))
+			return
+		if (!( now_pushing ))
+			now_pushing = 1
+			if (!( AM.anchored ))
+				var/t = get_dir(src, AM)
+				if (istype(AM, /obj/structure/window))
+					if(AM:ini_dir == NORTHWEST || AM:ini_dir == NORTHEAST || AM:ini_dir == SOUTHWEST || AM:ini_dir == SOUTHEAST)
+						for(var/obj/structure/window/win in get_step(AM,t))
+							now_pushing = 0
+							return
+				step(AM, t)
+			now_pushing = null
+		return
+	return
+
+/mob/living/carbon/monkey/Topic(href, href_list)
+	..()
+	if (href_list["mach_close"])
+		var/t1 = text("window=[]", href_list["mach_close"])
+		unset_machine()
+		src << browse(null, t1)
+	if ((href_list["item"] && !( usr.stat ) && !( usr.restrained() ) && in_range(src, usr) ))
+		var/obj/effect/equip_e/monkey/O = new /obj/effect/equip_e/monkey(  )
+		O.source = usr
+		O.target = src
+		O.item = usr.get_active_hand()
+		O.s_loc = usr.loc
+		O.t_loc = loc
+		O.place = href_list["item"]
+		requests += O
+		spawn( 0 )
+			O.process()
+			return
+	..()
+	return
+
+/mob/living/carbon/monkey/meteorhit(obj/O as obj)
+	for(var/mob/M in viewers(src, null))
+		M.show_message(text("\red [] has been hit by []", src, O), 1)
+	if (health > 0)
+		var/shielded = 0
+		adjustBruteLoss(30)
+		if ((O.icon_state == "flaming" && !( shielded )))
+			adjustFireLoss(40)
+		health = 100 - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss()
+	return
+
+//mob/living/carbon/monkey/bullet_act(var/obj/item/projectile/Proj)taken care of in living
+
+/mob/living/carbon/monkey/hand_p(mob/M as mob)
+	if ((M.a_intent == "hurt" && !( istype(wear_mask, /obj/item/clothing/mask/muzzle) )))
+		if ((prob(75) && health > 0))
+			for(var/mob/O in viewers(src, null))
+				O.show_message(text("\red <B>[M.name] has bit []!</B>", src), 1)
+			var/damage = rand(1, 5)
+			if (HULK in mutations) damage += 10
+			adjustBruteLoss(damage)
+			updatehealth()
+
+			for(var/datum/disease/D in M.viruses)
+				if(istype(D, /datum/disease/jungle_fever))
+					contract_disease(D,1,0)
+		else
+			for(var/mob/O in viewers(src, null))
+				O.show_message(text("\red <B>[M.name] has attempted to bite []!</B>", src), 1)
+	return
 
 /mob/living/carbon/monkey/attack_paw(mob/M as mob)
 	..()
@@ -74,19 +192,20 @@
 	if (M.a_intent == "help")
 		help_shake_act(M)
 	else
-		if (M.a_intent == "harm" && !is_muzzled())
+		if ((M.a_intent == "hurt" && !( istype(wear_mask, /obj/item/clothing/mask/muzzle) )))
 			if ((prob(75) && health > 0))
 				playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
-				visible_message("<span class='danger'>[M.name] bites [name]!</span>", \
-						"<span class='userdanger'>[M.name] bites [name]!</span>")
+				for(var/mob/O in viewers(src, null))
+					O.show_message("\red <B>[M.name] has bit [name]!</B>", 1)
 				var/damage = rand(1, 5)
 				adjustBruteLoss(damage)
 				health = 100 - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss()
 				for(var/datum/disease/D in M.viruses)
-					contract_disease(D,1,0)
+					if(istype(D, /datum/disease/jungle_fever))
+						contract_disease(D,1,0)
 			else
-				visible_message("<span class='danger'>[M.name] has attempted to bite [name]!</span>", \
-					"<span class='userdanger'>[M.name] has attempted to bite [name]!</span>")
+				for(var/mob/O in viewers(src, null))
+					O.show_message("\red <B>[M.name] has attempted to bite [name]!</B>", 1)
 	return
 
 /mob/living/carbon/monkey/attack_hand(mob/living/carbon/human/M as mob)
@@ -98,61 +217,83 @@
 		M << "No attacking people at spawn, you jackass."
 		return
 
-	if(..())	//To allow surgery to return properly.
-		return
+	if(M.gloves && istype(M.gloves,/obj/item/clothing/gloves))
+		var/obj/item/clothing/gloves/G = M.gloves
+		if(G.cell)
+			if(M.a_intent == "hurt")//Stungloves. Any contact will stun the alien.
+				if(G.cell.charge >= 2500)
+					G.cell.charge -= 2500
+					Weaken(5)
+					if (stuttering < 5)
+						stuttering = 5
+					Stun(5)
+
+					for(var/mob/O in viewers(src, null))
+						if (O.client)
+							O.show_message("\red <B>[src] has been touched with the stun gloves by [M]!</B>", 1, "\red You hear someone fall", 2)
+					return
+				else
+					M << "\red Not enough charge! "
+					return
 
 	if (M.a_intent == "help")
 		help_shake_act(M)
-
 	else
-		if (M.a_intent == "harm")
-			if (prob(75))
-				visible_message("<span class='danger'>[M] has punched [name]!</span>", \
-						"<span class='userdanger'>[M] has punched [name]!</span>")
+		if (M.a_intent == "hurt")
+			if ((prob(75) && health > 0))
+				for(var/mob/O in viewers(src, null))
+					if ((O.client && !( O.blinded )))
+						O.show_message(text("\red <B>[] has punched [name]!</B>", M), 1)
 
 				playsound(loc, "punch", 25, 1, -1)
 				var/damage = rand(5, 10)
 				if (prob(40))
 					damage = rand(10, 15)
-					if ( (paralysis < 5)  && (health > 0) )
+					if (paralysis < 5)
 						Paralyse(rand(10, 15))
 						spawn( 0 )
-							visible_message("<span class='danger'>[M] has knocked out [name]!</span>", \
-									"<span class='userdanger'>[M] has knocked out [name]!</span>")
+							for(var/mob/O in viewers(src, null))
+								if ((O.client && !( O.blinded )))
+									O.show_message(text("\red <B>[] has knocked out [name]!</B>", M), 1)
 							return
 				adjustBruteLoss(damage)
 				updatehealth()
 			else
 				playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
-				visible_message("<span class='danger'>[M] has attempted to punch [name]!</span>", \
-						"<span class='userdanger'>[M] has attempted to punch [name]!</span>")
+				for(var/mob/O in viewers(src, null))
+					if ((O.client && !( O.blinded )))
+						O.show_message(text("\red <B>[] has attempted to punch [name]!</B>", M), 1)
 		else
 			if (M.a_intent == "grab")
-				if (M == src || anchored)
+				if (M == src)
 					return
 
-				var/obj/item/weapon/grab/G = new /obj/item/weapon/grab(M, src )
+				var/obj/item/weapon/grab/G = new /obj/item/weapon/grab( M, M, src )
 
 				M.put_in_active_hand(G)
 
+				grabbed_by += G
 				G.synch()
 
 				LAssailant = M
 
 				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-				visible_message("<span class='warning'>[M] has grabbed [name] passively!</span>")
+				for(var/mob/O in viewers(src, null))
+					O.show_message(text("\red [] has grabbed [name] passively!", M), 1)
 			else
 				if (!( paralysis ))
 					if (prob(25))
 						Paralyse(2)
 						playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-						visible_message("<span class='danger'>[M] has pushed down [src]!</span>", \
-								"<span class='userdanger'>[M] has pushed down [src]!</span>")
+						for(var/mob/O in viewers(src, null))
+							if ((O.client && !( O.blinded )))
+								O.show_message(text("\red <B>[] has pushed down [name]!</B>", M), 1)
 					else
-						if(drop_item())
-							playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-							visible_message("<span class='danger'>[M] has disarmed [src]!</span>", \
-									"<span class='userdanger'>[M] has disarmed [src]!</span>")
+						drop_item()
+						playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+						for(var/mob/O in viewers(src, null))
+							if ((O.client && !( O.blinded )))
+								O.show_message(text("\red <B>[] has disarmed [name]!</B>", M), 1)
 	return
 
 /mob/living/carbon/monkey/attack_alien(mob/living/carbon/alien/humanoid/M as mob)
@@ -166,9 +307,11 @@
 
 	switch(M.a_intent)
 		if ("help")
-			visible_message("<span class='notice'> [M] caresses [src] with its scythe like arm.</span>")
+			for(var/mob/O in viewers(src, null))
+				if ((O.client && !( O.blinded )))
+					O.show_message(text("\blue [M] caresses [src] with its scythe like arm."), 1)
 
-		if ("harm")
+		if ("hurt")
 			if ((prob(95) && health > 0))
 				playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
 				var/damage = rand(15, 30)
@@ -176,43 +319,50 @@
 					damage = rand(20, 40)
 					if (paralysis < 15)
 						Paralyse(rand(10, 15))
-					visible_message("<span class='danger'>[M] has wounded [name]!</span>", \
-							"<span class='userdanger'>[M] has wounded [name]!</span>")
+					for(var/mob/O in viewers(src, null))
+						if ((O.client && !( O.blinded )))
+							O.show_message(text("\red <B>[] has wounded [name]!</B>", M), 1)
 				else
-					visible_message("<span class='danger'>[M] has slashed [name]!</span>", \
-							"<span class='userdanger'>[M] has slashed [name]!</span>")
+					for(var/mob/O in viewers(src, null))
+						if ((O.client && !( O.blinded )))
+							O.show_message(text("\red <B>[] has slashed [name]!</B>", M), 1)
 				adjustBruteLoss(damage)
 				updatehealth()
 			else
 				playsound(loc, 'sound/weapons/slashmiss.ogg', 25, 1, -1)
-				visible_message("<span class='danger'>[M] has attempted to lunge at [name]!</span>", \
-						"<span class='userdanger'>[M] has attempted to lunge at [name]!</span>")
+				for(var/mob/O in viewers(src, null))
+					if ((O.client && !( O.blinded )))
+						O.show_message(text("\red <B>[] has attempted to lunge at [name]!</B>", M), 1)
 
 		if ("grab")
-			if (M == src || anchored)
+			if (M == src)
 				return
-			var/obj/item/weapon/grab/G = new /obj/item/weapon/grab(M, src )
+			var/obj/item/weapon/grab/G = new /obj/item/weapon/grab( M, M, src )
 
 			M.put_in_active_hand(G)
 
+			grabbed_by += G
 			G.synch()
 
 			LAssailant = M
 
 			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-			visible_message("<span class='warning'>[M] has grabbed [name] passively!</span>")
+			for(var/mob/O in viewers(src, null))
+				O.show_message(text("\red [] has grabbed [name] passively!", M), 1)
 
 		if ("disarm")
 			playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
 			var/damage = 5
 			if(prob(95))
-				Weaken(10)
-				visible_message("<span class='danger'>[M] has tackled down [name]!</span>", \
-						"<span class='userdanger'>[M] has tackled down [name]!</span>")
+				Weaken(15)
+				for(var/mob/O in viewers(src, null))
+					if ((O.client && !( O.blinded )))
+						O.show_message(text("\red <B>[] has tackled down [name]!</B>", M), 1)
 			else
-				if(drop_item())
-					visible_message("<span class='danger'>[M] has disarmed [name]!</span>", \
-							"<span class='userdanger'>[M] has disarmed [name]!</span>")
+				drop_item()
+				for(var/mob/O in viewers(src, null))
+					if ((O.client && !( O.blinded )))
+						O.show_message(text("\red <B>[] has disarmed [name]!</B>", M), 1)
 			adjustBruteLoss(damage)
 			updatehealth()
 	return
@@ -223,9 +373,10 @@
 	else
 		if(M.attack_sound)
 			playsound(loc, M.attack_sound, 50, 1, 1)
-		visible_message("<span class='danger'>[M] [M.attacktext] [src]!</span>", \
-				"<span class='userdanger'>[M] [M.attacktext] [src]!</span>")
-		add_logs(M, src, "attacked", admin=0)
+		for(var/mob/O in viewers(src, null))
+			O.show_message("\red <B>[M]</B> [M.attacktext] [src]!", 1)
+		M.attack_log += text("\[[time_stamp()]\] <font color='red'>attacked [src.name] ([src.ckey])</font>")
+		src.attack_log += text("\[[time_stamp()]\] <font color='orange'>was attacked by [M.name] ([M.ckey])</font>")
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
 		adjustBruteLoss(damage)
 		updatehealth()
@@ -240,12 +391,13 @@
 
 	if (health > -100)
 
-		visible_message("<span class='danger'>The [M.name] glomps [src]!</span>", \
-				"<span class='userdanger'>The [M.name] glomps [src]!</span>")
+		for(var/mob/O in viewers(src, null))
+			if ((O.client && !( O.blinded )))
+				O.show_message(text("\red <B>The [M.name] glomps []!</B>", src), 1)
 
 		var/damage = rand(1, 3)
 
-		if(M.is_adult)
+		if(istype(src, /mob/living/carbon/slime/adult))
 			damage = rand(20, 40)
 		else
 			damage = rand(5, 35)
@@ -269,8 +421,9 @@
 				if(M.powerlevel < 0)
 					M.powerlevel = 0
 
-				visible_message("<span class='danger'>[M] shocked [src]!</span>", \
-						"<span class='userdanger'>[M] shocked [src]!</span>")
+				for(var/mob/O in viewers(src, null))
+					if ((O.client && !( O.blinded )))
+						O.show_message(text("\red <B>The [M.name] has shocked []!</B>", src), 1)
 
 				Weaken(power)
 				if (stuttering < power)
@@ -297,8 +450,8 @@
 	if(client && mind)
 		if (client.statpanel == "Status")
 			if(mind.changeling)
-				stat("Chemical Storage", "[mind.changeling.chem_charges]/[mind.changeling.chem_storage]")
-				stat("Absorbed DNA", mind.changeling.absorbedcount)
+				stat("Chemical Storage", mind.changeling.chem_charges)
+				stat("Genetic Damage Time", mind.changeling.geneticdamage)
 	return
 
 
@@ -311,24 +464,35 @@
 /mob/living/carbon/monkey/var/co2overloadtime = null
 /mob/living/carbon/monkey/var/temperature_resistance = T0C+75
 
-/mob/living/carbon/monkey/ex_act(severity)
+/mob/living/carbon/monkey/emp_act(severity)
+	if(wear_id) wear_id.emp_act(severity)
 	..()
+
+/mob/living/carbon/monkey/ex_act(severity)
+	if(!blinded)
+		flick("flash", flash)
+
 	switch(severity)
 		if(1.0)
-			gib()
-			return
+			if (stat != 2)
+				adjustBruteLoss(200)
+				health = 100 - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss()
 		if(2.0)
-			adjustBruteLoss(60)
-			adjustFireLoss(60)
+			if (stat != 2)
+				adjustBruteLoss(60)
+				adjustFireLoss(60)
+				health = 100 - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss()
 		if(3.0)
-			adjustBruteLoss(30)
+			if (stat != 2)
+				adjustBruteLoss(30)
+				health = 100 - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss()
 			if (prob(50))
 				Paralyse(10)
+		else
 	return
 
 /mob/living/carbon/monkey/blob_act()
 	if (stat != 2)
-		show_message("<span class='userdanger'>The blob attacks you!</span>")
 		adjustFireLoss(60)
 		health = 100 - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss()
 	if (prob(50))
@@ -338,45 +502,12 @@
 		return
 	if (stat == DEAD && !client)
 		gibs(loc, viruses)
-		qdel(src)
+		del(src)
 		return
 
 
 /mob/living/carbon/monkey/IsAdvancedToolUser()//Unless its monkey mode monkeys cant use advanced tools
-	return 0
-
-/mob/living/carbon/monkey/canBeHandcuffed()
+	if(!ticker)	return 0
+	if(!ticker.mode.name == "monkey")	return 0
 	return 1
 
-/mob/living/carbon/monkey/assess_threat(var/obj/machinery/bot/secbot/judgebot, var/lasercolor)
-	if(judgebot.emagged == 2)
-		return 10 //Everyone is a criminal!
-	var/threatcount = 0
-
-	//Lasertag bullshit
-	if(lasercolor)
-		if(lasercolor == "b")//Lasertag turrets target the opposing team, how great is that? -Sieve
-			if((istype(r_hand,/obj/item/weapon/gun/energy/laser/redtag)) || (istype(l_hand,/obj/item/weapon/gun/energy/laser/redtag)))
-				threatcount += 4
-
-		if(lasercolor == "r")
-			if((istype(r_hand,/obj/item/weapon/gun/energy/laser/bluetag)) || (istype(l_hand,/obj/item/weapon/gun/energy/laser/bluetag)))
-				threatcount += 4
-
-		return threatcount
-
-	//Check for weapons
-	if(judgebot.weaponscheck)
-		if(judgebot.check_for_weapons(l_hand))
-			threatcount += 4
-		if(judgebot.check_for_weapons(r_hand))
-			threatcount += 4
-
-	//Loyalty implants imply trustworthyness
-	if(isloyal(src))
-		threatcount -= 1
-
-	return threatcount
-
-/mob/living/carbon/monkey/SpeciesCanConsume()
-	return 1 // Monkeys can eat, drink, and be forced to do so

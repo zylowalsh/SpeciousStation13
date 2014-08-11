@@ -70,7 +70,7 @@ mob/living/carbon/human/airflow_stun()
 	if(last_airflow_stun > world.time - vsc.airflow_stun_cooldown)	return 0
 	if(buckled) return 0
 	if(shoes)
-		if(shoes.flags & NO_SLIP) return 0
+		if(shoes.flags & NOSLIP) return 0
 	if(!(status_flags & CANSTUN) && !(status_flags & CANWEAKEN))
 		src << "\blue You stay upright as the air rushes past you."
 		return 0
@@ -313,7 +313,7 @@ proc/AirflowSpace(zone/A)
 				return
 			if(src:shoes)
 				if(istype(src:shoes, /obj/item/clothing/shoes/magboots))
-					if(src:shoes.flags & NO_SLIP)
+					if(src:shoes.flags & NOSLIP)
 						return
 		src << "\red You are pushed away by airflow!"
 		last_airflow = world.time

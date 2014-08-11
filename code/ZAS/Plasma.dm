@@ -100,7 +100,7 @@ obj/var/contaminated = 0
 				if(!(wear_mask.flags & MASKCOVERSEYES))
 					burn_eyes()
 		else
-			if(!(head.flags & HEAD_COVERS_EYES))
+			if(!(head.flags & HEADCOVERSEYES))
 				if(!wear_mask)
 					burn_eyes()
 				else
@@ -131,7 +131,7 @@ obj/var/contaminated = 0
 		if(vsc.plc.PLASMAGUARD_ONLY)
 			if(head.flags & PLASMAGUARD)
 				return 1
-		else if(head.flags & HEAD_COVERS_EYES)
+		else if(head.flags & HEADCOVERSEYES)
 			return 1
 	return 0
 

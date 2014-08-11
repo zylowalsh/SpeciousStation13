@@ -14,16 +14,14 @@
 	see_in_dark = 6
 	meat_type = /obj/item/weapon/reagent_containers/food/snacks/meat
 	meat_amount = 4
-	response_help  = "pets"
-	response_disarm = "gently pushes aside"
-	response_harm   = "kicks"
-	faction = list("neutral")
-	attack_same = 1
+	response_help  = "pets the"
+	response_disarm = "gently pushes aside the"
+	response_harm   = "kicks the"
+	faction = "goat"
 	attacktext = "kicks"
 	health = 40
 	melee_damage_lower = 1
-	melee_damage_upper = 2
-	environment_smash = 0
+	melee_damage_upper = 5
 	var/datum/reagents/udder = null
 
 /mob/living/simple_animal/hostile/retaliate/goat/New()
@@ -49,7 +47,9 @@
 
 		if(locate(/obj/effect/spacevine) in loc)
 			var/obj/effect/spacevine/SV = locate(/obj/effect/spacevine) in loc
-			SV.eat(src)
+			del(SV)
+			if(prob(10))
+				say("Nom")
 
 		if(!pulledby)
 			for(var/direction in shuffle(list(1,2,4,8,5,6,9,10)))
@@ -60,15 +60,16 @@
 
 /mob/living/simple_animal/hostile/retaliate/goat/Retaliate()
 	..()
-	src.visible_message("\red [src] gets an evil-looking gleam in \his eye.")
+	src.visible_message("\red [src] gets an evil-looking gleam in their eye.")
 
 /mob/living/simple_animal/hostile/retaliate/goat/Move()
 	..()
 	if(!stat)
 		if(locate(/obj/effect/spacevine) in loc)
 			var/obj/effect/spacevine/SV = locate(/obj/effect/spacevine) in loc
-			SV.eat(src)
-
+			del(SV)
+			if(prob(10))
+				say("Nom")
 
 /mob/living/simple_animal/hostile/retaliate/goat/attackby(var/obj/item/O as obj, var/mob/user as mob)
 	if(stat == CONSCIOUS && istype(O, /obj/item/weapon/reagent_containers/glass))
@@ -76,11 +77,18 @@
 		var/obj/item/weapon/reagent_containers/glass/G = O
 		var/transfered = udder.trans_id_to(G, "milk", rand(5,10))
 		if(G.reagents.total_volume >= G.volume)
-			user << "\red [O] is full."
+			user << "\red The [O] is full."
 		if(!transfered)
 			user << "\red The udder is dry. Wait a bit longer..."
 	else
 		..()
+
+/mob/living/simple_animal/hostile/retaliate/goat/spiffles
+	name = "Spiffles"
+	icon_state = "goat2"
+	icon_living = "goat2"
+
+
 //cow
 /mob/living/simple_animal/cow
 	name = "cow"
@@ -98,9 +106,9 @@
 	see_in_dark = 6
 	meat_type = /obj/item/weapon/reagent_containers/food/snacks/meat
 	meat_amount = 6
-	response_help  = "pets"
-	response_disarm = "gently pushes aside"
-	response_harm   = "kicks"
+	response_help  = "pets the"
+	response_disarm = "gently pushes aside the"
+	response_harm   = "kicks the"
 	attacktext = "kicks"
 	health = 50
 	var/datum/reagents/udder = null
@@ -116,7 +124,7 @@
 		var/obj/item/weapon/reagent_containers/glass/G = O
 		var/transfered = udder.trans_id_to(G, "milk", rand(5,10))
 		if(G.reagents.total_volume >= G.volume)
-			user << "\red [O] is full."
+			user << "\red The [O] is full."
 		if(!transfered)
 			user << "\red The udder is dry. Wait a bit longer..."
 	else
@@ -144,6 +152,21 @@
 	else
 		..()
 
+mob/living/simple_animal/cow/mightySpaceHippo
+	name = "Mighty Space Hippo"
+	desc = "BEHOLD! Everything you know and ever will know is contained in this fat, jet propelled hippo."
+	icon = 'icons/mob/mightySpaceHippo.dmi'
+	icon_state = "hippo"
+	icon_living = "hippo"
+	icon_dead = "hippo_dead"
+	icon_gib = "hippo"
+	speak = list("erh?","erh","ERHHHHHHH!")
+	speak_emote = list("erhs","erhs hauntingly")
+	emote_hear = list("erhs")
+	emote_see = list("shakes its head")
+	speak_chance = 1
+	health = 1000
+
 /mob/living/simple_animal/chick
 	name = "\improper chick"
 	desc = "Adorable! They make such a racket though."
@@ -159,14 +182,14 @@
 	turns_per_move = 2
 	meat_type = /obj/item/weapon/reagent_containers/food/snacks/meat
 	meat_amount = 1
-	response_help  = "pets"
-	response_disarm = "gently pushes aside"
-	response_harm   = "kicks"
+	response_help  = "pets the"
+	response_disarm = "gently pushes aside the"
+	response_harm   = "kicks the"
 	attacktext = "kicks"
 	health = 1
-	ventcrawler = 2
 	var/amount_grown = 0
 	pass_flags = PASSTABLE | PASSGRILLE
+	small = 1
 
 /mob/living/simple_animal/chick/New()
 	..()
@@ -177,11 +200,11 @@
 	. =..()
 	if(!.)
 		return
-	if(!stat && !ckey)
+	if(!stat)
 		amount_grown += rand(1,2)
 		if(amount_grown >= 100)
 			new /mob/living/simple_animal/chicken(src.loc)
-			qdel(src)
+			del(src)
 
 var/const/MAX_CHICKENS = 50
 var/global/chicken_count = 0
@@ -200,23 +223,23 @@ var/global/chicken_count = 0
 	turns_per_move = 3
 	meat_type = /obj/item/weapon/reagent_containers/food/snacks/meat
 	meat_amount = 2
-	response_help  = "pets"
-	response_disarm = "gently pushes aside"
-	response_harm   = "kicks"
+	response_help  = "pets the"
+	response_disarm = "gently pushes aside the"
+	response_harm   = "kicks the"
 	attacktext = "kicks"
 	health = 10
-	ventcrawler = 2
 	var/eggsleft = 0
-	var/body_color
+	var/feather_color
 	pass_flags = PASSTABLE
+	small = 1
 
 /mob/living/simple_animal/chicken/New()
 	..()
-	if(!body_color)
-		body_color = pick( list("brown","black","white") )
-	icon_state = "chicken_[body_color]"
-	icon_living = "chicken_[body_color]"
-	icon_dead = "chicken_[body_color]_dead"
+	if(!feather_color)
+		feather_color = pick( list("brown","black","white") )
+	icon_state = "chicken_[feather_color]"
+	icon_living = "chicken_[feather_color]"
+	icon_dead = "chicken_[feather_color]_dead"
 	pixel_x = rand(-6, 6)
 	pixel_y = rand(0, 10)
 	chicken_count += 1
@@ -230,7 +253,7 @@ var/global/chicken_count = 0
 		if(!stat && eggsleft < 8)
 			user.visible_message("\blue [user] feeds [O] to [name]! It clucks happily.","\blue You feed [O] to [name]! It clucks happily.")
 			user.drop_item()
-			qdel(O)
+			del(O)
 			eggsleft += rand(1, 4)
 			//world << eggsleft
 		else
@@ -248,8 +271,8 @@ var/global/chicken_count = 0
 		var/obj/item/weapon/reagent_containers/food/snacks/egg/E = new(get_turf(src))
 		E.pixel_x = rand(-6,6)
 		E.pixel_y = rand(-6,6)
-		if(chicken_count < MAX_CHICKENS && prob(25))
-			processing_objects.Add(E)
+		if(chicken_count < MAX_CHICKENS && prob(10))
+			processingObjects.Add(E)
 
 /obj/item/weapon/reagent_containers/food/snacks/egg/var/amount_grown = 0
 /obj/item/weapon/reagent_containers/food/snacks/egg/process()
@@ -258,7 +281,7 @@ var/global/chicken_count = 0
 		if(amount_grown >= 100)
 			visible_message("[src] hatches with a quiet cracking sound.")
 			new /mob/living/simple_animal/chick(get_turf(src))
-			processing_objects.Remove(src)
-			qdel(src)
+			processingObjects.Remove(src)
+			del(src)
 	else
-		processing_objects.Remove(src)
+		processingObjects.Remove(src)

@@ -14,7 +14,7 @@ var/global/list/cached_icons = list()
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(10,20,30,50,70)
 	volume = 70
-	flags = FPRINT | OPEN_CONTAINER
+	flags = FPRINT | OPENCONTAINER
 	var/paint_type = ""
 
 	afterattack(turf/simulated/target, mob/user , flag)

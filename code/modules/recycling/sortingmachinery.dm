@@ -167,7 +167,7 @@
 
 	w_class = 1
 	item_state = "electronic"
-	flags = FPRINT | TABLE_PASS | CONDUCT
+	flags = FPRINT | TABLEPASS | CONDUCT
 	slot_flags = SLOT_BELT
 
 	proc/openwindow(mob/user as mob)

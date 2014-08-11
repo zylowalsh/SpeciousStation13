@@ -3,11 +3,10 @@
 		return
 	if(src.cable)
 		if(get_dist(src, src.cable) > 1)
-			var/turf/T = get_turf(src.loc)
+			var/turf/T = get_turf_or_move(src.loc)
 			for (var/mob/M in viewers(T))
 				M.show_message("\red [src.cable] rapidly retracts back into its spool.", 3, "\red You hear a click and the sound of wire spooling rapidly.", 2)
-			qdel(src.cable)
-			cable = null
+			del(src.cable)
 
 	regular_hud_updates()
 	if(src.secHUD == 1)
@@ -21,13 +20,8 @@
 
 /mob/living/silicon/pai/updatehealth()
 	if(status_flags & GODMODE)
-		health = maxHealth
+		health = 100
 		stat = CONSCIOUS
-		return
-	health = maxHealth - getBruteLoss() - getFireLoss()
+	else
+		health = 100 - getBruteLoss() - getFireLoss()
 
-/mob/living/silicon/pai/proc/follow_pai()
-	while(card)
-		loc = get_turf(card)
-		sleep(5)
-	qdel(src) //if there's no pAI we shouldn't exist

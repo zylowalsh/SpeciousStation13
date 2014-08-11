@@ -5,7 +5,7 @@
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "bolt"
 	item_state = "bolt"
-	flags =  FPRINT | TABLE_PASS
+	flags =  FPRINT | TABLEPASS
 	throwforce = 8
 	w_class = 3.0
 	sharp = 1
@@ -43,7 +43,7 @@
 	icon_state = "crossbow"
 	item_state = "crossbow-solid"
 	w_class = 5.0
-	flags =  FPRINT | TABLE_PASS | CONDUCT |  USE_DELAY
+	flags =  FPRINT | TABLEPASS | CONDUCT |  USEDELAY
 	slot_flags = SLOT_BELT | SLOT_BACK
 
 	w_class = 3.0
