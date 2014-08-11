@@ -323,7 +323,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			spawn(30)
 				if(src)
 					for(var/obj/machinery/r_n_d/server/S in machines)
-						var/server_processed = 0
+						//var/server_processed = 0 Not Used: heat processing removal
 						if(S.disabled)
 							continue
 						if((id in S.id_with_upload) || istype(S, /obj/machinery/r_n_d/server/centcom))
@@ -332,16 +332,18 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 							for(var/datum/design/D in files.known_designs)
 								S.files.AddDesign2Known(D)
 							S.files.RefreshResearch()
-							server_processed = 1
+							//server_processed = 1 Not Used: heat processing removal
 						if(((id in S.id_with_download) && !istype(S, /obj/machinery/r_n_d/server/centcom)) || S.hacked)
 							for(var/datum/tech/T in S.files.known_tech)
 								files.AddTech2Known(T)
 							for(var/datum/design/D in S.files.known_designs)
 								files.AddDesign2Known(D)
 							files.RefreshResearch()
-							server_processed = 1
+							//server_processed = 1 Not Used: heat processing removal
+						/*	Removing the heat processing on the servers.
 						if(!istype(S, /obj/machinery/r_n_d/server/centcom) && server_processed)
 							S.produce_heat(100)
+						*/
 					screen = 1.6
 					updateUsrDialog()
 

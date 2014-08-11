@@ -49,6 +49,8 @@
 			id_with_download += text2num(N)
 
 /obj/machinery/r_n_d/server/process()
+
+/*
 	var/datum/gas_mixture/environment = loc.return_air()
 	switch(environment.temperature)
 		if(0 to T0C)
@@ -69,6 +71,7 @@
 	else
 		produce_heat(heat_gen)
 		delay = initial(delay)
+*/
 
 /obj/machinery/r_n_d/server/meteorhit(var/obj/O as obj)
 	griefProtection()
@@ -100,6 +103,7 @@
 			C.files.AddDesign2Known(D)
 		C.files.RefreshResearch()
 
+/*
 /obj/machinery/r_n_d/server/proc/produce_heat(heat_amt)
 	if(!(stat & (NOPOWER|BROKEN))) //Blatently stolen from space heater.
 		var/turf/simulated/L = loc
@@ -119,6 +123,7 @@
 					removed.temperature = min((removed.temperature*heat_capacity + heating_power)/heat_capacity, 1000)
 
 				env.merge(removed)
+*/
 
 /obj/machinery/r_n_d/server/attackby(var/obj/item/O as obj, var/mob/user as mob)
 	if (disabled)

@@ -23,7 +23,7 @@
 			var/obj/item/device/destTagger/O = W
 
 			if(src.sortTag != O.currTag)
-				var/tag = uppertext(TAGGERLOCATIONS[O.currTag])
+				var/tag = uppertext(TAGGER_LOCATIONS[O.currTag])
 				user << "\blue *[tag]*"
 				src.sortTag = O.currTag
 				playsound(src.loc, 'sound/machines/twobeep.ogg', 100, 1)
@@ -64,7 +64,7 @@
 			var/obj/item/device/destTagger/O = W
 
 			if(src.sortTag != O.currTag)
-				var/tag = uppertext(TAGGERLOCATIONS[O.currTag])
+				var/tag = uppertext(TAGGER_LOCATIONS[O.currTag])
 				user << "\blue *[tag]*"
 				src.sortTag = O.currTag
 				playsound(src.loc, 'sound/machines/twobeep.ogg', 100, 1)
@@ -174,13 +174,13 @@
 		var/dat = "<tt><center><h1><b>TagMaster 2.2</b></h1></center>"
 
 		dat += "<table style='width:100%; padding:4px;'><tr>"
-		for (var/i = 1, i <= TAGGERLOCATIONS.len, i++)
-			dat += "<td><a href='?src=\ref[src];nextTag=[i]'>[TAGGERLOCATIONS[i]]</a></td>"
+		for (var/i = 1, i <= TAGGER_LOCATIONS.len, i++)
+			dat += "<td><a href='?src=\ref[src];nextTag=[i]'>[TAGGER_LOCATIONS[i]]</a></td>"
 
 			if (i%4==0)
 				dat += "</tr><tr>"
 
-		dat += "</tr></table><br>Current Selection: [currTag ? TAGGERLOCATIONS[currTag] : "None"]</tt>"
+		dat += "</tr></table><br>Current Selection: [currTag ? TAGGER_LOCATIONS[currTag] : "None"]</tt>"
 
 		user << browse(dat, "window=destTagScreen;size=450x350")
 		onclose(user, "destTagScreen")

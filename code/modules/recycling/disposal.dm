@@ -959,7 +959,7 @@
 	proc/updatedesc()
 		desc = "An underfloor disposal pipe with a package sorting mechanism."
 		if(sortType>0)
-			var/tag = uppertext(TAGGERLOCATIONS[sortType])
+			var/tag = uppertext(TAGGER_LOCATIONS[sortType])
 			desc += "\nIt's tagged with [tag]"
 
 	proc/updatedir()
@@ -991,7 +991,7 @@
 			if(O.currTag > 0)// Tag set
 				sortType = O.currTag
 				playsound(src.loc, 'sound/machines/twobeep.ogg', 100, 1)
-				var/tag = uppertext(TAGGERLOCATIONS[O.currTag])
+				var/tag = uppertext(TAGGER_LOCATIONS[O.currTag])
 				user << "\blue Changed filter to [tag]"
 				updatedesc()
 

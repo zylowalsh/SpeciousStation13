@@ -152,6 +152,21 @@
 	else
 		..()
 
+mob/living/simple_animal/cow/mightySpaceHippo
+	name = "Mighty Space Hippo"
+	desc = "BEHOLD! Everything you know and ever will know is contained in this fat, jet propelled hippo."
+	icon = 'icons/mob/mightySpaceHippo.dmi'
+	icon_state = "hippo"
+	icon_living = "hippo"
+	icon_dead = "hippo_dead"
+	icon_gib = "hippo"
+	speak = list("erh?","erh","ERHHHHHHH!")
+	speak_emote = list("erhs","erhs hauntingly")
+	emote_hear = list("erhs")
+	emote_see = list("shakes its head")
+	speak_chance = 1
+	health = 1000
+
 /mob/living/simple_animal/chick
 	name = "\improper chick"
 	desc = "Adorable! They make such a racket though."

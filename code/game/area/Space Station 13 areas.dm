@@ -755,67 +755,67 @@ area/solar/research
 
 /area/maintenance/tunnel1
 	name = "1st Maintenance Tunnel"
-	icon_state = "fpmaint"
+	icon_state = "maint_1"
 
 /area/maintenance/tunnel2
 	name = "2nd Maintenance Tunnel"
-	icon_state = "fpmaint"
+	icon_state = "maint_2"
 
 /area/maintenance/tunnel3
 	name = "3rd Maintenance Tunnel"
-	icon_state = "fsmaint"
+	icon_state = "maint_3"
 
 /area/maintenance/tunnel4
 	name = "4th Maintenance Tunnel"
-	icon_state = "fsmaint"
+	icon_state = "maint_4"
 
 /area/maintenance/tunnel5
 	name = "5th Maintenance Tunnel"
-	icon_state = "asmaint"
+	icon_state = "maint_5"
 
 /area/maintenance/tunnel6
 	name = "6th Maintenance Tunnel"
-	icon_state = "asmaint"
+	icon_state = "maint_6"
 
 /area/maintenance/tunnel7
 	name = "7th Maintenance Tunnel"
-	icon_state = "apmaint"
+	icon_state = "maint_7"
 
 /area/maintenance/tunnel8
 	name = "8th Maintenance Tunnel"
-	icon_state = "maintcentral"
+	icon_state = "maint_8"
 
 /area/maintenance/tunnel9
 	name = "9th Maintenance Tunnel"
-	icon_state = "fmaint"
+	icon_state = "maint_9"
 
 /area/maintenance/tunnel10
 	name = "10th Maintenance Tunnel"
-	icon_state = "smaint"
+	icon_state = "maint_10"
 
 /area/maintenance/tunnel11
 	name = "11th Maintenance Tunnel"
-	icon_state = "pmaint"
+	icon_state = "maint_11"
 
 /area/maintenance/tunnel12
 	name = "12th Maintenance Tunnel"
-	icon_state = "amaint"
+	icon_state = "maint_12"
 
 /area/maintenance/tunnel13
 	name = "13th Maintenance Tunnel"
-	icon_state = "green"
+	icon_state = "maint_13"
 
 /area/maintenance/tunnel14
 	name = "14th Maintenance Tunnel"
-	icon_state = "green"
+	icon_state = "maint_14"
 
 /area/maintenance/tunnel15
 	name = "15th Maintenance Tunnel"
-	icon_state = "green"
+	icon_state = "maint_15"
 
 /area/maintenance/tunnel16
 	name = "16th Maintenance Tunnel"
-	icon_state = "green"
+	icon_state = "maint_16"
 
 // HALLWAYS
 
@@ -1373,20 +1373,20 @@ area/solar/research
 	cameraTagPrefix = "CONST"
 
 /area/construction/constr1
-	name = "\improper Construction Area"
-	icon_state = "yellow"
+	name = "\improper 1st Construction Area"
+	icon_state = "construction_1"
 
 /area/construction/constr2
-	name = "\improper Construction Area"
-	icon_state = "yellow"
+	name = "\improper 2nd Construction Area"
+	icon_state = "construction_2"
 
 /area/construction/constr3
-	name = "\improper Construction Area"
-	icon_state = "yellow"
+	name = "\improper 3rd Construction Area"
+	icon_state = "construction_3"
 
 /area/construction/constr4
-	name = "\improper Construction Area"
-	icon_state = "yellow"
+	name = "\improper 4th Construction Area"
+	icon_state = "construction_4"
 
 //AI MONITORED
 

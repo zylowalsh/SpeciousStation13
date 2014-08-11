@@ -470,7 +470,7 @@ var/const/PROCESS_KILL = 26	//Used to trigger removal from a processing list
 // Reference list for disposal sort junctions. Set the sortType variable on disposal sort junctions to
 // the index of the sort department that you want. For example, sortType set to 2 will reroute all packages
 // tagged for the Cargo Bay.
-var/list/TAGGERLOCATIONS = list(
+var/list/TAGGER_LOCATIONS = list(
 	"Disposals", "Clown Office", "Internal Affairs", "Psych. Office", "Chaplain's Office",
 	"Library", "Hydroponics", "Kitchen", "Bar", "Custodial Closet",
 	"CE's Office", "Engineering Breakroom", "Atmo. Office", "Warden's Office", "Security",
