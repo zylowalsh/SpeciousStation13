@@ -228,7 +228,7 @@ var/list/APCWireColorToFlag = RandomAPCWires()
 var/list/APCIndexToFlag
 var/list/APCIndexToWireColor
 var/list/APCWireColorToIndex
-var/list/BorgWireColorToFlag = RandomBorgWires()
+//var/list/BorgWireColorToFlag = RandomBorgWires()
 var/list/BorgIndexToFlag
 var/list/BorgIndexToWireColor
 var/list/BorgWireColorToIndex
@@ -259,3 +259,10 @@ var/list/awaydestinations = list()	//a list of landmarks that the warpgate can t
 // However it'd be ok to use for accessing attack logs and such too, which are even laggier.
 var/fileaccess_timer = 0
 var/custom_event_msg = null
+
+//Grab levels
+var/const/GRAB_PASSIVE = 1
+var/const/GRAB_AGGRESSIVE = 2
+var/const/GRAB_NECK = 3
+var/const/GRAB_UPGRADING = 4
+var/const/GRAB_KILL = 5

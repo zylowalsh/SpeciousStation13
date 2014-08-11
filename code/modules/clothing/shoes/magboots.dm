@@ -3,7 +3,7 @@
 	name = "magboots"
 	icon_state = "magboots0"
 	var/magpulse = 0
-//	flags = NOSLIP //disabled by default
+//	flags = NO_SLIP //disabled by default
 
 
 	verb/toggle()
@@ -13,13 +13,13 @@
 		if(usr.stat)
 			return
 		if(src.magpulse)
-			src.flags &= ~NOSLIP
+			src.flags &= ~NO_SLIP
 			src.slowdown = SHOES_SLOWDOWN
 			src.magpulse = 0
 			icon_state = "magboots0"
 			usr << "You disable the mag-pulse traction system."
 		else
-			src.flags |= NOSLIP
+			src.flags |= NO_SLIP
 			src.slowdown = 2
 			src.magpulse = 1
 			icon_state = "magboots1"
@@ -31,6 +31,6 @@
 		set src in view()
 		..()
 		var/state = "disabled"
-		if(src.flags&NOSLIP)
+		if(src.flags&NO_SLIP)
 			state = "enabled"
 		usr << "Its mag-pulse traction system appears to be [state]."

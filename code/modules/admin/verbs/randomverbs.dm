@@ -397,7 +397,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 				dataCore.manifestInject(newCharacter)
 
 			if(alert(newCharacter,"Would you like an active AI to announce this character?",,"No","Yes") == "Yes")
-				announceArrival(newCharacter, newCharacter.mind.assigned_role)
+				call(/mob/new_player/proc/AnnounceArrival)(newCharacter, newCharacter.mind.assigned_role)
 
 	message_admins("\blue [admin] has respawned [playerKey] as [newCharacter.real_name].", 1)
 

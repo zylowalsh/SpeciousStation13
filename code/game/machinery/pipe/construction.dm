@@ -34,7 +34,7 @@ var/const/PIPE_CAP = 20
 	icon = 'icons/obj/pipe-item.dmi'
 	icon_state = "simple"
 	item_state = "buildpipe"
-	flags = TABLEPASS|FPRINT
+	flags = TABLE_PASS|FPRINT
 	w_class = 3
 	level = 2
 
@@ -614,7 +614,7 @@ var/const/PIPE_CAP = 20
 	icon = 'icons/obj/pipe-item.dmi'
 	icon_state = "meter"
 	item_state = "buildpipe"
-	flags = TABLEPASS|FPRINT
+	flags = TABLE_PASS|FPRINT
 	w_class = 4
 
 /obj/item/pipe_meter/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)

@@ -169,7 +169,7 @@
 	throw_range = 5
 	m_amt = 50
 	g_amt = 20
-	flags = TABLEPASS | USEDELAY | FPRINT | CONDUCT
+	flags = TABLE_PASS | USE_DELAY | FPRINT | CONDUCT
 	slot_flags = SLOT_BELT
 	item_state = "coil_red"
 	attack_verb = list("whipped", "lashed", "disciplined", "flogged")

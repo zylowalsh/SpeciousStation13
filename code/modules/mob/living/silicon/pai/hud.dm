@@ -7,57 +7,38 @@
 /mob/living/silicon/pai/proc/securityHUD()
 	if(client)
 		var/image/holder
-		var/turf/T = get_turf_or_move(src.loc)
+		var/turf/T = get_turf(src.loc)
 		for(var/mob/living/carbon/human/perp in view(T))
-			if(src.see_invisible < perp.invisibility)
-				continue
-			var/targetName = "wot"
 			holder = perp.hud_list[ID_HUD]
+			holder.icon_state = "hudno_id"
 			if(perp.wear_id)
-				var/obj/item/weapon/card/id/I = perp.wear_id.GetID()
-				if(I)
-					targetName = I.registered_name
-					holder.icon_state = "hud[ckey(perp:wear_id:GetJobName())]"
-					client.images += holder
-				else
-					targetName = perp.name
-					holder.icon_state = "hudunknown"
-					client.images += holder
-			else
-				holder.icon_state = "hudunknown"
-				client.images += holder
+				holder.icon_state = "hud[ckey(perp:wear_id:GetJobName())]"
+			client.images += holder
 
-			for(var/datum/record/R in dataCore.allRecords)
-				if(R.name == targetName)
+			var/perpname = perp.get_face_name(perp.get_id_name(""))
+			if(perpname)
+				var/datum/data/record/R = find_record("name", perpname, data_core.security)
+				if(R)
 					holder = perp.hud_list[WANTED_HUD]
-					if(R.criminal == "*Arrest*")
-						holder.icon_state = "hudwanted"
-						client.images += holder
-						break
-					else if(R.criminal == "Incarcerated")
-						holder.icon_state = "hudprisoner"
-						client.images += holder
-						break
-					else if(R.criminal == "Parolled")
-						holder.icon_state = "hudparolled"
-						client.images += holder
-						break
-					else if(R.criminal == "Released")
-						holder.icon_state = "hudreleased"
-						client.images += holder
-						break
+					switch(R.fields["criminal"])
+						if("*Arrest*")		holder.icon_state = "hudwanted"
+						if("Incarcerated")	holder.icon_state = "hudincarcerated"
+						if("Parolled")		holder.icon_state = "hudparolled"
+						if("Discharged")		holder.icon_state = "huddischarged"
+						else
+							continue
+					client.images += holder
 
 /mob/living/silicon/pai/proc/medicalHUD()
 	if(client)
 		var/image/holder
-		var/turf/T = get_turf_or_move(src.loc)
+		var/turf/T = get_turf(src.loc)
 		for(var/mob/living/carbon/human/patient in view(T))
-			if(src.see_invisible < patient.invisibility)
-				continue
+
 			var/foundVirus = 0
 			for(var/datum/disease/D in patient.viruses)
 				if(!D.hidden[SCANNER])
-					foundVirus = TRUE
+					foundVirus = 1
 
 			holder = patient.hud_list[HEALTH_HUD]
 			if(patient.stat == 2)

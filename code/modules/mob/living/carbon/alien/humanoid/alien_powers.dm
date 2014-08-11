@@ -23,11 +23,15 @@ Doesn't work on other aliens/AI.*/
 	set desc = "Plants some alien weeds"
 	set category = "Alien"
 
+	if(locate(/obj/structure/alien/weeds/node) in get_turf(src))
+		src << "There's already a weed node here."
+		return
+
 	if(powerc(50,1))
 		adjustToxLoss(-50)
 		for(var/mob/O in viewers(src, null))
 			O.show_message(text("\green <B>[src] has planted some alien weeds!</B>"), 1)
-		new /obj/effect/alien/weeds/node(loc)
+		new /obj/structure/alien/weeds/node(loc)
 	return
 
 /*
@@ -105,51 +109,35 @@ Doesn't work on other aliens/AI.*/
 				return
 
 			adjustToxLoss(-200)
-			new /obj/effect/alien/acid(get_turf(O), O)
+			new /obj/effect/acid(get_turf(O), O)
 			visible_message("\green <B>[src] vomits globs of vile stuff all over [O]. It begins to sizzle and melt under the bubbling mess of acid!</B>")
 		else
 			src << "\green Target is too far away."
 	return
 
 
-/mob/living/carbon/alien/humanoid/proc/neurotoxin(mob/target as mob in oview())
+/mob/living/carbon/alien/humanoid/proc/neurotoxin() // ok
 	set name = "Spit Neurotoxin (50)"
-	set desc = "Spits neurotoxin at someone, paralyzing them for a short time if they are not wearing protective gear."
+	set desc = "Spits neurotoxin at someone, paralyzing them for a short time."
 	set category = "Alien"
 
 	if(powerc(50))
-		if(isalien(target))
-			src << "\green Your allies are not a valid target."
-			return
 		adjustToxLoss(-50)
-		src << "\green You spit neurotoxin at [target]."
-		for(var/mob/O in oviewers())
-			if ((O.client && !( O.blinded )))
-				O << "\red [src] spits neurotoxin at [target]!"
-		//I'm not motivated enough to revise this. Prjectile code in general needs update.
+		src.visible_message("\red [src] spits neurotoxin!", "\green You spit neurotoxin.")
+
 		var/turf/T = loc
-		var/turf/U = (istype(target, /atom/movable) ? target.loc : target)
-
-		if(!U || !T)
-			return
-		while(U && !istype(U,/turf))
-			U = U.loc
-		if(!istype(T, /turf))
-			return
-		if (U == T)
-			usr.bullet_act(new /obj/item/projectile/energy/neurotoxin(usr.loc), get_organ_target())
-			return
-		if(!istype(U, /turf))
+		var/turf/U = get_step(src, dir) // Get the tile infront of the move, based on their direction
+		if(!isturf(U) || !isturf(T))
 			return
 
-		var/obj/item/projectile/energy/neurotoxin/A = new /obj/item/projectile/energy/neurotoxin(usr.loc)
+		var/obj/item/projectile/bullet/neurotoxin/A = new /obj/item/projectile/bullet/neurotoxin(usr.loc)
 		A.current = U
 		A.yo = U.y - T.y
 		A.xo = U.x - T.x
 		A.process()
 	return
 
-/mob/living/carbon/alien/humanoid/proc/resin() // -- TLE
+/mob/living/carbon/alien/humanoid/proc/resin()
 	set name = "Secrete Resin (75)"
 	set desc = "Secrete tough malleable resin."
 	set category = "Alien"
@@ -165,9 +153,9 @@ Doesn't work on other aliens/AI.*/
 			if("resin door")
 				new /obj/structure/mineral_door/resin(loc)
 			if("resin wall")
-				new /obj/effect/alien/resin/wall(loc)
+				new /obj/structure/alien/resin/wall(loc)
 			if("resin membrane")
-				new /obj/effect/alien/resin/membrane(loc)
+				new /obj/structure/alien/resin/membrane(loc)
 			if("resin nest")
 				new /obj/structure/stool/bed/nest(loc)
 	return
@@ -177,12 +165,11 @@ Doesn't work on other aliens/AI.*/
 	set desc = "Empties the contents of your stomach"
 	set category = "Alien"
 
-	if(powerc())
-		if(stomach_contents.len)
-			for(var/mob/M in src)
-				if(M in stomach_contents)
-					stomach_contents.Remove(M)
-					M.loc = loc
-					//Paralyse(10)
-			src.visible_message("\green <B>[src] hurls out the contents of their stomach!</B>")
+	if(powerc() && stomach_contents.len)
+		for(var/atom/movable/A in stomach_contents)
+			if(A in stomach_contents)
+				stomach_contents.Remove(A)
+				A.loc = loc
+				//Paralyse(10)
+		src.visible_message("\green <B>[src] hurls out the contents of their stomach!</B>")
 	return

@@ -14,7 +14,7 @@
 	var/list/storedinfo = new/list()
 	var/list/timestamp = new/list()
 	var/canprint = 1
-	flags = FPRINT | TABLEPASS| CONDUCT
+	flags = FPRINT | TABLE_PASS| CONDUCT
 	throwforce = 2
 	throw_speed = 4
 	throw_range = 20

@@ -1,7 +1,7 @@
 /obj/item/weapon/tank
 	name = "tank"
 	icon = 'icons/obj/tank.dmi'
-	flags = FPRINT | TABLEPASS | CONDUCT
+	flags = FPRINT | TABLE_PASS | CONDUCT
 	slot_flags = SLOT_BACK
 
 	pressure_resistance = ONE_ATMOSPHERE*5

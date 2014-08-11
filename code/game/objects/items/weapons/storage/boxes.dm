@@ -423,7 +423,7 @@
 	item_state = "zippo"
 	storage_slots = 10
 	w_class = 1
-	flags = TABLEPASS
+	flags = TABLE_PASS
 	slot_flags = SLOT_BELT
 
 	New()

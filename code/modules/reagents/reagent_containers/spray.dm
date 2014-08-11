@@ -4,7 +4,7 @@
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "cleaner"
 	item_state = "cleaner"
-	flags = TABLEPASS|OPENCONTAINER|FPRINT|USEDELAY
+	flags = TABLE_PASS | OPEN_CONTAINER | FPRINT | USE_DELAY
 	slot_flags = SLOT_BELT
 	throwforce = 3
 	w_class = 2.0

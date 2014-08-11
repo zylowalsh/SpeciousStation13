@@ -307,7 +307,7 @@
 
 /area/proc/thunk(mob)
 	if(istype(mob,/mob/living/carbon/human/))  // Only humans can wear magboots, so we give them a chance to.
-		if((istype(mob:shoes, /obj/item/clothing/shoes/magboots) && (mob:shoes.flags & NOSLIP)))
+		if((istype(mob:shoes, /obj/item/clothing/shoes/magboots) && (mob:shoes.flags & NO_SLIP)))
 			return
 
 	if(istype(get_turf(mob), /turf/space)) // Can't fall onto nothing.

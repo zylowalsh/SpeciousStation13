@@ -4,31 +4,44 @@
 	icon_state = "std_module"
 	w_class = 100.0
 	item_state = "electronic"
-	flags = FPRINT|TABLEPASS | CONDUCT
+	flags = CONDUCT
 
 	var/list/modules = list()
 	var/obj/item/emag = null
 	var/obj/item/borg/upgrade/jetpack = null
+	var/list/storages = list()
+
+/obj/item/weapon/robot_module/emp_act(severity)
+	if(modules)
+		for(var/obj/O in modules)
+			O.emp_act(severity)
+	if(emag)
+		emag.emp_act(severity)
+	..()
+	return
+
+/obj/item/weapon/robot_module/proc/get_usable_modules()
+	. = modules.Copy()
+	var/mob/living/silicon/robot/R = loc
+	if(R.emagged)
+		. += emag
+
+/obj/item/weapon/robot_module/proc/get_inactive_modules()
+	. = list()
+	var/mob/living/silicon/robot/R = loc
+	for(var/m in get_usable_modules())
+		if((m != R.module_state_1) && (m != R.module_state_2) && (m != R.module_state_3))
+			. += m
 
 
-	emp_act(severity)
-		if(modules)
-			for(var/obj/O in modules)
-				O.emp_act(severity)
-		if(emag)
-			emag.emp_act(severity)
-		..()
-		return
-
-
-	New()
-		src.modules += new /obj/item/device/flashlight(src)
-		src.modules += new /obj/item/device/flash(src)
-		src.emag = new /obj/item/toy/sword(src)
-		src.emag.name = "Placeholder Emag Item"
-//		src.jetpack = new /obj/item/toy/sword(src)
-//		src.jetpack.name = "Placeholder Upgrade Item"
-		return
+/obj/item/weapon/robot_module/New()
+	modules += new /obj/item/device/flashlight(src)
+	modules += new /obj/item/device/flash(src)
+	emag = new /obj/item/toy/sword(src)
+	emag.name = "Placeholder Emag Item"
+//		jetpack = new /obj/item/toy/sword(src)
+//		jetpack.name = "Placeholder Upgrade Item"
+	return
 
 
 /obj/item/weapon/robot_module/proc/respawn_consumable(var/mob/living/silicon/robot/R)
@@ -41,194 +54,212 @@
 		if(O)
 			modules += O
 
+/obj/item/weapon/robot_module/proc/on_emag()
+	return
+
+
 /obj/item/weapon/robot_module/standard
 	name = "standard robot module"
 
-
 	New()
 		..()
-		src.modules += new /obj/item/weapon/melee/baton(src)
-		src.modules += new /obj/item/weapon/extinguisher(src)
-		src.modules += new /obj/item/weapon/wrench(src)
-		src.modules += new /obj/item/weapon/crowbar(src)
-		src.modules += new /obj/item/device/healthanalyzer(src)
-		src.emag = new /obj/item/weapon/melee/energy/sword(src)
-		return
-
+		modules += new /obj/item/weapon/melee/baton/loaded(src)
+		modules += new /obj/item/weapon/extinguisher(src)
+		modules += new /obj/item/weapon/wrench(src)
+		modules += new /obj/item/weapon/crowbar(src)
+		modules += new /obj/item/device/healthanalyzer(src)
+		emag = new /obj/item/weapon/melee/energy/sword(src)
 
 
 /obj/item/weapon/robot_module/medical
 	name = "medical robot module"
 
-
 	New()
 		..()
-		src.modules += new /obj/item/borg/sight/hud/med(src)
-		src.modules += new /obj/item/device/healthanalyzer(src)
-		src.modules += new /obj/item/weapon/reagent_containers/borghypo(src)
-		src.modules += new /obj/item/weapon/reagent_containers/glass/beaker/large(src)
-		src.modules += new /obj/item/weapon/reagent_containers/robodropper(src)
-		src.modules += new /obj/item/weapon/reagent_containers/syringe(src)
-		src.modules += new /obj/item/weapon/extinguisher/mini(src)
-		src.emag = new /obj/item/weapon/reagent_containers/spray(src)
+		modules += new /obj/item/borg/sight/hud/med(src)
+		modules += new /obj/item/device/healthanalyzer(src)
+		modules += new /obj/item/weapon/reagent_containers/borghypo(src)
+		modules += new /obj/item/weapon/reagent_containers/glass/beaker/large(src)
+		modules += new /obj/item/weapon/reagent_containers/dropper(src)
+		modules += new /obj/item/weapon/reagent_containers/syringe(src)
+		modules += new /obj/item/weapon/extinguisher/mini(src)
+		emag = new /obj/item/weapon/reagent_containers/spray(src)
 
-		src.emag.reagents.add_reagent("pacid", 250)
-		src.emag.name = "Polyacid spray"
-		return
+		emag.reagents.add_reagent("pacid", 250)
+		emag.name = "polyacid spray"
 
 
 
 /obj/item/weapon/robot_module/engineering
 	name = "engineering robot module"
 
-
 	New()
 		..()
-		src.modules += new /obj/item/borg/sight/meson(src)
-		src.emag = new /obj/item/borg/stun(src)
-		src.modules += new /obj/item/weapon/rcd/borg(src)
-		src.modules += new /obj/item/weapon/extinguisher(src)
-//		src.modules += new /obj/item/device/flashlight(src)
-		src.modules += new /obj/item/weapon/weldingtool/largetank(src)
-		src.modules += new /obj/item/weapon/screwdriver(src)
-		src.modules += new /obj/item/weapon/wrench(src)
-		src.modules += new /obj/item/weapon/crowbar(src)
-		src.modules += new /obj/item/weapon/wirecutters(src)
-		src.modules += new /obj/item/device/multitool(src)
-		src.modules += new /obj/item/device/t_scanner(src)
-		src.modules += new /obj/item/device/analyzer(src)
+		modules += new /obj/item/borg/sight/meson(src)
+		emag = new /obj/item/borg/stun(src)
+		modules += new /obj/item/weapon/rcd/borg(src)
+		modules += new /obj/item/weapon/extinguisher(src)
+		modules += new /obj/item/weapon/weldingtool/largetank/cyborg(src)
+		modules += new /obj/item/weapon/screwdriver(src)
+		modules += new /obj/item/weapon/wrench(src)
+		modules += new /obj/item/weapon/crowbar(src)
+		modules += new /obj/item/weapon/wirecutters(src)
+		modules += new /obj/item/device/multitool(src)
+		modules += new /obj/item/device/t_scanner(src)
+		modules += new /obj/item/device/analyzer(src)
+
+		var/datum/robot_energy_storage/metal/metstore = new /datum/robot_energy_storage/metal(src)
+		var/datum/robot_energy_storage/glass/glastore = new /datum/robot_energy_storage/glass(src)
+		var/datum/robot_energy_storage/wire/wirestore = new /datum/robot_energy_storage/wire(src)
 
 		var/obj/item/stack/sheet/metal/cyborg/M = new /obj/item/stack/sheet/metal/cyborg(src)
-		M.amount = 50
-		src.modules += M
+		M.source = metstore
+		modules += M
+
+		var/obj/item/stack/sheet/glass/cyborg/Q = new /obj/item/stack/sheet/glass/cyborg(src)
+		Q.source = glastore
+		modules += Q
 
 		var/obj/item/stack/sheet/rglass/cyborg/G = new /obj/item/stack/sheet/rglass/cyborg(src)
-		G.amount = 50
-		src.modules += G
+		G.metsource = metstore
+		G.glasource = glastore
+		modules += G
 
-		var/obj/item/weapon/cable_coil/W = new /obj/item/weapon/cable_coil(src)
-		W.amount = 50
-		src.modules += W
+		var/obj/item/stack/rods/cyborg/R = new /obj/item/stack/rods/cyborg(src)
+		R.source = metstore
+		modules += R
 
-		return
+		var/obj/item/stack/cable_coil/cyborg/W = new /obj/item/stack/cable_coil/cyborg(src)
+		W.source = wirestore
+		modules += W
 
+		var/obj/item/stack/tile/plasteel/cyborg/F = new /obj/item/stack/tile/plasteel/cyborg(src) //"Plasteel" is the normal metal floor tile, Don't be confused - RR
+		F.source = metstore
+		modules += F //'F' for floor tile - RR(src)
 
-	respawn_consumable(var/mob/living/silicon/robot/R)
-		var/list/what = list (
-			/obj/item/stack/sheet/metal,
-			/obj/item/stack/sheet/rglass,
-			/obj/item/weapon/cable_coil,
-		)
-		for (var/T in what)
-			if (!(locate(T) in src.modules))
-				src.modules -= null
-				var/O = new T(src)
-				src.modules += O
-				O:amount = 1
-		return
-
-
+		storages += metstore
+		storages += glastore
+		storages += wirestore
 
 /obj/item/weapon/robot_module/security
 	name = "security robot module"
 
-
 	New()
 		..()
-		src.modules += new /obj/item/borg/sight/hud/sec(src)
-		src.modules += new /obj/item/weapon/handcuffs/cyborg(src)
-		src.modules += new /obj/item/weapon/melee/baton(src)
-		src.modules += new /obj/item/weapon/gun/energy/taser/cyborg(src)
-		src.emag = new /obj/item/weapon/gun/energy/laser/cyborg(src)
-		return
-
+		modules += new /obj/item/borg/sight/hud/sec(src)
+		modules += new /obj/item/weapon/handcuffs/cyborg(src)
+		modules += new /obj/item/weapon/melee/baton/loaded(src)
+		modules += new /obj/item/weapon/gun/energy/taser/cyborg(src)
+		emag = new /obj/item/weapon/gun/energy/laser/cyborg(src)
 
 
 /obj/item/weapon/robot_module/janitor
 	name = "janitorial robot module"
 
-
 	New()
 		..()
-		src.modules += new /obj/item/weapon/soap/nanotrasen(src)
-		src.modules += new /obj/item/weapon/storage/bag/trash(src)
-		src.modules += new /obj/item/weapon/mop(src)
-		src.modules += new /obj/item/device/lightreplacer(src)
-		src.emag = new /obj/item/weapon/reagent_containers/spray(src)
+		modules += new /obj/item/weapon/soap/nanotrasen(src)
+		modules += new /obj/item/weapon/storage/bag/trash/cyborg(src)
+		modules += new /obj/item/weapon/mop/cyborg(src)
+		modules += new /obj/item/device/lightreplacer/cyborg(src)
+		emag = new /obj/item/weapon/reagent_containers/spray(src)
 
-		src.emag.reagents.add_reagent("lube", 250)
-		src.emag.name = "Lube spray"
-		return
-
+		emag.reagents.add_reagent("lube", 250)
+		emag.name = "lube spray"
 
 
 /obj/item/weapon/robot_module/butler
 	name = "service robot module"
 
-
 	New()
 		..()
-		src.modules += new /obj/item/weapon/reagent_containers/food/drinks/beer(src)
-		src.modules += new /obj/item/weapon/reagent_containers/food/condiment/enzyme(src)
-		src.modules += new /obj/item/weapon/pen/robopen(src)
+		modules += new /obj/item/weapon/reagent_containers/food/drinks/drinkingglass(src)
+		modules += new /obj/item/weapon/reagent_containers/food/condiment/enzyme(src)
+		modules += new /obj/item/weapon/pen(src)
+		modules += new /obj/item/weapon/razor(src)
+		modules += new /obj/item/device/violin(src)
 
 		var/obj/item/weapon/rsf/M = new /obj/item/weapon/rsf(src)
 		M.matter = 30
-		src.modules += M
+		modules += M
 
-		src.modules += new /obj/item/weapon/reagent_containers/robodropper(src)
+		modules += new /obj/item/weapon/reagent_containers/dropper(src)
 
 		var/obj/item/weapon/lighter/zippo/L = new /obj/item/weapon/lighter/zippo(src)
 		L.lit = 1
-		src.modules += L
+		modules += L
 
-		src.modules += new /obj/item/weapon/tray/robotray(src)
-		src.modules += new /obj/item/weapon/reagent_containers/food/drinks/shaker(src)
-		src.emag = new /obj/item/weapon/reagent_containers/food/drinks/beer(src)
-
-		var/datum/reagents/R = new/datum/reagents(50)
-		src.emag.reagents = R
-		R.my_atom = src.emag
-		R.add_reagent("beer2", 50)
-		src.emag.name = "Mickey Finn's Special Brew"
-		return
-
+		modules += new /obj/item/weapon/storage/bag/tray(src)
+		modules += new /obj/item/weapon/reagent_containers/borghypo/borgshaker(src)
+		emag = new /obj/item/weapon/reagent_containers/borghypo/borgshaker/hacked(src)
 
 
 /obj/item/weapon/robot_module/miner
 	name = "miner robot module"
 
-
 	New()
 		..()
-		src.modules += new /obj/item/borg/sight/meson(src)
-		src.emag = new /obj/item/borg/stun(src)
-		src.modules += new /obj/item/weapon/storage/bag/ore(src)
-		src.modules += new /obj/item/weapon/pickaxe/borgdrill(src)
-		src.modules += new /obj/item/weapon/storage/bag/sheetsnatcher/borg(src)
-//		src.modules += new /obj/item/weapon/shovel(src) Uneeded due to buffed drill
-		return
+		var/mob/living/silicon/robot/R = loc
+		modules += new /obj/item/borg/sight/meson(src)
+		emag = new /obj/item/borg/stun(src)
+		modules += new /obj/item/weapon/storage/bag/ore(src)
+		if(R.emagged)
+			modules += new /obj/item/weapon/pickaxe/diamonddrill(src)
+		else
+			modules += new /obj/item/weapon/pickaxe/borgdrill(src)
+		modules += new /obj/item/weapon/storage/bag/sheetsnatcher/borg(src)
+		modules += new /obj/item/device/mining_scanner(src)
+		modules += new /obj/item/weapon/gun/energy/kinetic_accelerator(src)
+	on_emag()
+		..()
+		for(var/obj/item/weapon/pickaxe/borgdrill/D in modules)
+			qdel(D)
+		modules += new /obj/item/weapon/pickaxe/diamonddrill(src)
+		rebuild()
 
 
 /obj/item/weapon/robot_module/syndicate
 	name = "syndicate robot module"
 
-
 	New()
-		src.modules += new /obj/item/weapon/melee/energy/sword(src)
-		src.modules += new /obj/item/weapon/gun/energy/pulse_rifle/destroyer(src)
-		src.modules += new /obj/item/weapon/card/emag(src)
-		return
+		..()
+		modules += new /obj/item/weapon/melee/energy/sword/cyborg(src)
+		modules += new /obj/item/weapon/gun/energy/crossbow/cyborg(src)
+		modules += new /obj/item/weapon/card/emag(src)
+		modules += new /obj/item/weapon/gun/energy/laser/cyborg(src)
+		modules += new /obj/item/weapon/tank/jetpack/carbondioxide(src)
+		modules += new /obj/item/weapon/crowbar(src)
+		emag = null
 
-/obj/item/weapon/robot_module/combat
-	name = "combat robot module"
+/datum/robot_energy_storage
+	var/name = "Generic energy storage"
+	var/max_energy = 30000
+	var/recharge_rate = 1000
+	var/energy
 
-	New()
-		src.modules += new /obj/item/borg/sight/thermal(src)
-		src.modules += new /obj/item/weapon/gun/energy/laser/cyborg(src)
-		src.modules += new /obj/item/weapon/pickaxe/plasmacutter(src)
-		src.modules += new /obj/item/borg/combat/shield(src)
-		src.modules += new /obj/item/borg/combat/mobility(src)
-		src.modules += new /obj/item/weapon/wrench(src) //Is a combat android really going to be stopped by a chair?
-		src.emag = new /obj/item/weapon/gun/energy/lasercannon/cyborg(src)
-		return
+/datum/robot_energy_storage/New()
+	energy = max_energy
+	return
+
+/datum/robot_energy_storage/proc/use_charge(var/amount)
+	if (energy >= amount)
+		energy -= amount
+		if (energy == 0)
+			return 1
+		return 2
+	else
+		return 0
+
+/datum/robot_energy_storage/proc/add_charge(var/amount)
+	energy = min(energy + amount, max_energy)
+
+/datum/robot_energy_storage/metal
+	name = "Metal Synthesizer"
+
+/datum/robot_energy_storage/glass
+	name = "Glass Synthesizer"
+
+/datum/robot_energy_storage/wire
+	max_energy = 50
+	recharge_rate = 2
+	name = "Wire Synthesizer"

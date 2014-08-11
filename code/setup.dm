@@ -172,36 +172,39 @@ var/const/SLOT_DENYPOCKET 	= 4096 //this is to deny items with a w_class of 2 or
 //  (inv_flags & SLOT_BACK) if you see it anywhere.
 
 //To successfully stop you taking all pressure damage you must have both a suit and head item with this flag.
-var/const/STOPSPRESSUREDMAGE	= 1
-var/const/TABLEPASS				= 2 // can pass by a table or rack
+var/const/STOPS_PRESSURE_DAMAGE	= 1
+var/const/TABLE_PASS = 65536
+var/const/NO_DROP = 2			// This flag makes it so that an item literally cannot be removed at all, or at least that's how it should be. Only deleted.
+var/const/NO_BLUDGEON = 4		// when an item has this it produces no "X has been hit by Y with Z" message in the default attackby()
+var/const/ABSTRACT = 128
 
-var/const/MASKINTERNALS = 8	// mask allows internals
+var/const/MASK_INTERNALS = 8	// mask allows internals
 
-var/const/USEDELAY = 16		// 1 second extra delay on use (Can be used once every 2s)
-var/const/NODELAY = 32768	// 1 second attackby delay skipped (Can be used once every 0.2s). Most objects have a 1s attackby delay, which doesn't require a flag.
-var/const/NOSHIELD = 32		// weapon not affected by shield
+var/const/USE_DELAY = 16		// 1 second extra delay on use (Can be used once every 2s)
+var/const/NO_DELAY = 32768	// 1 second attackby delay skipped (Can be used once every 0.2s). Most objects have a 1s attackby delay, which doesn't require a flag.
+var/const/NO_SHIELD = 32		// weapon not affected by shield
 var/const/CONDUCT = 64		// conducts electricity (metal etc.)
 var/const/FPRINT = 256		// takes a fingerprint
 var/const/ON_BORDER = 512		// item has priority to check when entering or leaving
 
-var/const/GLASSESCOVERSEYES = 1024
-var/const/MASKCOVERSEYES = 1024		// get rid of some of the other retardation in these flags
-var/const/HEADCOVERSEYES = 1024		// feel free to realloc these numbers for other purposes
-var/const/MASKCOVERSMOUTH = 2048		// on other items, these are just for mask/head
-var/const/HEADCOVERSMOUTH = 2048
+var/const/GLASSES_COVERS_EYES = 1024
+var/const/MASK_COVERS_EYES = 1024		// get rid of some of the other retardation in these flags
+var/const/HEAD_COVERS_EYES = 1024		// feel free to realloc these numbers for other purposes
+var/const/MASK_COVERS_MOUTH = 2048		// on other items, these are just for mask/head
+var/const/HEAD_COVERS_MOUTH = 2048
 
-var/const/NOSLIP = 1024 		//prevents from slipping on wet floors, in space etc
+var/const/NO_SLIP = 1024 		//prevents from slipping on wet floors, in space etc
 
-var/const/OPENCONTAINER = 4096	// is an open container for chemistry purposes
+var/const/OPEN_CONTAINER = 4096	// is an open container for chemistry purposes
 
 var/const/BLOCK_GAS_SMOKE_EFFECT = 8192	// blocks the effect that chemical clouds would have on a mob --glasses, mask and helmets ONLY! (NOTE: flag shared with ONESIZEFITSALL)
-var/const/ONESIZEFITSALL = 8192
-var/const/PLASMAGUARD = 16384			//Does not get contaminated by plasma.
+var/const/ONE_SIZE_FITS_ALL = 8192
+var/const/PLASMA_GUARD = 16384			//Does not get contaminated by plasma.
 
-var/const/NOREACT = 16384 			//Reagents dont' react inside this container.
+var/const/NO_REACT = 16384 			//Reagents dont' react inside this container.
 
-var/const/BLOCKHEADHAIR = 4             // temporarily removes the user's hair overlay. Leaves facial hair.
-var/const/BLOCKHAIR = 32768			// temporarily removes the user's hair, facial and otherwise.
+var/const/BLOCK_HEAD_HAIR = 4             // temporarily removes the user's hair overlay. Leaves facial hair.
+var/const/BLOCK_HAIR = 32768			// temporarily removes the user's hair, facial and otherwise.
 
 //flags for pass_flags
 var/const/PASSTABLE = 1

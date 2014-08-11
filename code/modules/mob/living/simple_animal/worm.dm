@@ -12,7 +12,7 @@
 
 	response_help  = "touches"
 	response_disarm = "flails at"
-	response_harm   = "punches the"
+	response_harm   = "punches"
 
 	harm_intent_damage = 2
 
@@ -96,7 +96,7 @@
 
 		return
 
-	Del() //if a chunk a destroyed, make a new worm out of the split halves
+	Delete() //if a chunk a destroyed, make a new worm out of the split halves
 		if(previous)
 			previous.Detach()
 		..()

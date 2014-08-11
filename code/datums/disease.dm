@@ -1,13 +1,13 @@
-var/const/SPECIAL = -1
-var/const/NON_CONTAGIOUS = 0
-var/const/BLOOD = 1
-var/const/CONTACT_FEET = 2
-var/const/CONTACT_HANDS = 3
-var/const/CONTACT_GENERAL = 4
-var/const/AIRBORNE = 5
+#define SPECIAL -1
+#define NON_CONTAGIOUS 0
+#define BLOOD 1
+#define CONTACT_FEET 2
+#define CONTACT_HANDS 3
+#define CONTACT_GENERAL 4
+#define AIRBORNE 5
 
-var/const/SCANNER = 1
-var/const/PANDEMIC = 2
+#define SCANNER 1
+#define PANDEMIC 2
 
 /*
 
@@ -18,6 +18,7 @@ to null does not delete the object itself. Thank you.
 */
 
 var/list/diseases = typesof(/datum/disease) - /datum/disease
+
 
 /datum/disease
 	var/form = "Virus" //During medscans, what the disease is referred to as
@@ -46,13 +47,13 @@ var/list/diseases = typesof(/datum/disease) - /datum/disease
 	var/longevity = 150//time in "ticks" the virus stays in inanimate object (blood stains, corpses, etc). In syringes, bottles and beakers it stays infinitely.
 	var/list/hidden = list(0, 0)
 	var/can_carry = 1 // If the disease allows "carriers".
-	var/age = 0 // age of the disease in the current mob
-	var/stage_minimum_age = 0 // how old the disease must be to advance per stage
 	// if hidden[1] is true, then virus is hidden from medical scanners
 	// if hidden[2] is true, then virus is hidden from PANDEMIC machine
+	var/requires = 0
+	var/list/required_limb = list()
+
 
 /datum/disease/proc/stage_act()
-	age++
 	var/cure_present = has_cure()
 	//world << "[cure_present]"
 
@@ -61,12 +62,12 @@ var/list/diseases = typesof(/datum/disease) - /datum/disease
 		return
 
 	spread = (cure_present?"Remissive":initial_spread)
+
 	if(stage > max_stages)
 		stage = max_stages
 
-	if(!cure_present && prob(stage_prob) && age > stage_minimum_age) //now the disease shouldn't get back up to stage 4 in no time
+	if(!cure_present && prob(stage_prob)) //now the disease shouldn't get back up to stage 4 in no time
 		stage = min(stage + 1, max_stages)
-		age = 0
 
 	else if(cure_present && prob(cure_chance))
 		stage = max(stage - 1, 1)
@@ -142,8 +143,9 @@ var/list/diseases = typesof(/datum/disease) - /datum/disease
 
 
 /datum/disease/proc/process()
+
 	if(!holder)
-		activeDiseases -= src
+		active_diseases -= src
 		return
 	if(prob(65))
 		spread(holder)
@@ -152,7 +154,7 @@ var/list/diseases = typesof(/datum/disease) - /datum/disease
 		for(var/datum/disease/D in affected_mob.viruses)
 			if(D != src)
 				if(IsSame(D))
-					//error("Deleting [D.name] because it's the same as [src.name].")
+					//ERROR("Deleting [D.name] because it's the same as [src.name].")
 					del(D) // if there are somehow two viruses of the same kind in the system, delete the other one
 
 	if(holder == affected_mob)
@@ -173,19 +175,23 @@ var/list/diseases = typesof(/datum/disease) - /datum/disease
 /datum/disease/proc/cure(var/resistance=1)//if resistance = 0, the mob won't develop resistance to disease
 	if(affected_mob)
 		if(resistance && !(type in affected_mob.resistances))
-			var/saved_type = "[type]"
-			affected_mob.resistances += text2path(saved_type)
-		/*if(istype(src, /datum/disease/alien_embryo))	//Get rid of the infection flag if it's a xeno embryo.
-			affected_mob.status_flags &= ~(XENO_HOST)*/
+			affected_mob.resistances += type
 		affected_mob.viruses -= src		//remove the datum from the list
 	del(src)	//delete the datum to stop it processing
 	return
 
 
 /datum/disease/New(var/process=1, var/datum/disease/D)//process = 1 - adding the object to global list. List is processed by master controller.
+	if(requires == 1)
+		if(ishuman(affected_mob))
+			var/mob/living/carbon/human/H = affected_mob
+			if(!H.getlimb(required_limb))
+				cure(1)
+				return
+
 	cure_list = list(cure_id) // to add more cures, add more vars to this list in the actual disease's New()
 	if(process)				 // Viruses in list are considered active.
-		activeDiseases += src
+		active_diseases += src
 	initial_spread = spread
 
 /datum/disease/proc/IsSame(var/datum/disease/D)
@@ -196,7 +202,9 @@ var/list/diseases = typesof(/datum/disease) - /datum/disease
 /datum/disease/proc/Copy(var/process = 0)
 	return new type(process, src)
 
+/datum/disease/proc/GetDiseaseID()
+	return src.type
 /*
 /datum/disease/Del()
-	activeDiseases.Remove(src)
+	active_diseases.Remove(src)
 */

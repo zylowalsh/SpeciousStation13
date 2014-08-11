@@ -4,7 +4,7 @@
 	icon = 'icons/obj/gun.dmi'
 	icon_state = "detective"
 	item_state = "gun"
-	flags =  FPRINT | TABLEPASS | CONDUCT |  USEDELAY
+	flags =  FPRINT | TABLE_PASS | CONDUCT |  USE_DELAY
 	slot_flags = SLOT_BELT
 	m_amt = 2000
 	w_class = 3.0
@@ -51,12 +51,12 @@
 			O.emp_act(severity)
 
 /obj/item/weapon/gun/afterattack(atom/A as mob|obj|turf|area, mob/living/user as mob|obj, flag, params)
-	if(flag)	return //we're placing gun on a table or in backpack
-	if(istype(target, /obj/machinery/recharger) && istype(src, /obj/item/weapon/gun/energy))	return//Shouldnt flag take care of this?
-	if(user && user.client && user.client.gun_mode && !(A in target))
-		PreFire(A,user,params) //They're using the new gun system, locate what they're aiming at.
-	else
-		Fire(A,user,params) //Otherwise, fire normally.
+	if(flag) //we're placing gun on a table or in backpack
+		if(istype(target, /obj/machinery/recharger) && istype(src, /obj/item/weapon/gun/energy)) //Shouldnt flag take care of this?
+			//if(user && user.client && user.client.gun_mode && !(A in target))
+			//	PreFire(A,user,params) //They're using the new gun system, locate what they're aiming at.
+			//else
+			Fire(A,user,params) //Otherwise, fire normally.
 
 /obj/item/weapon/gun/proc/isHandgun()
 	return 1

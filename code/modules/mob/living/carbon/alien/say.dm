@@ -9,7 +9,7 @@
 		return
 
 	if (length(message) >= 2)
-		if (department_radio_keys[copytext(message, 1, 3)] == "alientalk")
+		if (copytext(message, 1, 3) == ":a" || copytext(message, 1, 3) == "#a" || copytext(message, 1, 3) == ".a" )
 			message = copytext(message, 3)
 			message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
 			if (stat == 2)
@@ -19,7 +19,7 @@
 		else
 			if (copytext(message, 1, 2) != "*" && !stat)
 				playsound(loc, "hiss", 25, 1, 1)//So aliens can hiss while they hiss yo/N
-			return ..(message)
+			return ..(message, "A")
 	else
 
 // ~lol~

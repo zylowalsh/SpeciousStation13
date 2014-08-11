@@ -122,7 +122,7 @@
 	icon = 'icons/obj/gun.dmi'
 	icon_state = "revolver"
 	item_state = "gun"
-	flags =  FPRINT | TABLEPASS | CONDUCT | USEDELAY
+	flags =  FPRINT | TABLE_PASS | CONDUCT | USE_DELAY
 	slot_flags = SLOT_BELT
 	w_class = 3.0
 	g_amt = 10
@@ -179,7 +179,7 @@
 	desc = "There are 7 caps left! Make sure to recyle the box in an autolathe when it gets empty."
 	icon = 'icons/obj/ammo.dmi'
 	icon_state = "357-7"
-	flags = FPRINT | TABLEPASS| CONDUCT
+	flags = FPRINT | TABLE_PASS| CONDUCT
 	w_class = 1.0
 	g_amt = 10
 	m_amt = 10
@@ -200,7 +200,7 @@
 	icon = 'icons/obj/gun.dmi'
 	icon_state = "crossbow"
 	item_state = "crossbow"
-	flags = FPRINT | TABLEPASS | USEDELAY
+	flags = FPRINT | TABLE_PASS | USE_DELAY
 	w_class = 2.0
 	attack_verb = list("attacked", "struck", "hit")
 	var/bullets = 5
@@ -296,7 +296,7 @@
 	desc = "Its nerf or nothing! Ages 8 and up."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "foamdart"
-	flags = FPRINT | TABLEPASS
+	flags = FPRINT | TABLE_PASS
 	w_class = 1.0
 
 /obj/effect/foam_dart_dummy
@@ -319,7 +319,7 @@
 	item_state = "sword0"
 	var/active = 0.0
 	w_class = 2.0
-	flags = FPRINT | TABLEPASS | NOSHIELD
+	flags = FPRINT | TABLE_PASS | NO_SHIELD
 	attack_verb = list("attacked", "struck", "hit")
 
 	attack_self(mob/user as mob)
@@ -345,7 +345,7 @@
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "katana"
 	item_state = "katana"
-	flags = FPRINT | TABLEPASS | CONDUCT
+	flags = FPRINT | TABLE_PASS | CONDUCT
 	slot_flags = SLOT_BELT | SLOT_BACK
 	force = 5
 	throwforce = 5
@@ -417,7 +417,7 @@
 	icon_state = "sunflower"
 	item_state = "sunflower"
 	var/empty = 0
-	flags =  USEDELAY
+	flags =  USE_DELAY
 
 /obj/item/toy/waterflower/New()
 	var/datum/reagents/R = new/datum/reagents(10)
@@ -563,7 +563,7 @@
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "katana"
 	item_state = "katana"
-	flags = FPRINT | TABLEPASS | CONDUCT
+	flags = FPRINT | TABLE_PASS | CONDUCT
 	slot_flags = SLOT_BELT | SLOT_BACK
 	force = 5
 	throwforce = 5

@@ -16,46 +16,45 @@
 	from doing this unless you absolutely know what you are doing, and have defined a
 	conversion in savefile.dm
 */
+/proc/init_sprite_accessory_subtypes(prototype, list/L, list/male, list/female)
+	if(!istype(L))		L = list()
+	if(!istype(male))	male = list()
+	if(!istype(female))	female = list()
+
+	for(var/path in typesof(prototype))
+		if(path == prototype)	continue
+		var/datum/sprite_accessory/D = new path()
+
+		if(D.icon_state)	L[D.name] = D
+		else				L += D.name
+
+		switch(D.gender)
+			if(MALE)	male += D.name
+			if(FEMALE)	female += D.name
+			else
+				male += D.name
+				female += D.name
+	return L
 
 /datum/sprite_accessory
+	var/icon			//the icon file the accessory is located in
+	var/icon_state		//the icon_state of the accessory
+	var/name			//the preview name of the accessory
+	var/gender = NEUTER	//Determines if the accessory will be skipped or included in random hair generations
 
-	var/icon			// the icon file the accessory is located in
-	var/icon_state		// the icon_state of the accessory
-	var/preview_state	// a custom preview state for whatever reason
-
-	var/name			// the preview name of the accessory
-
-	// Determines if the accessory will be skipped or included in random hair generations
-	var/gender = NEUTER
-
-	// Restrict some styles to specific species
-	var/list/species_allowed = list("Human")
-
-	// Whether or not the accessory can be affected by colouration
-	var/do_colouration = 1
-
-
-/*
-////////////////////////////
-/  =--------------------=  /
-/  == Hair Definitions ==  /
-/  =--------------------=  /
-////////////////////////////
-*/
-
+//////////////////////
+// Hair Definitions //
+//////////////////////
 /datum/sprite_accessory/hair
-
-	icon = 'icons/mob/Human_face.dmi'	  // default icon for all hairs
-
-	bald
-		name = "Bald"
-		icon_state = "bald"
-		gender = MALE
-		species_allowed = list("Human","Unathi")
+	icon = 'icons/mob/human_face.dmi'	  // default icon for all hairs
 
 	short
 		name = "Short Hair"	  // try to capatilize the names please~
 		icon_state = "hair_a" // you do not need to define _s or _l sub-states, game automatically does this for you
+
+	shorthair2
+		name = "Short Hair 2"
+		icon_state = "hair_shorthair2"
 
 	cut
 		name = "Cut Hair"
@@ -65,25 +64,21 @@
 		name = "Shoulder-length Hair"
 		icon_state = "hair_b"
 
-	longalt
-		name = "Shoulder-length Hair Alt"
-		icon_state = "hair_longfringe"
-
-	/*longish
-		name = "Longer Hair"
-		icon_state = "hair_b2"*/
-
 	longer
 		name = "Long Hair"
 		icon_state = "hair_vlong"
 
-	longeralt
-		name = "Long Hair Alt"
-		icon_state = "hair_vlongfringe"
+	long_over_eye
+		name = "Over eye"
+		icon_state = "hair_longovereye"
 
 	longest
 		name = "Very Long Hair"
 		icon_state = "hair_longest"
+
+	longest2
+		name = "Very Long Over Eye"
+		icon_state = "hair_longest2"
 
 	longfringe
 		name = "Long Fringe"
@@ -92,6 +87,10 @@
 	longestalt
 		name = "Longer Fringe"
 		icon_state = "hair_vlongfringe"
+
+	gentle
+		name = "Gentle"
+		icon_state = "hair_gentle"
 
 	halfbang
 		name = "Half-banged Hair"
@@ -108,11 +107,30 @@
 	ponytail2
 		name = "Ponytail 2"
 		icon_state = "hair_pa"
-		gender = FEMALE
 
 	ponytail3
 		name = "Ponytail 3"
 		icon_state = "hair_ponytail3"
+
+	side_tail
+		name = "Side Pony"
+		icon_state = "hair_sidetail"
+
+	side_tail2
+		name = "Side Pony 2"
+		icon_state = "hair_sidetail2"
+
+	side_tail3
+		name = "Side Pony 3"
+		icon_state = "hair_stail"
+
+	oneshoulder
+		name = "One Shoulder"
+		icon_state = "hair_oneshoulder"
+
+	tressshoulder
+		name = "Tress Shoulder"
+		icon_state = "hair_tressshoulder"
 
 	parted
 		name = "Parted"
@@ -121,13 +139,10 @@
 	pompadour
 		name = "Pompadour"
 		icon_state = "hair_pompadour"
-		gender = MALE
-		species_allowed = list("Human","Unathi")
 
 	quiff
 		name = "Quiff"
 		icon_state = "hair_quiff"
-		gender = MALE
 
 	bedhead
 		name = "Bedhead"
@@ -141,44 +156,37 @@
 		name = "Bedhead 3"
 		icon_state = "hair_bedheadv3"
 
+	messy
+		name = "Messy"
+		icon_state = "hair_messy"
+
 	beehive
 		name = "Beehive"
 		icon_state = "hair_beehive"
-		gender = FEMALE
-		species_allowed = list("Human","Unathi")
 
 	bobcurl
 		name = "Bobcurl"
 		icon_state = "hair_bobcurl"
-		gender = FEMALE
-		species_allowed = list("Human","Unathi")
 
 	bob
 		name = "Bob"
 		icon_state = "hair_bobcut"
-		gender = FEMALE
-		species_allowed = list("Human","Unathi")
 
 	bowl
 		name = "Bowl"
 		icon_state = "hair_bowlcut"
-		gender = MALE
 
 	buzz
 		name = "Buzzcut"
 		icon_state = "hair_buzzcut"
-		gender = MALE
-		species_allowed = list("Human","Unathi")
 
 	crew
 		name = "Crewcut"
 		icon_state = "hair_crewcut"
-		gender = MALE
 
 	combover
 		name = "Combover"
 		icon_state = "hair_combover"
-		gender = MALE
 
 	devillock
 		name = "Devil Lock"
@@ -203,12 +211,10 @@
 	afro_large
 		name = "Big Afro"
 		icon_state = "hair_bigafro"
-		gender = MALE
 
 	sargeant
 		name = "Flat Top"
 		icon_state = "hair_sargeant"
-		gender = MALE
 
 	emo
 		name = "Emo"
@@ -225,26 +231,27 @@
 	hitop
 		name = "Hitop"
 		icon_state = "hair_hitop"
-		gender = MALE
 
 	mohawk
 		name = "Mohawk"
 		icon_state = "hair_d"
-		species_allowed = list("Human","Unathi")
+
 	jensen
 		name = "Adam Jensen Hair"
 		icon_state = "hair_jensen"
-		gender = MALE
 
 	gelled
 		name = "Gelled Back"
 		icon_state = "hair_gelled"
-		gender = FEMALE
 
 	spiky
 		name = "Spiky"
 		icon_state = "hair_spikey"
-		species_allowed = list("Human","Unathi")
+
+	protagonist
+		name = "Slightly long"
+		icon_state = "hair_protagonist"
+
 	kusangi
 		name = "Kusanagi Hair"
 		icon_state = "hair_kusanagi"
@@ -252,64 +259,86 @@
 	kagami
 		name = "Pigtails"
 		icon_state = "hair_kagami"
-		gender = FEMALE
 
 	himecut
 		name = "Hime Cut"
 		icon_state = "hair_himecut"
-		gender = FEMALE
+
+	antenna
+		name = "Ahoge"
+		icon_state = "hair_antenna"
+
+	pigtail
+		name = "Pig tails"
+		icon_state = "hair_pigtails"
+
+	front_braid
+		name = "Braided front"
+		icon_state = "hair_braidfront"
+
+	lowbraid
+		name = "Low Braid"
+		icon_state = "hair_hbraid"
+
+	not_floorlength_braid
+		name = "High Braid"
+		icon_state = "hair_braid2"
 
 	braid
 		name = "Floorlength Braid"
 		icon_state = "hair_braid"
-		gender = FEMALE
 
 	odango
 		name = "Odango"
 		icon_state = "hair_odango"
-		gender = FEMALE
 
 	ombre
 		name = "Ombre"
 		icon_state = "hair_ombre"
-		gender = FEMALE
 
 	updo
 		name = "Updo"
 		icon_state = "hair_updo"
-		gender = FEMALE
 
 	skinhead
 		name = "Skinhead"
 		icon_state = "hair_skinhead"
 
+	longbangs
+		name = "Long Bangs"
+		icon_state = "hair_lbangs"
+
 	balding
 		name = "Balding Hair"
 		icon_state = "hair_e"
-		gender = MALE // turnoff!
-
 
 	bald
 		name = "Bald"
-		icon_state = "bald"
-/*
-///////////////////////////////////
-/  =---------------------------=  /
-/  == Facial Hair Definitions ==  /
-/  =---------------------------=  /
-///////////////////////////////////
-*/
+		icon_state = null
 
+	parted
+		name = "Side Part"
+		icon_state = "hair_part"
+
+	braided
+		name = "Braided"
+		icon_state = "hair_braided"
+
+	bun
+		name = "Bun Head"
+		icon_state = "hair_bun"
+
+/////////////////////////////
+// Facial Hair Definitions //
+/////////////////////////////
 /datum/sprite_accessory/facial_hair
-
-	icon = 'icons/mob/Human_face.dmi'
-	gender = MALE // barf (unless you're a dorf, dorfs dig chix /w beards :P)
+	icon = 'icons/mob/human_face.dmi'
+	gender = MALE // barf (unless you're a dorf, dorfs dig chix w/ beards :P)
 
 	shaved
 		name = "Shaved"
-		icon_state = "bald"
+		icon_state = null
 		gender = NEUTER
-		species_allowed = list("Human","Unathi","Tajaran","Skrell","Vox")
 
 	watson
 		name = "Watson Mustache"
@@ -350,7 +379,6 @@
 	elvis
 		name = "Elvis Sideburns"
 		icon_state = "facial_elvis"
-		species_allowed = list("Human","Unathi")
 
 	abe
 		name = "Abraham Lincoln Beard"
@@ -376,221 +404,141 @@
 		name = "Dwarf Beard"
 		icon_state = "facial_dwarf"
 
-/*
-///////////////////////////////////
-/  =---------------------------=  /
-/  == Alien Style Definitions ==  /
-/  =---------------------------=  /
-///////////////////////////////////
-*/
+	fiveoclock
+		name = "Five o Clock Shadow"
+		icon_state = "facial_fiveoclock"
 
-/datum/sprite_accessory/hair
-	una_spines_long
-		name = "Long Unathi Spines"
-		icon_state = "soghun_longspines"
-		species_allowed = list("Unathi")
-		do_colouration = 0
+	fu
+		name = "Fu Manchu"
+		icon_state = "facial_fumanchu"
 
-	una_spines_short
-		name = "Short Unathi Spines"
-		icon_state = "soghun_shortspines"
-		species_allowed = list("Unathi")
-		do_colouration = 0
+///////////////////////////
+// Underwear Definitions //
+///////////////////////////
+/datum/sprite_accessory/underwear
+	icon = 'icons/mob/underwear.dmi'
 
-	una_frills_long
-		name = "Long Unathi Frills"
-		icon_state = "soghun_longfrills"
-		species_allowed = list("Unathi")
-		do_colouration = 0
+	nude
+		name = "Nude"
+		icon_state = null
+		gender = NEUTER
 
-	una_frills_short
-		name = "Short Unathi Frills"
-		icon_state = "soghun_shortfrill"
-		species_allowed = list("Unathi")
-		do_colouration = 0
-
-	una_horns
-		name = "Unathi Horns"
-		icon_state = "soghun_horns"
-		species_allowed = list("Unathi")
-		do_colouration = 0
-
-	skr_tentacle_m
-		name = "Skrell Male Tentacles"
-		icon_state = "skrell_hair_m"
-		species_allowed = list("Skrell")
+	male_white
+		name = "Mens White"
+		icon_state = "male_white"
 		gender = MALE
-		do_colouration = 0
 
-	skr_tentacle_f
-		name = "Skrell Female Tentacles"
-		icon_state = "skrell_hair_f"
-		species_allowed = list("Skrell")
-		gender = FEMALE
-		do_colouration = 0
-
-	skr_gold_m
-		name = "Gold plated Skrell Male Tentacles"
-		icon_state = "skrell_goldhair_m"
-		species_allowed = list("Skrell")
+	male_grey
+		name = "Mens Grey"
+		icon_state = "male_grey"
 		gender = MALE
-		do_colouration = 0
 
-	skr_gold_f
-		name = "Gold chained Skrell Female Tentacles"
-		icon_state = "skrell_goldhair_f"
-		species_allowed = list("Skrell")
-		gender = FEMALE
-		do_colouration = 0
-
-	skr_clothtentacle_m
-		name = "Cloth draped Skrell Male Tentacles"
-		icon_state = "skrell_clothhair_m"
-		species_allowed = list("Skrell")
+	male_green
+		name = "Mens Green"
+		icon_state = "male_green"
 		gender = MALE
-		do_colouration = 0
 
-	skr_clothtentacle_f
-		name = "Cloth draped Skrell Female Tentacles"
-		icon_state = "skrell_clothhair_f"
-		species_allowed = list("Skrell")
+	male_blue
+		name = "Mens Blue"
+		icon_state = "male_blue"
+		gender = MALE
+
+	male_black
+		name = "Mens Black"
+		icon_state = "male_black"
+		gender = MALE
+
+	male_mankini
+		name = "Mankini"
+		icon_state = "male_mankini"
+		gender = MALE
+
+	male_hearts
+		name = "Mens Hearts Boxer"
+		icon_state = "male_hearts"
+		gender = MALE
+
+	male_blackalt
+		name = "Mens Black Boxer"
+		icon_state = "male_blackalt"
+		gender = MALE
+
+	male_greyalt
+		name = "Mens Grey Boxer"
+		icon_state = "male_greyalt"
+		gender = MALE
+
+	male_stripe
+		name = "Mens Striped Boxer"
+		icon_state = "male_stripe"
+		gender = MALE
+
+	male_kinky
+		name = "Mens Kinky"
+		icon_state = "male_kinky"
+		gender = MALE
+
+	male_red
+		name = "Mens Red"
+		icon_state = "male_red"
+		gender = MALE
+
+	female_red
+		name = "Ladies Red"
+		icon_state = "female_red"
 		gender = FEMALE
-		do_colouration = 0
 
-	taj_ears
-		name = "Tajaran Ears"
-		icon_state = "ears_plain"
-		species_allowed = list("Tajaran")
-		do_colouration = 0
+	female_white
+		name = "Ladies White"
+		icon_state = "female_white"
+		gender = FEMALE
 
-	taj_ears_clean
-		name = "Tajara Clean"
-		icon_state = "hair_clean"
-		species_allowed = list("Tajaran")
-		do_colouration = 0
+	female_yellow
+		name = "Ladies Yellow"
+		icon_state = "female_yellow"
+		gender = FEMALE
 
-	taj_ears_shaggy
-		name = "Tajara Shaggy"
-		icon_state = "hair_shaggy"
-		species_allowed = list("Tajaran")
-		do_colouration = 0
+	female_blue
+		name = "Ladies Blue"
+		icon_state = "female_blue"
+		gender = FEMALE
 
-	taj_ears_mohawk
-		name = "Tajaran Mohawk"
-		icon_state = "hair_mohawk"
-		species_allowed = list("Tajaran")
-		do_colouration = 0
+	female_black
+		name = "Ladies Black"
+		icon_state = "female_black"
+		gender = FEMALE
 
-	taj_ears_plait
-		name = "Tajara Plait"
-		icon_state = "hair_plait"
-		species_allowed = list("Tajaran")
-		do_colouration = 0
+	female_thong
+		name = "Ladies Thong"
+		icon_state = "female_thong"
+		gender = FEMALE
 
-	taj_ears_straight
-		name = "Tajara Straight"
-		icon_state = "hair_straight"
-		species_allowed = list("Tajaran")
-		do_colouration = 0
+	female_babydoll
+		name = "Babydoll"
+		icon_state = "female_babydoll"
+		gender = FEMALE
 
-	taj_ears_long
-		name = "Tajara Long"
-		icon_state = "hair_long"
-		species_allowed = list("Tajaran")
-		do_colouration = 0
+	female_babyblue
+		name = "Ladies Baby-Blue"
+		icon_state = "female_babyblue"
+		gender = FEMALE
 
-	taj_ears_rattail
-		name = "Tajara Rat Tail"
-		icon_state = "hair_rattail"
-		species_allowed = list("Tajaran")
-		do_colouration = 0
+	female_green
+		name = "Ladies Green"
+		icon_state = "female_green"
+		gender = FEMALE
 
-	taj_ears_spiky
-		name = "Tajara Spiky"
-		icon_state = "hair_tajspiky"
-		species_allowed = list("Tajaran")
-		do_colouration = 0
+	female_pink
+		name = "Ladies Pink"
+		icon_state = "female_pink"
+		gender = FEMALE
 
-	taj_ears_messy
-		name = "Tajara Messy"
-		icon_state = "hair_messy"
-		species_allowed = list("Tajaran")
-		do_colouration = 0
+	female_kinky
+		name = "Ladies Kinky"
+		icon_state = "female_kinky"
+		gender = FEMALE
 
-	vox_quills_short
-		name = "Short Vox Quills"
-		icon_state = "vox_shortquills"
-		species_allowed = list("Vox")
-		do_colouration = 0
-
-/datum/sprite_accessory/facial_hair
-
-	taj_sideburns
-		name = "Tajara Sideburns"
-		icon_state = "facial_mutton"
-		species_allowed = list("Tajaran")
-		do_colouration = 0
-
-	taj_mutton
-		name = "Tajara Mutton"
-		icon_state = "facial_mutton"
-		species_allowed = list("Tajaran")
-		do_colouration = 0
-
-	taj_pencilstache
-		name = "Tajara Pencilstache"
-		icon_state = "facial_pencilstache"
-		species_allowed = list("Tajaran")
-		do_colouration = 0
-
-	taj_moustache
-		name = "Tajara Moustache"
-		icon_state = "facial_moustache"
-		species_allowed = list("Tajaran")
-		do_colouration = 0
-
-	taj_goatee
-		name = "Tajara Goatee"
-		icon_state = "facial_goatee"
-		species_allowed = list("Tajaran")
-		do_colouration = 0
-
-	taj_smallstache
-		name = "Tajara Smallsatche"
-		icon_state = "facial_smallstache"
-		species_allowed = list("Tajaran")
-		do_colouration = 0
-
-//skin styles - WIP
-//going to have to re-integrate this with surgery
-//let the icon_state hold an icon preview for now
-/datum/sprite_accessory/skin
-	icon = 'icons/mob/human_races/r_human.dmi'
-
-	human
-		name = "Default human skin"
-		icon_state = "default"
-		species_allowed = list("Human")
-
-	human_tatt01
-		name = "Tatt01 human skin"
-		icon_state = "tatt1"
-		species_allowed = list("Human")
-
-	tajaran
-		name = "Default tajaran skin"
-		icon_state = "default"
-		icon = 'icons/mob/human_races/r_tajaran.dmi'
-		species_allowed = list("Tajaran")
-
-	unathi
-		name = "Default Unathi skin"
-		icon_state = "default"
-		icon = 'icons/mob/human_races/r_lizard.dmi'
-		species_allowed = list("Unathi")
-
-	skrell
-		name = "Default skrell skin"
-		icon_state = "default"
-		icon = 'icons/mob/human_races/r_skrell.dmi'
-		species_allowed = list("Skrell")
+	female_tankini
+		name = "Tankini"
+		icon_state = "female_tankini"
+		gender = FEMALE

@@ -10,7 +10,7 @@
 	var/burning = null
 	var/hitsound = null
 	var/w_class = 3.0
-	flags = FPRINT | TABLEPASS
+	flags = FPRINT | TABLE_PASS
 	var/slot_flags = 0		//This is used to determine on which slots an item can fit.
 	pass_flags = PASSTABLE
 	pressure_resistance = 5
@@ -623,7 +623,7 @@
 
 	var/mob/living/carbon/human/H = M
 	if(istype(H) && ( \
-			(H.head && H.head.flags & HEADCOVERSEYES) || \
+			(H.head && H.head.flags & HEAD_COVERS_EYES) || \
 			(H.wear_mask && H.wear_mask.flags & MASKCOVERSEYES) || \
 			(H.glasses && H.glasses.flags & GLASSESCOVERSEYES) \
 		))

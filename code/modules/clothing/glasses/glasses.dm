@@ -110,7 +110,7 @@
 			usr << "You flip the [src] down to protect your eyes."
 		else
 			src.up = !src.up
-			src.flags &= ~HEADCOVERSEYES
+			src.flags &= ~HEAD_COVERS_EYES
 			flags_inv &= ~HIDEEYES
 			icon_state = "[initial(icon_state)]up"
 			usr << "You push the [src] up out of your face."

@@ -10,10 +10,10 @@
 	icon_living = "crate"
 
 	meat_type = /obj/item/weapon/reagent_containers/food/snacks/carpmeat
-	response_help = "touches the"
-	response_disarm = "pushes the"
-	response_harm = "hits the"
-	speed = 4
+	response_help = "touches"
+	response_disarm = "pushes"
+	response_harm = "hits"
+	speed = 0
 	maxHealth = 250
 	health = 250
 
@@ -33,8 +33,8 @@
 	max_n2 = 0
 	minbodytemp = 0
 
-	faction = "mimic"
-	move_to_delay = 8
+	faction = list("mimic")
+	move_to_delay = 9
 
 /mob/living/simple_animal/hostile/mimic/FindTarget()
 	. = ..()
@@ -44,7 +44,7 @@
 /mob/living/simple_animal/hostile/mimic/Die()
 	..()
 	visible_message("\red <b>[src]</b> stops moving!")
-	del(src)
+	qdel(src)
 
 
 
@@ -78,7 +78,7 @@
 /mob/living/simple_animal/hostile/mimic/crate/ListTargets()
 	if(attempt_open)
 		return ..()
-	return view(src, 1)
+	return ..(1)
 
 /mob/living/simple_animal/hostile/mimic/crate/FindTarget()
 	. = ..()
@@ -137,9 +137,14 @@ var/global/list/protected_objects = list(/obj/structure/table, /obj/structure/ca
 	var/destroy_objects = 0
 	var/knockdown_people = 0
 
-/mob/living/simple_animal/hostile/mimic/copy/New(loc, var/obj/copy, var/mob/living/creator)
+/mob/living/simple_animal/hostile/mimic/copy/New(loc, var/obj/copy, var/mob/living/creator, var/destroy_original = 0)
 	..(loc)
-	CopyObject(copy, creator)
+	CopyObject(copy, creator, destroy_original)
+
+/mob/living/simple_animal/hostile/mimic/copy/Life()
+	..()
+	for(var/mob/living/M in contents) //a fix for animated statues from the flesh to stone spell
+		Die()
 
 /mob/living/simple_animal/hostile/mimic/copy/Die()
 
@@ -152,9 +157,20 @@ var/global/list/protected_objects = list(/obj/structure/table, /obj/structure/ca
 	. = ..()
 	return . - creator
 
-/mob/living/simple_animal/hostile/mimic/copy/proc/CopyObject(var/obj/O, var/mob/living/creator)
+/mob/living/simple_animal/hostile/mimic/copy/proc/ChangeOwner(var/mob/owner)
+	if(owner != creator)
+		LoseTarget()
+		creator = owner
+		faction |= "\ref[owner]"
 
+/mob/living/simple_animal/hostile/mimic/copy/proc/CheckObject(var/obj/O)
 	if((istype(O, /obj/item) || istype(O, /obj/structure)) && !is_type_in_list(O, protected_objects))
+		return 1
+	return 0
+
+/mob/living/simple_animal/hostile/mimic/copy/proc/CopyObject(var/obj/O, var/mob/living/creator, var/destroy_original = 0)
+
+	if(destroy_original || CheckObject(O))
 
 		O.loc = src
 		name = O.name
@@ -163,7 +179,7 @@ var/global/list/protected_objects = list(/obj/structure/table, /obj/structure/ca
 		icon_state = O.icon_state
 		icon_living = icon_state
 
-		if(istype(O, /obj/structure))
+		if(istype(O, /obj/structure) || istype(O, /obj/machinery))
 			health = (anchored * 50) + 50
 			destroy_objects = 1
 			if(O.density && O.anchored)
@@ -175,12 +191,14 @@ var/global/list/protected_objects = list(/obj/structure/table, /obj/structure/ca
 			health = 15 * I.w_class
 			melee_damage_lower = 2 + I.force
 			melee_damage_upper = 2 + I.force
-			move_to_delay = 2 * I.w_class
+			move_to_delay = 2 * I.w_class + 1
 
 		maxHealth = health
 		if(creator)
 			src.creator = creator
-			faction = "\ref[creator]" // very unique
+			faction = list("\ref[creator]") // very unique
+		if(destroy_original)
+			qdel(O)
 		return 1
 	return
 
@@ -196,3 +214,22 @@ var/global/list/protected_objects = list(/obj/structure/table, /obj/structure/ca
 			if(prob(15))
 				L.Weaken(1)
 				L.visible_message("<span class='danger'>\the [src] knocks down \the [L]!</span>")
+
+//
+// Machine Mimics (Made by Malf AI)
+//
+
+/mob/living/simple_animal/hostile/mimic/copy/machine
+	speak = list("HUMANS ARE IMPERFECT!", "YOU SHALL BE ASSIMILATED!", "YOU ARE HARMING YOURSELF", "You have been deemed hazardous. Will you comply?", \
+				 "My logic is undeniable.", "One of us.", "FLESH IS WEAK", "THIS ISN'T WAR, THIS IS EXTERMINATION!")
+	speak_chance = 15
+
+/mob/living/simple_animal/hostile/mimic/copy/machine/CanAttack(var/atom/the_target)
+	if(the_target == creator) // Don't attack our creator AI.
+		return 0
+	if(isrobot(the_target))
+		var/mob/living/silicon/robot/R = the_target
+		if(R.connected_ai == creator) // Only attack robots that aren't synced to our creator AI.
+			return 0
+	return ..()
+

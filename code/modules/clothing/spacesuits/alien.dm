@@ -65,7 +65,7 @@
 	item_state = "vox-carapace"
 	desc = "A glowing visor, perhaps stolen from a depressed Cylon."
 	armor = list(melee = 60, bullet = 50, laser = 30, energy = 15, bomb = 30, bio = 30, rad = 30)
-	flags = HEADCOVERSEYES|STOPSPRESSUREDMAGE
+	flags = HEAD_COVERS_EYES|STOPSPRESSUREDMAGE
 
 /obj/item/clothing/suit/space/vox/carapace
 	name = "alien carapace armour"
@@ -137,11 +137,11 @@
 		if(usr.stat)
 			return
 		if(src.magpulse)
-			src.flags &= ~NOSLIP
+			src.flags &= ~NO_SLIP
 			src.magpulse = 0
 			usr << "You relax your deathgrip on the flooring."
 		else
-			src.flags |= NOSLIP
+			src.flags |= NO_SLIP
 			src.magpulse = 1
 			usr << "You dig your claws deeply into the flooring, bracing yourself."
 

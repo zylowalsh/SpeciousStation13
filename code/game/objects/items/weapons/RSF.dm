@@ -13,7 +13,7 @@ RSF
 	anchored = 0.0
 	var/matter = 0
 	var/mode = 1
-	flags = TABLEPASS
+	flags = TABLE_PASS
 	w_class = 3.0
 
 /obj/item/weapon/rsf/New()

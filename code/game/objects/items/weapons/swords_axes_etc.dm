@@ -61,7 +61,7 @@
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "baton"
 	item_state = "classic_baton"
-	flags = FPRINT | TABLEPASS
+	flags = FPRINT | TABLE_PASS
 	slot_flags = SLOT_BELT
 	force = 10
 
@@ -110,7 +110,7 @@
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "telebaton_0"
 	item_state = "telebaton_0"
-	flags = FPRINT | TABLEPASS
+	flags = FPRINT | TABLE_PASS
 	slot_flags = SLOT_BELT
 	w_class = 2
 	force = 3

@@ -10,9 +10,9 @@
 
 /mob/living/carbon/alien/humanoid/Life()
 	set invisibility = 0
-	set background = 1
+	set background = BACKGROUND_ENABLED
 
-	if (monkeyizing)
+	if (notransform)
 		return
 
 	..()
@@ -53,6 +53,8 @@
 	//stuff in the stomach
 	handle_stomach()
 
+	//Handle being on fire
+	handle_fire()
 
 	//Status updates, death etc.
 	handle_regular_status_updates()
@@ -97,7 +99,7 @@
 		var/datum/gas_mixture/environment = loc.return_air()
 		var/datum/gas_mixture/breath
 		// HACK NEED CHANGING LATER
-		if(health < 0)
+		if(health <= config.health_threshold_crit)
 			losebreath++
 
 		if(losebreath>0) //Suffocating so do not take a breath
@@ -167,7 +169,7 @@
 		if(status_flags & GODMODE)
 			return
 
-		if(!breath || (breath.total_moles == 0))
+		if(!breath || (breath.total_moles() == 0))
 			//Aliens breathe in vaccuum
 			return 0
 
@@ -221,6 +223,43 @@
 		temp_change = (temperature - current)
 		return temp_change
 
+	/*
+	proc/get_thermal_protection()
+		var/thermal_protection = 1.0
+		//Handle normal clothing
+		if(head && (head.body_parts_covered & HEAD))
+			thermal_protection += 0.5
+		if(wear_suit && (wear_suit.body_parts_covered & CHEST))
+			thermal_protection += 0.5
+		if(wear_suit && (wear_suit.body_parts_covered & LEGS))
+			thermal_protection += 0.2
+		if(wear_suit && (wear_suit.body_parts_covered & ARMS))
+			thermal_protection += 0.2
+		if(wear_suit && (wear_suit.body_parts_covered & HANDS))
+			thermal_protection += 0.2
+		if(wear_suit && (wear_suit.flags & SUITSPACE))
+			thermal_protection += 3
+		if(COLD_RESISTANCE in mutations)
+			thermal_protection += 5
+
+		return thermal_protection
+
+	proc/add_fire_protection(var/temp)
+		var/fire_prot = 0
+		if(head)
+			if(head.protective_temperature > temp)
+				fire_prot += (head.protective_temperature/10)
+		if(wear_mask)
+			if(wear_mask.protective_temperature > temp)
+				fire_prot += (wear_mask.protective_temperature/10)
+		if(wear_suit)
+			if(wear_suit.protective_temperature > temp)
+				fire_prot += (wear_suit.protective_temperature/10)
+
+
+		return fire_prot
+	*/
+
 	proc/handle_chemicals_in_body()
 
 		if(reagents) reagents.metabolize(src)
@@ -230,12 +269,12 @@
 				if(prob(round((50 - nutrition) / 100)))
 					src << "\blue You feel fit again!"
 					mutations.Remove(FAT)
-/*		else
+		else
 			if(nutrition > 500)
 				if(prob(5 + round((nutrition - 200) / 2)))
 					src << "\red You suddenly feel blubbery!"
 					mutations.Add(FAT)
- FUCK YOU FATCODE -Hawk */
+
 		if (nutrition > 0)
 			nutrition -= HUNGER_FACTOR
 
@@ -267,7 +306,7 @@
 			blinded = 1
 			silent = 0
 		else				//ALIVE. LIGHTS ARE ON
-			if(health < config.health_threshold_dead || brain_op_stage == 4.0)
+			if(health < config.health_threshold_dead || !getorgan(/obj/item/organ/brain))
 				death()
 				blinded = 1
 				stat = DEAD
@@ -275,7 +314,7 @@
 				return 1
 
 			//UNCONSCIOUS. NO-ONE IS HOME
-			if( (getOxyLoss() > 50) || (config.health_threshold_crit > health) )
+			if( (getOxyLoss() > 50) || (config.health_threshold_crit >= health) )
 				if( health <= 20 && prob(1) )
 					spawn(0)
 						emote("gasp")
@@ -303,7 +342,7 @@
 				move_delay_add = max(0, move_delay_add - rand(1, 2))
 
 			//Eyes
-			if(sdisabilities & BOTH_EYES_BLIND)		//disabled-blind, doesn't get better on its own
+			if(sdisabilities & BLIND)		//disabled-blind, doesn't get better on its own
 				blinded = 1
 			else if(eye_blind)			//blindness, heals slowly over time
 				eye_blind = max(eye_blind-1,0)
@@ -326,7 +365,7 @@
 					update_icons()
 
 			if(weakened)
-				weakened = max(weakened-1,0)	//before you get mad Rockdtben: I done this so update_canmove isn't called multiple times
+				weakened = max(weakened-1,0)
 
 			if(stuttering)
 				stuttering = max(stuttering-1, 0)
@@ -353,6 +392,8 @@
 			sight &= ~SEE_OBJS
 			see_in_dark = 4
 			see_invisible = SEE_INVISIBLE_LEVEL_TWO
+			if(see_override)
+				see_invisible = see_override
 
 		if (healths)
 			if (stat != 2)
@@ -372,7 +413,11 @@
 			else
 				healths.icon_state = "health6"
 
-		if(pullin)	pullin.icon_state = "pull[pulling ? 1 : 0]"
+		if(pullin)
+			if(pulling)
+				pullin.icon_state = "pull"
+			else
+				pullin.icon_state = "pull0"
 
 
 		if (toxin)	toxin.icon_state = "tox[toxins_alert ? 1 : 0]"
@@ -380,8 +425,8 @@
 		if (fire) fire.icon_state = "fire[fire_alert ? 1 : 0]"
 		//NOTE: the alerts dont reset when youre out of danger. dont blame me,
 		//blame the person who coded them. Temporary fix added.
-		if (client)
-			client.screen.Remove(global_hud.blurry,global_hud.druggy,global_hud.vimpaired)
+
+		client.screen.Remove(global_hud.blurry,global_hud.druggy,global_hud.vimpaired)
 
 		if ((blind && stat != 2))
 			if ((blinded))
@@ -403,7 +448,7 @@
 				if (!( machine.check_eye(src) ))
 					reset_view(null)
 			else
-				if(client && !client.adminobs)
+				if(!client.adminobs)
 					reset_view(null)
 
 		return 1
@@ -418,7 +463,7 @@
 					if(M.stat == 2)
 						M.death(1)
 						stomach_contents.Remove(M)
-						del(M)
+						qdel(M)
 						continue
 					if(air_master.current_cycle%3==1)
 						if(!(status_flags & GODMODE))
